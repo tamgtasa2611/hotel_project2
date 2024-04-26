@@ -1,0 +1,278 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/*font*/
+* {
+    scroll-behavior: smooth;
+}
+
+html {
+    height: 100dvh;
+}
+
+body {
+    min-height: 100%;
+}
+
+/*margin from navbar*/
+.m-nav {
+    margin-top: 94px !important;
+}
+
+/*scroll reveal========================*/
+html.sr .load-hidden {
+    visibility: hidden;
+}
+
+/*scroll reveal========================*/
+
+/*width========================================*/
+.w-fit {
+    width: fit-content;
+}
+
+/*width========================================*/
+
+/*transition============================================*/
+.tran-1 {
+    transition: all 0.1s ease-in-out;
+}
+
+.tran-2 {
+    transition: all 0.2s ease-in-out;
+}
+
+.tran-3 {
+    transition: all 0.3s ease-in-out;
+}
+
+/*transition============================================*/
+
+/*font size =============================================*/
+.fs-7 {
+    font-size: 0.7rem !important;
+}
+
+/*font size =============================================*/
+
+/* CURSOR =============================== */
+.hover-pointer {
+    cursor: pointer;
+}
+
+/*dropdown nav*/
+.dropright {
+    left: auto !important;
+    right: 8px !important;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+/*NAVBAR=====================================================*/
+
+/*rooms*/
+/*fullcalendar*/
+.fc-toolbar-chunk {
+    display: flex !important;
+}
+
+.fc-toolbar-chunk button {
+    font-size: 0.5rem !important;
+}
+
+/*fullcalendar*/
+.mc-calendar {
+    box-shadow: var(--mdb-box-shadow) !important;
+}
+
+/*end rooms*/
+
+/*home*/
+.my-input {
+    height: 100%;
+}
+
+#hero {
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.hero-section {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mh-screen {
+    height: 91dvh !important;
+}
+
+.home-form {
+
+}
+
+.h-ok {
+    height: 622px;
+}
+
+/*rooms*/
+.room-images {
+    object-fit: cover;
+    object-position: center center;
+}
+
+/*validation*/
+.invalid-text {
+    width: auto;
+    font-size: 0.8rem;
+    color: var(--mdb-danger);
+}
+
+/*============ADMIN============*/
+#admin-sidenav {
+    width: 250px !important;
+}
+
+/*guest avt*/
+.div-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center center;
+    /* background-size: cover; */
+}
+
+/*RESPONSIVE===============================================================*/
+
+@media (max-width: 991px) {
+    .m-nav {
+        margin-top: 87px !important;
+    }
+}
+
+/*room img*/
+@media (width < 576px) {
+    .room-img {
+        height: 200px !important;
+    }
+}
+
+@media (575px < width < 767px) {
+    .room-img {
+        height: 300px !important;
+    }
+}
+
+@media (766px < width < 992px) {
+    .room-img {
+        height: 240px !important;
+    }
+}
+
+@media (991px < width) {
+    .room-img {
+        height: 120px !important;
+    }
+}
+
+@media (1920px < width) {
+    .room-img {
+        height: 200px !important;
+    }
+}
+
+/*RESPONSIVE===============================================================*/
+
+/*ANIMATION===============================================================*/
+.animate {
+    animation-duration: 0.2s;
+    -webkit-animation-duration: 0.2s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+}
+
+@-webkit-keyframes slideUp {
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        -webkit-opacity: 1;
+    }
+
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+.slideUp {
+    animation: slideUp 300ms;
+}
+
+@-webkit-keyframes slideDown {
+    0% {
+        -webkit-transform: translateY(-1rem);
+        -webkit-opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        -webkit-opacity: 1;
+    }
+
+    0% {
+        -webkit-transform: translateY(-1rem);
+        -webkit-opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-1rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+
+    0% {
+        transform: translateY(-1rem);
+        opacity: 0;
+    }
+}
+
+.slideDown {
+    animation: slideDown 300ms;
+}
+
+/*ANIMATION===============================================================*/
