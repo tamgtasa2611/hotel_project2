@@ -22,8 +22,6 @@
     {{--    CSS--}}
     @vite(["resources/sass/app.scss", "resources/js/app.js"])
     <link rel="stylesheet" href="{{asset('plugins/bootstrap_theme/bootstrap.css')}}">
-    {{--    css mdb --}}
-    {{--    <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">--}}
 
     {{--    file css tuy chinh --}}
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">

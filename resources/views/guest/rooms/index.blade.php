@@ -4,18 +4,9 @@
         @if(session('failed'))
             @include('partials.flashMsgFail')
         @endif
-        {{--        breadcrumb--}}
-        <div class="container">
-            <nav aria-label="breadcrumb" class="pt-3">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('guest.home')}}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Rooms</li>
-                </ol>
-            </nav>
-        </div>
         <div class="container load-hidden fade-in">
             {{--            search form--}}
-            <div class="mb-5">
+            <div class="mb-5 pt-5">
                 <form method="get"
                       class="bg-white p-3 m-0 shadow-sm rounded" autocomplete="off">
                     <div class="row g-3">
@@ -203,14 +194,14 @@
                                            id="grid"
                                            onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
                                     />
-                                    <label class="rounded tran-2 btn btn-light"
+                                    <label class="rounded tran-2 btn btn-secondary"
                                            for="grid"> <i class="bi bi-grid h-100"></i></label>
                                 </div>
                                 <div class="ms-3">
                                     <input class="btn-check tran-2" type="radio" name="view" value="list"
                                            id="list"
                                            onchange="this.form.submit()" {{$view == 'list' ? 'checked' : ''}}/>
-                                    <label class="rounded tran-2 btn btn-light"
+                                    <label class="rounded tran-2 btn btn-secondary"
                                            for="list"> <i class="bi bi-list h-100"></i></label>
                                 </div>
                                 {{--                            search--}}
@@ -326,10 +317,10 @@
                                                             </h4>
                                                         </a>
                                                         <div class="d-flex">
-                                                            <div class="bg-light rounded-pill px-2 fs-6">
+                                                            <div class="badge bg-light rounded-pill">
                                                                 <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
                                                             </div>
-                                                            <div class="bg-light rounded-pill ms-2 px-2 fs-6">
+                                                            <div class="badge bg-light rounded-pill ms-2">
                                                                 <i class="bi bi-people me-1"></i> {{$room->capacity}}
                                                             </div>
                                                         </div>
@@ -342,7 +333,7 @@
                                                             <i class="bi bi-star-fill"></i>
                                                             <i class="bi bi-star-half"></i>
                                                         </div>
-                                                        <div class="bg-light rounded-pill px-2 fs-6">
+                                                        <div class="badge bg-light rounded-pill">
                                                             <i class="bi bi-hand-thumbs-up me-1"></i> 100 reviews
                                                         </div>
                                                     </div>
@@ -414,10 +405,10 @@
                                                         </h4>
                                                     </a>
                                                     <div class="d-flex">
-                                                        <div class="bg-light rounded-pill px-2 fs-6">
+                                                        <div class="badge bg-light rounded-pill">
                                                             <i class="bi bi-house me-1"></i> {{$room->roomType->name}}
                                                         </div>
-                                                        <div class="bg-light rounded-pill ms-2 px-2 fs-6">
+                                                        <div class="badge bg-light rounded-pill ms-2">
                                                             <i class="bi bi-people me-1"></i> {{$room->capacity}}
                                                         </div>
                                                     </div>
@@ -430,7 +421,7 @@
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-half"></i>
                                                     </div>
-                                                    <div class="bg-light rounded-pill px-2 fs-6">
+                                                    <div class="badge bg-light rounded-pill">
                                                         <i class="bi bi-hand-thumbs-up me-1"></i> 100 reviews
                                                     </div>
                                                 </div>

@@ -6,10 +6,10 @@
             <!-- Grid row -->
             <div class="row mt-3 g-3 justify-content-between">
                 <!-- Grid column -->
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                     <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-white">
-                        SKYRIM HOTEL
+                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
+                        SkyrimHotel
                     </h6>
                     <p class="col-lg-10">
                         Welcome to Skyrim Hotel, where luxury meets comfort and relaxation. Book now for unlimited
@@ -19,30 +19,9 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-12 col-md-2 mb-4 ">
+                <div class="col-12 col-md-4 mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-white">
-                        Discover
-                    </h6>
-                    <p>
-                        <a href="{{route('guest.rooms')}}" class="text-reset">Rooms</a>
-                    </p>
-                    <p>
-                        <a href="{{route('guest.contact')}}" class="text-reset">Contacts</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Jobs</a>
-                    </p>
-                    <p>
-                        <a href="{{route('admin.dashboard')}}" class="text-reset">Admin panel</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-12 col-md-3 mb-md-0 mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-white">
+                    <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                         Contact
                     </h6>
                     <p><i class="bi bi-geo-alt me-2"></i>Hanoi, Vietnam</p>
@@ -109,7 +88,7 @@
 
     <!-- Copyright -->
     <div class="text-center p-4">
-        © 2024 Made by <span class="fw-bold text-white">NguyenDucTam</span>
+        © 2024 Made by <span class="fw-bold text-primary">NguyenDucTam</span>
     </div>
     <!-- Copyright -->
 </footer>

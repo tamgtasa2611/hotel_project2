@@ -21,8 +21,6 @@
     {{--    CSS--}}
     @vite(["resources/sass/app.scss", "resources/js/app.js"])
     <link rel="stylesheet" href="{{asset('plugins/bootstrap_theme/bootstrap.css')}}">
-    {{--    css mdb --}}
-    {{--    <link rel="stylesheet" href="{{ asset('plugins/mdb/css/mdb.min.css') }}">--}}
 
     {{--    mcdatepicker--}}
     <link href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" rel="stylesheet"/>
