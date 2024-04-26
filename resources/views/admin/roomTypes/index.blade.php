@@ -1,12 +1,12 @@
 <title>Room Types management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded shadow-3 mb-3">
+    <div class="p-3 bg-white rounded shadow-sm border mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Room Types Management</h4>
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white rounded shadow-3 overflow-hidden">
+    <div class="bg-white rounded shadow-sm border overflow-hidden">
         <div
             class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">

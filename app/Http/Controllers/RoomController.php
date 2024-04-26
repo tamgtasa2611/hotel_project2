@@ -95,6 +95,7 @@ class RoomController extends Controller
                     'allDay' => true,
                     'start' => $dateIn,
                     'end' => $dateOut,
+                    'color' => '#137ea7'
                 ];
             } else {
                 $events[] = [
@@ -103,7 +104,7 @@ class RoomController extends Controller
                     'allDay' => true,
                     'start' => $dateIn,
                     'end' => $dateOut,
-                    'color' => 'red',
+                    'color' => '#e63b31',
                 ];
             }
         }

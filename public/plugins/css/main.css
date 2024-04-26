@@ -2,6 +2,7 @@
 
 /*font*/
 * {
+    /*font-size: 0.9rem;*/
     scroll-behavior: smooth;
 }
 
@@ -15,7 +16,7 @@ body {
 
 /*margin from navbar*/
 .m-nav {
-    margin-top: 94px !important;
+    margin-top: 60px !important;
 }
 
 /*scroll reveal========================*/
@@ -88,7 +89,7 @@ html.sr .load-hidden {
 
 /*fullcalendar*/
 .mc-calendar {
-    box-shadow: var(--mdb-box-shadow) !important;
+    box-shadow: var(--bs-box-shadow) !important;
 }
 
 /*end rooms*/
@@ -112,7 +113,7 @@ html.sr .load-hidden {
 }
 
 .mh-screen {
-    height: 91dvh !important;
+    height: 92dvh !important;
 }
 
 .home-form {
@@ -154,7 +155,7 @@ html.sr .load-hidden {
 
 @media (max-width: 991px) {
     .m-nav {
-        margin-top: 87px !important;
+        margin-top: 60px !important;
     }
 }
 

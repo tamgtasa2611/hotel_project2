@@ -5,35 +5,35 @@
 <div class="list-group list-group-light">
     <a href="{{route('guest.profile')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->routeIs('guest.profile') ? 'active' : ''}}" data-mdb-ripple-init
+                        {{request()->routeIs('guest.profile') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-info-circle me-2"></i>
         <div>My profile</div>
     </a>
     <a href="{{route('guest.myBooking')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->routeIs('guest.myBooking') ? 'active' : ''}}" data-mdb-ripple-init
+                        {{request()->route()->getPrefix() == '/myBooking' ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-receipt me-2"></i>
         <div>My bookings</div>
     </a>
     <a href="{{route('guest.editAccount')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->routeIs('guest.editAccount') ? 'active' : ''}}" data-mdb-ripple-init
+                        {{request()->routeIs('guest.editAccount') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-pencil-square me-2"></i>
         <div>Edit account</div>
     </a>
     <a href="{{route('guest.changePassword')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->routeIs('guest.changePassword') ? 'active' : ''}}" data-mdb-ripple-init
+                        {{request()->routeIs('guest.changePassword') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-shield-lock me-2"></i>
         <div>Change password</div>
     </a>
     <a href="{{route('guest.logout')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center"
-       data-mdb-ripple-init
+
        aria-current="true">
         <i class="bi bi-box-arrow-left me-2"></i>
         <div>Sign out</div>

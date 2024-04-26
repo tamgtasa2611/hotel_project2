@@ -61,7 +61,7 @@
                                          height="24px" class="rounded-circle">
                                 @endif
                             </a>
-                            <div class="dropdown-menu dropright">
+                            <div class="dropdown-menu dropright" data-bs-theme="light">
                                 <a class="dropdown-item tran-2" href="{{route('guest.profile')}}">
                                     <i class="bi bi-info-circle me-2"></i>My profile</a>
                                 <a class="dropdown-item tran-2" href="{{route('guest.myBooking')}}">

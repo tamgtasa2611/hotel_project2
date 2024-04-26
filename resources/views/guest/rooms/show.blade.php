@@ -34,20 +34,10 @@
     @endif
 
     <section id="rooms" class="m-nav">
-        {{--        breadcrumb--}}
-        <div class="container">
-            <nav aria-label="breadcrumb" class="pt-3">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('guest.home')}}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('guest.rooms')}}">Rooms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{$room->name}}</li>
-                </ol>
-            </nav>
-        </div>
         {{--        main--}}
         <div class="container load-hidden fade-in">
             {{--            room detail--}}
-            <div class="mb-5">
+            <div class="mb-5 pt-5">
                 <div class="row g-5">
                     {{--                calendar--}}
                     <div class="col-12 col-lg-8 h-100">
@@ -137,11 +127,8 @@
                                     <h1 class="m-0 fw-bold text-primary">Room {{$room->name}}</h1>
                                     <div class="fw-bold">{{$room->roomType->name}}/{{$room->capacity}} guests</div>
                                 </div>
-                                <a href="#calendar" class="btn btn-tertiary">Check availability <i
-                                        class="bi bi-info-circle"></i></a>
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" data-bs-original-title="Tooltip on bottom">Bottom
-                                </button>
+                                <a href="#calendar" class="text-decoration-none">Check availability<i
+                                        class="bi bi-info-circle ms-2"></i></a>
                             </div>
                             <div class="mb-4">
                                 <p class="">
@@ -384,7 +371,8 @@
                                         <a href="{{route('guest.rooms.show', $sRoom)}}">
                                             <h5 class="text-primary">Room {{$sRoom->name}}</h5>
                                         </a>
-                                        <a href="{{route('guest.rooms.show', $sRoom)}}" class="btn btn-primary rounded"
+                                        <a href="{{route('guest.rooms.show', $sRoom)}}"
+                                           class="btn btn-primary rounded-pill"
                                            data-mdb-ripple-init>VIEW</a>
                                     </div>
                                 </div>
@@ -423,7 +411,7 @@
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
             theme: {
-                theme_color: '#3b71ca',
+                theme_color: '#137ea7',
 
             },
             bodyType: 'inline',
@@ -439,7 +427,7 @@
         const datePicker2 = MCDatepicker.create({
             el: '#checkout',
             theme: {
-                theme_color: '#3b71ca',
+                theme_color: '#137ea7',
 
             },
             bodyType: 'inline',

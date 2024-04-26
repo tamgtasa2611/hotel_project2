@@ -25,10 +25,8 @@
     </div>
 
     {{--    SEARCH--}}
-    <div class="form-outline mt-3" data-mdb-input-init>
-        <i class="bi bi-search trailing"></i>
-        <input type="text" id="search_nav" class="form-control form-icon-trailing"/>
-        <label class="form-label" for="search_nav">Search</label>
+    <div class="form-outline mt-3">
+        <input type="text" id="search_nav" class="form-control" placeholder="Type to search..."/>
     </div>
 
     @php

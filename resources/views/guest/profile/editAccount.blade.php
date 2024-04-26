@@ -161,7 +161,7 @@
                                     data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-primary rounded-pill">
+                            <button type="submit" class="btn btn-danger rounded-pill">
                                 Delete
                             </button>
                         </div>

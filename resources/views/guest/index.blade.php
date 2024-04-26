@@ -57,7 +57,7 @@
                                             <div class="col-12 col-lg-3">
                                                 <!-- Submit button -->
                                                 <button type="submit" id="bookBtn"
-                                                        class="btn btn-primary tran-2 w-100">
+                                                        class="btn btn-primary tran-2 w-100 rounded-pill">
                                                     Check Availability
                                                 </button>
                                             </div>
@@ -265,7 +265,7 @@
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
             theme: {
-                theme_color: '#3b71ca',
+                theme_color: '#137ea7',
 
             },
             bodyType: 'inline',
@@ -282,7 +282,7 @@
         const datePicker2 = MCDatepicker.create({
             el: '#checkout',
             theme: {
-                theme_color: '#3b71ca',
+                theme_color: '#137ea7',
 
             },
             bodyType: 'inline',
