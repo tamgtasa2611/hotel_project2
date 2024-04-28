@@ -204,6 +204,13 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @if($booking->note)
+                                <div class="mb-2 fw-bold"><i class="bi bi-chat-dots me-2"></i>Note</div>
+                                <pre style="white-space: pre-line"
+                                     class="mb-4 border-start border-primary border-3 ps-3 text-bg-light">
+                                    {!! $booking->note !!}
+                                </pre>
+                            @endif
                             <div
                                 class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
                                 @if($booking->status == 3 || $booking->status == 5)
@@ -214,7 +221,9 @@
                                     policies</a>
                                 @if($booking->status == 0)
                                     <a class="btn btn-secondary rounded-pill tran-2 ms-2"
-                                       href="#cancelModal">
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#exampleModal"
+                                       data-id="1">
                                         Cancel booking
                                     </a>
                                 @endif
@@ -296,41 +305,37 @@
         </div>
         {{--                CONTENT--}}
     </section>
-    <!-- DeleteModal -->
-    <div class="modal slideUp" id="cancelModal" tabindex="-1"
-         aria-labelledby="cancelModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="cancelModalLabel">
-                        <i class="bi bi-x-circle me-2"></i>Are you sure?
-                    </h5>
-                    <button type="button" class="btn-close"
-                            data-mdb-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{{route('guest.cancelBooking', $booking->id)}}">
-                        @csrf
-                        @method('POST')
+                <form method="post" action="{{route('guest.cancelBooking', $booking->id)}}">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
+                            <i class="bi bi-x-circle me-2"></i>Are you sure?
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <label for="reason" class="form-label">
                             Please let us know the reason (optional):
                         </label>
-                        <div class="mb-4">
-                            <textarea name="note" id="reason" cols="20" rows="6" class="form-control"></textarea>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="me-3 btn btn-light rounded"
-
-                                    data-mdb-dismiss="modal">Back
-                            </button>
-                            <button class="btn btn-danger rounded">
-                                Cancel Booking
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                        <textarea name="note" id="reason" cols="20" rows="6" class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-danger rounded-pill">
+                            Cancel booking
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

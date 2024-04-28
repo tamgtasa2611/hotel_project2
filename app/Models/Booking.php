@@ -22,6 +22,7 @@ class Booking extends Model
         'checkout_date',
         'guest_num',
         'total_price',
+        'note'
     ];
 
     public function room(): BelongsTo

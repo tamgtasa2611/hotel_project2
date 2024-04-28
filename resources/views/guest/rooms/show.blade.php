@@ -368,8 +368,12 @@
                                         @endif
                                     </div>
                                     <div class="p-3 d-flex justify-content-between align-items-center">
-                                        <a href="{{route('guest.rooms.show', $sRoom)}}">
-                                            <h5 class="text-primary">Room {{$sRoom->name}}</h5>
+                                        <a href="{{route('guest.rooms.show', $sRoom)}}" class="text-decoration-none">
+                                            <h5 class="text-primary fw-bold">Room {{$sRoom->name}}</h5>
+                                            <div class="text-success">
+                                                ${{$sRoom->roomType->base_price}}<span
+                                                    class="text-dark">/night</span>
+                                            </div>
                                         </a>
                                         <a href="{{route('guest.rooms.show', $sRoom)}}"
                                            class="btn btn-primary rounded-pill"

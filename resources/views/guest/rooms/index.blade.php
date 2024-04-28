@@ -311,7 +311,8 @@
                                                 <div
                                                     class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
                                                     <div>
-                                                        <a href="{{route('guest.rooms.show', $room)}}">
+                                                        <a href="{{route('guest.rooms.show', $room)}}"
+                                                           class="text-decoration-none">
                                                             <h4 class="fw-bold m-0 mb-2">
                                                                 Room {{$room->name}}
                                                             </h4>
@@ -399,7 +400,8 @@
                                             <div
                                                 class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
                                                 <div>
-                                                    <a href="{{route('guest.rooms.show', $room)}}">
+                                                    <a href="{{route('guest.rooms.show', $room)}}"
+                                                       class="text-decoration-none">
                                                         <h4 class="fw-bold m-0 mb-2">
                                                             Room {{$room->name}}
                                                         </h4>

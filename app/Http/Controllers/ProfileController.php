@@ -127,6 +127,7 @@ class ProfileController extends Controller
     public function cancelBooking(Booking $booking, Request $request)
     {
         $note = $request->note ?? '';
+        $note = trim($note);
 
         $booking->update([
             'status' => 4,
