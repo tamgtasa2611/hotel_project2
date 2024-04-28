@@ -64,8 +64,8 @@
                                             <th class="align-middle text-center">ID</th>
                                             <th class="align-middle text-center">Created Date</th>
                                             <th class="align-middle text-center">Room</th>
-                                            <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Status</th>
+                                            <th class="align-middle text-center">Total</th>
                                             <th class="align-middle text-center">Actions</th>
                                         </tr>
                                         </thead>
@@ -106,9 +106,6 @@
                                                 <td class="text-break text-center col">
                                                     {{ $booking->room->name }}
                                                 </td>
-                                                <td class="text-center text-success col">
-                                                    ${{ $booking->total_price }}
-                                                </td>
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         @switch($booking->status)
@@ -145,11 +142,14 @@
                                                         @endswitch
                                                     </div>
                                                 </td>
+                                                <td class="text-center text-success col">
+                                                    ${{ $booking->total_price }}
+                                                </td>
                                                 <td>
                                                     <div
                                                         class="d-flex flex-column align-items-center justify-content-center">
                                                         <a href="{{route('guest.bookingDetail', $booking->id)}}"
-                                                           class="btn btn-sm rounded-pill">
+                                                           class="btn btn-sm btn btn-outline-primary rounded-pill">
                                                             Details <i class="bi bi-chevron-right fw-bold"></i>
                                                         </a>
                                                     </div>
