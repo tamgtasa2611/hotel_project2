@@ -157,12 +157,12 @@
                             <div class="my-2 text-center">
                                 Select a payment method:
                             </div>
-                            <a class="btn btn-primary btn-sm rounded-pill w-100"
+                            <a class="btn btn-secondary btn-sm rounded-pill w-100"
                                href="{{route('guest.checkOut.payInPerson')}}">Pay in person</a>
                             <div class="my-2 text-center">
                                 or be confirmed immediately with
                             </div>
-                            <a class="btn btn-info btn-sm rounded-pill w-100"
+                            <a class="btn btn-primary btn-sm rounded-pill w-100"
                                href="{{route('guest.checkOut.banking')}}">Banking</a>
                         </div>
                     </div>

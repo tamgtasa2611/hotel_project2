@@ -6,11 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "aws/aws-sdk-php": "^3.305",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
+        "mailersend/laravel-driver": "^2.5",
+        "symfony/http-client": "^7.0",
+        "symfony/mailgun-mailer": "^7.0",
+        "symfony/postmark-mailer": "^7.0",
         "twbs/bootstrap-icons": "^1.11"
     },
     "require-dev": {

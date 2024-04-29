@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookingRequest;
+use App\Mail\BookingInformation;
 use App\Models\Admin;
 use App\Models\Booking;
 use App\Models\Payment;
@@ -11,6 +12,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use MongoDB\Driver\Session;
 
@@ -102,6 +104,8 @@ class BookingController extends Controller
         $data = session('bookingData');
         if ($data != []) {
             Booking::create($data);
+            $latestBookingId = Booking::where('guest_id', '=', $data['guest_id'])->max('id');
+            $booking = Booking::find($latestBookingId);
 
             $paymentData = [
                 'date' => date('Y-m-d H:i:s'),
@@ -109,12 +113,13 @@ class BookingController extends Controller
                 'note' => 'Pay in person',
                 'status' => 0,
                 'guest_id' => $data['guest_id'],
-                'booking_id' => Booking::where('guest_id', '=', $data['guest_id'])->max('id'),
+                'booking_id' => $latestBookingId,
                 'method_id' => 1,
             ];
             Payment::create($paymentData);
-
             session()->forget('bookingData');
+
+            Mail::to(Auth::guard('guest')->user())->send((new BookingInformation($booking))->afterCommit());
             return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
         } else {
             session()->forget('bookingData');

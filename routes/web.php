@@ -201,3 +201,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 //ADMIN---------------------------------------------------------
+
+//MAIL------------------------------------
+Route::get('/mailable', function () {
+    $booking = \App\Models\Booking::find(1);
+    return new \App\Mail\BookingInformation($booking);
+});
