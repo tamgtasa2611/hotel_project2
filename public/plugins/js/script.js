@@ -74,6 +74,11 @@ $(document).ready(function () {
         myInput.focus()
     })
 
+    // spinner
+
+    $(".spinner-btn").click(function () {
+        $("#spinner").removeClass("d-none");
+    });
 });
 
 

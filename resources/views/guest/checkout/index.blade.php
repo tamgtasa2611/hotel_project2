@@ -157,12 +157,12 @@
                             <div class="my-2 text-center">
                                 Select a payment method:
                             </div>
-                            <a class="btn btn-secondary btn-sm rounded-pill w-100"
+                            <a class="btn btn-secondary btn-sm rounded-pill w-100 spinner-btn"
                                href="{{route('guest.checkOut.payInPerson')}}">Pay in person</a>
                             <div class="my-2 text-center">
                                 or be confirmed immediately with
                             </div>
-                            <a class="btn btn-primary btn-sm rounded-pill w-100"
+                            <a class="btn btn-primary btn-sm rounded-pill w-100 spinner-btn"
                                href="{{route('guest.checkOut.banking')}}">Banking</a>
                         </div>
                     </div>
@@ -170,4 +170,21 @@
             </div>
         </div>
     </section>
+    <div class="d-flex d-none justify-content-center align-items-center fixed-top w-100 tran-2"
+         id="spinner"
+         style="z-index: 999; height: 100dvh; background-color: rgba(0,0,0,0.2)">
+        <div class="spinner-border text-primary tran-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="text-primary ms-2">
+            Processing...
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".spinner-btn").click(function () {
+                $("#spinner").removeClass("d-none");
+            });
+        });
+    </script>
 </x-guestLayout>
