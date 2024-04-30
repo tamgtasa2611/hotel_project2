@@ -14,20 +14,18 @@
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.roomTypes.create') }}"
-                   class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new room type
-                </a>
-                <a href="{{ route('admin.activities.downloadPdf') }}"
-                   class="d-flex align-items-center">
-                    <i class="me-2 bi bi-download"></i>Export
+                <a href="#!"
+                   class="d-flex align-items-center text-danger text-decoration-none"
+                   data-bs-toggle="modal"
+                   data-bs-target="#exampleModal">
+                    <i class="me-2 bi bi-trash"></i>Clear activities
                 </a>
             </div>
         </div>
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($activities) != 0)
                 <table
-                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -59,6 +57,44 @@
             @else
                 No results
             @endif
+        </div>
+    </div>
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{ route('admin.activities.clear') }}">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
+                            <i class="bi bi-x-circle me-2"></i>Are you sure?
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="deletePassword" class="form-label">
+                            Please enter your password:
+                        </label>
+                        <div>
+                            <input type="password" name="deletePassword"
+                                   class="form-control" id="deletePassword" required
+                                   minlength="6">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-danger rounded-pill">
+                            Clear activities
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </x-adminLayout>

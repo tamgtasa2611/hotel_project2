@@ -27,7 +27,7 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($roomTypes) != 0)
                 <table
-                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white w-100"
+                    class="tran-3 table table-bordered  align-middle mb-0 bg-white w-100"
                     id="dataTable">
                     <thead>
                     <tr>

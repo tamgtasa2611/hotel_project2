@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class ActivityController extends Controller
 {
@@ -21,13 +24,22 @@ class ActivityController extends Controller
     }
 
     // PDF
-    public function downloadPDF()
+    public function clear(Request $request)
     {
-        $activities = Activity::with('admin')->get();
+        $validated = $request->validate([
+            'deletePassword' => 'required|min:6'
+        ]);
+        if ($validated) {
+            $admin = Auth::guard('admin')->user();
 
-        $pdf = PDF::loadView('admin.activities.pdf', array('activities' => $activities))
-            ->setPaper('a4', 'portrait');
+//            check password
+            if (!Hash::check($request->deletePassword, $admin->password)) {
+                return Redirect::back()->with('failed', 'Wrong password!');
+            }
 
-        return $pdf->stream();
+            Activity::truncate();
+            return Redirect::back()->with('success', 'Activities cleared successfully!');
+        }
+        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
     }
 }

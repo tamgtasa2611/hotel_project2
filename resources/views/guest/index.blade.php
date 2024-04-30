@@ -1,13 +1,5 @@
 <title>Home - Skyrim Hotel</title>
 <x-guestLayout>
-    {{--alert edit success--}}
-    @if (session('success'))
-        @include('partials.flashMsgSuccess')
-    @endif
-    {{--alert edit fail--}}
-    @if (session('failed'))
-        @include('partials.flashMsgFail')
-    @endif
     {{--    HERO--}}
     <section class="m-nav mb-5 position-relative bg-black">
         <div
@@ -18,18 +10,18 @@
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="container text-white">
                             <div class="row justify-content-center text-center align-items-center">
-                                <div class="display-2 text-center text-capitalize col-12 mb-3">
+                                <div class="display-2 text-center text-capitalize col-12">
                                     Book Your Stay
                                 </div>
-                                <div class="mb-3 col-12">
+                                <div class="mb-4 col-12">
                                     <p class="fs-4">A stay infused with creativity and culture</p>
                                 </div>
                                 <div class="col-10">
                                     <form method="post" action="{{route('guest.rooms.search')}}"
-                                          class="bg-white p-3 m-0 shadow rounded" autocomplete="off">
+                                          class="bg-white p-4 m-0 shadow rounded-4" autocomplete="off">
                                         @csrf
                                         @method('POST')
-                                        <div class="row g-3">
+                                        <div class="row g-4">
                                             <div class="col-12 col-lg-3">
                                                 <!-- checkin input -->
                                                 <div>
@@ -57,8 +49,8 @@
                                             <div class="col-12 col-lg-3">
                                                 <!-- Submit button -->
                                                 <button type="submit" id="bookBtn"
-                                                        class="btn btn-primary tran-2 w-100 rounded-pill">
-                                                    Check Availability
+                                                        class="btn btn-primary tran-2 w-100 rounded-pill h-100">
+                                                    Search
                                                 </button>
                                             </div>
                                         </div>

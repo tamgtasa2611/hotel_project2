@@ -4,13 +4,13 @@
         <div class="container">
             <div class="row h-auto py-5 g-4">
                 <div class="col-12">
-                    <div class="shadow-sm rounded bg-white px-4 py-3">
+                    <div class="shadow-lg border rounded-4 bg-white px-4 py-3">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
                             <div class="bg-light shadow-sm rounded-circle p-3">
-                                <i class="bi bi-house-check display-6"></i>
+                                <i class="bi bi-house-check display-6 text-primary"></i>
                             </div>
                             <div class="bg-light shadow-sm  rounded-circle p-3">
-                                <i class="bi bi-credit-card display-6"></i>
+                                <i class="bi bi-credit-card display-6 text-primary"></i>
                             </div>
                             <div class="bg-light shadow-sm  rounded-circle p-3">
                                 <i class="bi bi-check display-6"></i>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-8 load-hidden fade-in">
-                    <div class="bg-white p-4 rounded shadow-sm">
+                    <div class="bg-white p-4 shadow-lg border rounded-4">
                         <div class="d-flex justify-content-between mb-3">
                             <h4 class="m-0 text-primary fw-bold">Booking Summary</h4>
                             <a href="{{route('guest.rooms.show', $data['room_id'])}}"
@@ -37,7 +37,7 @@
                                     class="bi bi-arrow-left me-2"></i>Go back</a>
                         </div>
                         <div>
-                            <div class="fw-bold">
+                            <div class="fw-bold bg-light rounded-end-4 border-start border-primary border-4 ps-2 mb-2">
                                 Room Information<a href="{{route('guest.rooms')}}"><i
                                         class="bi bi-pencil-square ms-2"></i></a>
                             </div>
@@ -57,7 +57,8 @@
                                     {{$room->roomType->name}}
                                 </div>
                             </div>
-                            <div class="fw-bold">
+                            <div
+                                class="fw-bold bg-light rounded-end-4 border-start border-primary border-4 ps-2 mb-2 mt-3">
                                 Guest Information<a href="{{route('guest.editAccount')}}"><i
                                         class="bi bi-pencil-square ms-2"></i></a>
                             </div>
@@ -85,7 +86,8 @@
                                     {{$guest->phone_number}}
                                 </div>
                             </div>
-                            <div class="fw-bold">
+                            <div
+                                class="fw-bold bg-light rounded-end-4 border-start border-primary border-4 ps-2 mb-2 mt-3">
                                 Booking Information<a href="{{route('guest.rooms.show', $data['room_id'])}}"><i
                                         class="bi bi-pencil-square ms-2"></i></a>
                             </div>
@@ -117,7 +119,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 load-hidden fade-in">
-                    <div class="p-4 bg-white rounded shadow-sm h-100 d-flex flex-column">
+                    <div class="p-4 bg-white shadow-lg border rounded-4 h-100 d-flex flex-column">
                         <div class="flex-fill">
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -154,15 +156,12 @@
                             </div>
                         </div>
                         <div>
-                            <div class="my-2 text-center">
-                                Select a payment method:
+                            <div class="mb-3 ">
+                                Select a payment method
                             </div>
-                            <a class="btn btn-secondary btn-sm rounded-pill w-100 spinner-btn"
+                            <a class="btn btn-secondary  rounded-pill w-100 mb-3 spinner-btn"
                                href="{{route('guest.checkOut.payInPerson')}}">Pay in person</a>
-                            <div class="my-2 text-center">
-                                or be confirmed immediately with
-                            </div>
-                            <a class="btn btn-primary btn-sm rounded-pill w-100 spinner-btn"
+                            <a class="btn btn-primary  rounded-pill w-100 spinner-btn"
                                href="{{route('guest.checkOut.banking')}}">Banking</a>
                         </div>
                     </div>
@@ -176,7 +175,7 @@
         <div class="spinner-border text-primary tran-2" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="text-primary ms-2">
+        <div class="text-primary ms-3">
             Processing...
         </div>
     </div>

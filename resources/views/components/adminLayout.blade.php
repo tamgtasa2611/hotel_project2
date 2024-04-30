@@ -30,7 +30,7 @@
 
 <body class="overflow-x-hidden overflow-y-auto bg-light cabin-regular">
 <div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 shadow-sm border bg-white">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 shadow-lg border bg-white">
         @include('partials.admin.adminSidenav')
     </div>
     <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 d-flex flex-column justify-content-between">
@@ -42,7 +42,7 @@
                         @include('partials.flashMsgSuccess')
                     @endif
                     @if (session('failed'))
-                        @include('partials.failed')
+                        @include('partials.flashMsgFail')
                     @endif
                 </div>
                 {{--------------- MAIN --------------}}

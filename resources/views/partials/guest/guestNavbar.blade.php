@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-primary tran-2 shadow fixed-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary tran-2 shadow-lg fixed-top" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand" href="/home">SkyrimHotel</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row h-auto py-5 g-4">
                 <div class="col-12">
-                    <div class="shadow-sm rounded bg-white px-4 py-3">
+                    <div class="shadow-lg rounded-4 border bg-white px-4 py-3">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
                             <div class="bg-light shadow-sm rounded-circle p-3">
                                 <i class="bi bi-house-check display-6"></i>
@@ -16,7 +16,7 @@
                                 <i class="bi bi-check display-6"></i>
                             </div>
                         </div>
-                        <div class="progress" style="height: 4px">
+                        <div class="progress" style="height: 8px">
                             <div
                                 class="progress-bar bg-primary"
                                 role="progressbar"
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-12 load-hidden fade-in">
-                    <div class="p-4 bg-white rounded shadow-sm h-100 d-flex flex-column">
+                    <div class="p-4 bg-white shadow-lg rounded-4 border h-100 d-flex flex-column">
                         <div class="my-3">
                             {{--                    heading--}}
                             <div class="d-flex flex-column justify-content-center align-items-center">

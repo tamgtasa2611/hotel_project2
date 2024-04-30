@@ -31,6 +31,14 @@
 </head>
 <body class="overflow-x-hidden overflow-y-auto bg-light-subtle">
 @include('partials.guest.guestNavbar')
+{{--alert edit success--}}
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 {{$slot}}
 @include('partials.guest.guestFooter')
 

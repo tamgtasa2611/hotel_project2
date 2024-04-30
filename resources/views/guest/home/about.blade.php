@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="mb-3 col-12 d-flex justify-content-center text-center">
-                    <p class="fs-5 col-10 text-center">
+                    <p class="col-10 text-center">
                         Our hotel company was founded in 2024 by the one and only Tam Nguyen, who has a passion
                         for hospitality and travel. He started with a small guesthouse in Hanoi, where they
                         offered comfortable rooms, friendly service, and authentic Vietnamese cuisine. Over the
@@ -22,15 +22,15 @@
 
                 <div class="col-12 row">
                     <div class="col-12 mb-3 mb-lg-0 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/1.jpg')}}" alt="" class="img-fluid shadow-sm rounded border">
+                        <img src="{{asset('images/1.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
                     </div>
 
                     <div class="col-12 mb-3 mb-lg-0 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/2.jpg')}}" alt="" class="img-fluid shadow-sm rounded border">
+                        <img src="{{asset('images/2.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
                     </div>
 
                     <div class="col-12 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/3.jpg')}}" alt="" class="img-fluid shadow-sm rounded border">
+                        <img src="{{asset('images/3.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
                     </div>
                 </div>
             </div>

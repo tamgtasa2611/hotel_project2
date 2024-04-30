@@ -9,7 +9,7 @@
             <div class="row py-5 g-4 justify-content-center">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 border rounded shadow-sm bg-white">
+                    <div class="p-4 shadow-lg border rounded-4 bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -17,7 +17,7 @@
 
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9">
-                    <div class="p-4 border rounded bg-white shadow-sm">
+                    <div class="p-4 bg-white shadow-lg border rounded-4">
                         <h4 class="text-primary fw-bold mb-4">Profile</h4>
                         <div>
                             abc

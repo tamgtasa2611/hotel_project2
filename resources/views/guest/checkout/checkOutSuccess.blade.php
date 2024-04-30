@@ -4,16 +4,16 @@
         <div class="container">
             <div class="row h-auto py-5 g-5">
                 <div class="col-12">
-                    <div class="shadow-sm rounded bg-white px-4 py-3">
+                    <div class="shadow-lg rounded-4 border bg-white px-4 py-3">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
                             <div class="bg-light shadow-sm rounded-circle p-3">
-                                <i class="bi bi-house-check display-6"></i>
+                                <i class="bi bi-house-check display-6 text-primary"></i>
                             </div>
                             <div class="bg-light shadow-sm  rounded-circle p-3">
-                                <i class="bi bi-credit-card display-6"></i>
+                                <i class="bi bi-credit-card display-6 text-primary"></i>
                             </div>
                             <div class="bg-light shadow-sm  rounded-circle p-3">
-                                <i class="bi bi-check display-6"></i>
+                                <i class="bi bi-check display-6 text-primary"></i>
                             </div>
                         </div>
                         <div class="progress" style="height: 8px">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-12 load-hidden fade-in">
-                    <div class="p-4 bg-white rounded shadow-sm h-100 d-flex flex-column">
+                    <div class="p-4 bg-white shadow-lg rounded-4 border h-100 d-flex flex-column">
                         <div>
                             {{--                    success icon--}}
                             <div class="d-flex align-items-center justify-content-center mb-4">
@@ -41,7 +41,7 @@
                                     <h4 class="fw-bold">Booked successfully!</h4>
                                 </div>
                                 <div class="text-center">
-                                    <p>We hope you will enjoy your stay with us</p>
+                                    <p class="m-0">We hope you will enjoy your stay with us</p>
                                 </div>
                             </div>
                             <div class="text-center">

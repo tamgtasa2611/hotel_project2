@@ -25,7 +25,7 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($admins) != 0)
                 <table
-                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -45,18 +45,15 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden rounded-circle
-                                    shadow-2-strong">
+                                        class="div-img overflow-hidden rounded-circle shadow-sm">
                                         <img
                                             src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
-                                            alt="admin_avatar" class="img-fluid rounded-circle"/>
+                                            alt="admin_avatar" class="object-fit-cover" width="40px"
+                                            height="40px"/>
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-1 fw-semibold">
                                             {{ $admin->first_name . ' ' . $admin->last_name }}
-                                            @if(\Illuminate\Support\Facades\Auth::guard('admin')->id() == $admin->id)
-                                                <span class="text-success badge">Online</span>
-                                            @endif
                                         </p>
                                         <p class=" text-muted mb-0"> {{ $admin->email }}</p>
                                     </div>

@@ -3,14 +3,6 @@
 <script src="{{asset('plugins/calendar/index.global.min.js')}}"></script>
 <x-guestLayout>
     {{--            alert--}}
-    {{--alert login thanh cong--}}
-    @if (session('success'))
-        @include('partials.flashMsgSuccess')
-    @endif
-    {{--alert book fail--}}
-    @if (session('failed'))
-        @include('partials.flashMsgFail')
-    @endif
     @if ($errors->has('checkin'))
         @foreach ($errors->get('checkin') as $error)
             {{session()->flash('failed', $error)}}
@@ -41,9 +33,9 @@
                 <div class="row g-5">
                     {{--                calendar--}}
                     <div class="col-12 col-lg-8 h-100">
-                        <div class="bg-white p-4 pb-4 shadow-sm rounded">
+                        <div class="bg-white p-4 pb-4 shadow-lg border rounded-4">
                             {{--                room image--}}
-                            <div class="mb-5 rounded overflow-hidden shadow ratio ratio-16x9">
+                            <div class="mb-5 rounded overflow-hidden shadow-lg ratio ratio-16x9">
                                 @if(count($roomImages) > 1)
                                     <!-- Carousel wrapper -->
                                     <div id="carouselMaterialStyle"
@@ -147,17 +139,19 @@
                                 <h4 class="mb-3 text-primary">Family-friendly Amenities</h4>
                                 <div class="row h-100 g-4">
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Swimming
+                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">
+                                            Swimming
                                             Pool
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Baby
+                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">Baby
                                             Crib
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="rounded bg-light h-100 border fs-6 p-4 text-center">Washing
+                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">
+                                            Washing
                                             Machine
                                         </div>
                                     </div>
@@ -166,7 +160,7 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
-                                    <ul class="list-group list-group-light list-group-numbered">
+                                    <ul class="list-group list-group-light list-group-numbered shadow-lg rounded-4">
                                         <li class="list-group-item p-3">
                                             Amazing balcony
                                         </li>
@@ -191,7 +185,7 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-white p-4 m-0 shadow-sm rounded"
+                              class="bg-white p-4 m-0 shadow-lg border rounded-4"
                               action="{{route('guest.bookRoom')}}">
                             @csrf
                             @method('POST')
@@ -278,9 +272,9 @@
                             </div>
                         </form>
 
-                        <div class="mt-5 bg-white p-4 shadow-sm rounded">
+                        <div class="mt-5 bg-white p-4 shadow-lg border rounded-4">
                             <h4 class="mb-3 mt-md-0 text-primary">Check Availability</h4>
-                            <div id='calendar' class="fs-7"></div>
+                            <div id='calendar' class="fs-7 mb-4"></div>
                         </div>
                     </div>
                 </div>
@@ -298,7 +292,7 @@
                 </div>
             </div>
             {{--            rating--}}
-            <div class="mb-5 bg-white p-4 shadow-sm rounded" id="rating">
+            <div class="mb-5 bg-white p-4 shadow-lg border rounded-4" id="rating">
                 <h4 class="mb-4 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
                 {{--                review--}}
                 <div class="row g-5">
@@ -347,7 +341,7 @@
             </div>
 
             {{--            SIMILAR ROOMS--}}
-            <div class="mb-5 bg-white p-4 shadow-sm rounded">
+            <div class="mb-5 bg-white p-4 shadow-lg border rounded-4">
                 <h4 class="mb-4 fw-bold text-primary">Similar Rooms <i class="bi bi-house"></i></h4>
                 <div class="row row-cols-3 g-4">
                     @if(count($similarRooms) != 0)

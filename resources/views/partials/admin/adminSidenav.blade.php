@@ -1,32 +1,17 @@
-<div class="list-group list-group-light p-3 rounded">
-    {{--    <div class="d-flex align-items-center">--}}
-    {{--        <div--}}
-    {{--            class="div-img overflow-hidden rounded-circle shadow">--}}
-    {{--            <img--}}
-    {{--                src="{{ $admin->image != "" ? asset('storage/admin/guest/' . $admin->image) : asset('images/noavt.jpg') }}"--}}
-    {{--                alt="admin_avatar" class="img-fluid rounded-circle"/>--}}
-    {{--        </div>--}}
-    {{--        <div class="ms-3">--}}
-    {{--            <div class="fw-bold">--}}
-    {{--                {{ $admin->first_name . ' ' . $admin->last_name }}--}}
-    {{--            </div>--}}
-    {{--            @if(session()->has('admin'))--}}
-    {{--                <div class="text-success fs-7">--}}
-    {{--                    <i class="bi bi-circle-fill me-1"></i>Online--}}
-    {{--                </div>--}}
-    {{--            @endif--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-
-    <div class="bg-image">
-        <a href="{{route('guest.home')}}">
-            <img src="{{asset('images/logo.png')}}" alt="logo" class="img-fluid">
-        </a>
-    </div>
-
-    {{--    SEARCH--}}
-    <div class="form-outline mt-3">
-        <input type="text" id="search_nav" class="form-control" placeholder="Type to search..."/>
+<div class="list-group list-group-light bg-white border-0 shadow-none rounded-0">
+    <div class="bg-image p-4">
+        <div class="d-flex align-items-center">
+            <img src="{{asset('images/noavt.jpg')}}" alt="logo" class="rounded-circle shadow-lg border" width="40px"
+                 height="40px">
+            <div class="ms-2">
+                <div class="fw-bold">
+                    Tam Nguyen
+                </div>
+                <div class="fs-7 text-reset">
+                    Admin
+                </div>
+            </div>
+        </div>
     </div>
 
     @php
@@ -35,136 +20,120 @@
     @endphp
 
     @if($currentAdmin->level == 0)
-        {{--    MASTER--}}
-        <div class="text-uppercase fs-7 fw-bold py-3 text-primary">
-            General
-        </div>
-
         <a href="{{ route('admin.dashboard') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
     {{ request()->route()->getPrefix() == 'admin/dashboard' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
-            <i class="bi bi-grid me-2"></i>Dashboard
+           aria-current="true">
+            <i class="bi bi-house me-2"></i>Dashboard
         </a>
 
         <a href="{{ route('admin.activities') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
     {{ request()->routeIs('admin.activities') ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
-            <i class="bi bi-activity me-2"></i>Activities
+           aria-current="true">
+            <i class="bi bi-graph-up-arrow me-2"></i>Statistics
         </a>
 
-        {{--    BOOKING MANAGEMENT --}}
-        <div class="text-uppercase fs-7 fw-bold py-3 text-primary">
-            Booking Management
-        </div>
-
         <a href="{{ route('admin.bookings') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
        {{ request()->route()->getPrefix() == 'admin/bookings' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-receipt me-2"></i>Bookings
         </a>
 
         <a href="{{ route('admin.payments') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
        {{ request()->route()->getPrefix() == 'admin/payments' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-currency-dollar me-2"></i>Payments
         </a>
 
-        {{--    HOTEL MANAGEMENT--}}
-        <div class="text-uppercase fs-7 fw-bold py-3 text-primary">
-            Hotel Management
-        </div>
-
         <a href="{{ route('admin.roomTypes') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
 {{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-house-door me-2"></i>Room Types
         </a>
 
         <a href="{{ route('admin.rooms') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
 {{ request()->route()->getPrefix() == 'admin/rooms' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-key me-2"></i>Rooms
         </a>
 
         <a href="{{ route('admin.ratings') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
        {{ request()->route()->getPrefix() == 'admin/ratings' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-star me-2"></i>Ratings
         </a>
 
-        {{--    ACCOUNT MANAGEMENT--}}
-        <div class="text-uppercase fs-7 fw-bold py-3 text-primary">
-            Account Management
-        </div>
-
         <a href="{{ route('admin.admins') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
      {{ request()->route()->getPrefix() == 'admin/admins' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-person-workspace me-2"></i>Administrators
         </a>
 
         <a href="{{ route('admin.guests') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2 {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           class="list-group-item list-group-item-action d-flex align-items-center border-0 {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
+           aria-current="true">
             <i class="bi bi-people me-2"></i>Guests
         </a>
 
-        {{--    OTHER--}}
-        <div class="text-uppercase fs-7 fw-bold py-3 text-primary">
-            Other
-        </div>
+        <a href="{{ route('admin.activities') }}"
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
+    {{ request()->routeIs('admin.activities') ? 'active' : '' }}"
+           aria-current="true">
+            <i class="bi bi-activity me-2"></i>Activities
+        </a>
 
         <a href="{{ route('admin.settings') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
      {{ request()->route()->getPrefix() == 'admin/settings' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-gear me-2"></i>Settings
         </a>
 
         <a href="#logoutModal"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2 text-danger"
-           data-mdb-ripple-init aria-current="true" data-mdb-modal-init>
+           class="list-group-item list-group-item-action d-flex align-items-center border-0 text-danger"
+           aria-current="true" data-mdb-modal-init>
             <i class="bi bi-box-arrow-left me-2"></i>Logout
         </a>
     @else
+        {{--     EMPLOYEE ---------------------------------------------------------------------------------------------------   --}}
         <a href="{{ route('admin.bookings') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2 mt-3
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
        {{ request()->route()->getPrefix() == 'admin/bookings' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-receipt me-2"></i>Bookings
         </a>
 
         <a href="{{ route('admin.payments') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
        {{ request()->route()->getPrefix() == 'admin/payments' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-currency-dollar me-2"></i>Payments
         </a>
 
         <a href="{{ route('admin.guests') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2 {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           class="list-group-item list-group-item-action d-flex align-items-center border-0 {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
+           aria-current="true">
             <i class="bi bi-people me-2"></i>Guests
         </a>
 
+
         <a href="{{ route('admin.settings') }}"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2
+           class="list-group-item list-group-item-action d-flex align-items-center border-0
      {{ request()->route()->getPrefix() == 'admin/settings' ? 'active' : '' }}"
-           data-mdb-ripple-init aria-current="true">
+           aria-current="true">
             <i class="bi bi-gear me-2"></i>Settings
         </a>
 
         <a href="#logoutModal"
-           class="list-group-item list-group-item-action d-flex align-items-center px-3 border-0 py-2 text-danger"
-           data-mdb-ripple-init aria-current="true" data-mdb-modal-init>
+           class="list-group-item list-group-item-action d-flex align-items-center border-0 text-danger"
+           aria-current="true" data-mdb-modal-init>
             <i class="bi bi-box-arrow-left me-2"></i>Logout
         </a>
     @endif
@@ -181,19 +150,19 @@
                 <h5 class="modal-title text-danger" id="logoutModalLabel">
                     <i class="bi bi-exclamation-circle me-2"></i>Confirmation
                 </h5>
-                <button type="button" class="btn-close" data-mdb-ripple-init
+                <button type="button" class="btn-close"
                         data-mdb-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">Do you really want to logout?</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light rounded" data-mdb-ripple-init
+                <button type="button" class="btn btn-light rounded"
                         data-mdb-dismiss="modal">Cancel
                 </button>
                 <form method="get"
                       action="{{ route('admin.logout') }}">
                     @csrf
-                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
+                    <button class="btn btn-danger rounded">
                         Logout
                     </button>
                 </form>

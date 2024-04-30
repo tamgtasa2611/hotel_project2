@@ -2,7 +2,6 @@
 
 /*font*/
 * {
-    /*font-size: 0.9rem;*/
     scroll-behavior: smooth;
 }
 
@@ -14,9 +13,13 @@ body {
     min-height: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
 /*margin from navbar*/
 .m-nav {
-    margin-top: 60px !important;
+    margin-top: 67px !important;
 }
 
 /*scroll reveal========================*/
@@ -84,7 +87,7 @@ html.sr .load-hidden {
 }
 
 .fc-toolbar-chunk button {
-    font-size: 0.5rem !important;
+    font-size: 0.8rem !important;
 }
 
 /*fullcalendar*/
@@ -151,11 +154,23 @@ html.sr .load-hidden {
     /* background-size: cover; */
 }
 
+.list-group-item, .list-group-item.active, .list-group-item:hover, .list-group-item:focus {
+    border-radius: 0 100px 100px 0;
+    border-left: 4px solid var(--bs-white) !important;
+}
+
+.list-group-item.active {
+    background-color: var(--bs-light);
+    color: var(--bs-primary);
+    border-left: 4px solid var(--bs-primary) !important;
+}
+
+
 /*RESPONSIVE===============================================================*/
 
 @media (max-width: 991px) {
     .m-nav {
-        margin-top: 60px !important;
+        margin-top: 67px !important;
     }
 }
 

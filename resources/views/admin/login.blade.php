@@ -39,17 +39,11 @@
              load-hidden fade-in fade-bottom position-relative">
             {{--               login form--}}
             <form method="post" action="{{route('admin.loginProcess')}}" enctype="multipart/form-data"
-                  class="bg-white p-5 rounded border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                  class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
                 @csrf
-                <div class="mb-4">
-                    <a href="{{route('guest.home')}}" class="bg-image">
-                        <img src="{{asset('images/logo.png')}}" class="img-fluid">
-                    </a>
-                </div>
-
                 {{--                    heading--}}
-                <div class="d-flex flex-column justify-content-center align-items-center mb-4">
-                    <h4 class="text-primary-emphasis fw-bold">Control Panel Login</h4>
+                <div class="d-flex justify-content-center align-items-center mb-4">
+                    <h6 class="display-6 text-primary fw-bold">Admin Login</h6>
                 </div>
                 <!-- Email input -->
                 <div class="mb-4">

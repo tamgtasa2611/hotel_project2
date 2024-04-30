@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-12 col-lg-3">
-                    <div class="p-4 border rounded shadow-sm bg-white">
+                    <div class="p-4 rounded-4 shadow-lg border bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,15 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-12 col-lg-9 h-100">
                     <div
-                        class="p-4 rounded border bg-white shadow-sm d-flex flex-column justify-content-between h-100">
-                        {{--alert edit success--}}
-                        @if (session('success'))
-                            @include('partials.flashMsgSuccess')
-                        @endif
-                        {{--alert edit fail--}}
-                        @if (session('failed'))
-                            @include('partials.flashMsgFail')
-                        @endif
+                        class="p-4 rounded-4 shadow-lg border bg-white d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
                                 class="d-flex align-items-baseline justify-content-between flex-column flex-md-row mb-4">
@@ -94,9 +86,11 @@
                                 </p>
                             </div>
                             <div class="overflow-x-auto">
-                                <div class="mb-2 fw-bold"><i class="bi bi-person me-2"></i>Guest details</div>
+                                <div class="mb-2 fw-bold  border-4 border-primary border-start ps-2">
+                                    Guest details<i class="bi bi-person text-warning ms-2"></i>
+                                </div>
                                 <div class="overflow-x-auto mb-2">
-                                    <table class="table table-striped table-sm table-hover align-middle">
+                                    <table class="table table-hover align-middle">
                                         <tr>
                                             <td class="w-25">
                                                 Name
@@ -126,11 +120,13 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="mb-2 fw-bold"><i class="bi bi-currency-dollar me-2"></i>Payment details</div>
+                            <div class="mb-2 fw-bold  border-4 border-primary border-start ps-2">Payment details<i
+                                    class="bi bi-currency-dollar text-success ms-2"></i>
+                            </div>
                             <div class="mb-2">
                                 <div class="overflow-x-auto">
                                     @foreach($payments as $payment)
-                                        <table class="table table-striped table-sm table-hover align-middle">
+                                        <table class="table table-hover align-middle">
                                             <tr>
                                                 <td class="w-25">
                                                     ID
@@ -214,10 +210,10 @@
                             <div
                                 class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
                                 @if($booking->status == 3 || $booking->status == 5)
-                                    <a href="" class="btn btn-info rounded-pill me-2">Write a
+                                    <a href="" class="btn btn-primary rounded-pill me-2">Write a
                                         review</a>
                                 @endif
-                                <a href="" class="btn btn-primary rounded-pill ">Refund
+                                <a href="" class="btn btn-dark rounded-pill ">Refund
                                     policies</a>
                                 @if($booking->status == 0)
                                     <a class="btn btn-secondary rounded-pill tran-2 ms-2"
@@ -229,7 +225,7 @@
                                 @endif
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="table table-bordered table">
+                                <table class="shadow-lg border table mb-4">
                                     <thead>
                                     <tr>
                                         <th>Room booked</th>
@@ -289,12 +285,12 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="d-flex justify-content-between mt-4">
+                            <div class="d-flex justify-content-between">
                                 <a href="{{route('guest.myBooking')}}" class="text-decoration-none"><i
-                                        class="bi bi-chevron-left fw-bold me-1"></i>Back to my
+                                        class="bi bi-chevron-left fw-bold me-2"></i>Back to my
                                     bookings</a>
                                 <a href="" class="text-decoration-none"><i
-                                        class="bi bi-download fw-bold me-1"></i>Invoice</a>
+                                        class="bi bi-download fw-bold me-2"></i>Invoice</a>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
             {{--            search form--}}
             <div class="mb-5 pt-5">
                 <form method="get"
-                      class="bg-white p-3 m-0 shadow-sm rounded" autocomplete="off">
+                      class="bg-white p-3 m-0 shadow-lg border rounded-4" autocomplete="off">
                     <div class="row g-3">
                         <div class="col-12 col-lg-3">
                             <!-- checkin input -->

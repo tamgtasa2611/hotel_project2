@@ -4,7 +4,7 @@
         {{--        breadcrumb--}}
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section">
-                <form class="bg-white p-5 rounded border shadow-sm col-12 col-md-8 col-lg-6 col-xl-4
+                <form class="bg-white p-5 shadow-lg border rounded-4 col-12 col-md-8 col-lg-6 col-xl-4
                 load-hidden fade-in">
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-4">

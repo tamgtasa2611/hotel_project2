@@ -25,7 +25,7 @@
         <div class="p-3 bg-white rounded-bottom text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-sm table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -45,18 +45,15 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden rounded-circle
-                                    shadow-2-strong">
+                                        class="div-img overflow-hidden rounded-circle shadow-sm">
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
-                                            alt="guest_avatar" class="img-fluid rounded-circle"/>
+                                            alt="guest_avatar" class="object-fit-cover" width="40px"
+                                            height="40px"/>
                                     </div>
                                     <div class="ms-3">
                                         <p class="mb-1 fw-semibold">
                                             {{ $guest->first_name . ' ' . $guest->last_name }}
-                                            @if(\Illuminate\Support\Facades\Auth::guard('guest')->id() == $guest->id)
-                                                <span class="text-success badge">Online</span>
-                                            @endif
                                         </p>
                                         <p class=" text-muted mb-0"> {{ $guest->email }}</p>
                                     </div>
@@ -65,10 +62,10 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($guest->status == 1)
-                                        <span class="badge badge-success">
+                                        <span class="badge bg-success rounded-pill">
                                         Active</span>
                                     @else
-                                        <span class="badge badge-danger">
+                                        <span class="badge bg-danger rounded-pill">
                                         Locked</span>
                                     @endif
                                 </div>
@@ -78,14 +75,16 @@
                                     {{ $guest->phone_number }}
                                 </div>
                             </td>
-                            <td>
+                            <td class="fs-5">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.guests.edit', $guest) }}" class="btn btn-tertiary me-3">
-                                        Edit
+                                    <a href="{{ route('admin.guests.edit', $guest) }}"
+                                       class="me-3">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a class="btn btn-tertiary text-danger dlt-btn" data-mdb-ripple-init
-                                       data-mdb-modal-init href="#deleteModal" data-id={{$guest->id}}>
-                                        Delete
+                                    <a class="text-danger dlt-btn"
+                                       data-bs-toggle="modal" href="#!"
+                                       data-bs-target="#exampleModal" data-id={{$guest->id}}>
+                                        <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
                             </td>
@@ -93,36 +92,33 @@
                     @endforeach
                     </tbody>
                 </table>
-                <!-- DeleteModal -->
-                <div class="modal slideUp" id="deleteModal" tabindex="-1"
-                     aria-labelledby="deleteModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
+                <!-- Delete Account Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-danger" id="deleteModalLabel">
-                                    <i class="bi bi-x-circle me-2"></i>Are you sure?
-                                </h5>
-                                <button type="button" class="btn-close" data-mdb-ripple-init
-                                        data-mdb-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">You won't be able to revert this!</div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light rounded"
-                                        data-mdb-ripple-init
-                                        data-mdb-dismiss="modal">Cancel
-                                </button>
-                                <form method="post"
-                                      action="{{ route('admin.guests.destroy') }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input id="id" name="id" hidden class="visually-hidden" value="">
-                                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
+                            <form method="post" action="{{ route('admin.guests.destroy') }}">
+                                @csrf
+                                @method('DELETE')
+                                <input id="id" name="id" hidden class="visually-hidden" value="">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
+                                        <i class="bi bi-x-circle me-2"></i>Are you sure?
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">You won't be able to revert this!</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary rounded-pill"
+                                            data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-danger rounded-pill">
                                         Delete
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

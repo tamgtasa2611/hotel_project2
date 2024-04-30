@@ -99,7 +99,7 @@ Route::prefix('admin')->group(function () {
 
             // ACTIVITIES =====================================================================================
             Route::get('/activities', [AdminActivityController::class, 'index'])->name('admin.activities');
-            Route::get('/activities/downloadPdf', [AdminActivityController::class, 'downloadPDF'])->name('admin.activities.downloadPdf');
+            Route::post('/activities', [AdminActivityController::class, 'clear'])->name('admin.activities.clear');
 
             // ROOM TYPES =====================================================================================
             Route::prefix('roomTypes')->controller(AdminRoomTypeController::class)->group(function () {
@@ -201,9 +201,3 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 //ADMIN---------------------------------------------------------
-
-//MAIL------------------------------------
-Route::get('/mailable', function () {
-    $booking = \App\Models\Booking::find(1);
-    return new \App\Mail\BookingInformation($booking);
-});

@@ -4,17 +4,9 @@
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
              load-hidden fade-in position-relative">
-                {{--alert create account--}}
-                @if (session('success'))
-                    @include('partials.flashMsgSuccess')
-                @endif
-                {{--alert login fail--}}
-                @if (session('failed'))
-                    @include('partials.flashMsgFail')
-                @endif
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.loginProcess')}}" enctype="multipart/form-data"
-                      class="bg-white p-5 rounded border shadow-sm col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     {{--                    heading--}}
                     <div class="d-flex justify-content-center align-items-center mb-4">

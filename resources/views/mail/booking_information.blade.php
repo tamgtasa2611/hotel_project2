@@ -1,2 +1,0 @@
-aa
-{{$booking->id}}

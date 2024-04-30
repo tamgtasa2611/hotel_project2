@@ -23,7 +23,7 @@ class GuestController extends Controller
         session([
             'myUrl' => url()->previous()
         ]);
-        return view('guest.login');
+        return view('guest.login.login');
     }
 
     public function loginProcess(Request $request)
@@ -43,7 +43,7 @@ class GuestController extends Controller
         }
         $accountStatus = $guestAccount->status;
         if ($accountStatus == 0) {
-            return to_route('guest.login')->with('failed', 'This account has been locked!')->withInput($request->input());
+            return to_route('guest.login.login')->with('failed', 'This account has been locked!')->withInput($request->input());
         }
         //check account trong db
         if (Auth::guard('guest')->attempt($credentials)) {
@@ -78,12 +78,12 @@ class GuestController extends Controller
         }
         Auth::guard('guest')->logout();
         session()->forget('guest');
-        return view('guest.logout');
+        return view('guest.login.logout');
     }
 
     public function register()
     {
-        return view('guest.signup');
+        return view('guest.login.signup');
     }
 
     public function registerProcess(StoreGuestRequest $request)
