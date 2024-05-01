@@ -17,6 +17,14 @@ a {
     text-decoration: none;
 }
 
+form {
+    margin: 0;
+}
+
+.modal-footer {
+    background-color: var(--bs-white);
+}
+
 /*margin from navbar*/
 .m-nav {
     margin-top: 67px !important;

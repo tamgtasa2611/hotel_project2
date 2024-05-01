@@ -1,15 +1,19 @@
 <title>Edit room type information - Skyrim Hotel</title>
 <x-adminLayout>
-    {{--------------- MAIN --------------}}
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
-        <div class="text-primary">
+    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+        <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Room Types Management</h4>
+            <a class="d-block d-lg-none"
+               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <i class="bi bi-list fs-4"></i>
+            </a>
         </div>
     </div>
-
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
+    {{--------------- MAIN --------------}}
+    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
         <div
-            class="p-3 rounded-top border-bottom">
+            class="p-4 rounded-top border-bottom">
             <div class="text-primary">
                 <i class="bi bi-pencil-square me-2"></i>Edit room type
             </div>
@@ -21,11 +25,11 @@
             @csrf
             @method('PUT')
             <!-- name input -->
-            <div class="p-3 col-12  col-lg-6 col-xl-4">
-                <div data-mdb-input-init class="form-outline">
+            <div class="p-4 col-12  col-lg-6 col-xl-4">
+                <div class="">
+                    <label class="form-label" for="name">Type name <span class="text-danger">*</span></label>
                     <input type="text" id="name" name="name" class="form-control"
                            value="{{ $roomType->name }}" required/>
-                    <label class="form-label" for="name">Type name <span class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('name'))
                     @foreach ($errors->get('name') as $error)
@@ -35,13 +39,13 @@
             </div>
 
             <!-- description Number input -->
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
-                <div data-mdb-input-init class="form-outline">
+            <div class="p-4 pt-0 col-12 col-lg-6 col-xl-4">
+                <div class="">
+                    <label class="form-label" for="base_price">Base price per night ($) <span
+                            class="text-danger">*</span></label>
                     <input type="number" id="base_price" name="base_price" class="form-control"
                            value="{{ $roomType->base_price }}" step="0.01" min="0"
                            required/>
-                    <label class="form-label" for="base_price">Base price per night ($) <span
-                            class="text-danger">*</span></label>
                 </div>
                 @if ($errors->has('base_price'))
                     @foreach ($errors->get('base_price') as $error)
@@ -50,13 +54,13 @@
                 @endif
             </div>
 
-            <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
-                <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}"
-                   class="btn btn-secondary rounded tran-2 me-3">
+            <div class="d-flex justify-content-between justify-content-md-start border-top p-4">
+                <a href="{{ route('admin.roomTypes') }}"
+                   class="btn btn-secondary rounded-pill tran-2 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
+                <button type="submit" class="btn btn-primary rounded-pill tran-2">
                     Update
                 </button>
             </div>

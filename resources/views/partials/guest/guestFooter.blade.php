@@ -6,9 +6,9 @@
             <!-- Grid row -->
             <div class="row mt-3 g-3 justify-content-between">
                 <!-- Grid column -->
-                <div class="col-12 col-lg-8 mb-4">
+                <div class="col-12 col-lg-8 mb-4 mb-md-0">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Content -->
                             <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                                 SkyrimHotel
@@ -17,12 +17,13 @@
                                 Welcome to Skyrim Hotel, where luxury meets comfort and relaxation. Book now for
                                 unlimited
                                 offers and amazing experiences.
+                                <a href="/admin">Admin panel <i class="bi bi-chevron-right"></i></a>
                             </p>
                         </div>
                         <!-- Grid column -->
 
                         <!-- Grid column -->
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                                 Contact
@@ -39,8 +40,8 @@
                             <div class="row d-flex">
                                 <!--Grid column-->
                                 <div class="col-auto">
-                                    <p class="pt-2">
-                                        <span>Sign up for our latest offers</span>
+                                    <p class="w-100 pt-2">
+                                        Sign up for our latest offers
                                     </p>
                                 </div>
                                 <!--Grid column-->
@@ -49,7 +50,7 @@
                                 <div class="col-md-5 col-12">
                                     <!-- Email input -->
                                     <div data-mdb-input-init class="form-outline">
-                                        <input type="email" id="form5Example26" class="form-control"
+                                        <input type="email" id="form5Example26" class="form-control mb-4 mb-md-0"
                                                placeholder="Email address"/>
                                     </div>
                                 </div>

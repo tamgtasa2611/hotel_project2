@@ -1,14 +1,19 @@
 <title>Admins management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
-        <div class="text-primary">
+    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+        <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Admins Management</h4>
+            <a class="d-block d-lg-none"
+               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <i class="bi bi-list fs-4"></i>
+            </a>
         </div>
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
-        <div class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
+    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
+        <div class="p-4 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Admins Datatable
             </div>
@@ -22,7 +27,7 @@
                 </a>
             </div>
         </div>
-        <div class="p-3 bg-white rounded-bottom text-muted">
+        <div class="p-4 bg-white rounded-bottom text-muted">
             @if (count($admins) != 0)
                 <table
                     class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
@@ -45,7 +50,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden rounded-circle shadow-sm">
+                                        class="div-img overflow-hidden rounded-circle shadow-lg border">
                                         <img
                                             src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
                                             alt="admin_avatar" class="object-fit-cover" width="40px"
@@ -62,10 +67,10 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($admin->level == 0)
-                                        <span class="badge badge-primary">
+                                        <span class="badge bg-dark rounded-pill">
                                         Owner</span>
                                     @else
-                                        <span class="badge badge-warning">
+                                        <span class="badge bg-light rounded-pill">
                                         Employee</span>
                                     @endif
                                 </div>
@@ -77,12 +82,13 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.admins.edit', $admin) }}" class="btn btn-tertiary me-3">
-                                        Edit
+                                    <a href="{{ route('admin.admins.edit', $admin) }}"
+                                       class="btn btn-outline-primary rounded-pill me-3">
+                                        Edit<i class="bi bi-pencil-square ms-3"></i>
                                     </a>
-                                    <a class="btn btn-tertiary text-danger dlt-btn" data-mdb-ripple-init
-                                       data-mdb-modal-init href="#deleteModal" data-id={{$admin->id}}>
-                                        Delete
+                                    <a class="btn btn-outline-danger rounded-pill dlt-btn"
+                                       href="#deleteModal" data-id={{$admin->id}}>
+                                        Delete<i class="bi bi-trash ms-2"></i>
                                     </a>
                                 </div>
                             </td>
@@ -100,14 +106,14 @@
                                 <h5 class="modal-title text-danger" id="deleteModalLabel">
                                     <i class="bi bi-x-circle me-2"></i>Are you sure?
                                 </h5>
-                                <button type="button" class="btn-close" data-mdb-ripple-init
+                                <button type="button" class="btn-close"
                                         data-mdb-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">You won't be able to revert this!</div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light rounded"
-                                        data-mdb-ripple-init
+
                                         data-mdb-dismiss="modal">Cancel
                                 </button>
                                 <form method="post"
@@ -115,7 +121,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <input id="id" name="id" hidden class="visually-hidden" value="">
-                                    <button class="btn btn-danger rounded" data-mdb-ripple-init>
+                                    <button class="btn btn-danger rounded">
                                         Delete
                                     </button>
                                 </form>

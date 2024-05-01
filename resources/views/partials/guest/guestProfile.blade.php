@@ -1,8 +1,12 @@
 <div>
     <h6 class="fw-bold text-muted text-center">Welcome back,</h6>
-    <h4 class="fw-bold text-primary text-center mb-3">Tam Nguyen!</h4>
+    <h4 class="fw-bold text-primary text-center mb-3">
+        @php
+            $currentGuest = \Illuminate\Support\Facades\Auth::guard('guest')->user();
+        @endphp
+        {{$currentGuest->first_name . ' ' . $currentGuest->last_name}}!</h4>
 </div>
-<div class="list-group list-group-light">
+<div class="list-group list-group-light border-0 shadow-none">
     <a href="{{route('guest.profile')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
                         {{request()->routeIs('guest.profile') ? 'active' : ''}}"

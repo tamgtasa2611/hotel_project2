@@ -1,14 +1,19 @@
 <title>Add new guest - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
-        <div class="text-primary">
+    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+        <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Guests Management</h4>
+            <a class="d-block d-lg-none"
+               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <i class="bi bi-list fs-4"></i>
+            </a>
         </div>
     </div>
 
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
+    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
         <div
-            class="p-3 rounded-top border-bottom">
+            class="p-4 rounded-top border-bottom">
             <div class="text-primary">
                 <i class="bi bi-plus-circle me-2"></i>Add Guest
             </div>
@@ -19,7 +24,7 @@
               class="m-0">
             @csrf
             <!-- name input -->
-            <div class="p-3 col-12  col-lg-6 col-xl-4">
+            <div class="p-4 col-12  col-lg-6 col-xl-4">
                 <div class="">
                     <label class="form-label" for="first_name">First name <span class="text-danger">*</span></label>
                     <input type="text" id="first_name" name="first_name" class="form-control"
@@ -33,7 +38,7 @@
             </div>
 
             <!-- description Number input -->
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
+            <div class="p-4 pt-0 col-12 col-lg-6 col-xl-4">
                 <div class="">
                     <label class="form-label" for="last_name">Last name <span class="text-danger">*</span></label>
                     <input type="text" id="last_name" name="last_name" class="form-control"
@@ -47,7 +52,7 @@
             </div>
 
             <!-- email input -->
-            <div class="p-3 col-12 pt-0 col-lg-6 col-xl-4">
+            <div class="p-4 col-12 pt-0 col-lg-6 col-xl-4">
                 <div class="">
                     <label class="form-label" for="email">Email address <span class="text-danger">*</span></label>
                     <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}"
@@ -61,7 +66,7 @@
             </div>
 
             <!-- password input -->
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
+            <div class="p-4 pt-0 col-12 col-lg-6 col-xl-4">
                 <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
                 <div class=" input-group" id="show_hide_password">
                     <input type="password" id="password" name="password" class="form-control"
@@ -78,7 +83,7 @@
             </div>
 
             {{--            phone number--}}
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
+            <div class="p-4 pt-0 col-12 col-lg-6 col-xl-4">
                 <div class="">
                     <label class="form-label" for="phone">Phone number <span class="text-danger">*</span></label>
                     <input type="tel" id="phone" name="phone" class="form-control" value="{{ old('phone') }}"
@@ -92,12 +97,12 @@
             </div>
 
             {{--            image input--}}
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
+            <div class="p-4 pt-0 col-12 col-lg-6 col-xl-4">
                 <label class="form-label" for="password">Avatar</label>
                 <input type="file" class="form-control" id="image" name="image"/>
             </div>
 
-            <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
+            <div class="d-flex justify-content-between justify-content-md-start border-top p-4">
                 <a href="{{ route('admin.guests') }}"
                    class="btn btn-secondary rounded-pill tran-2 me-3">
                     Back

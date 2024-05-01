@@ -28,14 +28,15 @@
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto bg-light cabin-regular">
+<body class="overflow-x-hidden overflow-y-auto bg-light">
 <div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 pe-0 shadow-lg border bg-white">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 shadow-lg border bg-white">
         @include('partials.admin.adminSidenav')
     </div>
-    <div class="col-12 col-lg-9 col-xl-10 ps-lg-0 d-flex flex-column justify-content-between">
-        <div class="p-3 pb-0">
+    <div class="col-12 col-lg-9 col-xl-10 m-0 p-0">
+        <div class="container-fluid h-100 p-4 d-flex flex-column justify-content-between">
             <div class="position-relative">
+                @include('partials.admin.adminSidenavRes')
                 {{-- alert --}}
                 <div class="slideDown">
                     @if (session('success'))
@@ -49,8 +50,8 @@
                 {{$slot}}
                 {{--------------- END MAIN --------------}}
             </div>
+            @include('partials.admin.adminFooter')
         </div>
-        @include('partials.admin.adminFooter')
     </div>
 </div>
 

@@ -1,14 +1,19 @@
 <title>Edit admin information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
-        <div class="text-primary">
+    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+        <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Admins Management</h4>
+            <a class="d-block d-lg-none"
+               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <i class="bi bi-list fs-4"></i>
+            </a>
         </div>
     </div>
 
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
+    <div class="bg-white  rounded-4 shadow-lg border overflow-hidden">
         <div
-            class="p-3 rounded-top border-bottom">
+            class="p-4 rounded-top border-bottom">
             <div class="text-primary">
                 <i class="bi bi-pencil-square me-2"></i>Edit Admin
             </div>
@@ -22,12 +27,12 @@
             <div class="d-flex flex-column flex-lg-row">
                 <div class="col-12 col-lg-6 col-xl-4">
                     <!-- name input -->
-                    <div class="p-3">
-                        <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="first_name" name="first_name" class="form-control"
-                                   value="{{ $admin->first_name }}" required/>
+                    <div class="p-4">
+                        <div class="">
                             <label class="form-label" for="first_name">First name <span
                                     class="text-danger">*</span></label>
+                            <input type="text" id="first_name" name="first_name" class="form-control"
+                                   value="{{ $admin->first_name }}" required/>
                         </div>
                         @if ($errors->has('first_name'))
                             @foreach ($errors->get('first_name') as $error)
@@ -37,12 +42,12 @@
                     </div>
 
                     <!-- description Number input -->
-                    <div class="p-3 pt-0">
-                        <div data-mdb-input-init class="form-outline">
-                            <input type="text" id="last_name" name="last_name" class="form-control"
-                                   value="{{ $admin->last_name }}" required/>
+                    <div class="p-4 pt-0">
+                        <div class="">
                             <label class="form-label" for="last_name">Last name <span
                                     class="text-danger">*</span></label>
+                            <input type="text" id="last_name" name="last_name" class="form-control"
+                                   value="{{ $admin->last_name }}" required/>
                         </div>
                         @if ($errors->has('last_name'))
                             @foreach ($errors->get('last_name') as $error)
@@ -52,12 +57,12 @@
                     </div>
 
                     <!-- email input -->
-                    <div class="p-3 pt-0">
-                        <div data-mdb-input-init class="form-outline">
-                            <input type="email" id="email" name="email" class="form-control" value="{{ $admin->email }}"
-                                   required/>
+                    <div class="p-4 pt-0">
+                        <div class="">
                             <label class="form-label" for="email">Email address <span
                                     class="text-danger">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control" value="{{ $admin->email }}"
+                                   required/>
                         </div>
                         @if ($errors->has('email'))
                             @foreach ($errors->get('email') as $error)
@@ -67,13 +72,13 @@
                     </div>
 
                     {{--            phone number--}}
-                    <div class="p-3 pt-0">
-                        <div data-mdb-input-init class="form-outline">
+                    <div class="p-4 pt-0">
+                        <div class="">
+                            <label class="form-label" for="phone">Phone number <span
+                                    class="text-danger">*</span></label>
                             <input type="tel" id="phone" name="phone" class="form-control"
                                    value="{{ $admin->phone_number }}"
                                    maxlength="20" required/>
-                            <label class="form-label" for="phone">Phone number <span
-                                    class="text-danger">*</span></label>
                         </div>
                         @if ($errors->has('phone'))
                             @foreach ($errors->get('phone') as $error)
@@ -83,15 +88,15 @@
                     </div>
 
                     {{--            status --}}
-                    <div class="p-3 pt-0">
+                    <div class="p-4 pt-0">
                         <div class="d-flex flex-column align-items-center justify-content-between flex-md-row">
-                            <div class="mb-3 mb-md-0">
+                            <div class="mb-3 mb-md-0 form-label">
                                 Level
                             </div>
                             @if($admin->level == 0)
-                                <a class="badge badge-primary">Owner</a>
+                                <a class="badge bg-dark rounded-pill">Owner</a>
                             @else
-                                <a class="badge badge-warning">Employee</a>
+                                <a class="badge bg-light rounded-pill">Employee</a>
                             @endif
                         </div>
                         @if ($errors->has('level'))
@@ -104,25 +109,26 @@
 
                 <div class="col-12 col-lg-6 col-xl-4">
                     {{--            image input--}}
-                    <div class="p-3 pt-0 pt-lg-3">
+                    <div class="p-4 pt-0 pt-lg-4">
+                        <label for="image" class="form-label">Avatar</label>
                         <input type="file" class="form-control" id="image" name="image"/>
                     </div>
-                    <div class="p-3 pt-0 w-50">
+                    <div class="p-4 pt-0 w-75">
                         <img
                             src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
                             alt="guest_image"
-                            class="img-fluid rounded border">
+                            class="img-fluid rounded-4 border shadow-lg">
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
-                <a data-mdb-ripple-init href="{{ route('admin.admins') }}"
-                   class="btn btn-secondary rounded tran-2 me-3">
+            <div class="d-flex justify-content-between justify-content-md-start border-top p-4">
+                <a href="{{ route('admin.admins') }}"
+                   class="btn btn-secondary rounded-pill tran-2 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
+                <button type="submit" class="btn btn-primary rounded-pill tran-2">
                     Update
                 </button>
             </div>

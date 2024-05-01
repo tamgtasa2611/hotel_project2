@@ -1,14 +1,19 @@
 <title>Guests management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
-        <div class="text-primary">
+    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+        <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Guests Management</h4>
+            <a class="d-block d-lg-none"
+               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+               aria-controls="offcanvasExample">
+                <i class="bi bi-list fs-4"></i>
+            </a>
         </div>
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
-        <div class="p-3 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
+    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
+        <div class="p-4 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Guests Datatable
             </div>
@@ -22,7 +27,7 @@
                 </a>
             </div>
         </div>
-        <div class="p-3 bg-white rounded-bottom text-muted">
+        <div class="p-4 bg-white rounded-bottom text-muted">
             @if (count($guests) != 0)
                 <table
                     class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
@@ -78,13 +83,13 @@
                             <td class="fs-5">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.guests.edit', $guest) }}"
-                                       class="me-3">
-                                        <i class="bi bi-pencil-square"></i>
+                                       class="btn btn-outline-primary rounded-pill me-3">
+                                        Edit<i class="bi bi-pencil-square ms-3"></i>
                                     </a>
-                                    <a class="text-danger dlt-btn"
+                                    <a class="btn btn-outline-danger rounded-pill dlt-btn"
                                        data-bs-toggle="modal" href="#!"
                                        data-bs-target="#exampleModal" data-id={{$guest->id}}>
-                                        <i class="bi bi-trash"></i>
+                                        Delete<i class="bi bi-trash ms-2"></i>
                                     </a>
                                 </div>
                             </td>
