@@ -22,7 +22,7 @@
                 <a href="#!"
                    class="d-flex align-items-center text-danger text-decoration-none"
                    data-bs-toggle="modal"
-                   data-bs-target="#exampleModal">
+                   data-bs-target="#exampleModal1">
                     <i class="me-2 bi bi-trash"></i>Clear activities
                 </a>
             </div>
@@ -30,7 +30,7 @@
         <div class="p-4 bg-white rounded-bottom text-muted">
             @if (count($activities) != 0)
                 <table
-                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -65,15 +65,15 @@
         </div>
     </div>
     <!-- Delete Account Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal1" tabindex="-1"
+         aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form method="post" action="{{ route('admin.activities.clear') }}">
                     @csrf
                     @method('POST')
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
+                        <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel1">
                             <i class="bi bi-x-circle me-2"></i>Are you sure?
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"

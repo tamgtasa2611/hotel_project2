@@ -32,7 +32,7 @@
         <div class="p-4 bg-white rounded-bottom text-muted">
             @if (count($bookings) != 0)
                 <table
-                    class="tran-3 table table-bordered align-middle mb-0 bg-white w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>

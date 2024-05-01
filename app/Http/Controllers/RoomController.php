@@ -33,8 +33,15 @@ class RoomController extends Controller
 
         $price = [
             'from_price' => $request->from_price ?? 0,
-            'to_price' => $request->to_price ?? 1000,
+            'to_price' => $request->to_price ?? 500,
         ];
+
+        if ($price['from_price'] > $price['to_price']) {
+            $temp = $price['from_price'];
+            $price['from_price'] = $price['to_price'];
+            $price['to_price'] = $temp;
+        }
+        
         $rating = $request->rating ?? 0;
 
         $defaultType = [];

@@ -54,11 +54,11 @@
                                 @endphp
                                 @if($avatar == null)
                                     <img src="{{asset('images/noavt.jpg')}}" alt="guest_avatar" width="24px"
-                                         height="24px" class="rounded-circle">
+                                         height="24px" class="rounded-circle object-fit-cover">
                                 @else
                                     <img src="{{asset('storage/admin/guests/' . $avatar)}}" alt="guest_avatar"
                                          width="24px"
-                                         height="24px" class="rounded-circle">
+                                         height="24px" class="rounded-circle object-fit-cover">
                                 @endif
                             </a>
                             <div class="dropdown-menu dropright" data-bs-theme="light">

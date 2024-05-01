@@ -35,81 +35,52 @@
                     <div class="col-12 col-lg-8 h-100">
                         <div class="bg-white p-4 pb-4 shadow-lg border rounded-4">
                             {{--                room image--}}
-                            <div class="mb-5 rounded overflow-hidden shadow-lg ratio ratio-16x9">
+                            <div class="mb-5 ratio ratio-16x9 overflow-hidden">
                                 @if(count($roomImages) > 1)
                                     <!-- Carousel wrapper -->
-                                    <div id="carouselMaterialStyle"
-                                         class="carousel slide carousel-fade overflow-hidden rounded "
-                                         data-mdb-ride="carousel"
-                                         data-mdb-carousel-init>
-                                        <!-- Indicators -->
-                                        <div class="carousel-indicators">
-                                            @php
-                                                $i = 0;
-                                            @endphp
+                                    <div id="carouselExampleAutoplaying" class="carousel slide"
+                                         data-bs-ride="carousel">
+                                        <div
+                                            class="carousel-inner rounded-4 shadow-lg tran-2 ratio ratio-16x9 overflow-hidden">
                                             @foreach($roomImages as $image)
-
-                                                <button type="button" data-mdb-target="#carouselMaterialStyle"
-                                                        data-mdb-slide-to="{{$i}}"
-                                                        class="{{$image == $roomImages[0] ? 'active' : '' }}"
-                                                        aria-current="{{$image == $roomImages[0] ? 'true' : '' }}"
-                                                        aria-label="Slide {{$i}}"></button>
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                            @endforeach
-                                        </div>
-
-                                        <!-- Inner -->
-                                        <div class="carousel-inner w-100 rounded shadow-sm overflow-hidden">
-                                            <!--  item -->
-                                            @foreach($roomImages as $image)
-                                                <div
-                                                    class="carousel-item overflow-hidden ratio ratio-16x9 rounded  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                                <div class="carousel-item {{$image == $roomImages[0] ? 'active' : '' }}"
+                                                     data-bs-interval="4000">
                                                     <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                         class="w-100 object-fit-cover d-block tran-3 rounded "/>
+                                                         class="d-block w-100 rounded-4 shadow-lg object-fit-cover"
+                                                         alt="...">
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <!-- Inner -->
-
-                                        <!-- Controls -->
                                         <button class="carousel-control-prev" type="button"
-                                                data-mdb-target="#carouselMaterialStyle"
-                                                data-mdb-slide="prev">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-left fs-2"></i>
-                                </span>
+                                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
                                         <button class="carousel-control-next" type="button"
-                                                data-mdb-target="#carouselMaterialStyle"
-                                                data-mdb-slide="next">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-right fs-2"></i>
-                                </span>
+                                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
                                     <!-- Carousel wrapper -->
                                 @elseif(count($roomImages) == 1)
-                                    <div class="rounded shadow-sm overflow-hidden">
+                                    <div class="rounded-4 shadow-lg overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         @foreach($roomImages as $image)
                                             <div
-                                                class="carousel-item overflow-hidden ratio ratio-16x9 rounded  {{$image == $roomImages[0] ? 'active' : '' }}">
+                                                class="overflow-hidden ratio ratio-16x9 rounded-4">
                                                 <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                     class="w-100 object-fit-cover d-block tran-3 rounded "/>
+                                                     class="d-block w-100 rounded-4 shadow-lg object-fit-cover"/>
                                             </div>
                                         @endforeach
                                     </div>
                                 @else
-                                    <div class="rounded shadow-sm overflow-hidden">
+                                    <div class="rounded-4 shadow-lg overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         <div
-                                            class="overflow-hidden ratio ratio-16x9 rounded ">
+                                            class="overflow-hidden ratio ratio-16x9 rounded-4">
                                             <img src="{{asset('images/noimage.jpg')}}"
-                                                 class="w-100 object-fit-cover d-block tran-3 rounded "/>
+                                                 class="d-block w-100 rounded-4 shadow-lg object-fit-cover"/>
                                         </div>
                                     </div>
                                 @endif

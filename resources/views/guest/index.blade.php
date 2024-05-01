@@ -82,67 +82,29 @@
                             free WIFI and mini bar. In addition, all rooms are equipped with a Nespresso coffee machine.
                         </p>
                         <!-- Carousel wrapper -->
-                        <div id="carouselMaterialStyle" class="mt-3 carousel slide carousel-fade"
-                             data-mdb-ride="carousel"
-                             data-mdb-carousel-init>
-                            <!-- Indicators -->
-                            <div class="carousel-indicators">
-                                <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="0"
-                                        class="active" aria-current="true"
-                                        aria-label="Slide 1"></button>
-                                <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="1"
-                                        aria-label="Slide 2"></button>
-                                <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2"
-                                        aria-label="Slide 3"></button>
-                            </div>
-
-                            <!-- Inner -->
-                            <div class="carousel-inner rounded shadow-sm overflow-hidden">
-                                <!-- Single item -->
-                                <div class="carousel-item active">
-                                    <img src="{{asset('images/1.png')}}"
-                                         class="w-100 d-block tran-3"/>
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Double Room</h5>
-                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                    </div>
+                        <div id="carouselExampleAutoplaying" class="mt-3 carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded-4 shadow-lg tran-2">
+                                <div class="carousel-item active" data-bs-interval="4000">
+                                    <img src="{{asset('images/1.png')}}" class="d-block w-100 rounded-4 shadow-lg"
+                                         alt="...">
                                 </div>
-
-                                <!-- Single item -->
-                                <div class="carousel-item">
-                                    <img src="{{asset('images/2.png')}}"
-                                         class="w-100 d-block tran-3"/>
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Deluxe City View</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
+                                <div class="carousel-item" data-bs-interval="4000">
+                                    <img src="{{asset('images/2.png')}}" class="d-block w-100 rounded-4 shadow-lg"
+                                         alt="...">
                                 </div>
-
-                                <!-- Single item -->
-                                <div class="carousel-item">
-                                    <img src="{{asset('images/3.png')}}"
-                                         class="w-100 d-block tran-3"/>
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>King Bedroom</h5>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                    </div>
+                                <div class="carousel-item" data-bs-interval="4000">
+                                    <img src="{{asset('images/3.png')}}" class="d-block w-100 rounded-4 shadow-lg"
+                                         alt="...">
                                 </div>
                             </div>
-                            <!-- Inner -->
-
-                            <!-- Controls -->
-                            <button class="carousel-control-prev" type="button" data-mdb-target="#carouselMaterialStyle"
-                                    data-mdb-slide="prev">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-left fs-2"></i>
-                                </span>
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-mdb-target="#carouselMaterialStyle"
-                                    data-mdb-slide="next">
-                                <span aria-hidden="true">
-                                    <i class="bi bi-chevron-right fs-2"></i>
-                                </span>
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>

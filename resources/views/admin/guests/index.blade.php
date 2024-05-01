@@ -30,7 +30,7 @@
         <div class="p-4 bg-white rounded-bottom text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-bordered  align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white border w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -84,11 +84,12 @@
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.guests.edit', $guest) }}"
                                        class="btn btn-outline-primary rounded-pill me-3">
-                                        Edit<i class="bi bi-pencil-square ms-3"></i>
+                                        Edit<i class="bi bi-pencil-square ms-2"></i>
                                     </a>
                                     <a class="btn btn-outline-danger rounded-pill dlt-btn"
-                                       data-bs-toggle="modal" href="#!"
-                                       data-bs-target="#exampleModal" data-id={{$guest->id}}>
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#exampleModal1"
+                                       data-id={{$guest->id}}>
                                         Delete<i class="bi bi-trash ms-2"></i>
                                     </a>
                                 </div>
@@ -97,23 +98,26 @@
                     @endforeach
                     </tbody>
                 </table>
-                <!-- Delete Account Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- DeleteModal -->
+                <div class="modal fade" id="exampleModal1" tabindex="-1"
+                     aria-labelledby="exampleModalLabel1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form method="post" action="{{ route('admin.guests.destroy') }}">
                                 @csrf
                                 @method('DELETE')
-                                <input id="id" name="id" hidden class="visually-hidden" value="">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
+                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel1">
                                         <i class="bi bi-x-circle me-2"></i>Are you sure?
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">You won't be able to revert this!</div>
+                                <div class="modal-body">
+                                    You won't be able to revert this!
+                                    <input id="id" name="id" hidden class="visually-hidden"
+                                           value="">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary rounded-pill"
                                             data-bs-dismiss="modal">
@@ -127,6 +131,7 @@
                         </div>
                     </div>
                 </div>
+                {{--                end modal--}}
             @else
                 No results
             @endif
