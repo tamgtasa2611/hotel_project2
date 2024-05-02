@@ -111,8 +111,7 @@
                                 <div class="row h-100 g-4">
                                     <div class="col-12 col-md-4 h-100">
                                         <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">
-                                            Swimming
-                                            Pool
+                                            Kitchen Items
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
@@ -131,20 +130,20 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
-                                    <ul class="list-group list-group-light list-group-numbered shadow-lg rounded-4">
-                                        <li class="list-group-item p-3">
+                                    <ul class="border-4 border-primary border-start list-unstyled ps-3">
+                                        <li class="">
                                             Amazing balcony
                                         </li>
-                                        <li class="list-group-item p-3">
+                                        <li class="">
                                             Seat beside the panoramic window
                                         </li>
-                                        <li class="list-group-item p-3">
+                                        <li class="">
                                             TV for watching IMAX films
                                         </li>
-                                        <li class="list-group-item p-3">
+                                        <li class="">
                                             Writing desk with USB ports for documenting your adventures
                                         </li>
-                                        <li class="list-group-item p-3">
+                                        <li class="">
                                             Bathroom with rain shower
                                         </li>
                                     </ul>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GuestController;
 use App\Http\Middleware\CheckLoginAdmin;
@@ -79,6 +80,8 @@ Route::middleware([CheckLoginGuest::class])->controller(ProfileController::class
         Route::get('/', 'myBooking')->name('guest.myBooking');
         Route::get('/{booking}', 'bookingDetail')->name('guest.bookingDetail');
         Route::post('/{booking}/cancel', 'cancelBooking')->name('guest.cancelBooking');
+        Route::post('/{booking}/rate', [RateController::class, 'rateBooking'])->name('guest.rateBooking');
+        Route::delete('/{booking}/deleteRate', [RateController::class, 'deleteRate'])->name('guest.deleteRate');
     });
     Route::post('/deleteAccount', 'deleteAccount')->name('guest.deleteAccount');
 });

@@ -13,12 +13,18 @@
                             <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                                 SkyrimHotel
                             </h6>
-                            <p class="col-lg-10">
+                            <p class="col-lg-10 mb-4">
                                 Welcome to Skyrim Hotel, where luxury meets comfort and relaxation. Book now for
                                 unlimited
                                 offers and amazing experiences.
-                                <a href="/admin">Admin panel <i class="bi bi-chevron-right"></i></a>
                             </p>
+                            <div class="d-flex">
+                                <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
+                                   rel="noopener noreferrer">Chat with us <i
+                                        class="bi bi-messenger"></i></a>
+                                <a href="/admin" class=" ms-3" target="_blank"
+                                   rel="noopener noreferrer">Admin panel <i class="bi bi-chevron-right"></i></a>
+                            </div>
                         </div>
                         <!-- Grid column -->
 

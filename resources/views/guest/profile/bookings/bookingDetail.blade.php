@@ -203,15 +203,21 @@
                             @if($booking->note)
                                 <div class="mb-2 fw-bold"><i class="bi bi-chat-dots me-2"></i>Note</div>
                                 <pre style="white-space: pre-line"
-                                     class="mb-4 border-start border-primary border-3 ps-3 text-bg-light">
+                                     class="mb-4 p-3 text-bg-light">
                                     {!! $booking->note !!}
                                 </pre>
                             @endif
                             <div
                                 class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
                                 @if($booking->status == 3 || $booking->status == 5)
-                                    <a href="" class="btn btn-primary rounded-pill me-2">Write a
-                                        review</a>
+                                    @if(!$rate)
+                                        <a href="" class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
+                                           data-bs-target="#ratingModal">Write a
+                                            review</a>
+                                    @else
+                                        <a href="" class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
+                                           data-bs-target="#myReviewModal">My review</a>
+                                    @endif
                                 @endif
                                 <a href="" class="btn btn-dark rounded-pill ">Refund
                                     policies</a>
@@ -239,15 +245,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-column flex-xl-row align-middle align-items-center">
-                                                <div class="bg-image ratio ratio-16x9 rounded shadow-sm">
+                                                <div class="bg-image ratio ratio-16x9 rounded-4 shadow-lg">
                                                     @if(count($booking->room->images) != 0)
                                                         <img
                                                             src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"
-                                                            alt="room_image" class="object-fit-cover">
+                                                            alt="room_image"
+                                                            class="object-fit-cover rounded-4 shadow-lg">
                                                     @else
                                                         <img
                                                             src="{{asset('images/noimage.jpg')}}"
-                                                            alt="room_image" class="object-fit-cover">
+                                                            alt="room_image"
+                                                            class="object-fit-cover rounded-4 shadow-lg">
                                                     @endif
                                                 </div>
                                                 <div class="mt-3 mt-xl-0 ms-xl-3">
@@ -275,7 +283,7 @@
                                                 if(mb_strlen($checkoutMonth) == 1) {
                                                      $checkoutMonth = '0' . $checkoutMonth;
                                                 }
-                                            @endphp
+//                                            @endphp
                                             {{$checkout->get('day') . '/' . $checkoutMonth . '/' . $checkout->get('year')}}
                                         </td>
                                         <td class="align-middle text-center">
@@ -284,6 +292,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div>
+
                             </div>
                             <div class="d-flex justify-content-between">
                                 <a href="{{route('guest.myBooking')}}" class="text-decoration-none"><i
@@ -301,7 +312,147 @@
         </div>
         {{--                CONTENT--}}
     </section>
-    <!-- Delete Account Modal -->
+    <!-- Rating Modal -->
+    <div class="modal fade" id="ratingModal" tabindex="-1"
+         aria-labelledby="ratingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{route('guest.rateBooking', $booking->id)}}">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-primary" id="ratingModalLabel">
+                            <i class="bi bi-pencil-square me-2"></i>Write a review
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label for="input-1" class="form-label">Rate this room</label>
+                            <div class="my-3">
+                                <div class="star-rating text-center">
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="1"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="2"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="3"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="4"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="5"></span>
+                                    <input type="hidden" name="rating" id="rating" class="rating-value" value="5">
+                                </div>
+                                <div id="rate-comment" class="text-warning-emphasis text-center mt-1">
+
+                                </div>
+                            </div>
+                        </div>
+                        <label for="review" class="form-label mt-2">
+                            Review (optional)
+                        </label>
+                        <textarea name="review" id="review" cols="20" rows="6" class="form-control"
+                                  value=""></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary rounded-pill">
+                            Rate
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--myReviewModal Modal -->
+    <div class="modal fade" id="myReviewModal" tabindex="-1"
+         aria-labelledby="myReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{ route('guest.deleteRate', $booking) }}">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-primary" id="myReviewModalLabel">
+                            <i class="bi bi-pencil-square me-2"></i>My review
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label for="input-1" class="form-label">Rating</label>
+                            <div class="my-3">
+                                <div class="text-center">
+                                    @if($rate?->rating)
+                                        @switch($rate->rating)
+                                            @case(1)
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                @break
+                                            @case(2)
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                @break
+                                            @case(3)
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                @break
+                                            @case(4)
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star text-warning fs-4"></span>
+                                                @break
+                                            @case(5)
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                @break
+                                        @endswitch
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <label for="review" class="form-label mt-2">
+                            Review
+                        </label>
+                        @if($rate?->review)
+                            <div>
+                                  <pre style="white-space: pre-line"
+                                       class="mb-4 p-3 text-bg-light">
+                                    {!! $rate->review !!}
+                                </pre>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-danger rounded-pill">
+                            Delete this review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -347,5 +498,45 @@
             },
         });
     });
+
+    // star rating
+    let $star_rating = $('.star-rating .bi');
+    let rateComment = $('#rate-comment');
+    let SetRatingStar = function () {
+        return $star_rating.each(function () {
+            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('bi-star').addClass('bi-star-fill');
+            } else {
+                return $(this).removeClass('bi-star-fill').addClass('bi-star');
+            }
+        });
+    };
+
+    $star_rating.siblings('input.rating-value').val(5);
+    let rateVal = $("#rating").val();
+    rateComment.html('😍 Amazing!');
+
+    // onclick
+    $star_rating.on('click', function () {
+        $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+
+        rateVal = $("#rating").val();
+        if (rateVal == 1) {
+            rateComment.html('😡 Worst!');
+        } else if (rateVal == 2) {
+            rateComment.html('😒 Bad!');
+        } else if (rateVal == 3) {
+            rateComment.html('🙂 Neutral!');
+        } else if (rateVal == 4) {
+            rateComment.html('😊 Good!');
+        } else {
+            rateComment.html('😍 Amazing!');
+        }
+
+        // console.log(rateVal, rateComment)
+        return SetRatingStar();
+    });
+
+    SetRatingStar();
 </script>
 

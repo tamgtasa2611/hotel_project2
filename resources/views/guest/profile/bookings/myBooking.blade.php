@@ -104,7 +104,7 @@
                                                     {{$bookingDate->monthName . ' ' . $bookingDay . ', ' . $bookingYear . ' at ' . $bookingHour . ':' . $bookingMin}}
                                                 </td>
                                                 <td class="text-break text-center col">
-                                                    {{ $booking->room->name }}
+                                                    {{ $booking->room?->name }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">

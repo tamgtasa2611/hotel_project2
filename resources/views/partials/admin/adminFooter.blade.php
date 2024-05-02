@@ -6,7 +6,8 @@
         <span class="fw-bold text-primary">NguyenDucTam</span>
     </div>
     <div>
-        <a href="{{route('guest.home')}}">Guest site<i class="bi bi-chevron-right ms-2"></i></a>
+        <a href="{{route('guest.home')}}" target="_blank"
+           rel="noopener noreferrer">Guest site<i class="bi bi-chevron-right ms-2"></i></a>
     </div>
     <!-- Copyright -->
 </footer>

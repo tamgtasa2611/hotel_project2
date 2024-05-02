@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Guest;
 use App\Models\Payment;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -121,7 +122,8 @@ class ProfileController extends Controller
     public function bookingDetail(Booking $booking)
     {
         $payments = Payment::where('booking_id', '=', $booking->id)->get();
-        return view('guest.profile.bookings.bookingDetail', compact('booking', 'payments'));
+        $rate = Rating::where('booking_id', '=', $booking->id)->first();
+        return view('guest.profile.bookings.bookingDetail', compact('booking', 'payments', 'rate'));
     }
 
     public function cancelBooking(Booking $booking, Request $request)

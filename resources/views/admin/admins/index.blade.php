@@ -86,12 +86,18 @@
                                        class="btn btn-outline-primary rounded-pill me-3">
                                         Edit<i class="bi bi-pencil-square ms-2"></i>
                                     </a>
-                                    <a class="btn btn-outline-danger rounded-pill dlt-btn"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#exampleModal1"
-                                       data-id={{$admin->id}}>
-                                        Delete<i class="bi bi-trash ms-2"></i>
-                                    </a>
+                                    @if($admin->level != 0)
+                                        <a class="btn btn-outline-danger rounded-pill dlt-btn"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#exampleModal1"
+                                           data-id={{$admin->id}}>
+                                            Delete<i class="bi bi-trash ms-2"></i>
+                                        </a>
+                                    @else
+                                        <a class="btn btn-outline-danger disabled rounded-pill">
+                                            Delete<i class="bi bi-trash ms-2"></i>
+                                        </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
