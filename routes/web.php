@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\RoomController;
@@ -57,6 +58,9 @@ Route::prefix('/booking')->controller(BookingController::class)->group(function 
         Route::get('/success', 'success')->name('guest.checkOut.success');
     });
 });
+
+//VNPAY
+Route::post('/vnpay', [PaymentController::class, 'vnpay_payment'])->name('guest.vnpay');
 
 //END ROOMS
 

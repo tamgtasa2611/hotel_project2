@@ -132,19 +132,24 @@ class BookingController extends Controller
     {
         $data = session('bookingData');
         if ($data != []) {
-            $data['status'] = 1;
-//            Booking::create($data);
+            $data['status'] = 1; //confirmed
+            Booking::create($data);
+            $latestBookingId = Booking::where('guest_id', '=', $data['guest_id'])->max('id');
+            $booking = Booking::find($latestBookingId);
+
             $paymentData = [
-                'date' => $data['created_date'],
+                'date' => date('Y-m-d H:i:s'),
                 'amount' => $data['total_price'],
-                'note' => 'Pay by banking',
-                'status' => 1,
+                'note' => 'Pay via VNPAY',
+                'status' => 2,
                 'guest_id' => $data['guest_id'],
-//                'booking_id' => a,
+                'booking_id' => $latestBookingId,
                 'method_id' => 2,
             ];
-            dd($paymentData);
+            Payment::create($paymentData);
             session()->forget('bookingData');
+
+            Mail::to(Auth::guard('guest')->user())->send((new BookingInformation($booking))->afterCommit());
             return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
         } else {
             session()->forget('bookingData');
