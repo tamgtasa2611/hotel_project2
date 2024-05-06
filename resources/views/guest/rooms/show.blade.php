@@ -265,60 +265,116 @@
             <div class="mb-5 bg-white p-4 shadow-lg border rounded-4" id="rating">
                 <h4 class="mb-4 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
                 {{--                review--}}
-                <div class="row g-5">
+                <div class="row g-4">
                     <div class="col-12">
-                        @for($i = 0; $i < 5; $i++)
-                            <div class="pb-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="div-img overflow-hidden rounded-circle shadow-sm"
-                                         style="height: 60px; width: 60px">
-                                        <img src="{{asset('images/noavt.jpg')}}" class="img-fluid rounded-circle"
-                                             alt="guest_avatar">
+                        @if(count($roomRatings) != 0)
+                            @foreach($roomRatings as $roomRating)
+                                <div class="text-bg-light p-4 mb-4 rounded-4 shadow-lg">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <div class="div-img overflow-hidden rounded-circle shadow-sm"
+                                                 style="height: 60px; width: 60px">
+                                                <img
+                                                    src="{{asset(($roomRating->booking->guest->image) ? 'storage/admin/guests/'.$roomRating->booking->guest->image : 'images/noavt.jpg')}}"
+                                                    class="rounded-circle object-fit-cover"
+                                                    alt="guest_avatar" height="60px" width="60px">
+                                            </div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">
+                                                    {{$roomRating->booking->guest->first_name . ' ' . $roomRating->booking->guest->last_name}}
+                                                </div>
+                                                <div
+                                                    class="fs-7 fst-italic text-muted">{{$roomRating->rate_date}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            @if($roomRating->rating == 5)
+                                                <div>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                </div>
+                                                <div class="text-warning-emphasis">
+                                                    😍 Amazing!
+                                                </div>
+                                            @elseif($roomRating->rating == 4)
+                                                <div>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="text-warning-emphasis">
+                                                    😊 Good!
+                                                </div>
+                                            @elseif($roomRating->rating == 3)
+                                                <div>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="text-warning-emphasis">
+                                                    🙂 Neutral!
+                                                </div>
+                                            @elseif($roomRating->rating == 2)
+                                                <div>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="text-warning-emphasis">
+                                                    😒 Bad!
+                                                </div>
+                                            @elseif($roomRating->rating == 1)
+                                                <div>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                    <i class="bi bi-star text-warning"></i>
+                                                </div>
+                                                <div class="text-warning-emphasis">
+                                                    😡 Worst!
+                                                </div>
+                                            @endif
+
+                                        </div>
                                     </div>
-                                    <div class="ms-3">
-                                        <div class="">
-                                            Tam Nguyen
+                                    @if($roomRating->review)
+                                        <div class="mt-3">
+                                            <p class="m-0 p-0">
+                                                {{$roomRating->review}}
+                                            </p>
                                         </div>
-                                        <div class="fs-7 text-muted">
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                        </div>
-                                        <div
-                                            class="fs-7 fst-italic">March 24, 2024
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
-                                <div class="mt-3">
-                                    <span class="fw-bold">Phong nay dep lam</span>
-                                    <p>Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum
-                                        Lorem
-                                        isum Lorem
-                                        isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem
-                                        isum
-                                        Lorem isum
-                                        Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum
-                                        Lorem
-                                        isum
-                                        Lorem isum Lorem isum Lorem isum Lorem isum Lorem isum </p>
-                                </div>
-                            </div>
-                        @endfor
+                            @endforeach
+                        @else
+                            No review to show...
+                        @endif
                     </div>
                 </div>
             </div>
 
             {{--            SIMILAR ROOMS--}}
             <div class="mb-5 bg-white p-4 shadow-lg border rounded-4">
-                <h4 class="mb-4 fw-bold text-primary">Similar Rooms <i class="bi bi-house"></i></h4>
-                <div class="row row-cols-3 g-4">
-                    @if(count($similarRooms) != 0)
+                <h4 class="mb-4 fw-bold text-primary">Other <span
+                        class="">{{$room->roomType->name}}</span><i
+                        class="bi bi-search ms-2"></i></h4>
+                @if(count($similarRooms) != 0)
+                    <div class="row row-cols-3 g-4">
                         @foreach($similarRooms as $sRoom)
                             <div class="col-12 col-md-4">
-                                <div class="shadow-sm rounded">
-                                    <div class="ratio ratio-16x9 rounded-top hover-zoom overflow-hidden">
+                                <div class="shadow-sm rounded-4">
+                                    <div class="ratio ratio-16x9 rounded-top-4 hover-zoom overflow-hidden">
                                         @if(count($sRoom->images)== 0)
                                             <a href="{{route('guest.rooms.show', $sRoom)}}">
                                                 <img src="{{asset('images/noimage.jpg')}}" class="img-fluid"
@@ -334,9 +390,9 @@
                                     <div class="p-3 d-flex justify-content-between align-items-center">
                                         <a href="{{route('guest.rooms.show', $sRoom)}}" class="text-decoration-none">
                                             <h5 class="text-primary fw-bold">Room {{$sRoom->name}}</h5>
-                                            <div class="text-success">
+                                            <div class="text-success fw-bold">
                                                 ${{$sRoom->roomType->base_price}}<span
-                                                    class="text-dark">/night</span>
+                                                    class="text-dark fs-7 fw-normal">/night</span>
                                             </div>
                                         </a>
                                         <a href="{{route('guest.rooms.show', $sRoom)}}"
@@ -346,12 +402,10 @@
                                 </div>
                             </div>
                         @endforeach
-                    @else
-                        <div class="p-3">
-                            No similar rooms to show...
-                        </div>
-                    @endif
-                </div>
+                    </div>
+                @else
+                    No similar rooms to show...
+                @endif
             </div>
         </div>
     </section>

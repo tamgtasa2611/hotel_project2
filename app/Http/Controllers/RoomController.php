@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Rating;
 use App\Models\Room;
 use App\Models\RoomImage;
 use App\Models\RoomType;
@@ -41,7 +42,7 @@ class RoomController extends Controller
             $price['from_price'] = $price['to_price'];
             $price['to_price'] = $temp;
         }
-        
+
         $rating = $request->rating ?? 0;
 
         $defaultType = [];
@@ -116,16 +117,13 @@ class RoomController extends Controller
             }
         }
 
+        $bookingsContainThisRoom = Booking::where('room_id', '=', $room->id)->pluck('id')->toArray();
+        $roomRatings = Rating::whereIn('booking_id', $bookingsContainThisRoom)->get();
         $similarRooms = Room::where('room_type_id', '=', $room->roomType->id)
             ->where('id', '!=', $room->id)
             ->with('images')
             ->get();
 
-        return view('guest.rooms.show', [
-            'room' => $room,
-            'roomImages' => $roomImages,
-            'events' => $events,
-            'similarRooms' => $similarRooms,
-        ]);
+        return view('guest.rooms.show', compact('room', 'roomImages', 'events', 'roomRatings', 'similarRooms'));
     }
 }

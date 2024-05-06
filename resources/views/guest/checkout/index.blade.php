@@ -161,8 +161,15 @@
                             </div>
                             <a class="btn btn-secondary  rounded-pill w-100 mb-3 spinner-btn"
                                href="{{route('guest.checkOut.payInPerson')}}">Pay in person</a>
-                            <a class="btn btn-primary  rounded-pill w-100 spinner-btn"
-                               href="{{route('guest.checkOut.banking')}}">Banking</a>
+                            <form action="{{route('guest.vnpay')}}" method="POST" class="m-0">
+                                @csrf
+                                @method("POST")
+                                <input type="hidden" class="visually-hidden" name="total_price"
+                                       value="{{$data['total_price']}}">
+                                <button type="submit" name="redirect"
+                                        class="btn btn-primary rounded-pill w-100 spinner-btn">Banking
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
