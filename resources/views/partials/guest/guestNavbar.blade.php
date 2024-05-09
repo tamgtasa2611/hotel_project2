@@ -66,8 +66,6 @@
                                     <i class="bi bi-info-circle me-2"></i>My profile</a>
                                 <a class="dropdown-item tran-2" href="{{route('guest.myBooking')}}">
                                     <i class="bi bi-receipt me-2"></i>My bookings</a>
-                                <a class="dropdown-item tran-2" href="{{route('guest.editAccount')}}">
-                                    <i class="bi bi-gear me-2"></i>Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item tran-2" href="{{route('guest.logout')}}">
                                     <i class="bi bi-box-arrow-left me-2"></i>Sign out</a>

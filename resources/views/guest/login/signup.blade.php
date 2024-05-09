@@ -8,6 +8,7 @@
                 <form method="post" action="{{ route('guest.registerProcess') }}" enctype="multipart/form-data"
                       class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
                     @csrf
+                    @method('POST')
                     {{--                    heading --}}
                     <div class="d-flex justify-content-center align-items-center mb-4">
                         <h6 class="display-6 text-primary fw-bold">Register</h6>

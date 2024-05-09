@@ -21,13 +21,6 @@
         <i class="bi bi-receipt me-2"></i>
         <div>My bookings</div>
     </a>
-    <a href="{{route('guest.editAccount')}}" class="list-group-item list-group-item-action
-                        px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->routeIs('guest.editAccount') ? 'active' : ''}}"
-       aria-current="true">
-        <i class="bi bi-pencil-square me-2"></i>
-        <div>Edit account</div>
-    </a>
     <a href="{{route('guest.changePassword')}}" class="list-group-item list-group-item-action
                         px-3 border-0 d-flex align-items-center justify-content-lg-start justify-content-center
                         {{request()->routeIs('guest.changePassword') ? 'active' : ''}}"

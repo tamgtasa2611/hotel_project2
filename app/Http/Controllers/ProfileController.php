@@ -20,7 +20,11 @@ class ProfileController extends Controller
     //  profile
     public function profile()
     {
-        return view('guest.profile.index');
+        $guestId = Auth::guard('guest')->id();
+        $guest = Guest::find($guestId);
+        return view('guest.profile.index', [
+            'guest' => $guest
+        ]);
     }
 
 
@@ -72,7 +76,7 @@ class ProfileController extends Controller
             $data = Arr::add($data, 'image', $imagePath);
             $guest->update($data);
 
-            return to_route('guest.editAccount')->with('success', 'Update account successfully!');
+            return to_route('guest.profile')->with('success', 'Update account successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }
@@ -80,7 +84,39 @@ class ProfileController extends Controller
 
     public function changePassword()
     {
-        return view('guest.profile.changePassword');
+        $guestId = Auth::guard('guest')->id();
+        $guest = Guest::find($guestId);
+        return view('guest.profile.changePassword', [
+            'guest' => $guest
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $oldPassword = $request->old_password;
+        $newPassword = $request->new_password;
+        $confirmNewPassword = $request->confirm_new_password;
+
+        $guest = Auth::guard('guest')->user();
+        $currentPassword = $guest->getAuthPassword();
+
+        //kiem tra bo trong
+        if ($oldPassword == "" || $newPassword == "" || $confirmNewPassword == "") {
+            return back()->with('failed', 'Please enter all the fields!');
+        }
+
+        if (!Hash::check($oldPassword, $currentPassword)) {
+            return back()->with('failed', 'Wrong old password!');
+        }
+
+        if ($confirmNewPassword != $newPassword) {
+            return back()->with('failed', 'Confirm new password is not the same as new password!');
+        }
+
+        $hashedNewPassword = Hash::make($newPassword);
+        $guest->update(['password', $hashedNewPassword]);
+        
+        return back()->with('success', 'Change password successfully!');
     }
 
     public function myBooking(Request $request)

@@ -18,13 +18,6 @@
                                 unlimited
                                 offers and amazing experiences.
                             </p>
-                            <div class="d-flex">
-                                <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
-                                   rel="noopener noreferrer">Chat with us <i
-                                        class="bi bi-messenger"></i></a>
-                                <a href="/admin" class=" ms-3" target="_blank"
-                                   rel="noopener noreferrer">Admin panel <i class="bi bi-chevron-right"></i></a>
-                            </div>
                         </div>
                         <!-- Grid column -->
 
@@ -43,33 +36,18 @@
                     <div class="row mt-3">
                         <form action="" class="m-0">
                             <!--Grid row-->
-                            <div class="row d-flex">
-                                <!--Grid column-->
-                                <div class="col-12 col-md-auto">
-                                    <p class="w-100 pt-2">
-                                        Sign up for our latest offers
-                                    </p>
-                                </div>
-                                <!--Grid column-->
-
-                                <!--Grid column-->
-                                <div class="col-md-5 col-12">
-                                    <!-- Email input -->
-                                    <div data-mdb-input-init class="form-outline">
-                                        <input type="email" id="form5Example26" class="form-control mb-4 mb-md-0"
-                                               placeholder="Email address"/>
+                            <div class="row">
+                                <div class="col-12 col-lg-6 row g-4">
+                                    <div class="col-12 col-md-6">
+                                        <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
+                                           rel="noopener noreferrer">Chat with us <i
+                                                class="bi bi-messenger"></i></a>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <a href="/admin" class="" target="_blank"
+                                           rel="noopener noreferrer">Admin panel <i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
-                                <!--Grid column-->
-
-                                <!--Grid column-->
-                                <div class="col-12 col-md-auto">
-                                    <!-- Submit button -->
-                                    <button class="btn btn-primary rounded-pill">
-                                        Subscribe
-                                    </button>
-                                </div>
-                                <!--Grid column-->
                             </div>
                             <!--Grid row-->
                         </form>

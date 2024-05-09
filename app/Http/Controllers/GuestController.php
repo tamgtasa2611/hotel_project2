@@ -105,5 +105,16 @@ class GuestController extends Controller
             return to_route('guest.register')->with('failed', 'Something went wrong!');
         }
     }
+
     //    login logout register
+
+    public function forgotPassword()
+    {
+        return view('guest.login.forgotPassword');
+    }
+
+    public function forgotPasswordSendEmail()
+    {
+
+    }
 }

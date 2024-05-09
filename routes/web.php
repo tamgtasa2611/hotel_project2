@@ -70,6 +70,8 @@ Route::middleware([CheckGuestAlreadyLogin::class])->controller(GuestController::
     Route::post('/login', 'loginProcess')->name('guest.loginProcess');
     Route::get('/signup', 'register')->name('guest.register');
     Route::post('/signup', 'registerProcess')->name('guest.registerProcess');
+    Route::get('/forgotPassword', 'forgotPassword')->name('guest.forgotPassword');
+    Route::post('/forgotPassword', 'forgotPasswordSendEmail')->name('guest.forgotPassword.sendEmail');
 });
 Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 //LOGIN REGISTER LOGOUT
@@ -77,9 +79,9 @@ Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 //PROFILE
 Route::middleware([CheckLoginGuest::class])->controller(ProfileController::class)->group(function () {
     Route::get('/profile', 'profile')->name('guest.profile');
-    Route::get('/editAccount', 'editAccount')->name('guest.editAccount');
-    Route::put('/editAccount', 'updateAccount')->name('guest.updateAccount');
+    Route::put('/profile', 'updateAccount')->name('guest.updateAccount');
     Route::get('/changePassword', 'changePassword')->name('guest.changePassword');
+    Route::put('/changePassword', 'updatePassword')->name('guest.updatePassword');
     Route::prefix('/myBooking')->group(function () {
         Route::get('/', 'myBooking')->name('guest.myBooking');
         Route::get('/{booking}', 'bookingDetail')->name('guest.bookingDetail');
