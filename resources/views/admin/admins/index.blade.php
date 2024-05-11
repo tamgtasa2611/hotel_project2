@@ -70,7 +70,7 @@
                                         <span class="badge bg-dark rounded-pill">
                                         Owner</span>
                                     @else
-                                        <span class="badge bg-light rounded-pill">
+                                        <span class="badge bg-light rounded-pill shadow-lg">
                                         Employee</span>
                                     @endif
                                 </div>
@@ -94,7 +94,7 @@
                                             Delete<i class="bi bi-trash ms-2"></i>
                                         </a>
                                     @else
-                                        <a class="btn btn-outline-danger disabled rounded-pill">
+                                        <a class="btn btn-outline-dark disabled rounded-pill">
                                             Delete<i class="bi bi-trash ms-2"></i>
                                         </a>
                                     @endif

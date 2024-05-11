@@ -26,16 +26,7 @@ class ProfileController extends Controller
             'guest' => $guest
         ]);
     }
-
-
-    public function editAccount()
-    {
-        $guestId = Auth::guard('guest')->id();
-        $guest = Guest::find($guestId);
-        return view('guest.profile.editAccount', [
-            'guest' => $guest
-        ]);
-    }
+    
 
     public function updateAccount(Request $request)
     {
@@ -115,7 +106,7 @@ class ProfileController extends Controller
 
         $hashedNewPassword = Hash::make($newPassword);
         $guest->update(['password', $hashedNewPassword]);
-        
+
         return back()->with('success', 'Change password successfully!');
     }
 

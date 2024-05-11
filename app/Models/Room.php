@@ -6,17 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 class Room extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'rooms';
     public $timestamps = false;
     protected $fillable = [
         'name',
-        'capacity',
+        'price',
+        'bed_size',
+        'status',
         'room_type_id',
     ];
 
@@ -28,6 +32,11 @@ class Room extends Model
     public function images(): HasMany
     {
         return $this->hasMany(RoomImage::class);
+    }
+
+    public function amenities(): HasMany
+    {
+        return $this->hasMany(Amenity::class);
     }
 
     public function bookings(): HasMany

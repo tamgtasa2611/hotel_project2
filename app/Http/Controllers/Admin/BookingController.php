@@ -32,20 +32,18 @@ class BookingController extends Controller
         ]);
     }
 
-    public function update(UpdateBookingRequest $request, Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
-        $validated = $request->validated();
+//        $validated = $request->validated();
 
-        if ($validated) {
-            $data = [];
-            $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'base_price', $request->base_price);
-
-            $booking->update($data);
+        if (true) {
+            $booking->update([
+                'status' => $request->status
+            ]);
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room type');
-            return to_route('admin.bookings')->with('success', 'Room type updated successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
+            return to_route('admin.bookings')->with('success', 'Booking status updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }

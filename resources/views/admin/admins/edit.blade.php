@@ -96,7 +96,7 @@
                             @if($admin->level == 0)
                                 <a class="badge bg-dark rounded-pill">Owner</a>
                             @else
-                                <a class="badge bg-light rounded-pill">Employee</a>
+                                <a class="badge bg-light rounded-pill shadow-lg">Employee</a>
                             @endif
                         </div>
                         @if ($errors->has('level'))

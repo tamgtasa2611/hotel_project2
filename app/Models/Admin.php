@@ -6,11 +6,13 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Admin extends Model implements \Illuminate\Contracts\Auth\Authenticatable
 {
     use HasFactory;
     use Authenticatable;
+    use SoftDeletes;
 
     protected $table = 'admins';
     public $timestamps = false;

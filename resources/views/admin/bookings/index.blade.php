@@ -58,15 +58,42 @@
                             <td class="text-center">
                                 @switch($booking->status)
                                     @case(0)
-                                        <div class="badge bg-danger rounded-pill">Pending</div>
+                                        <div class="badge bg-danger rounded-pill">
+                                            Pending
+                                        </div>
+                                        @break
+                                    @case(1)
+                                        <div class="badge bg-warning rounded-pill">
+                                            Confirmed
+                                        </div>
+                                        @break
+                                    @case(2)
+                                        <div class="badge bg-info rounded-pill">
+                                            Ongoing
+                                        </div>
+                                        @break
+                                    @case(3)
+                                        <div class="badge bg-success rounded-pill">
+                                            Completed
+                                        </div>
+                                        @break
+                                    @case(4)
+                                        <div class="badge bg-danger rounded-pill">
+                                            Cancelled
+                                        </div>
+                                        @break
+                                    @case(5)
+                                        <div class="badge bg-dark rounded-pill">
+                                            Refund
+                                        </div>
                                         @break
                                 @endswitch
                             </td>
                             <td class="text-center">
-                                {{ $booking->guest->first_name . ' ' . $booking->guest->last_name }}
+                                {{ $booking->guest?->first_name . ' ' . $booking->guest->last_name }}
                             </td>
                             <td class="text-center">
-                                {{ $booking->room->name }}
+                                {{ $booking->room?->name }}
                             </td>
                             <td class="text-center">
                                 {{ $booking->checkin_date }}

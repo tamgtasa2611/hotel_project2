@@ -1,61 +1,52 @@
 <title>Booking information - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
+    <div class="p-3 bg-white rounded-4 shadow-sm border mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Bookings Management</h4>
         </div>
     </div>
 
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
+    <div class="bg-white rounded-4 shadow-sm border overflow-hidden">
         <div
-            class="p-3 rounded-top border-bottom">
+            class="p-3 rounded-4-top border-bottom">
             <div class="text-primary">
                 <i class="bi bi-pencil-square me-2"></i>Edit booking
             </div>
         </div>
         {{-- FORM  --}}
 
-        <form method="post" action="{{ route('admin.roomTypes.update', $booking) }}" enctype="multipart/form-data"
+        <form method="post" action="{{ route('admin.bookings.update', $booking) }}" enctype="multipart/form-data"
               class="m-0">
             @csrf
             @method('PUT')
             <!-- name input -->
             <div class="p-3 col-12  col-lg-6 col-xl-4">
-                <div data-mdb-input-init class="form-outline">
-                    <input type="text" id="name" name="name" class="form-control"
-                           value="{{ $booking->name }}" required/>
-                    <label class="form-label" for="name">Type name</label>
-                </div>
-                @if ($errors->has('name'))
-                    @foreach ($errors->get('name') as $error)
+                <label class="form-label" for="status">status</label>
+                <select name="status" id="status" required class="form-select">
+                    <option value="0" {{$booking->status == 0 ? 'selected' : ''}}>Pending</option>
+                    <option value="1" {{$booking->status == 1 ? 'selected' : ''}}>Confirmed</option>
+                    <option value="2" {{$booking->status == 2 ? 'selected' : ''}}>Ongoing</option>
+                    <option value="3" {{$booking->status == 3 ? 'selected' : ''}}>Completed</option>
+                    <option value="4" {{$booking->status == 4 ? 'selected' : ''}}>Cancelled</option>
+                    <option value="5" {{$booking->status == 5 ? 'selected' : ''}}>Refund</option>
+                </select>
+                @if ($errors->has('status'))
+                    @foreach ($errors->get('status') as $error)
                         <span class="text-danger fs-7">{{ $error }}</span>
                     @endforeach
                 @endif
             </div>
 
-            <!-- description Number input -->
-            <div class="p-3 pt-0 col-12 col-lg-6 col-xl-4">
-                <div data-mdb-input-init class="form-outline">
-                    <input type="number" id="base_price" name="base_price" class="form-control"
-                           value="{{ $booking->base_price }}" step="0.01" min="0"
-                           required/>
-                    <label class="form-label" for="base_price">Base price per night ($)</label>
-                </div>
-                @if ($errors->has('base_price'))
-                    @foreach ($errors->get('base_price') as $error)
-                        <span class="text-danger fs-7">{{ $error }}</span>
-                    @endforeach
-                @endif
-            </div>
+            TEST DEMO
 
             <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
-                <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}"
-                   class="btn btn-secondary rounded tran-2 me-3">
+                <a href="{{ route('admin.bookings') }}"
+                   class="btn btn-secondary rounded-4 tran-2 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
+                <button type="submit" class="btn btn-primary rounded-4 tran-2">
                     Update
                 </button>
             </div>

@@ -136,7 +136,7 @@
                 <div class="col-10 h-100">
                     <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
                         <div class="w-100 text-center">
-                            <span class="text-uppercase text-primary">THE ESSENTIAL IN-ROOM AMENITIES</span>
+                            <span class="text-uppercase text-primary">THE ESSENTIAL IN & OUT-ROOM AMENITIES</span>
                             <h2 class="font-2 display-6 my-3">All the essentials you need</h2>
                         </div>
                         <div class="row mt-3 g-5">

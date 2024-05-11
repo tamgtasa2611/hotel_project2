@@ -59,7 +59,7 @@
                             </div>
                             <div
                                 class="fw-bold bg-light rounded-end-4 border-start border-primary border-4 ps-2 mb-2 mt-3">
-                                Guest Information<a href="{{route('guest.editAccount')}}"><i
+                                Guest Information<a href="{{route('guest.profile')}}"><i
                                         class="bi bi-pencil-square ms-2"></i></a>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -179,11 +179,13 @@
     <div class="d-flex d-none justify-content-center align-items-center fixed-top w-100 tran-2"
          id="spinner"
          style="z-index: 999; height: 100dvh; background-color: rgba(0,0,0,0.2)">
-        <div class="spinner-border text-primary tran-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="text-primary ms-3">
-            Processing...
+        <div class="bg-light rounded-4 border p-4 d-flex justify-content-center align-items-center">
+            <div class="spinner-border text-primary tran-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="text-primary ms-3">
+                Processing...
+            </div>
         </div>
     </div>
     <script>

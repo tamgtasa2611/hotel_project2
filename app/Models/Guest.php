@@ -6,11 +6,13 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
 {
     use HasFactory;
     use Authenticatable;
+    use SoftDeletes;
 
     protected $table = 'guests';
     public $timestamps = false;

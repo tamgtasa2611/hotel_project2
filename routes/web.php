@@ -37,6 +37,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('guest.home');
     Route::get('/home', 'index')->name('guest.home');
     Route::get('/contact', 'contact')->name('guest.contact');
+    Route::post('/contact', 'sendContact')->name('guest.sendContact');
     Route::get('/about', 'about')->name('guest.about');
 });
 
@@ -72,6 +73,10 @@ Route::middleware([CheckGuestAlreadyLogin::class])->controller(GuestController::
     Route::post('/signup', 'registerProcess')->name('guest.registerProcess');
     Route::get('/forgotPassword', 'forgotPassword')->name('guest.forgotPassword');
     Route::post('/forgotPassword', 'forgotPasswordSendEmail')->name('guest.forgotPassword.sendEmail');
+    Route::get('/forgotPassword/enterCode', 'forgotPasswordEnterCode')->name('guest.forgotPassword.enterCode');
+    Route::post('/forgotPassword/enterCode', 'forgotPasswordCheckCode')->name('guest.forgotPassword.checkCode');
+    Route::get('/resetPassword', 'resetPassword')->name('guest.forgotPassword.resetPassword');
+    Route::put('/resetPassword', 'resetPasswordProcess')->name('guest.forgotPassword.resetPasswordProcess');
 });
 Route::get('/logout', [GuestController::class, 'logout'])->name('guest.logout');
 //LOGIN REGISTER LOGOUT
@@ -210,3 +215,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 //ADMIN---------------------------------------------------------
+

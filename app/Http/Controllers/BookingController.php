@@ -110,7 +110,7 @@ class BookingController extends Controller
             $paymentData = [
                 'date' => date('Y-m-d H:i:s'),
                 'amount' => $data['total_price'],
-                'note' => 'Pay in person',
+                'note' => '',
                 'status' => 0,
                 'guest_id' => $data['guest_id'],
                 'booking_id' => $latestBookingId,
@@ -140,7 +140,7 @@ class BookingController extends Controller
             $paymentData = [
                 'date' => date('Y-m-d H:i:s'),
                 'amount' => $data['total_price'],
-                'note' => 'Pay via VNPAY',
+                'note' => 'Pay via VNPAY gateway',
                 'status' => 2,
                 'guest_id' => $data['guest_id'],
                 'booking_id' => $latestBookingId,

@@ -84,6 +84,10 @@ html.sr .load-hidden {
     pointer-events: none;
 }
 
+.navbar .navbar-nav .nav-link {
+    border-radius: 0;
+}
+
 /*NAVBAR=====================================================*/
 
 /*rooms*/
