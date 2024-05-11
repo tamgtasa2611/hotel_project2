@@ -4,15 +4,15 @@
         <div class="container">
             <div class="row h-auto py-5 g-4">
                 <div class="col-12">
-                    <div class="shadow-lg rounded-4 border bg-white px-4 py-3">
+                    <div class="shadow-lg   bg-dark px-4 py-3">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
-                            <div class="bg-light shadow-sm rounded-circle p-3">
+                            <div class="bg-dark shadow-sm  p-3">
                                 <i class="bi bi-house-check display-6"></i>
                             </div>
-                            <div class="bg-light shadow-sm  rounded-circle p-3">
+                            <div class="bg-dark shadow-sm   p-3">
                                 <i class="bi bi-credit-card display-6"></i>
                             </div>
-                            <div class="bg-light shadow-sm  rounded-circle p-3">
+                            <div class="bg-dark shadow-sm   p-3">
                                 <i class="bi bi-check display-6"></i>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-12 load-hidden fade-in">
-                    <div class="p-4 bg-white shadow-lg rounded-4 border h-100 d-flex flex-column">
+                    <div class="p-4 bg-dark shadow-lg   h-100 d-flex flex-column">
                         <div class="my-3">
                             {{--                    heading--}}
                             <div class="d-flex flex-column justify-content-center align-items-center">
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <a class="btn btn-primary rounded-pill"
+                                <a class="btn btn-outline-primary "
                                    href="{{route('guest.rooms')}}">VIEW ROOMS<i class="ms-2 bi bi-search"></i> </a>
                             </div>
                         </div>

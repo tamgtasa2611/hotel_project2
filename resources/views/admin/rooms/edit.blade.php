@@ -1,6 +1,6 @@
 <title>Edit room information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+    <div class="p-4 bg-dark  shadow-lg  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Rooms Management</h4>
             <a class="d-block d-lg-none"
@@ -11,9 +11,9 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
+    <div class="bg-dark  shadow-lg  overflow-hidden">
         <div
-            class="p-4 rounded-top border-bottom">
+            class="p-4  -bottom">
             <div class="text-primary">
                 <i class="bi bi-pencil-square me-2"></i>Edit room
             </div>
@@ -96,8 +96,8 @@
                 <div class="col-12 col-lg-6 col-xl-8">
                     {{--                    neu co anh --}}
                     @if(count($roomImages) != 0)
-                        <div class="border rounded-4 mt-4 me-4">
-                            <div class="border-bottom p-4 d-flex align-items-center justify-content-between">
+                        <div class="  mt-4 me-4">
+                            <div class="-bottom p-4 d-flex align-items-center justify-content-between">
                                 <div>
                                     <i class="bi bi-image me-2"></i>Current room images
                                 </div>
@@ -114,13 +114,13 @@
                                 @foreach($roomImages as $image)
                                     <div class="overflow-hidden rounded pt-3 h-100 room-img position-relative">
                                         <img src="{{asset('storage/admin/rooms/' . $image->path)}}"
-                                             class="w-100 h-100 object-fit-cover border rounded "
+                                             class="w-100 h-100 object-fit-cover  rounded "
                                              alt="room_img">
                                         <a data-id="{{$image->id}}"
                                            data-bs-toggle="modal"
                                            data-bs-target="#deleteOne"
                                            href="#!"
-                                           class="dlt-btn position-absolute end-0 me-3 mt-1 bg-danger overflow-hidden p-0 rounded-circle">
+                                           class="dlt-btn position-absolute end-0 me-3 mt-1 bg-danger overflow-hidden p-0 ">
                                             <i class="bi bi-x text-white p-0 fs-5"></i>
                                         </a>
                                     </div>
@@ -131,20 +131,20 @@
                 </div>
             </div>
 
-            <div class=" d-flex justify-content-between justify-content-md-start border-top p-4">
+            <div class=" d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.rooms') }}"
-                   class="btn btn-secondary rounded-pill tran-2 me-3">
+                   class="btn btn-secondary  tran-3 me-3">
                     Back
                 </a>
                 @if(count($roomTypes) == 0)
                     <a href="{{ route('admin.roomTypes.create') }}"
-                       class="btn btn-primary rounded-pill tran-2 me-3">
+                       class="btn btn-primary  tran-3 me-3">
                         Add Room Type
                     </a>
                 @else
                     <!-- Submit button -->
                     <button type="submit"
-                            class="btn btn-primary rounded-pill tran-2">
+                            class="btn btn-primary  tran-3">
                         Update
                     </button>
                 @endif
@@ -168,11 +168,11 @@
                             Do you want to delete <span class="fw-bold">all images</span> of this room?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded-pill"
+                            <button type="button" class="btn btn-secondary "
                                     data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-danger rounded-pill">
+                            <button type="submit" class="btn btn-danger ">
                                 Delete All
                             </button>
                         </div>
@@ -201,11 +201,11 @@
                                    value="">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded-pill"
+                            <button type="button" class="btn btn-secondary "
                                     data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-danger rounded-pill">
+                            <button type="submit" class="btn btn-danger ">
                                 Delete
                             </button>
                         </div>

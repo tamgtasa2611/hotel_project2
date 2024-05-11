@@ -19,13 +19,17 @@ form {
     margin: 0;
 }
 
+.bg-dark-main {
+    background-color: #151719 !important;
+}
+
 .modal-footer {
     background-color: var(--bs-white);
 }
 
 /*margin from navbar*/
 .m-nav {
-    margin-top: 67px !important;
+    margin-top: 72px !important;
 }
 
 /*scroll reveal========================*/
@@ -126,7 +130,7 @@ html.sr .load-hidden {
 }
 
 .mh-screen {
-    height: 92dvh !important;
+    height: 90dvh !important;
 }
 
 .home-form {
@@ -165,14 +169,13 @@ html.sr .load-hidden {
 }
 
 .list-group-item, .list-group-item.active, .list-group-item:hover, .list-group-item:focus {
-    border-radius: 0 100px 100px 0;
-    border-left: 4px solid var(--bs-white) !important;
+    border-left: 4px solid var(--bs-dark) !important;
 }
 
 .list-group-item.active {
-    background-color: var(--bs-light);
+    background-color: var(--bs-dark);
     color: var(--bs-primary);
-    border-left: 4px solid var(--bs-primary) !important;
+    border-left: 5px solid var(--bs-primary) !important;
 }
 
 
@@ -180,7 +183,7 @@ html.sr .load-hidden {
 
 @media (max-width: 991px) {
     .m-nav {
-        margin-top: 67px !important;
+        margin-top: 72px !important;
     }
 }
 

@@ -6,7 +6,7 @@
                 class="w-100 h-100 d-flex align-items-center justify-content-center
              load-hidden fade-in position-relative">
                 <form method="post" action="{{ route('guest.registerProcess') }}" enctype="multipart/form-data"
-                      class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
+                      class="bg-dark p-5  shadow-lg  col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     @method('POST')
                     {{--                    heading --}}
@@ -86,7 +86,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button class="btn btn-primary w-100 mb-4 tran-2 rounded-pill">
+                    <button class="btn btn-outline-primary w-100 mb-4 tran-3 ">
                         Sign up
                     </button>
 

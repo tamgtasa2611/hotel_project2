@@ -33,7 +33,7 @@
                 <div class="row g-5">
                     {{--                calendar--}}
                     <div class="col-12 col-lg-8 h-100">
-                        <div class="bg-white p-4 pb-4 shadow-lg border rounded-4">
+                        <div class="bg-dark p-4 pb-4 shadow-lg  ">
                             {{--                room image--}}
                             <div class="mb-5 ratio ratio-16x9 overflow-hidden">
                                 @if(count($roomImages) > 1)
@@ -41,12 +41,12 @@
                                     <div id="carouselExampleAutoplaying" class="carousel slide"
                                          data-bs-ride="carousel">
                                         <div
-                                            class="carousel-inner rounded-4 shadow-lg tran-2 ratio ratio-16x9 overflow-hidden">
+                                            class="carousel-inner  shadow-lg tran-3 ratio ratio-16x9 overflow-hidden">
                                             @foreach($roomImages as $image)
                                                 <div class="carousel-item {{$image == $roomImages[0] ? 'active' : '' }}"
                                                      data-bs-interval="4000">
                                                     <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                         class="d-block w-100 rounded-4 shadow-lg object-fit-cover"
+                                                         class="d-block w-100  shadow-lg object-fit-cover"
                                                          alt="...">
                                                 </div>
                                             @endforeach
@@ -64,23 +64,23 @@
                                     </div>
                                     <!-- Carousel wrapper -->
                                 @elseif(count($roomImages) == 1)
-                                    <div class="rounded-4 shadow-lg overflow-hidden ratio ratio-16x9">
+                                    <div class=" shadow-lg overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         @foreach($roomImages as $image)
                                             <div
-                                                class="overflow-hidden ratio ratio-16x9 rounded-4">
+                                                class="overflow-hidden ratio ratio-16x9 ">
                                                 <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                     class="d-block w-100 rounded-4 shadow-lg object-fit-cover"/>
+                                                     class="d-block w-100  shadow-lg object-fit-cover"/>
                                             </div>
                                         @endforeach
                                     </div>
                                 @else
-                                    <div class="rounded-4 shadow-lg overflow-hidden ratio ratio-16x9">
+                                    <div class=" shadow-lg overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         <div
-                                            class="overflow-hidden ratio ratio-16x9 rounded-4">
+                                            class="overflow-hidden ratio ratio-16x9 ">
                                             <img src="{{asset('images/noimage.jpg')}}"
-                                                 class="d-block w-100 rounded-4 shadow-lg object-fit-cover"/>
+                                                 class="d-block w-100  shadow-lg object-fit-cover"/>
                                         </div>
                                     </div>
                                 @endif
@@ -110,17 +110,17 @@
                                 <h4 class="mb-3 text-primary">Family-friendly Amenities</h4>
                                 <div class="row h-100 g-4">
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">
+                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">
                                             Kitchen Items
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">Baby
+                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">Baby
                                             Crib
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg border rounded-4 h-100 fs-6 p-4 text-center">
+                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">
                                             Washing
                                             Machine
                                         </div>
@@ -130,7 +130,7 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
-                                    <ul class="border-4 border-primary border-start list-unstyled ps-3">
+                                    <ul class=" -primary  list-unstyled ps-3">
                                         <li class="">
                                             Amazing balcony
                                         </li>
@@ -155,7 +155,7 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-white p-4 m-0 shadow-lg border rounded-4"
+                              class="bg-dark p-4 m-0 shadow-lg  "
                               action="{{route('guest.bookRoom')}}">
                             @csrf
                             @method('POST')
@@ -224,7 +224,7 @@
                                 @auth('guest')
                                     <!-- Submit button -->
                                     <button type="submit" id="bookBtn"
-                                            class="btn btn-primary rounded-pill tran-2 w-100">
+                                            class="btn btn-outline-primary  tran-3 w-100">
                                         BOOK
                                     </button>
                                 @endauth
@@ -242,7 +242,7 @@
                             </div>
                         </form>
 
-                        <div class="mt-5 bg-white p-4 shadow-lg border rounded-4">
+                        <div class="mt-5 bg-dark p-4 shadow-lg  ">
                             <h4 class="mb-3 mt-md-0 text-primary">Check Availability</h4>
                             <div id='calendar' class="fs-7 mb-4"></div>
                         </div>
@@ -262,21 +262,21 @@
                 </div>
             </div>
             {{--            rating--}}
-            <div class="mb-5 bg-white p-4 shadow-lg border rounded-4" id="rating">
+            <div class="mb-5 bg-dark p-4 shadow-lg  " id="rating">
                 <h4 class="mb-4 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
                 {{--                review--}}
                 <div class="row g-4">
                     <div class="col-12">
                         @if(count($roomRatings) != 0)
                             @foreach($roomRatings as $roomRating)
-                                <div class="text-bg-light p-4 mb-4 rounded-4 shadow-lg">
+                                <div class="text-bg-dark p-4 mb-4  shadow-lg">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <div class="div-img overflow-hidden rounded-circle shadow-sm"
+                                            <div class="div-img overflow-hidden  shadow-sm"
                                                  style="height: 60px; width: 60px">
                                                 <img
                                                     src="{{asset(($roomRating->booking->guest->image) ? 'storage/admin/guests/'.$roomRating->booking->guest->image : 'images/noavt.jpg')}}"
-                                                    class="rounded-circle object-fit-cover"
+                                                    class=" object-fit-cover"
                                                     alt="guest_avatar" height="60px" width="60px">
                                             </div>
                                             <div class="ms-3">
@@ -365,7 +365,7 @@
             </div>
 
             {{--            SIMILAR ROOMS--}}
-            <div class="mb-5 bg-white p-4 shadow-lg border rounded-4">
+            <div class="mb-5 bg-dark p-4 shadow-lg  ">
                 <h4 class="mb-4 fw-bold text-primary">Other <span
                         class="">{{$room->roomType->name}}</span><i
                         class="bi bi-search ms-2"></i></h4>
@@ -373,8 +373,8 @@
                     <div class="row row-cols-3 g-4">
                         @foreach($similarRooms as $sRoom)
                             <div class="col-12 col-md-4">
-                                <div class="shadow-sm rounded-4">
-                                    <div class="ratio ratio-16x9 rounded-top-4 hover-zoom overflow-hidden">
+                                <div class="shadow-sm ">
+                                    <div class="ratio ratio-16x9 -4 hover-zoom overflow-hidden">
                                         @if(count($sRoom->images)== 0)
                                             <a href="{{route('guest.rooms.show', $sRoom)}}">
                                                 <img src="{{asset('images/noimage.jpg')}}" class="img-fluid"
@@ -396,7 +396,7 @@
                                             </div>
                                         </a>
                                         <a href="{{route('guest.rooms.show', $sRoom)}}"
-                                           class="btn btn-primary rounded-pill"
+                                           class="btn btn-outline-primary "
                                            data-mdb-ripple-init>VIEW</a>
                                     </div>
                                 </div>

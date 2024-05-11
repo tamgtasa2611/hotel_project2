@@ -1,6 +1,6 @@
 <title>Guests management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+    <div class="p-4 bg-dark  shadow-lg  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Guests Management</h4>
             <a class="d-block d-lg-none"
@@ -12,8 +12,8 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
-        <div class="p-4 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
+    <div class="bg-dark  shadow-lg  overflow-hidden">
+        <div class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Guests Datatable
             </div>
@@ -27,10 +27,10 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 bg-white rounded-bottom text-muted">
+        <div class="p-4 bg-dark  text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-dark  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -50,7 +50,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden rounded-circle shadow-sm">
+                                        class="div-img overflow-hidden  shadow-sm">
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
                                             alt="guest_avatar" class="object-fit-cover" width="40px"
@@ -67,10 +67,10 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($guest->status == 1)
-                                        <span class="badge bg-success rounded-pill">
+                                        <span class="badge bg-success ">
                                         Active</span>
                                     @else
-                                        <span class="badge bg-danger rounded-pill">
+                                        <span class="badge bg-danger ">
                                         Locked</span>
                                     @endif
                                 </div>
@@ -83,10 +83,10 @@
                             <td class="fs-5">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.guests.edit', $guest) }}"
-                                       class="btn btn-outline-primary rounded-pill me-3">
+                                       class="btn btn-outline-primary  me-3">
                                         Edit<i class="bi bi-pencil-square ms-2"></i>
                                     </a>
-                                    <a class="btn btn-outline-danger rounded-pill dlt-btn"
+                                    <a class="btn btn-outline-danger  dlt-btn"
                                        data-bs-toggle="modal"
                                        data-bs-target="#exampleModal1"
                                        data-id={{$guest->id}}>
@@ -119,11 +119,11 @@
                                            value="">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary rounded-pill"
+                                    <button type="button" class="btn btn-secondary "
                                             data-bs-dismiss="modal">
                                         Close
                                     </button>
-                                    <button type="submit" class="btn btn-danger rounded-pill">
+                                    <button type="submit" class="btn btn-danger ">
                                         Delete
                                     </button>
                                 </div>

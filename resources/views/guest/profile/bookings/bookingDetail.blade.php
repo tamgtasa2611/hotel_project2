@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-12 col-lg-3">
-                    <div class="p-4 rounded-4 shadow-lg border bg-white">
+                    <div class="p-4  shadow-lg  bg-dark">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-12 col-lg-9 h-100">
                     <div
-                        class="p-4 rounded-4 shadow-lg border bg-white d-flex flex-column justify-content-between h-100">
+                        class="p-4  shadow-lg  bg-dark d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
                                 class="d-flex align-items-baseline justify-content-between flex-column flex-md-row mb-4">
@@ -49,32 +49,32 @@
                                     <div class="ms-3 d-flex align-items-center justify-content-center">
                                         @switch($booking->status)
                                             @case(0)
-                                                <div class="badge bg-danger rounded-pill">
+                                                <div class="badge bg-danger ">
                                                     Pending
                                                 </div>
                                                 @break
                                             @case(1)
-                                                <div class="badge bg-warning rounded-pill">
+                                                <div class="badge bg-warning ">
                                                     Confirmed
                                                 </div>
                                                 @break
                                             @case(2)
-                                                <div class="badge bg-info rounded-pill">
+                                                <div class="badge bg-info ">
                                                     Ongoing
                                                 </div>
                                                 @break
                                             @case(3)
-                                                <div class="badge bg-success rounded-pill">
+                                                <div class="badge bg-success ">
                                                     Completed
                                                 </div>
                                                 @break
                                             @case(4)
-                                                <div class="badge bg-danger rounded-pill">
+                                                <div class="badge bg-danger ">
                                                     Cancelled
                                                 </div>
                                                 @break
                                             @case(5)
-                                                <div class="badge bg-dark rounded-pill">
+                                                <div class="badge bg-dark ">
                                                     Refund
                                                 </div>
                                                 @break
@@ -86,7 +86,7 @@
                                 </p>
                             </div>
                             <div class="overflow-x-auto">
-                                <div class="mb-2 fw-bold  border-4 border-primary border-start ps-2">
+                                <div class="mb-2 fw-bold   -primary  ps-2">
                                     Guest details<i class="bi bi-person text-warning ms-2"></i>
                                 </div>
                                 <div class="overflow-x-auto mb-2">
@@ -120,7 +120,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="mb-2 fw-bold  border-4 border-primary border-start ps-2">Payment details<i
+                            <div class="mb-2 fw-bold   -primary  ps-2">Payment details<i
                                     class="bi bi-currency-dollar text-success ms-2"></i>
                             </div>
                             <div class="mb-2">
@@ -203,7 +203,7 @@
                             @if($booking->note)
                                 <div class="mb-2 fw-bold"><i class="bi bi-chat-dots me-2"></i>Note</div>
                                 <pre style="white-space: pre-line"
-                                     class="mb-4 p-3 text-bg-light">
+                                     class="mb-4 p-3 text-bg-dark">
                                     {!! $booking->note !!}
                                 </pre>
                             @endif
@@ -211,18 +211,18 @@
                                 class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
                                 @if($booking->status == 3 || $booking->status == 5)
                                     @if(!$rate)
-                                        <a href="" class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
+                                        <a href="" class="btn btn-outline-primary  me-2" data-bs-toggle="modal"
                                            data-bs-target="#ratingModal">Write a
                                             review</a>
                                     @else
-                                        <a href="" class="btn btn-primary rounded-pill me-2" data-bs-toggle="modal"
+                                        <a href="" class="btn btn-outline-primary  me-2" data-bs-toggle="modal"
                                            data-bs-target="#myReviewModal">My review</a>
                                     @endif
                                 @endif
-                                <a href="" class="btn btn-dark rounded-pill ">Refund
+                                <a href="" class="btn btn-dark  ">Refund
                                     policies</a>
                                 @if($booking->status == 0)
-                                    <a class="btn btn-secondary rounded-pill tran-2 ms-2"
+                                    <a class="btn btn-secondary  tran-3 ms-2"
                                        data-bs-toggle="modal"
                                        data-bs-target="#exampleModal"
                                        data-id="1">
@@ -231,7 +231,7 @@
                                 @endif
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="shadow-lg border table mb-4">
+                                <table class="shadow-lg  table mb-4">
                                     <thead>
                                     <tr>
                                         <th>Room booked</th>
@@ -245,17 +245,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-column flex-xl-row align-middle align-items-center">
-                                                <div class="bg-image ratio ratio-16x9 rounded-4 shadow-lg">
+                                                <div class="bg-image ratio ratio-16x9  shadow-lg">
                                                     @if(count($booking->room->images) != 0)
                                                         <img
                                                             src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover rounded-4 shadow-lg">
+                                                            class="object-fit-cover  shadow-lg">
                                                     @else
                                                         <img
                                                             src="{{asset('images/noimage.jpg')}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover rounded-4 shadow-lg">
+                                                            class="object-fit-cover  shadow-lg">
                                                     @endif
                                                 </div>
                                                 <div class="mt-3 mt-xl-0 ms-xl-3">
@@ -351,11 +351,11 @@
                                   value=""></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary rounded-pill"
+                        <button type="button" class="btn btn-secondary "
                                 data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-primary rounded-pill">
+                        <button type="submit" class="btn btn-outline-primary ">
                             Rate
                         </button>
                     </div>
@@ -432,18 +432,18 @@
                         @if($rate?->review)
                             <div>
                                   <pre style="white-space: pre-line"
-                                       class="mb-4 p-3 text-bg-light">
+                                       class="mb-4 p-3 text-bg-dark">
                                     {!! $rate->review !!}
                                 </pre>
                             </div>
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary rounded-pill"
+                        <button type="button" class="btn btn-secondary "
                                 data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-danger rounded-pill">
+                        <button type="submit" class="btn btn-danger ">
                             Delete this review
                         </button>
                     </div>
@@ -474,11 +474,11 @@
                         <textarea name="note" id="reason" cols="20" rows="6" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary rounded-pill"
+                        <button type="button" class="btn btn-secondary "
                                 data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-danger rounded-pill">
+                        <button type="submit" class="btn btn-danger ">
                             Cancel booking
                         </button>
                     </div>

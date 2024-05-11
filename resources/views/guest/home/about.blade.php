@@ -22,15 +22,15 @@
 
                 <div class="col-12 row">
                     <div class="col-12 mb-3 mb-lg-0 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/1.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
+                        <img src="{{asset('images/1.jpg')}}" alt="" class="img-fluid shadow-lg  ">
                     </div>
 
                     <div class="col-12 mb-3 mb-lg-0 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/2.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
+                        <img src="{{asset('images/2.jpg')}}" alt="" class="img-fluid shadow-lg  ">
                     </div>
 
                     <div class="col-12 col-lg-4 overflow-hidden rounded">
-                        <img src="{{asset('images/3.jpg')}}" alt="" class="img-fluid shadow-lg border rounded-4">
+                        <img src="{{asset('images/3.jpg')}}" alt="" class="img-fluid shadow-lg  ">
                     </div>
                 </div>
             </div>

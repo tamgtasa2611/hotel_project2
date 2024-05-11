@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
-<body class="overflow-x-hidden overflow-y-auto bg-light-subtle">
+<body class="overflow-x-hidden overflow-y-auto bg-dark-main">
 @include('partials.guest.guestNavbar')
 {{--alert edit success--}}
 @if (session('success'))

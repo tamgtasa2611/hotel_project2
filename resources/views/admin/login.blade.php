@@ -40,7 +40,7 @@
              load-hidden fade-in fade-bottom position-relative">
             {{--               login form--}}
             <form method="post" action="{{route('admin.loginProcess')}}" enctype="multipart/form-data"
-                  class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
+                  class="bg-dark p-5  shadow-lg  col-md-8 col-lg-6 col-xl-4">
                 @csrf
                 {{--                    heading--}}
                 <div class="d-flex justify-content-center align-items-center mb-4">
@@ -79,7 +79,7 @@
 
                 <!-- Submit button -->
                 <button type="submit"
-                        class="btn btn-primary w-100 mb-4 rounded-pill tran-2">
+                        class="btn btn-primary w-100 mb-4  tran-3">
                     Sign in
                 </button>
 

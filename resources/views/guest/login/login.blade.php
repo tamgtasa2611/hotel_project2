@@ -6,7 +6,7 @@
              load-hidden fade-in position-relative">
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.loginProcess')}}" enctype="multipart/form-data"
-                      class="bg-white p-5 rounded-4 shadow-lg border col-md-8 col-lg-6 col-xl-4">
+                      class="bg-dark p-5  shadow-lg  col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     @method('POST')
                     {{--                    heading--}}
@@ -45,7 +45,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button class="btn btn-primary tran-2 w-100 mb-4 rounded-pill">
+                    <button class="btn btn-outline-primary tran-3 w-100 mb-4 ">
                         Sign in
                     </button>
 

@@ -1,6 +1,6 @@
 <title>Bookings management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white rounded-4 shadow-lg border mb-4">
+    <div class="p-4 bg-dark  shadow-lg  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Bookings Management</h4>
             <a class="d-block d-lg-none"
@@ -11,9 +11,9 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white rounded-4 shadow-lg border overflow-hidden">
+    <div class="bg-dark  shadow-lg  overflow-hidden">
         <div
-            class="p-4 d-flex flex-column flex-md-row justify-content-between rounded-top border-bottom">
+            class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Bookings Datatable
             </div>
@@ -29,10 +29,10 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 bg-white rounded-bottom text-muted">
+        <div class="p-4 bg-dark  text-muted">
             @if (count($bookings) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white border w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-dark  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -58,32 +58,32 @@
                             <td class="text-center">
                                 @switch($booking->status)
                                     @case(0)
-                                        <div class="badge bg-danger rounded-pill">
+                                        <div class="badge bg-danger ">
                                             Pending
                                         </div>
                                         @break
                                     @case(1)
-                                        <div class="badge bg-warning rounded-pill">
+                                        <div class="badge bg-warning ">
                                             Confirmed
                                         </div>
                                         @break
                                     @case(2)
-                                        <div class="badge bg-info rounded-pill">
+                                        <div class="badge bg-info ">
                                             Ongoing
                                         </div>
                                         @break
                                     @case(3)
-                                        <div class="badge bg-success rounded-pill">
+                                        <div class="badge bg-success ">
                                             Completed
                                         </div>
                                         @break
                                     @case(4)
-                                        <div class="badge bg-danger rounded-pill">
+                                        <div class="badge bg-danger ">
                                             Cancelled
                                         </div>
                                         @break
                                     @case(5)
-                                        <div class="badge bg-dark rounded-pill">
+                                        <div class="badge bg-dark ">
                                             Refund
                                         </div>
                                         @break
@@ -104,7 +104,7 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.bookings.edit', $booking) }}"
-                                       class="btn btn-outline-primary rounded-pill">
+                                       class="btn btn-outline-primary ">
                                         View<i class="bi bi-chevron-right ms-2"></i>
                                     </a>
                                 </div>

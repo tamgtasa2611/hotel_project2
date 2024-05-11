@@ -29,9 +29,9 @@
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto bg-light">
+<body class="overflow-x-hidden overflow-y-auto bg-dark">
 <div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 shadow-lg border bg-white">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 shadow-lg  bg-dark">
         @include('partials.admin.adminSidenav')
     </div>
     <div class="col-12 col-lg-9 col-xl-10 m-0 p-0">

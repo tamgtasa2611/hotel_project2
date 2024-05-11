@@ -39,13 +39,13 @@
         }
 
         table {
-            border-spacing: 0;
+            -spacing: 0;
             mso-table-lspace: 0pt;
             mso-table-rspace: 0pt;
         }
 
         table td {
-            border-collapse: collapse;
+            -collapse: collapse;
             mso-line-height-rule: exactly;
         }
 
@@ -55,8 +55,7 @@
             max-width: auto;
             height: auto;
             margin: auto;
-            display: block !important;
-            border: 0px;
+            display: block !important;: 0 px;
         }
 
         td p {
@@ -114,7 +113,7 @@
         }
 
         .yshortcuts a {
-            border-bottom: none !important;
+            -bottom: none !important;
         }
 
         .ios-footer a {
@@ -283,53 +282,65 @@
 <div
     style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;"></div>
 
-<table border="0" align="center" cellpadding="0" cellspacing="0" width="100%" style="width:100%;max-width:100%;">
-    <tr><!-- Outer Table -->
-        <td align="center" bgcolor="#f0f0f0" data-composer>
+<table
+="0" align="center" cellpadding="0" cellspacing="0" width="100%" style="width: 100%
+;
+    max-width: 100%
+;">
+<tr><!-- Outer Table -->
+    <td align="center" bgcolor="#f0f0f0" data-composer>
 
-            <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%"
-                   style="width:100%;max-width:100%;">
-                <!-- lotus-header-18-->
-                <tr>
-                    <td align="center" bgcolor="#343e9e" class="container-padding">
+        <table
+        ="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%"
+        style="width: 100%
+        ;
+            max-width: 100%
+        ;">
+        <!-- lotus-header-18-->
+<tr>
+    <td align="center" bgcolor="#343e9e" class="container-padding">
 
-                        <!-- Content -->
-                        <table border="0" align="center" cellpadding="0" cellspacing="0" role="presentation" class="row"
-                               width="580" style="width:580px;max-width:580px;">
-                            <tr>
-                                <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="center-text" align="center"
-                                    style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+        <!-- Content -->
+        <table
+        ="0" align="center" cellpadding="0" cellspacing="0" role="presentation" class="row"
+        width="580" style="width: 580px
+        ;
+            max-width: 580px
+        ;">
+<tr>
+    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+</tr>
+<tr>
+    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+</tr>
+<tr>
+    <td class="center-text" align="center"
+        style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
 
-                                    <div>
-                                        Your reset password code is: {{$resetCode}}
-                                    </div>
+        <div>
+            Your reset password code is: {{$resetCode}}
+        </div>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="10" style="font-size:20px;color: white; line-height:10px;">&nbsp;
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-                            </tr>
-                        </table>
-                        <!-- Content -->
+    </td>
+</tr>
+<tr>
+    <td height="10" style="font-size:20px;color: white; line-height:10px;">&nbsp;
+    </td>
+</tr>
+<tr>
+    <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
+</tr>
+<tr>
+    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+</tr>
+</table>
+<!-- Content -->
 
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr><!-- Outer-Table -->
+</td>
+</tr>
+</table>
+</td>
+</tr><!-- Outer-Table -->
 </table>
 
 </body>

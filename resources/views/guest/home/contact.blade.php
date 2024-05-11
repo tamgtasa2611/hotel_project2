@@ -4,7 +4,7 @@
         {{--        breadcrumb--}}
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section">
-                <form class="bg-white p-5 shadow-lg border rounded-4 col-12 col-md-8 col-lg-6 col-xl-4
+                <form class="bg-dark p-5 shadow-lg col-12 col-md-8 col-lg-6 col-xl-4
                 load-hidden fade-in" method="post" action="{{route('guest.sendContact')}}">
                     @csrf
                     @method('POST')
@@ -32,15 +32,15 @@
 
                     <!-- Submit button -->
                     <button type="submit"
-                            class="btn btn-primary rounded-pill w-100 spinner-btn">Send
+                            class="btn btn-outline-primary tran-3 w-100 spinner-btn">Send
                     </button>
 
                 </form>
-                <div class="d-flex d-none justify-content-center align-items-center fixed-top w-100 tran-2"
+                <div class="d-flex d-none justify-content-center align-items-center fixed-top w-100 tran-3"
                      id="spinner"
                      style="z-index: 999; height: 100dvh; background-color: rgba(0,0,0,0.2)">
-                    <div class="bg-light rounded-4 border p-4 d-flex justify-content-center align-items-center">
-                        <div class="spinner-border text-primary tran-2" role="status">
+                    <div class="bg-dark   p-4 d-flex justify-content-center align-items-center">
+                        <div class="spinner- text-primary tran-3" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <div class="text-primary ms-3">

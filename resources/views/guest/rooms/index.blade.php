@@ -24,18 +24,18 @@
                                 {{--                        VIEW GIRD/LIST FORM--}}
                                 <form class="d-none d-md-flex m-0 align-items-center">
                                     <div class="">
-                                        <input class="btn-check tran-2" type="radio" name="view" value="grid"
+                                        <input class="btn-check tran-3" type="radio" name="view" value="grid"
                                                id="grid"
                                                onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
                                         />
-                                        <label class="rounded-4 tran-2 btn btn-outline-light text-primary"
+                                        <label class=" tran-3 btn btn-outline-light text-primary"
                                                for="grid"> <i class="bi bi-grid h-100"></i></label>
                                     </div>
                                     <div class="ms-3">
-                                        <input class="btn-check tran-2" type="radio" name="view" value="list"
+                                        <input class="btn-check tran-3" type="radio" name="view" value="list"
                                                id="list"
                                                onchange="this.form.submit()" {{$view == 'list' ? 'checked' : ''}}/>
-                                        <label class="rounded-4 tran-2 btn btn-outline-light text-primary"
+                                        <label class=" tran-3 btn btn-outline-light text-primary"
                                                for="list"> <i class="bi bi-list h-100"></i></label>
                                     </div>
                                     {{--                            search--}}
@@ -116,8 +116,8 @@
                                 <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
                                     @foreach($rooms as $room)
                                         <div class="col-12 col-md-6 overflow-hidden">
-                                            <div class="border rounded-4 bg-white shadow-lg row m-0 mb-3">
-                                                <div class="col-12 p-0 overflow-hidden rounded-top-4 position-relative">
+                                            <div class="  bg-dark shadow-lg row m-0 mb-3">
+                                                <div class="col-12 p-0 overflow-hidden -4 position-relative">
                                                     <div class="overflow-hidden ratio ratio-16x9">
                                                         <a href="{{route('guest.rooms.show', $room)}}">
                                                             @if(count($room->images) != 0)
@@ -169,7 +169,7 @@
                                                             </div>
                                                             <div>
                                                                 <a href="{{route('guest.rooms.show', $room)}}"
-                                                                   class="btn btn-primary rounded-pill">
+                                                                   class="btn btn-outline-primary ">
                                                                     Book now
                                                                 </a>
                                                             </div>
@@ -183,7 +183,7 @@
                             @else
                                 <div id="rooms_div" class="">
                                     @foreach($rooms as $room)
-                                        <div class="border rounded-4 shadow-lg row m-0 mb-4 bg-white overflow-hidden">
+                                        <div class="  shadow-lg row m-0 mb-4 bg-dark overflow-hidden">
                                             <div
                                                 class="col-12 col-md-4 p-0 overflow-hidden position-relative">
                                                 <div class="overflow-hidden ratio ratio-16x9">
@@ -238,7 +238,7 @@
                                                         </div>
                                                         <div>
                                                             <a href="{{route('guest.rooms.show', $room)}}"
-                                                               class="btn btn-primary rounded-pill">
+                                                               class="btn btn-outline-primary ">
                                                                 Book now
                                                             </a>
                                                         </div>
@@ -263,7 +263,7 @@
                 </div>
                 {{--            filter--}}
                 <div class="col-12 col-lg-3" style="height: fit-content !important;">
-                    <div class="border rounded-4 shadow-lg bg-white">
+                    <div class="  shadow-lg bg-dark">
                         <div class="p-4">
                             <h5 class="m-0 fw-bold text-primary">Filter By <i class="ms-2 bi bi-sliders"></i></h5>
                         </div>
@@ -353,10 +353,10 @@
                             <div class="row gx-3">
                                 <div class="col">
                                     <a href="{{route('guest.rooms')}}"
-                                       class="btn btn-secondary w-100 rounded-pill">Reset</a>
+                                       class="btn btn-secondary w-100 ">Reset</a>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-primary w-100 rounded-pill">Apply
+                                    <button class="btn btn-outline-primary w-100 ">Apply
                                     </button>
                                 </div>
                             </div>
@@ -371,7 +371,7 @@
                     </div>
 
                     {{--            search form--}}
-                    <div class="border rounded-4 shadow-lg bg-white mt-4">
+                    <div class="  shadow-lg bg-dark mt-4">
                         <div class="p-4">
                             <h5 class="m-0 fw-bold text-primary">Check Availability <i class="ms-2 bi bi-search"></i>
                             </h5>
@@ -415,7 +415,7 @@
                                 <div class="col-12">
                                     <!-- Submit button -->
                                     <button type="submit" id="bookBtn"
-                                            class="btn btn-primary tran-2 w-100 rounded-pill">
+                                            class="btn btn-outline-primary tran-3 w-100 ">
                                         Check Availability
                                     </button>
                                 </div>

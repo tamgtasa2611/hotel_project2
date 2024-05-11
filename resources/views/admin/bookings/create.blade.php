@@ -1,15 +1,15 @@
 <title>Add new room type - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
-    <div class="p-3 bg-white rounded shadow-sm border mb-3">
+    <div class="p-3 bg-dark rounded shadow-sm  mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Room Types Management</h4>
         </div>
     </div>
 
-    <div class="bg-white rounded shadow-sm border overflow-hidden">
+    <div class="bg-dark rounded shadow-sm  overflow-hidden">
         <div
-            class="p-3 rounded-top border-bottom">
+            class="p-3  -bottom">
             <div class="text-primary">
                 <i class="bi bi-plus-circle me-2"></i>Add new room type
             </div>
@@ -48,13 +48,13 @@
                 @endif
             </div>
 
-            <div class="d-flex justify-content-between justify-content-md-start border-top p-3">
+            <div class="d-flex justify-content-between justify-content-md-start -top p-3">
                 <a data-mdb-ripple-init href="{{ route('admin.roomTypes') }}"
-                   class="btn btn-secondary rounded tran-2 me-3">
+                   class="btn btn-secondary rounded tran-3 me-3">
                     Back
                 </a>
                 <!-- Submit button -->
-                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-2">
+                <button data-mdb-ripple-init type="submit" class="btn btn-primary rounded tran-3">
                     Save
                 </button>
             </div>

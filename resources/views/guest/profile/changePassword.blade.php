@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow-lg border rounded-4 bg-white">
+                    <div class="p-4 shadow-lg   bg-dark">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 bg-white shadow-lg border rounded-4 d-flex flex-column justify-content-between h-100">
+                        class="p-4 bg-dark shadow-lg   d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -83,11 +83,11 @@
                             <div
                                 class="d-flex flex-column-reverse flex-lg-row justify-content-between justify-content-md-start align-items-center">
                                 <a data-mdb-ripple-init href="{{ route('guest.changePassword') }}"
-                                   class="btn btn-secondary col-12 col-lg-auto me-lg-3 rounded-pill tran-2">
+                                   class="btn btn-secondary col-12 col-lg-auto me-lg-3  tran-3">
                                     Cancel
                                 </a>
                                 <button data-mdb-ripple-init type="submit"
-                                        class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0 rounded-pill tran-2">
+                                        class="btn btn-outline-primary  col-12 col-lg-auto mb-3  mb-lg-0  tran-3">
                                     Change
                                 </button>
                             </div>

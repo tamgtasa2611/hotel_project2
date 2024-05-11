@@ -80,7 +80,7 @@ class GuestController extends Controller
         }
         Auth::guard('guest')->logout();
         session()->forget('guest');
-        return view('guest.login.logout');
+        return Redirect::route('guest.home');
     }
 
     public function register()
