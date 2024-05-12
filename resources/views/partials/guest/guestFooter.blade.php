@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start  bg-dark">
+<footer class="text-center text-lg-start bg-white shadow border">
     <!-- Section: Links  -->
     <section class="pt-3">
         <div class="container text-center text-md-start">
@@ -14,9 +14,9 @@
                                 SkyrimHotel
                             </h6>
                             <p class="col-lg-10 mb-4">
-                                Welcome to Skyrim Hotel, where luxury meets comfort and relaxation. Book now for
-                                unlimited
-                                offers and amazing experiences.
+                                Chào mừng bạn đến với Skyrim Hotel, nơi sự sang trọng kết hợp với sự thoải mái và thư
+                                giãn.
+                                Đặt ngay để nhận được ưu đãi không giới hạn và trải nghiệm tuyệt vời.
                             </p>
                         </div>
                         <!-- Grid column -->
@@ -27,7 +27,7 @@
                             <h6 class="text-uppercase fw-bold mt-2 mb-4 text-primary">
                                 Contact
                             </h6>
-                            <p><i class="bi bi-geo-alt me-2"></i>Hanoi, Vietnam</p>
+                            <p><i class="bi bi-geo-alt me-2"></i>Hà Nội, Việt Nam</p>
                             <p><i class="bi bi-envelope me-2"></i>info@skyrimhotel.com</p>
                             <p><i class="bi bi-telephone me-2"></i>+ 01 234 567 88</p>
                         </div>
@@ -40,12 +40,12 @@
                                 <div class="col-12 col-lg-6 row g-4">
                                     <div class="col-12 col-md-6">
                                         <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
-                                           rel="noopener noreferrer">Chat with us <i
+                                           rel="noopener noreferrer">Nhắn tin ngay <i
                                                 class="bi bi-messenger"></i></a>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <a href="/admin" class="" target="_blank"
-                                           rel="noopener noreferrer">Admin panel <i class="bi bi-chevron-right"></i></a>
+                                           rel="noopener noreferrer">Quản trị <i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
     <!-- Section: Links  -->
 
     <!-- Copyright -->
-    <div class="text-center p-4">
+    <div class="text-center p-4 fs-7">
         © 2024 Made by <span class="fw-bold text-primary">NguyenDucTam</span>
     </div>
     <!-- Copyright -->

@@ -44,8 +44,10 @@ class RoomController extends Controller
         if ($validated) {
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'capacity', $request->capacity);
+            $data = Arr::add($data, 'price', $request->price);
+            $data = Arr::add($data, 'bed_size', $request->bed_size);
             $data = Arr::add($data, 'room_type_id', $request->room_type_id);
+            $data = Arr::add($data, 'status', $request->status);
             Room::create($data);
 
             //            images

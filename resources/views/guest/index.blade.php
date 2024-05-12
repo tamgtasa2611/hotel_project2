@@ -1,7 +1,7 @@
 <title>Home - Skyrim Hotel</title>
 <x-guestLayout>
     {{--    HERO--}}
-    <section class="m-nav mb-5 position-relative bg-black">
+    <section class="m-nav mb-5 position-relative bg-secondary">
         <div
             class="mh-screen overflow-hidden fade-in load-hidden">
             <div class="h-100 overflow-hidden"
@@ -10,15 +10,16 @@
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="container text-white">
                             <div class="row justify-content-center text-center align-items-center">
-                                <div class="display-2 text-center text-capitalize col-12">
-                                    Book Your Stay
+                                <div class="display-4 text-center text-capitalize col-12">
+                                    Khám phá thế giới nghỉ dưỡng
                                 </div>
                                 <div class="mb-4 col-12">
-                                    <p class="fs-4">A stay infused with creativity and culture</p>
+                                    <p class="fs-4">Mở ra cánh cửa đến những trải nghiệm lưu trú đa dạng,
+                                        phong phú.</p>
                                 </div>
                                 <div class="col-10">
                                     <form method="post" action="{{route('guest.rooms.search')}}"
-                                          class="bg-dark p-4 m-0 shadow " autocomplete="off">
+                                          class="bg-white p-4 m-0 shadow " autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row g-4">
@@ -49,7 +50,7 @@
                                             <div class="col-12 col-lg-3">
                                                 <!-- Submit button -->
                                                 <button type="submit" id="bookBtn"
-                                                        class="btn btn-outline-primary tran-3 w-100  h-100">
+                                                        class="btn btn-primary tran-3 w-100  h-100">
                                                     Search
                                                 </button>
                                             </div>
@@ -74,26 +75,25 @@
                 <div class="col-10 h-100">
                     <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
                         <div class="w-100 text-center">
-                            <span class="text-uppercase text-primary">Welcome to SkyrimHotel</span>
-                            <h2 class="font-2 display-6 my-3">Find the perfect space for your stay</h2>
+                            <span class="text-uppercase text-primary">Chào mừng bạn đến với SkyrimHotel</span>
+                            <h2 class="font-2 display-6 my-3">Không gian hoàn hảo cho kỳ nghỉ của bạn</h2>
                         </div>
-                        <p class="lead col-10 text-center">All rooms have a bathroom with bathtub and/or shower, cable
-                            television/radio,
-                            free WIFI and mini bar. In addition, all rooms are equipped with a Nespresso coffee machine.
+                        <p class="lead col-10 text-center">Chúng tôi cung cấp đa dạng các lựa chọn khách sạn phù hợp với
+                            mọi nhu cầu và ngân sách.
                         </p>
                         <!-- Carousel wrapper -->
                         <div id="carouselExampleAutoplaying" class="mt-3 carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner  shadow-lg tran-3">
+                            <div class="carousel-inner  shadow tran-3">
                                 <div class="carousel-item active" data-bs-interval="4000">
-                                    <img src="{{asset('images/1.png')}}" class="d-block w-100  shadow-lg"
+                                    <img src="{{asset('images/1.png')}}" class="d-block w-100  shadow"
                                          alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/2.png')}}" class="d-block w-100  shadow-lg"
+                                    <img src="{{asset('images/2.png')}}" class="d-block w-100  shadow"
                                          alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/3.png')}}" class="d-block w-100  shadow-lg"
+                                    <img src="{{asset('images/3.png')}}" class="d-block w-100  shadow"
                                          alt="...">
                                 </div>
                             </div>
@@ -111,20 +111,7 @@
                         <!-- Carousel wrapper -->
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="about-pic">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img src="img/about/about-1.jpg" alt="">
-                            </div>
-                            <div class="col-sm-6">
-                                <img src="img/about/about-2.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <button class="btn btn-outline-primary">discover</button>
         </div>
     </section>
     {{--    ABOUT US--}}
@@ -137,13 +124,13 @@
                 <div class="col-10 h-100">
                     <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
                         <div class="w-100 text-center">
-                            <span class="text-uppercase text-primary">THE ESSENTIAL IN & OUT-ROOM AMENITIES</span>
-                            <h2 class="font-2 display-6 my-3">All the essentials you need</h2>
+                            <span class="text-uppercase text-primary">Tiện ích đa dạng, phong phú</span>
+                            <h2 class="font-2 display-6 my-3">Tận hưởng các tiện nghi ngay trong phòng của bạn</h2>
                         </div>
                         <div class="row mt-3 g-5">
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-wifi fs-4"></i>
                                     </div>
                                 </div>
@@ -154,11 +141,11 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-cup-straw fs-4"></i>
                                     </div>
                                 </div>
-                                <h6 class="font-2 text-primary text-center mb-3">Bar And Lounge Area</h6>
+                                <h6 class="font-2 text-primary text-center mb-3">Quán bar & nước giải khát</h6>
                                 <p class="px-3 text-center">
                                     Lorem ipsum proin gravida velit auctor sde re sit amet space.
                                 </p>
@@ -166,33 +153,33 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-car-front fs-4"></i>
                                     </div>
                                 </div>
-                                <h6 class="font-2 text-primary text-center mb-3">Private Parking Space</h6>
+                                <h6 class="font-2 text-primary text-center mb-3">Khu đỗ xe riêng</h6>
                                 <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
                                     space.</p>
                             </div>
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-headset fs-4"></i>
                                     </div>
                                 </div>
-                                <h6 class="font-2 text-primary text-center mb-3">24/7 Room Services</h6>
+                                <h6 class="font-2 text-primary text-center mb-3">Hỗ trợ 24/7</h6>
                                 <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
                                     space.</p>
                             </div>
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-person-walking fs-4"></i>
                                     </div>
                                 </div>
-                                <h6 class="font-2 text-primary text-center mb-3">Diverse Guide Tour</h6>
+                                <h6 class="font-2 text-primary text-center mb-3">Hướng dẫn du lịch</h6>
                                 <p class="px-3 text-center">
                                     Lorem ipsum proin gravida velit auctor sde re sit amet space.
                                 </p>
@@ -200,11 +187,11 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-dark p-4  shadow-sm">
+                                    <div class="bg-white p-4  shadow">
                                         <i class="bi bi-bicycle fs-4"></i>
                                     </div>
                                 </div>
-                                <h6 class="font-2 text-primary text-center mb-3">Free Fitness Center</h6>
+                                <h6 class="font-2 text-primary text-center mb-3">Phòng gym & yoga</h6>
                                 <p class="px-3 text-center">Lorem ipsum proin gravida velit auctor sde re sit amet
                                     space.</p>
                             </div>

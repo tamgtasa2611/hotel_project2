@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow-lg   bg-dark">
+                    <div class="p-4 shadow   bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 shadow-lg   bg-dark d-flex flex-column justify-content-between h-100">
+                        class="p-4 shadow   bg-white d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -57,7 +57,7 @@
                             <div>
                                 @if (count($bookings) != 0)
                                     <table
-                                        class="shadow-lg tran-3 table table-striped table-sm  align-middle mb-0 w-100"
+                                        class="shadow tran-3 table table-striped table-sm  align-middle mb-0 w-100"
                                         id="dataTable">
                                         <thead>
                                         <tr>
@@ -135,7 +135,7 @@
                                                                 </div>
                                                                 @break
                                                             @case(5)
-                                                                <div class="badge bg-dark ">
+                                                                <div class="badge bg-white ">
                                                                     Refund
                                                                 </div>
                                                                 @break
@@ -149,7 +149,7 @@
                                                     <div
                                                         class="d-flex flex-column align-items-center justify-content-center">
                                                         <a href="{{route('guest.bookingDetail', $booking->id)}}"
-                                                           class="btn btn-sm btn btn-outline-primary ">
+                                                           class="btn btn-sm btn btn-primary ">
                                                             Details <i class="bi bi-chevron-right fw-bold"></i>
                                                         </a>
                                                     </div>

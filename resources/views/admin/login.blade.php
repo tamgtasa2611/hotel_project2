@@ -40,7 +40,7 @@
              load-hidden fade-in fade-bottom position-relative">
             {{--               login form--}}
             <form method="post" action="{{route('admin.loginProcess')}}" enctype="multipart/form-data"
-                  class="bg-dark p-5  shadow-lg  col-md-8 col-lg-6 col-xl-4">
+                  class="bg-dark p-5  shadow  col-md-8 col-lg-6 col-xl-4">
                 @csrf
                 {{--                    heading--}}
                 <div class="d-flex justify-content-center align-items-center mb-4">

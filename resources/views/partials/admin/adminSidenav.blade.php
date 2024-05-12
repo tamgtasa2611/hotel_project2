@@ -6,7 +6,7 @@
 
     <div class="bg-image p-4">
         <div class="d-flex align-items-center">
-            <img src="{{asset('images/noavt.jpg')}}" alt="logo" class=" shadow-lg " width="40px"
+            <img src="{{asset('images/noavt.jpg')}}" alt="logo" class=" shadow " width="40px"
                  height="40px">
             <div class="ms-2">
                 <div class="fw-bold">

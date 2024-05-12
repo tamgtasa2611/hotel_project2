@@ -1,4 +1,4 @@
-<nav class="navbar nav-underline navbar-expand-lg bg-primary tran-3 shadow-lg fixed-top" data-bs-theme="dark">
+<nav class="navbar nav-underline navbar-expand-lg bg-primary tran-3 shadow border fixed-top" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand d-block d-lg-none" href="/home">
             <div class="d-flex flex-column justify-content-center align-items-center">
@@ -18,21 +18,21 @@
             <ul class="navbar-nav col-lg-4">
                 <li class="nav-item">
                     <a class="nav-link tran-3 {{request()->routeIs('guest.home') ? 'active' : ''}}"
-                       href="{{route('guest.home')}}">Home
+                       href="{{route('guest.home')}}">Trang chủ
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link tran-3 {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
-                       href="{{route('guest.rooms')}}">Rooms</a>
+                       href="{{route('guest.rooms')}}">Phòng</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link tran-3 {{request()->routeIs('guest.contact') ? 'active' : ''}}"
-                       href="{{route('guest.contact')}}">Contact</a>
+                       href="{{route('guest.contact')}}">Liên hệ</a>
                 </li>
-                <li class=" nav-item">
-                    <a class="nav-link tran-3 {{request()->routeIs('guest.about') ? 'active' : ''}}"
-                       href="{{route('guest.about')}}">About</a>
-                </li>
+                {{--                <li class=" nav-item">--}}
+                {{--                    <a class="nav-link tran-3 {{request()->routeIs('guest.about') ? 'active' : ''}}"--}}
+                {{--                       href="{{route('guest.about')}}">Về chúng tôi</a>--}}
+                {{--                </li>--}}
             </ul>
             <a class="navbar-brand d-none d-lg-block flex-fill" href="/home">
                 <div class="d-flex flex-column justify-content-center align-items-center">
@@ -46,12 +46,12 @@
             </a>
             <div class="d-lg-flex col-lg-4 justify-content-lg-end">
                 @guest('guest')
-                    <a class="btn btn-primary px-3 tran-3 me-2 "
+                    <a class="btn btn-primary px-3 tran-3 me-3"
                        href="{{route('guest.login')}}">
-                        Log in
+                        Đăng nhập
                     </a>
                     <a class="btn btn-secondary px-3 tran-3 " href="{{route('guest.register')}}">
-                        Sign up
+                        Đăng ký
                     </a>
                 @endguest
                 @auth('guest')
@@ -82,12 +82,12 @@
                             </a>
                             <div class="dropdown-menu dropright" data-bs-theme="light">
                                 <a class="dropdown-item tran-3" href="{{route('guest.profile')}}">
-                                    <i class="bi bi-info-circle me-2"></i>My profile</a>
+                                    <i class="bi bi-info-circle me-2"></i>Thông tin tài khoản</a>
                                 <a class="dropdown-item tran-3" href="{{route('guest.myBooking')}}">
-                                    <i class="bi bi-receipt me-2"></i>My bookings</a>
+                                    <i class="bi bi-receipt me-2"></i>Lịch sử đặt phòng</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item tran-3" href="{{route('guest.logout')}}">
-                                    <i class="bi bi-box-arrow-left me-2"></i>Sign out</a>
+                                    <i class="bi bi-box-arrow-left me-2"></i>Đăng xuất</a>
                             </div>
                         </li>
                     </ul>

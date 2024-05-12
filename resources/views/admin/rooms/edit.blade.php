@@ -1,6 +1,6 @@
 <title>Edit room information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-dark  shadow-lg  mb-4">
+    <div class="p-4 bg-dark  shadow  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Rooms Management</h4>
             <a class="d-block d-lg-none"
@@ -11,7 +11,7 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-dark  shadow-lg  overflow-hidden">
+    <div class="bg-dark  shadow  overflow-hidden">
         <div
             class="p-4  -bottom">
             <div class="text-primary">
@@ -112,9 +112,9 @@
                             <div
                                 class="p-4 pt-0 row row-cols-1 row-cols-md-2 row-cols-xl-4">
                                 @foreach($roomImages as $image)
-                                    <div class="overflow-hidden rounded pt-3 h-100 room-img position-relative">
+                                    <div class="overflow-hidden  pt-3 h-100 room-img position-relative">
                                         <img src="{{asset('storage/admin/rooms/' . $image->path)}}"
-                                             class="w-100 h-100 object-fit-cover  rounded "
+                                             class="w-100 h-100 object-fit-cover   "
                                              alt="room_img">
                                         <a data-id="{{$image->id}}"
                                            data-bs-toggle="modal"

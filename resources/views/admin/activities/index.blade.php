@@ -1,6 +1,6 @@
 <title>Activities Log - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-dark  shadow-lg  mb-4">
+    <div class="p-4 bg-dark  shadow  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Activities Log</h4>
             <a class="d-block d-lg-none"
@@ -11,7 +11,7 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-dark  shadow-lg  overflow-hidden">
+    <div class="bg-dark  shadow  overflow-hidden">
         <div
             class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
             <div class="text-primary mb-3 mb-md-0">

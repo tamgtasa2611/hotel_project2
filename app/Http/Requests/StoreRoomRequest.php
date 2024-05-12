@@ -23,8 +23,10 @@ class StoreRoomRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'capacity' => 'required|min:1',
-            'room_type_id' => 'required',
+            'price' => 'required|min:1|numeric',
+            'bed_size' => 'required|min:1|max:4|integer',
+            'status' => 'required|integer',
+            'room_type_id' => 'required|integer',
         ];
     }
 }

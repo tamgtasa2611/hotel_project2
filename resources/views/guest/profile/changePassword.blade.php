@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow-lg   bg-dark">
+                    <div class="p-4 shadow   bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 bg-dark shadow-lg   d-flex flex-column justify-content-between h-100">
+                        class="p-4 bg-white shadow   d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -87,7 +87,7 @@
                                     Cancel
                                 </a>
                                 <button data-mdb-ripple-init type="submit"
-                                        class="btn btn-outline-primary  col-12 col-lg-auto mb-3  mb-lg-0  tran-3">
+                                        class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0  tran-3">
                                     Change
                                 </button>
                             </div>

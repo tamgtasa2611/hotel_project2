@@ -1,379 +1,25 @@
 <title>Rooms - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="rooms" class="m-nav">
-        @if(session('failed'))
-            @include('partials.flashMsgFail')
-        @endif
-        <div class="container load-hidden fade-in">
-            {{--            heading--}}
-            <div class="mb-5 pt-5">
-                <h6 class="display-6 text-primary fw-bold m-0">
-                    {{$countRoom}} rooms available
-                </h6>
-            </div>
-            {{--            end heading--}}
+        {{--            heading--}}
+        <div class="mb-5 pt-5 d-flex flex-column justify-content-center align-items-center "
+             style="height: 40dvh;background-image: url('{{asset('images/room_rain.jpg')}}'); background-position: center; background-size: cover">
+            <h6 class="display-6 fw-bold text-white">
+                Danh sách phòng
+            </h6>
+            <h4 class=" text-white">{{$countRoom}} khả dụng</h4>
+        </div>
+        {{--            end heading--}}
 
+        <div class="container load-hidden fade-in">
             {{--            rooms--}}
             <div class="mb-5 row g-4">
-                <div class="col-12 col-lg-9">
-                    @if($countRoom != 0)
-                        {{--                right side--}}
-                        <div class="">
-                            <div
-                                class="w-100 d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-                                {{--                        VIEW GIRD/LIST FORM--}}
-                                <form class="d-none d-md-flex m-0 align-items-center">
-                                    <div class="">
-                                        <input class="btn-check tran-3" type="radio" name="view" value="grid"
-                                               id="grid"
-                                               onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
-                                        />
-                                        <label class=" tran-3 btn btn-outline-light text-primary"
-                                               for="grid"> <i class="bi bi-grid h-100"></i></label>
-                                    </div>
-                                    <div class="ms-3">
-                                        <input class="btn-check tran-3" type="radio" name="view" value="list"
-                                               id="list"
-                                               onchange="this.form.submit()" {{$view == 'list' ? 'checked' : ''}}/>
-                                        <label class=" tran-3 btn btn-outline-light text-primary"
-                                               for="list"> <i class="bi bi-list h-100"></i></label>
-                                    </div>
-                                    {{--                            search--}}
-                                    <input type="text" name="checkin" value="{{$search['checkin']}}"
-                                           class="visually-hidden"
-                                           hidden>
-                                    <input type="text" name="checkout" value="{{$search['checkout']}}"
-                                           class="visually-hidden"
-                                           hidden>
-                                    <input type="text" name="guest_num" value="{{$search['guest_num']}}"
-                                           class="visually-hidden"
-                                           hidden>
-                                    {{--                            sort--}}
-                                    <input type="text" name="sort" value="{{$sort}}" class="visually-hidden" hidden>
-                                    {{--                            price--}}
-                                    <input type="text" name="from_price" value="{{$price['from_price']}}"
-                                           class="visually-hidden"
-                                           hidden>
-                                    <input type="text" name="to_price" value="{{$price['to_price']}}"
-                                           class="visually-hidden"
-                                           hidden>
-                                    {{--                            roomType--}}
-                                    @foreach($type as $value)
-                                        <input type="text" name="roomType[]" class="visually-hidden" hidden
-                                               value="{{$value}}">
-                                    @endforeach
-                                </form>
-                                {{--                        VIEW GIRD/LIST FORM--}}
-
-                                {{--                        SORTING--}}
-                                <div class="d-flex align-items-center justify-content-between col-12 col-md-auto">
-                                    <div class="text-primary fw-bold me-3">
-                                        Sort by<i class="ms-2 bi bi-arrow-down-up"></i>
-                                    </div>
-                                    <form class="m-0 flex-fill">
-                                        <select class="form-select auto-submit" name="sort" id="sort"
-                                                aria-label="sort" onchange="this.form.submit()">
-                                            <option value="0" {{$sort == 0 ? 'selected' : ''}}>Recommended</option>
-                                            <option value="1" {{$sort == 1 ? 'selected' : ''}}>Rating: Low to High
-                                            </option>
-                                            <option value="2" {{$sort == 2 ? 'selected' : ''}}>Rating: High to Low
-                                            </option>
-                                            <option value="3" {{$sort == 3 ? 'selected' : ''}}>Price: Low to High
-                                            </option>
-                                            <option value="4" {{$sort == 4 ? 'selected' : ''}}>Price: High to Low
-                                            </option>
-                                        </select>
-                                        {{--                            search--}}
-                                        <input type="text" name="checkin" value="{{$search['checkin']}}"
-                                               class="visually-hidden"
-                                               hidden>
-                                        <input type="text" name="checkout" value="{{$search['checkout']}}"
-                                               class="visually-hidden"
-                                               hidden>
-                                        <input type="text" name="guest_num" value="{{$search['guest_num']}}"
-                                               class="visually-hidden"
-                                               hidden>
-                                        {{--                                view--}}
-                                        <input type="text" name="view" value="{{$view}}" class="visually-hidden" hidden>
-                                        {{--                            price--}}
-                                        <input type="text" name="from_price" value="{{$price['from_price']}}"
-                                               class="visually-hidden"
-                                               hidden>
-                                        <input type="text" name="to_price" value="{{$price['to_price']}}"
-                                               class="visually-hidden"
-                                               hidden>
-                                        {{--                            roomType--}}
-                                        @foreach($type as $value)
-                                            <input type="text" name="roomType[]" class="visually-hidden" hidden
-                                                   value="{{$value}}">
-                                        @endforeach
-                                    </form>
-                                </div>
-                                {{--                        SORTING--}}
-                            </div>
-                            {{--                    ROOMS DIV--}}
-                            @if($view == 'grid')
-                                <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
-                                    @foreach($rooms as $room)
-                                        <div class="col-12 col-md-6 overflow-hidden">
-                                            <div class="  bg-dark shadow-lg row m-0 mb-3">
-                                                <div class="col-12 p-0 overflow-hidden -4 position-relative">
-                                                    <div class="overflow-hidden ratio ratio-16x9">
-                                                        <a href="{{route('guest.rooms.show', $room)}}">
-                                                            @if(count($room->images) != 0)
-                                                                <img
-                                                                    src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
-                                                                    alt="room_img"
-                                                                    class="object-fit-cover shadow-lg tran-3 img-fluid"/>
-                                                            @else
-                                                                <img src="{{asset('images/noimage.jpg')}}"
-                                                                     alt="room_img"
-                                                                     class="object-fit-cover shadow-lg tran-3 img-fluid"/>
-                                                            @endif
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
-                                                    <div
-                                                        class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
-                                                        <div>
-                                                            <a href="{{route('guest.rooms.show', $room)}}"
-                                                               class="text-decoration-none">
-                                                                <h4 class="fw-bold m-0">
-                                                                    Room {{$room->name}}
-                                                                </h4>
-                                                            </a>
-                                                        </div>
-                                                        <div>
-                                                            <div class="d-flex w-100 justify-content-start">
-                                                                <div class="me-3">
-                                                                    <i class="bi bi-house me-2"></i>{{$room->roomType->name}}
-                                                                </div>
-                                                                <div class="">
-                                                                    <i class="bi bi-people me-2"></i>{{$room->capacity}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div
-                                                        class="col-12 p-0">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-baseline w-100">
-                                                            <div class="">
-                                                                <h5 class="m-0 fw-bold text-success">
-                                                                    ${{$room->roomType->base_price}}<span
-                                                                        class="text-muted fs-7">/night</span>
-                                                                </h5>
-                                                            </div>
-                                                            <div>
-                                                                <a href="{{route('guest.rooms.show', $room)}}"
-                                                                   class="btn btn-outline-primary ">
-                                                                    Book now
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div id="rooms_div" class="">
-                                    @foreach($rooms as $room)
-                                        <div class="  shadow-lg row m-0 mb-4 bg-dark overflow-hidden">
-                                            <div
-                                                class="col-12 col-md-4 p-0 overflow-hidden position-relative">
-                                                <div class="overflow-hidden ratio ratio-16x9">
-                                                    <a href="{{route('guest.rooms.show', $room)}}"
-                                                       class="ratio ratio-16x9">
-                                                        @if(count($room->images) != 0)
-                                                            <img
-                                                                src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
-                                                                alt="room_img"
-                                                                class="object-fit-cover shadow-lg tran-3 "/>
-                                                        @else
-                                                            <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                                 class="object-fit-cover shadow-lg tran-3 "/>
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                class="col-12 col-md-8 row m-0 p-0 p-4 justify-content-between flex-column">
-                                                <div
-                                                    class="col-12 p-0 d-flex justify-content-between align-items-center mb-3">
-                                                    <div>
-                                                        <a href="{{route('guest.rooms.show', $room)}}"
-                                                           class="text-decoration-none">
-                                                            <h4 class="fw-bold m-0">
-                                                                Room {{$room->name}}
-                                                            </h4>
-                                                        </a>
-                                                    </div>
-                                                    <div>
-                                                        <div class="d-flex w-100 justify-content-start">
-                                                            <div class="me-3">
-                                                                <i class="bi bi-house me-2"></i>{{$room->roomType->name}}
-                                                            </div>
-                                                            <div class="">
-                                                                <i class="bi bi-people me-2"></i>{{$room->capacity}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div
-                                                    class="col-12 p-0">
-                                                    <div
-                                                        class="d-flex justify-content-between align-items-baseline w-100">
-                                                        <div class="">
-                                                            <h5 class="m-0 fw-bold text-success">
-                                                                ${{$room->roomType->base_price}}<span
-                                                                    class="text-muted fs-7">/night</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div>
-                                                            <a href="{{route('guest.rooms.show', $room)}}"
-                                                               class="btn btn-outline-primary ">
-                                                                Book now
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                            {{--                   END ROOMS DIV--}}
-
-                            <div class="mt-4 ">
-                                {{$rooms->onEachSide(2)->links()}}
-                            </div>
-                        </div>
-                    @else
-                        <div>
-                            No rooms to show!
-                        </div>
-                    @endif
-                </div>
                 {{--            filter--}}
                 <div class="col-12 col-lg-3" style="height: fit-content !important;">
-                    <div class="  shadow-lg bg-dark">
-                        <div class="p-4">
-                            <h5 class="m-0 fw-bold text-primary">Filter By <i class="ms-2 bi bi-sliders"></i></h5>
-                        </div>
-                        <hr class="m-0">
-                        <form class="p-4 m-0">
-                            {{-- price filter--}}
-                            <div class="mb-4">
-                                <div class="mb-3 fw-bold">
-                                    Price
-                                </div>
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text text-success">$</span>
-                                            <input type="number" id="from" class="form-control" name="from_price"
-                                                   placeholder="From" min="0"
-                                                   value="{{$price['from_price']}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text text-success">$</span>
-                                            <input type="number" id="to" class="form-control" name="to_price"
-                                                   placeholder="To" value="{{$price['to_price']}}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- end price filter--}}
-
-                            {{--           rating filter--}}
-                            <div class="mb-4">
-                                <div class="mb-3 fw-bold">
-                                    Rating
-                                </div>
-                                <div class="">
-                                    @php
-                                        $starFill = 5;
-                                        $star = 0;
-                                    @endphp
-                                    @for($rate = 5; $rate >= 1; $rate--)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                   name="rating" value="{{$rate}}"
-                                                   id="rating_{{$rate}}"
-                                                {{$rating == $rate ? 'checked' : ''}}
-                                            />
-                                            <label class="form-check-label"
-                                                   for="rating_{{$rate}}">
-                                                @for($i = $starFill; $i >= 1; $i--)
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                @endfor
-                                                @for($j = 0; $j < $star; $j++)
-                                                    <i class="bi bi-star text-warning"></i>
-                                                @endfor
-                                            </label>
-                                        </div>
-                                        @php
-                                            $starFill--;
-                                            $star++;
-                                        @endphp
-                                    @endfor
-                                </div>
-                            </div>
-                            {{--                       end rating filter--}}
-
-                            {{--                        room type filter--}}
-                            <div class="mb-4">
-                                <div class="mb-3 fw-bold">
-                                    Room type
-                                </div>
-                                <div class="">
-                                    @foreach($roomTypes as $roomType)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="{{$roomType->id}}"
-                                                   id="roomType_{{$roomType->id}}" name="roomType[]"
-                                                {{in_array($roomType->id, $type) ? 'checked' : ''}}/>
-                                            <label class="form-check-label"
-                                                   for="roomType_{{$roomType->id}}">{{$roomType->name}}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            {{--                       end room type filter--}}
-
-                            <div class="row gx-3">
-                                <div class="col">
-                                    <a href="{{route('guest.rooms')}}"
-                                       class="btn btn-secondary w-100 ">Reset</a>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-outline-primary w-100 ">Apply
-                                    </button>
-                                </div>
-                            </div>
-                            {{--                            search--}}
-                            <input type="text" name="checkin" value="{{$search['checkin']}}" class="visually-hidden"
-                                   hidden>
-                            <input type="text" name="checkout" value="{{$search['checkout']}}" class="visually-hidden"
-                                   hidden>
-                            <input type="text" name="guest_num" value="{{$search['guest_num']}}" class="visually-hidden"
-                                   hidden>
-                        </form>
-                    </div>
-
                     {{--            search form--}}
-                    <div class="  shadow-lg bg-dark mt-4">
+                    <div class="shadow bg-white mb-4 border ">
                         <div class="p-4">
-                            <h5 class="m-0 fw-bold text-primary">Check Availability <i class="ms-2 bi bi-search"></i>
+                            <h5 class="m-0 fw-bold text-primary">Tìm phòng trống <i class="ms-2 bi bi-search"></i>
                             </h5>
                         </div>
                         <hr class="m-0">
@@ -415,8 +61,8 @@
                                 <div class="col-12">
                                     <!-- Submit button -->
                                     <button type="submit" id="bookBtn"
-                                            class="btn btn-outline-primary tran-3 w-100 ">
-                                        Check Availability
+                                            class="btn btn-primary tran-3 w-100 ">
+                                        Tìm kiếm
                                     </button>
                                 </div>
 
@@ -440,8 +86,346 @@
                         </form>
                     </div>
                     {{--           end search form--}}
+                    <div class=" shadow bg-white border">
+                        <div class="p-4">
+                            <h5 class="m-0 fw-bold text-primary">Bộ lọc <i class="ms-2 bi bi-sliders"></i></h5>
+                        </div>
+                        <hr class="m-0">
+                        <form class="p-4 m-0">
+                            {{-- price filter--}}
+                            <div class="mb-4">
+                                <div class="mb-3 fw-bold">
+                                    Giá
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text text-success">$</span>
+                                            <input type="number" id="from" class="form-control" name="from_price"
+                                                   placeholder="Từ" min="0"
+                                                   value="{{$price['from_price']}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text text-success">$</span>
+                                            <input type="number" id="to" class="form-control" name="to_price"
+                                                   placeholder="Đến" value="{{$price['to_price']}}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- end price filter--}}
+
+                            {{--           rating filter--}}
+                            <div class="mb-4">
+                                <div class="mb-3 fw-bold">
+                                    Đánh giá
+                                </div>
+                                <div class="">
+                                    @php
+                                        $starFill = 5;
+                                        $star = 0;
+                                    @endphp
+                                    @for($rate = 5; $rate >= 1; $rate--)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"
+                                                   name="rating" value="{{$rate}}"
+                                                   id="rating_{{$rate}}"
+                                                {{$rating == $rate ? 'checked' : ''}}
+                                            />
+                                            <label class="form-check-label"
+                                                   for="rating_{{$rate}}">
+                                                @for($i = $starFill; $i >= 1; $i--)
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                @endfor
+                                                @for($j = 0; $j < $star; $j++)
+                                                    <i class="bi bi-star text-warning"></i>
+                                                @endfor
+                                            </label>
+                                        </div>
+                                        @php
+                                            $starFill--;
+                                            $star++;
+                                        @endphp
+                                    @endfor
+                                </div>
+                            </div>
+                            {{--                       end rating filter--}}
+
+                            {{--                        room type filter--}}
+                            <div class="mb-4">
+                                <div class="mb-3 fw-bold">
+                                    Loại phòng
+                                </div>
+                                <div class="">
+                                    @foreach($roomTypes as $roomType)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="{{$roomType->id}}"
+                                                   id="roomType_{{$roomType->id}}" name="roomType[]"
+                                                {{in_array($roomType->id, $type) ? 'checked' : ''}}/>
+                                            <label class="form-check-label"
+                                                   for="roomType_{{$roomType->id}}">{{$roomType->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            {{--                       end room type filter--}}
+
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <a href="{{route('guest.rooms')}}"
+                                       class="btn btn-secondary tran-3 w-100 ">Đặt lại</a>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary tran-3 w-100 ">Áp dụng
+                                    </button>
+                                </div>
+                            </div>
+                            {{--                            search--}}
+                            <input type="text" name="checkin" value="{{$search['checkin']}}" class="visually-hidden"
+                                   hidden>
+                            <input type="text" name="checkout" value="{{$search['checkout']}}" class="visually-hidden"
+                                   hidden>
+                            <input type="text" name="guest_num" value="{{$search['guest_num']}}" class="visually-hidden"
+                                   hidden>
+                        </form>
+                    </div>
                 </div>
                 {{--            filter--}}
+                {{--                rooms--}}
+                <div class="col-12 col-lg-9">
+                    @if($countRoom != 0)
+                        {{--                right side--}}
+                        <div class="">
+                            <div
+                                class="w-100 d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+                                {{--                        VIEW GIRD/LIST FORM--}}
+                                <form class="d-none d-md-flex m-0 align-items-center">
+                                    <div class="">
+                                        <input class="btn-check tran-3" type="radio" name="view" value="grid"
+                                               id="grid"
+                                               onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
+                                        />
+                                        <label class=" tran-3 btn btn-outline-dark "
+                                               for="grid"> <i class="bi bi-grid h-100"></i></label>
+                                    </div>
+                                    <div class="ms-3">
+                                        <input class="btn-check tran-3" type="radio" name="view" value="list"
+                                               id="list"
+                                               onchange="this.form.submit()" {{$view == 'list' ? 'checked' : ''}}/>
+                                        <label class=" tran-3 btn btn-outline-dark "
+                                               for="list"> <i class="bi bi-list h-100"></i></label>
+                                    </div>
+                                    {{--                            search--}}
+                                    <input type="text" name="checkin" value="{{$search['checkin']}}"
+                                           class="visually-hidden"
+                                           hidden>
+                                    <input type="text" name="checkout" value="{{$search['checkout']}}"
+                                           class="visually-hidden"
+                                           hidden>
+                                    <input type="text" name="guest_num" value="{{$search['guest_num']}}"
+                                           class="visually-hidden"
+                                           hidden>
+                                    {{--                            sort--}}
+                                    <input type="text" name="sort" value="{{$sort}}" class="visually-hidden" hidden>
+                                    {{--                            price--}}
+                                    <input type="text" name="from_price" value="{{$price['from_price']}}"
+                                           class="visually-hidden"
+                                           hidden>
+                                    <input type="text" name="to_price" value="{{$price['to_price']}}"
+                                           class="visually-hidden"
+                                           hidden>
+                                    {{--                            roomType--}}
+                                    @foreach($type as $value)
+                                        <input type="text" name="roomType[]" class="visually-hidden" hidden
+                                               value="{{$value}}">
+                                    @endforeach
+                                </form>
+                                {{--                        VIEW GIRD/LIST FORM--}}
+
+                                {{--                        SORTING--}}
+                                <div class="d-flex align-items-center justify-content-between col-12 col-md-auto">
+                                    <div class="text-primary fw-bold me-3">
+                                        Sắp xếp theo <i class="ms-2 bi bi-arrow-down-up"></i>
+                                    </div>
+                                    <form class="m-0 flex-fill">
+                                        <select class="form-select auto-submit" name="sort" id="sort"
+                                                aria-label="sort" onchange="this.form.submit()">
+                                            <option value="0" {{$sort == 0 ? 'selected' : ''}}>Mới nhất</option>
+                                            <option value="1" {{$sort == 1 ? 'selected' : ''}}>Đánh giá cao
+                                            </option>
+                                            <option value="2" {{$sort == 2 ? 'selected' : ''}}>Đặt nhiều
+                                            </option>
+                                            <option value="3" {{$sort == 3 ? 'selected' : ''}}>Giá thấp nhất
+                                            </option>
+                                            <option value="4" {{$sort == 4 ? 'selected' : ''}}>Giá cao nhất
+                                            </option>
+                                        </select>
+                                        {{--                            search--}}
+                                        <input type="text" name="checkin" value="{{$search['checkin']}}"
+                                               class="visually-hidden"
+                                               hidden>
+                                        <input type="text" name="checkout" value="{{$search['checkout']}}"
+                                               class="visually-hidden"
+                                               hidden>
+                                        <input type="text" name="guest_num" value="{{$search['guest_num']}}"
+                                               class="visually-hidden"
+                                               hidden>
+                                        {{--                                view--}}
+                                        <input type="text" name="view" value="{{$view}}" class="visually-hidden" hidden>
+                                        {{--                            price--}}
+                                        <input type="text" name="from_price" value="{{$price['from_price']}}"
+                                               class="visually-hidden"
+                                               hidden>
+                                        <input type="text" name="to_price" value="{{$price['to_price']}}"
+                                               class="visually-hidden"
+                                               hidden>
+                                        {{--                            roomType--}}
+                                        @foreach($type as $value)
+                                            <input type="text" name="roomType[]" class="visually-hidden" hidden
+                                                   value="{{$value}}">
+                                        @endforeach
+                                    </form>
+                                </div>
+                                {{--                        SORTING--}}
+                            </div>
+                            {{--                    ROOMS DIV--}}
+                            @if($view == 'grid')
+                                <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
+                                    @foreach($rooms as $room)
+                                        <div class="col-12 col-md-6  ">
+                                            <div class="bg-white shadow border row m-0 mb-3">
+                                                <div class="col-12 p-0 overflow-hidden -4 position-relative">
+                                                    <div class="overflow-hidden ratio ratio-16x9">
+                                                        <a href="{{route('guest.rooms.show', $room)}}">
+                                                            @if(count($room->images) != 0)
+                                                                <img
+                                                                    src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
+                                                                    alt="room_img"
+                                                                    class="object-fit-cover shadow tran-3 img-fluid"/>
+                                                            @else
+                                                                <img src="{{asset('images/noimage.jpg')}}"
+                                                                     alt="room_img"
+                                                                     class="object-fit-cover shadow tran-3 img-fluid"/>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                    <div
+                                                        class="position-absolute top-0 start-0 z-3 bg-white px-2 py-2 m-4 text-black shadow fs-7">
+                                                        <span class="text-success">${{$room->price}}</span> / đêm
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
+                                                    <div
+                                                        class="col-12 p-0 mb-3">
+                                                        <div>
+                                                            <a href="{{route('guest.rooms.show', $room)}}"
+                                                               class="text-decoration-none">
+                                                                <h4 class="fw-bold m-0">
+                                                                    {{$room->name}}
+                                                                </h4>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-12 p-0">
+                                                        <div
+                                                            class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
+                                                            <div class="text-info">
+                                                                {{$room->roomType->name}}
+                                                                / Giường {{$room->bed_size}} chỗ
+                                                            </div>
+                                                            <div>
+                                                                <a href="{{route('guest.rooms.show', $room)}}"
+                                                                   class=" border-bottom border-primary border-2 pb-1">
+                                                                    Tìm hiểu thêm <i class="bi bi-chevron-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div id="rooms_div" class="">
+                                    @foreach($rooms as $room)
+                                        <div class=" border shadow row m-0 mb-4 bg-white overflow-hidden">
+                                            <div
+                                                class="col-12 col-md-4 p-0 overflow-hidden position-relative">
+                                                <div class="overflow-hidden ratio ratio-16x9">
+                                                    <a href="{{route('guest.rooms.show', $room)}}"
+                                                       class="ratio ratio-16x9">
+                                                        @if(count($room->images) != 0)
+                                                            <img
+                                                                src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
+                                                                alt="room_img"
+                                                                class="object-fit-cover shadow tran-3 "/>
+                                                        @else
+                                                            <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
+                                                                 class="object-fit-cover shadow tran-3 "/>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    class="position-absolute top-0 start-0 z-3 bg-white px-4 py-2 m-4 text-black shadow border fs-7">
+                                                    <span class="text-success">${{$room->price}}</span> / đêm
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="col-12 col-md-8 row m-0 p-0 p-4 justify-content-between flex-column">
+                                                <div
+                                                    class="col-12 p-0 mb-3">
+                                                    <div>
+                                                        <a href="{{route('guest.rooms.show', $room)}}"
+                                                           class="text-decoration-none">
+                                                            <h4 class=" fw-bold m-0">
+                                                                {{$room->name}}
+                                                            </h4>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="col-12 p-0">
+                                                    <div
+                                                        class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
+                                                        <div class="text-info">
+                                                            {{$room->roomType->name}}
+                                                            / Giường {{$room->bed_size}} chỗ
+                                                        </div>
+                                                        <div>
+                                                            <a href="{{route('guest.rooms.show', $room)}}"
+                                                               class=" border-bottom border-primary border-2 pb-1">
+                                                                Tìm hiểu thêm <i class="bi bi-chevron-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                            {{--                   END ROOMS DIV--}}
+
+                            <div class="mt-4 ">
+                                {{$rooms->onEachSide(2)->links()}}
+                            </div>
+                        </div>
+                    @else
+                        <div>
+                            Không có phòng nào để hiện thị!
+                        </div>
+                    @endif
+                </div>
+                {{--                endrooms--}}
             </div>
             {{--            end rooms--}}
         </div>

@@ -10,7 +10,7 @@
 
                 <div class="">
                     <div class="d-flex align-items-center">
-                        <img src="{{asset('images/noavt.jpg')}}" alt="logo" class=" shadow-lg "
+                        <img src="{{asset('images/noavt.jpg')}}" alt="logo" class=" shadow "
                              width="40px"
                              height="40px">
                         <div class="ms-2">

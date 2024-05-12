@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-12 col-lg-3">
-                    <div class="p-4  shadow-lg  bg-dark">
+                    <div class="p-4  shadow  bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-12 col-lg-9 h-100">
                     <div
-                        class="p-4  shadow-lg  bg-dark d-flex flex-column justify-content-between h-100">
+                        class="p-4  shadow  bg-white d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
                                 class="d-flex align-items-baseline justify-content-between flex-column flex-md-row mb-4">
@@ -74,7 +74,7 @@
                                                 </div>
                                                 @break
                                             @case(5)
-                                                <div class="badge bg-dark ">
+                                                <div class="badge bg-white ">
                                                     Refund
                                                 </div>
                                                 @break
@@ -203,7 +203,7 @@
                             @if($booking->note)
                                 <div class="mb-2 fw-bold"><i class="bi bi-chat-dots me-2"></i>Note</div>
                                 <pre style="white-space: pre-line"
-                                     class="mb-4 p-3 text-bg-dark">
+                                     class="mb-4 p-3 text-bg-white">
                                     {!! $booking->note !!}
                                 </pre>
                             @endif
@@ -211,11 +211,11 @@
                                 class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
                                 @if($booking->status == 3 || $booking->status == 5)
                                     @if(!$rate)
-                                        <a href="" class="btn btn-outline-primary  me-2" data-bs-toggle="modal"
+                                        <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
                                            data-bs-target="#ratingModal">Write a
                                             review</a>
                                     @else
-                                        <a href="" class="btn btn-outline-primary  me-2" data-bs-toggle="modal"
+                                        <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
                                            data-bs-target="#myReviewModal">My review</a>
                                     @endif
                                 @endif
@@ -231,7 +231,7 @@
                                 @endif
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="shadow-lg  table mb-4">
+                                <table class="shadow  table mb-4">
                                     <thead>
                                     <tr>
                                         <th>Room booked</th>
@@ -245,17 +245,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-column flex-xl-row align-middle align-items-center">
-                                                <div class="bg-image ratio ratio-16x9  shadow-lg">
+                                                <div class="bg-image ratio ratio-16x9  shadow">
                                                     @if(count($booking->room->images) != 0)
                                                         <img
                                                             src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover  shadow-lg">
+                                                            class="object-fit-cover  shadow">
                                                     @else
                                                         <img
                                                             src="{{asset('images/noimage.jpg')}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover  shadow-lg">
+                                                            class="object-fit-cover  shadow">
                                                     @endif
                                                 </div>
                                                 <div class="mt-3 mt-xl-0 ms-xl-3">
@@ -355,7 +355,7 @@
                                 data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-outline-primary ">
+                        <button type="submit" class="btn btn-primary ">
                             Rate
                         </button>
                     </div>
@@ -432,7 +432,7 @@
                         @if($rate?->review)
                             <div>
                                   <pre style="white-space: pre-line"
-                                       class="mb-4 p-3 text-bg-dark">
+                                       class="mb-4 p-3 text-bg-white">
                                     {!! $rate->review !!}
                                 </pre>
                             </div>

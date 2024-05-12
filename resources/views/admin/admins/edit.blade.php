@@ -1,6 +1,6 @@
 <title>Edit admin information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-dark  shadow-lg  mb-4">
+    <div class="p-4 bg-dark  shadow  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Admins Management</h4>
             <a class="d-block d-lg-none"
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="bg-dark   shadow-lg  overflow-hidden">
+    <div class="bg-dark   shadow  overflow-hidden">
         <div
             class="p-4  -bottom">
             <div class="text-primary">
@@ -96,7 +96,7 @@
                             @if($admin->level == 0)
                                 <a class="badge bg-dark ">Owner</a>
                             @else
-                                <a class="badge bg-dark  shadow-lg">Employee</a>
+                                <a class="badge bg-dark  shadow">Employee</a>
                             @endif
                         </div>
                         @if ($errors->has('level'))
@@ -117,7 +117,7 @@
                         <img
                             src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
                             alt="guest_image"
-                            class="img-fluid   shadow-lg">
+                            class="img-fluid   shadow">
                     </div>
                 </div>
             </div>

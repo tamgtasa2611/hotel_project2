@@ -33,20 +33,20 @@
                 <div class="row g-5">
                     {{--                calendar--}}
                     <div class="col-12 col-lg-8 h-100">
-                        <div class="bg-dark p-4 pb-4 shadow-lg  ">
+                        <div class="bg-white p-4 pb-4 shadow border ">
                             {{--                room image--}}
-                            <div class="mb-5 ratio ratio-16x9 overflow-hidden">
+                            <div class="mb-4 ratio ratio-16x9 overflow-hidden">
                                 @if(count($roomImages) > 1)
                                     <!-- Carousel wrapper -->
                                     <div id="carouselExampleAutoplaying" class="carousel slide"
                                          data-bs-ride="carousel">
                                         <div
-                                            class="carousel-inner  shadow-lg tran-3 ratio ratio-16x9 overflow-hidden">
+                                            class="carousel-inner  shadow tran-3 ratio ratio-16x9 overflow-hidden">
                                             @foreach($roomImages as $image)
                                                 <div class="carousel-item {{$image == $roomImages[0] ? 'active' : '' }}"
                                                      data-bs-interval="4000">
                                                     <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                         class="d-block w-100  shadow-lg object-fit-cover"
+                                                         class="d-block w-100  shadow object-fit-cover"
                                                          alt="...">
                                                 </div>
                                             @endforeach
@@ -64,34 +64,34 @@
                                     </div>
                                     <!-- Carousel wrapper -->
                                 @elseif(count($roomImages) == 1)
-                                    <div class=" shadow-lg overflow-hidden ratio ratio-16x9">
+                                    <div class=" shadow overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         @foreach($roomImages as $image)
                                             <div
                                                 class="overflow-hidden ratio ratio-16x9 ">
                                                 <img src="{{asset('storage/admin/rooms/'.$image->path)}}"
-                                                     class="d-block w-100  shadow-lg object-fit-cover"/>
+                                                     class="d-block w-100  shadow object-fit-cover"/>
                                             </div>
                                         @endforeach
                                     </div>
                                 @else
-                                    <div class=" shadow-lg overflow-hidden ratio ratio-16x9">
+                                    <div class=" shadow overflow-hidden ratio ratio-16x9">
                                         <!--  item -->
                                         <div
                                             class="overflow-hidden ratio ratio-16x9 ">
                                             <img src="{{asset('images/noimage.jpg')}}"
-                                                 class="d-block w-100  shadow-lg object-fit-cover"/>
+                                                 class="d-block w-100  shadow object-fit-cover"/>
                                         </div>
                                     </div>
                                 @endif
                             </div>
-                            <div class="mb-4 d-flex justify-content-between">
+                            <div class="mb-4">
                                 <div>
-                                    <h1 class="m-0 fw-bold text-primary">Room {{$room->name}}</h1>
-                                    <div class="fw-bold">{{$room->roomType->name}}/{{$room->capacity}} guests</div>
+                                    <h1 class="m-0 fw-bold text-primary">{{$room->name}}</h1>
+                                    <div class="fw-bold">{{$room->roomType->name}}
+                                        / Giường {{$room->bed_size}} chỗ
+                                    </div>
                                 </div>
-                                <a href="#calendar" class="text-decoration-none">Check availability<i
-                                        class="bi bi-info-circle ms-2"></i></a>
                             </div>
                             <div class="mb-4">
                                 <p class="">
@@ -107,46 +107,24 @@
                                 </p>
                             </div>
                             <div class="mb-4">
-                                <h4 class="mb-3 text-primary">Family-friendly Amenities</h4>
+                                <h4 class="mb-3 text-primary">Tiện nghi</h4>
                                 <div class="row h-100 g-4">
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">
+                                        <div class="shadow   h-100 fs-6 p-4 text-center">
                                             Kitchen Items
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">Baby
+                                        <div class="shadow   h-100 fs-6 p-4 text-center">Baby
                                             Crib
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 h-100">
-                                        <div class="shadow-lg   h-100 fs-6 p-4 text-center">
+                                        <div class="shadow   h-100 fs-6 p-4 text-center">
                                             Washing
                                             Machine
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <h4 class="mb-3 text-primary">What’s included in this suite?</h4>
-                                    <ul class=" -primary  list-unstyled ps-3">
-                                        <li class="">
-                                            Amazing balcony
-                                        </li>
-                                        <li class="">
-                                            Seat beside the panoramic window
-                                        </li>
-                                        <li class="">
-                                            TV for watching IMAX films
-                                        </li>
-                                        <li class="">
-                                            Writing desk with USB ports for documenting your adventures
-                                        </li>
-                                        <li class="">
-                                            Bathroom with rain shower
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -155,15 +133,15 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-dark p-4 m-0 shadow-lg  "
+                              class="bg-white p-4 m-0 shadow border "
                               action="{{route('guest.bookRoom')}}">
                             @csrf
                             @method('POST')
                             <input type="text" name="room_id" value="{{$room->id}}" hidden class="visually-hidden">
                             <div class="mb-4 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0 fw-bold text-primary">RESERVE <i class="bi bi-journal-check"></i></h5>
+                                <h5 class="m-0 fw-bold text-primary">Đặt phòng <i class="bi bi-journal-check"></i></h5>
                                 <div><span
-                                        class="text-success fw-bold">${{$room->roomType->base_price}}</span>/night
+                                        class="text-success">{{AppHelper::vnd_format($room->price)}}</span> / night
                                 </div>
                             </div>
                             <div class="row g-3">
@@ -201,30 +179,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <h5 class="m-0 fw-bold text-primary my-4">SUMMARY <i class="bi bi-info-circle"></i></h5>
+                            <h5 class="m-0 fw-bold text-primary my-4">Thông tin đặt phòng <i
+                                    class="bi bi-info-circle"></i></h5>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="">
-                                    Days booked
+                                    Số ngày đặt
                                 </div>
-                                <div id="dayBooked" class="fw-bold">
-                                    0 day
+                                <div id="dayBooked" class="">
+                                    0 ngày
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="">
-                                    Amount
+                                    Giá phòng
                                 </div>
-                                <div class="text-success fw-bold">
+                                <div class="text-success ">
                                     <input class="visually-hidden" hidden id="basePriceValue"
-                                           value="{{$room->roomType->base_price}}">
-                                    $<span id="amount" class="fw-bold">0.00</span>
+                                           value="{{$room->price}}">
+                                    <span id="amount" class="">{{AppHelper::vnd_format(0)}}</span>
                                 </div>
                             </div>
                             <div class="col-12">
                                 @auth('guest')
                                     <!-- Submit button -->
                                     <button type="submit" id="bookBtn"
-                                            class="btn btn-outline-primary  tran-3 w-100">
+                                            class="btn btn-primary  tran-3 w-100">
                                         BOOK
                                     </button>
                                 @endauth
@@ -242,8 +221,8 @@
                             </div>
                         </form>
 
-                        <div class="mt-5 bg-dark p-4 shadow-lg  ">
-                            <h4 class="mb-3 mt-md-0 text-primary">Check Availability</h4>
+                        <div class="mt-5 bg-white p-4 shadow  border">
+                            <h4 class="mb-3 mt-md-0 fw-bold text-primary">Kiểm tra tình trạng phòng</h4>
                             <div id='calendar' class="fs-7 mb-4"></div>
                         </div>
                     </div>
@@ -262,17 +241,17 @@
                 </div>
             </div>
             {{--            rating--}}
-            <div class="mb-5 bg-dark p-4 shadow-lg  " id="rating">
-                <h4 class="mb-4 fw-bold text-primary">Reviews & Ratings <i class="bi bi-star"></i></h4>
+            <div class="mb-5 bg-white p-4 shadow border " id="rating">
+                <h4 class="mb-4 fw-bold text-primary">Đánh giá <i class="bi bi-star"></i></h4>
                 {{--                review--}}
                 <div class="row g-4">
                     <div class="col-12">
                         @if(count($roomRatings) != 0)
                             @foreach($roomRatings as $roomRating)
-                                <div class="text-bg-dark p-4 mb-4  shadow-lg">
+                                <div class="text-bg-white p-4 mb-4  shadow">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <div class="div-img overflow-hidden  shadow-sm"
+                                            <div class="div-img overflow-hidden  shadow"
                                                  style="height: 60px; width: 60px">
                                                 <img
                                                     src="{{asset(($roomRating->booking->guest->image) ? 'storage/admin/guests/'.$roomRating->booking->guest->image : 'images/noavt.jpg')}}"
@@ -358,22 +337,21 @@
                                 </div>
                             @endforeach
                         @else
-                            No review to show...
+                            Chưa có đánh giá nào...
                         @endif
                     </div>
                 </div>
             </div>
 
             {{--            SIMILAR ROOMS--}}
-            <div class="mb-5 bg-dark p-4 shadow-lg  ">
-                <h4 class="mb-4 fw-bold text-primary">Other <span
-                        class="">{{$room->roomType->name}}</span><i
-                        class="bi bi-search ms-2"></i></h4>
-                @if(count($similarRooms) != 0)
+            @if(count($similarRooms) != 0)
+                <div class="mb-5 bg-white p-4 shadow border">
+                    <h4 class="mb-4 fw-bold text-primary">Phòng tương tự <i
+                            class="bi bi-search ms-2"></i></h4>
                     <div class="row row-cols-3 g-4">
                         @foreach($similarRooms as $sRoom)
                             <div class="col-12 col-md-4">
-                                <div class="shadow-sm ">
+                                <div class="shadow ">
                                     <div class="ratio ratio-16x9 -4 hover-zoom overflow-hidden">
                                         @if(count($sRoom->images)== 0)
                                             <a href="{{route('guest.rooms.show', $sRoom)}}">
@@ -396,17 +374,16 @@
                                             </div>
                                         </a>
                                         <a href="{{route('guest.rooms.show', $sRoom)}}"
-                                           class="btn btn-outline-primary "
+                                           class="btn btn-primary "
                                            data-mdb-ripple-init>VIEW</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                @else
-                    No similar rooms to show...
-                @endif
-            </div>
+                </div>
+            @endif
+
         </div>
     </section>
     <script src="{{asset('plugins/calendar/moment.min.js')}}"></script>
@@ -417,6 +394,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'vi',
+                firstDay: '1',
+                today: 'Hôm nay',
                 validRange: {
                     start: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
                     end: new Date(new Date().setMonth(new Date().getMonth() + 3)),
@@ -433,8 +413,10 @@
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
             theme: {
-                theme_color: '#137ea7',
-
+                theme_color: '#008cba',
+                main_background: 'rgb(30,36,49)',
+                active_text_color: 'rgb(255,255,255)',
+                inactive_text_color: 'rgba(255,255,255,0.3)',
             },
             bodyType: 'inline',
             dateFormat: 'dd-mm-yyyy',
@@ -449,8 +431,10 @@
         const datePicker2 = MCDatepicker.create({
             el: '#checkout',
             theme: {
-                theme_color: '#137ea7',
-
+                theme_color: '#008cba',
+                main_background: 'rgb(30,36,49)',
+                active_text_color: 'rgb(255,255,255)',
+                inactive_text_color: 'rgba(255,255,255,0.3)',
             },
             bodyType: 'inline',
             dateFormat: 'dd-mm-yyyy',
@@ -513,10 +497,17 @@
 
         function dateErrorAction() {
             dateError.removeClass("d-none");
-            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Ngày trả phòng phải sau ngày nhận phòng ít nhất 1 ngày!');
             bookBtn.removeAttr("type").attr("type", "button");
-            $("#dayBooked").html(`0 day`);
-            $("#amount").html(`0.00`);
+            $("#dayBooked").html(`0 ngày`);
+            $("#amount").html(`0`);
+        }
+
+        function vnd_format(number) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(number);
         }
 
         function dateValidAction() {
@@ -527,15 +518,16 @@
             dayBooked = Math.round((datePicker2.getFullDate() - datePicker1.getFullDate()) / (1000 * 3600 * 24));
 
             if (dayBooked === 1) {
-                $("#dayBooked").html(`1 day`);
+                $("#dayBooked").html(`1 ngày`);
                 $("#amount").html(`${basePrice}`);
             } else {
                 if (isNaN(dayBooked)) {
-                    $("#dayBooked").html(`0 day`);
-                    $("#amount").html(`0.00`);
+                    $("#dayBooked").html(`0 ngày`);
+                    $("#amount").html(`0`);
                 } else {
-                    $("#dayBooked").html(`${dayBooked} days`);
-                    $("#amount").html(`${(basePrice * dayBooked).toFixed(2)}`);
+                    $("#dayBooked").html(`${dayBooked} ngày`);
+                    let vnd = vnd_format(basePrice * dayBooked);
+                    $("#amount").html(vnd);
                 }
             }
         }
