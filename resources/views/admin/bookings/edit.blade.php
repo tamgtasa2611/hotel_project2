@@ -1,13 +1,13 @@
 <title>Booking information - Skyrim Hotel</title>
 <x-adminLayout>
     {{--------------- MAIN --------------}}
-    <div class="p-3 bg-dark  shadow-sm  mb-3">
+    <div class="p-3 bg-white  shadow-sm  mb-3">
         <div class="text-primary">
             <h4 class="fw-bold m-0">Bookings Management</h4>
         </div>
     </div>
 
-    <div class="bg-dark  shadow-sm  overflow-hidden">
+    <div class="bg-white  shadow-sm  overflow-hidden">
         <div
             class="p-3 -top -bottom">
             <div class="text-primary">

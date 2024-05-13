@@ -1,5 +1,5 @@
 <div>
-    <h6 class="fw-bold text-muted text-center">Welcome back,</h6>
+    <h6 class="fw-bold text-muted text-center">Xin chào,</h6>
     <h4 class="fw-bold text-primary text-center mb-3">
         @php
             $currentGuest = \Illuminate\Support\Facades\Auth::guard('guest')->user();

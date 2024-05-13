@@ -1,4 +1,4 @@
-<div class="list-group list-group-light bg-dark  shadow-none ">
+<div class="list-group list-group-light bg-white  shadow-none ">
     @php
         $adminId = \Illuminate\Support\Facades\Auth::guard('admin')->id();
         $currentAdmin = \App\Models\Admin::find($adminId);

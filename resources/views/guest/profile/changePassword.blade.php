@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow   bg-white">
+                    <div class="p-4 shadow-sm border rounded-3  bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 bg-white shadow   d-flex flex-column justify-content-between h-100">
+                        class="p-4 bg-white shadow-sm border rounded-3  d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')

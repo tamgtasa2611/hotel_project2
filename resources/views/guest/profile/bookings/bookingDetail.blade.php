@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-12 col-lg-3">
-                    <div class="p-4  shadow  bg-white">
+                    <div class="p-4  shadow-sm  bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-12 col-lg-9 h-100">
                     <div
-                        class="p-4  shadow  bg-white d-flex flex-column justify-content-between h-100">
+                        class="p-4  shadow-sm  bg-white d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
                                 class="d-flex align-items-baseline justify-content-between flex-column flex-md-row mb-4">
@@ -231,7 +231,7 @@
                                 @endif
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="shadow  table mb-4">
+                                <table class="shadow-sm  table mb-4">
                                     <thead>
                                     <tr>
                                         <th>Room booked</th>
@@ -245,17 +245,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-column flex-xl-row align-middle align-items-center">
-                                                <div class="bg-image ratio ratio-16x9  shadow">
+                                                <div class="bg-image ratio ratio-16x9  shadow-sm">
                                                     @if(count($booking->room->images) != 0)
                                                         <img
                                                             src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover  shadow">
+                                                            class="object-fit-cover  shadow-sm">
                                                     @else
                                                         <img
                                                             src="{{asset('images/noimage.jpg')}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover  shadow">
+                                                            class="object-fit-cover  shadow-sm">
                                                     @endif
                                                 </div>
                                                 <div class="mt-3 mt-xl-0 ms-xl-3">

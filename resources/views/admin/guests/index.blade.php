@@ -1,6 +1,6 @@
 <title>Guests management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-dark  shadow  mb-4">
+    <div class="p-4 bg-white  shadow-sm  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Guests Management</h4>
             <a class="d-block d-lg-none"
@@ -12,7 +12,7 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-dark  shadow  overflow-hidden">
+    <div class="bg-white  shadow-sm  overflow-hidden">
         <div class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-table me-2"></i>Guests Datatable
@@ -27,10 +27,10 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 bg-dark  text-muted">
+        <div class="p-4 bg-white  text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-dark  w-100"
+                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>

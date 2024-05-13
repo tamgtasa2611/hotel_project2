@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow   bg-white">
+                    <div class="p-4 shadow-sm rounded-3 border  bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 bg-white shadow   d-flex flex-column justify-content-between h-100">
+                        class="p-4 bg-white shadow-sm border rounded-3  d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -24,7 +24,7 @@
                             @include('partials.flashMsgFail')
                         @endif
                         <div class="d-flex justify-content-between align-items-center mb-0 mb-md-4">
-                            <h4 class="text-primary fw-bold mb-4 mb-md-0">My profile</h4>
+                            <h4 class="text-primary fw-bold mb-4 mb-md-0">Hồ sơ của tôi</h4>
                             <a class="btn btn-outline-danger  tran-3  mb-4 mb-md-0"
                                data-bs-toggle="modal"
                                data-bs-target="#exampleModal"
@@ -107,7 +107,7 @@
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
                                             alt="guest_image"
-                                            class="w-100 h-auto shadow ">
+                                            class="w-100 h-auto shadow-sm ">
                                     </div>
                                 </div>
                             </div>

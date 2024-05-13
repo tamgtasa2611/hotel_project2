@@ -32,7 +32,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <div class="list-group list-group-light bg-dark  shadow-none ">
+            <div class="list-group list-group-light bg-white  shadow-none ">
                 @if($currentAdmin->level == 0)
                     <a href="{{ route('admin.dashboard') }}"
                        class="list-group-item list-group-item-action d-flex align-items-center

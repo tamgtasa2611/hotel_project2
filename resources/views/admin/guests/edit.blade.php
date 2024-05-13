@@ -1,6 +1,6 @@
 <title>Edit guest information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-dark  shadow  mb-4">
+    <div class="p-4 bg-white  shadow-sm  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Guests Management</h4>
             <a class="d-block d-lg-none"
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="bg-dark  shadow  overflow-hidden">
+    <div class="bg-white  shadow-sm  overflow-hidden">
         <div
             class="p-4  -bottom">
             <div class="text-primary">

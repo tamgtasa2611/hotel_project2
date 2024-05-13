@@ -34,7 +34,7 @@ form {
 
 /*margin from navbar*/
 .m-nav {
-    margin-top: 106px !important;
+    margin-top: 74px !important;
 }
 
 /*scroll reveal========================*/
@@ -105,13 +105,17 @@ html.sr .load-hidden {
     display: flex !important;
 }
 
-.fc-toolbar-chunk button {
+.fc-header-toolbar, .fc-toolbar, .fc-toolbar-chunk button {
     font-size: 0.8rem !important;
+}
+
+.fc-toolbar-title {
+    font-size: 1rem !important;
 }
 
 /*fullcalendar*/
 .mc-calendar {
-    box-shadow: var(--bs-box-shadow) !important;
+    box-shadow: var(--bs-box-shadow-sm) !important;
 }
 
 /*end rooms*/
@@ -174,21 +178,20 @@ html.sr .load-hidden {
 }
 
 .list-group-item, .list-group-item.active, .list-group-item:hover, .list-group-item:focus {
-    border-left: 4px solid var(--bs-dark) !important;
+    border-left: 4px solid var(--bs-white) !important;
 }
 
-.list-group-item.active {
-    background-color: var(--bs-dark);
-    color: var(--bs-primary);
-    border-left: 5px solid var(--bs-primary) !important;
-}
+/*.list-group-item.active {*/
+/*    background-color: var(--bs-primary-bg-subtle) !important;*/
+/*    border-left: 4px solid var(--bs-primary) !important;*/
+/*}*/
 
 
 /*RESPONSIVE===============================================================*/
 
 @media (max-width: 991px) {
     .m-nav {
-        margin-top: 106px !important;
+        margin-top: 74px !important;
     }
 }
 

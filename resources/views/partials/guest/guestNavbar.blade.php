@@ -1,4 +1,4 @@
-<nav class="navbar nav-underline navbar-expand-lg bg-primary tran-3 shadow border fixed-top" data-bs-theme="dark">
+<nav class="navbar nav-underline navbar-expand-lg bg-primary tran-3 shadow fixed-top" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand d-block d-lg-none" href="/home">
             <div class="d-flex flex-column justify-content-center align-items-center">

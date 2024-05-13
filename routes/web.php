@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,13 @@ Route::prefix('/rooms')->controller(RoomController::class)->group(function () {
     Route::get('/', 'index')->name('guest.rooms');
     Route::post('/', 'index')->name('guest.rooms.search');
     Route::get('/{room}', 'show')->name('guest.rooms.show');
+});
+
+Route::prefix('/cart')->controller(CartController::class)->group(function () {
+    Route::get('/', 'cart')->name('guest.cart');
+    Route::post('/addToCart/{room}', 'addToCart')->name('guest.cart.addToCart');
+    Route::get('/delete/{id}', 'deleteFromCart')->name('guest.cart.delete');
+    Route::get('/deleteAll', 'deleteAllFromCart')->name('guest.cart.deleteAll');
 });
 
 //BOOKING

@@ -4,7 +4,7 @@
         {{--        breadcrumb--}}
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center hero-section">
-                <form class="bg-white p-5 shadow col-12 col-md-8 col-lg-6
+                <form class="bg-white border rounded-3 p-5 shadow-sm col-12 col-md-8 col-lg-6
                 load-hidden fade-in" method="post" action="{{route('guest.sendContact')}}">
                     @csrf
                     @method('POST')

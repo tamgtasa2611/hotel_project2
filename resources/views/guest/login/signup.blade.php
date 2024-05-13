@@ -6,7 +6,7 @@
                 class="w-100 h-100 d-flex align-items-center justify-content-center
              load-hidden fade-in position-relative">
                 <form method="post" action="{{ route('guest.registerProcess') }}" enctype="multipart/form-data"
-                      class="bg-white p-5  shadow  col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 border rounded-3 shadow-sm  col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     @method('POST')
                     {{--                    heading --}}

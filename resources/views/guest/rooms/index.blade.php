@@ -17,7 +17,7 @@
                 {{--            filter--}}
                 <div class="col-12 col-lg-3" style="height: fit-content !important;">
                     {{--            search form--}}
-                    <div class="shadow bg-white mb-4 border ">
+                    <div class="shadow-sm bg-white mb-4 border rounded-3">
                         <div class="p-4">
                             <h5 class="m-0 fw-bold text-primary">Tìm phòng trống <i class="ms-2 bi bi-search"></i>
                             </h5>
@@ -86,7 +86,7 @@
                         </form>
                     </div>
                     {{--           end search form--}}
-                    <div class=" shadow bg-white border">
+                    <div class=" shadow-sm bg-white border rounded-3">
                         <div class="p-4">
                             <h5 class="m-0 fw-bold text-primary">Bộ lọc <i class="ms-2 bi bi-sliders"></i></h5>
                         </div>
@@ -208,14 +208,14 @@
                                                id="grid"
                                                onchange="this.form.submit()" {{$view == 'grid' ? 'checked' : ''}}
                                         />
-                                        <label class=" tran-3 btn btn-outline-dark "
+                                        <label class=" tran-3 btn btn-outline-primary"
                                                for="grid"> <i class="bi bi-grid h-100"></i></label>
                                     </div>
                                     <div class="ms-3">
                                         <input class="btn-check tran-3" type="radio" name="view" value="list"
                                                id="list"
                                                onchange="this.form.submit()" {{$view == 'list' ? 'checked' : ''}}/>
-                                        <label class=" tran-3 btn btn-outline-dark "
+                                        <label class=" tran-3 btn btn-outline-primary"
                                                for="list"> <i class="bi bi-list h-100"></i></label>
                                     </div>
                                     {{--                            search--}}
@@ -296,7 +296,7 @@
                                 <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
                                     @foreach($rooms as $room)
                                         <div class="col-12 col-md-6  ">
-                                            <div class="bg-white shadow border row m-0 mb-3">
+                                            <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
                                                 <div class="col-12 p-0 overflow-hidden -4 position-relative">
                                                     <div class="overflow-hidden ratio ratio-16x9">
                                                         <a href="{{route('guest.rooms.show', $room)}}">
@@ -304,17 +304,22 @@
                                                                 <img
                                                                     src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
                                                                     alt="room_img"
-                                                                    class="object-fit-cover shadow tran-3 img-fluid"/>
+                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
                                                             @else
                                                                 <img src="{{asset('images/noimage.jpg')}}"
                                                                      alt="room_img"
-                                                                     class="object-fit-cover shadow tran-3 img-fluid"/>
+                                                                     class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
                                                             @endif
                                                         </a>
                                                     </div>
                                                     <div
-                                                        class="position-absolute top-0 start-0 z-3 bg-white px-2 py-2 m-4 text-black shadow fs-7">
-                                                        <span class="text-success">${{$room->price}}</span> / đêm
+                                                        class="position-absolute top-0 start-0 z-2 bg-white px-2 py-2 m-4 shadow-sm rounded-3 fs-7">
+                                                        <a href="{{route('guest.rooms.show', $room)}}"
+                                                           class="text-reset">
+                                                            <span
+                                                                class="text-success">{{\App\Helpers\AppHelper::vnd_format($room->price)}}</span>
+                                                            / đêm
+                                                        </a>
                                                     </div>
                                                 </div>
 
@@ -335,7 +340,7 @@
                                                         class="col-12 p-0">
                                                         <div
                                                             class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
-                                                            <div class="text-info">
+                                                            <div>
                                                                 {{$room->roomType->name}}
                                                                 / Giường {{$room->bed_size}} chỗ
                                                             </div>
@@ -355,7 +360,7 @@
                             @else
                                 <div id="rooms_div" class="">
                                     @foreach($rooms as $room)
-                                        <div class=" border shadow row m-0 mb-4 bg-white overflow-hidden">
+                                        <div class=" border shadow-sm row m-0 mb-4 bg-white rounded-3 overflow-hidden">
                                             <div
                                                 class="col-12 col-md-4 p-0 overflow-hidden position-relative">
                                                 <div class="overflow-hidden ratio ratio-16x9">
@@ -365,16 +370,21 @@
                                                             <img
                                                                 src="{{asset('storage/admin/rooms/'.$room->images[0]->path)}}"
                                                                 alt="room_img"
-                                                                class="object-fit-cover shadow tran-3 "/>
+                                                                class="object-fit-cover shadow-sm tran-3 rounded-start-3"/>
                                                         @else
                                                             <img src="{{asset('images/noimage.jpg')}}" alt="room_img"
-                                                                 class="object-fit-cover shadow tran-3 "/>
+                                                                 class="object-fit-cover shadow-sm tran-3 rounded-start-3"/>
                                                         @endif
                                                     </a>
                                                 </div>
                                                 <div
-                                                    class="position-absolute top-0 start-0 z-3 bg-white px-4 py-2 m-4 text-black shadow border fs-7">
-                                                    <span class="text-success">${{$room->price}}</span> / đêm
+                                                    class="position-absolute bottom-0 start-0 z-2 bg-white px-2 py-2 m-4 shadow-sm rounded-3 fs-7">
+                                                    <a href="{{route('guest.rooms.show', $room)}}"
+                                                       class="text-reset">
+                                                            <span
+                                                                class="text-success">{{\App\Helpers\AppHelper::vnd_format($room->price)}}</span>
+                                                        / đêm
+                                                    </a>
                                                 </div>
                                             </div>
 
@@ -396,7 +406,7 @@
                                                     class="col-12 p-0">
                                                     <div
                                                         class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
-                                                        <div class="text-info">
+                                                        <div>
                                                             {{$room->roomType->name}}
                                                             / Giường {{$room->bed_size}} chỗ
                                                         </div>

@@ -34,7 +34,7 @@ class RoomController extends Controller
 
         $price = [
             'from_price' => $request->from_price ?? 0,
-            'to_price' => $request->to_price ?? 500,
+            'to_price' => $request->to_price ?? 5000000,
         ];
 
         if ($price['from_price'] > $price['to_price']) {

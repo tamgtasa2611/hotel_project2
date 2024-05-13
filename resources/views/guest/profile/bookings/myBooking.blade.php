@@ -5,7 +5,7 @@
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-10 col-lg-3">
-                    <div class="p-4 shadow   bg-white">
+                    <div class="p-4 shadow-sm rounded-3 border  bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 shadow   bg-white d-flex flex-column justify-content-between h-100">
+                        class="p-4 shadow-sm border rounded-3  bg-white d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -57,7 +57,7 @@
                             <div>
                                 @if (count($bookings) != 0)
                                     <table
-                                        class="shadow tran-3 table table-striped table-sm  align-middle mb-0 w-100"
+                                        class="shadow-sm tran-3 table table-striped table-sm  align-middle mb-0 w-100"
                                         id="dataTable">
                                         <thead>
                                         <tr>

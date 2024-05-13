@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="col-10">
                                     <form method="post" action="{{route('guest.rooms.search')}}"
-                                          class="bg-white p-4 m-0 shadow " autocomplete="off">
+                                          class="bg-white p-4 m-0 shadow-sm rounded-3 border" autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row g-4">
@@ -83,17 +83,17 @@
                         </p>
                         <!-- Carousel wrapper -->
                         <div id="carouselExampleAutoplaying" class="mt-3 carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner  shadow tran-3">
+                            <div class="carousel-inner  shadow-sm tran-3">
                                 <div class="carousel-item active" data-bs-interval="4000">
-                                    <img src="{{asset('images/1.png')}}" class="d-block w-100  shadow"
+                                    <img src="{{asset('images/1.png')}}" class="d-block w-100  shadow-sm"
                                          alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/2.png')}}" class="d-block w-100  shadow"
+                                    <img src="{{asset('images/2.png')}}" class="d-block w-100  shadow-sm"
                                          alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/3.png')}}" class="d-block w-100  shadow"
+                                    <img src="{{asset('images/3.png')}}" class="d-block w-100  shadow-sm"
                                          alt="...">
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                         <div class="row mt-3 g-5">
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-wifi fs-4"></i>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-cup-straw fs-4"></i>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-car-front fs-4"></i>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-headset fs-4"></i>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-person-walking fs-4"></i>
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@
 
                             <div class="col-12 col-lg-4">
                                 <div class="d-flex justify-content-center mb-4">
-                                    <div class="bg-white p-4  shadow">
+                                    <div class="bg-white p-4 rounded-circle border shadow-sm">
                                         <i class="bi bi-bicycle fs-4"></i>
                                     </div>
                                 </div>

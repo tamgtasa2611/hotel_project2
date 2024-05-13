@@ -6,7 +6,7 @@
              load-hidden fade-in position-relative">
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.loginProcess')}}" enctype="multipart/form-data"
-                      class="bg-white p-5  shadow  col-md-8 col-lg-6 col-xl-4">
+                      class="bg-white p-5 border shadow-sm rounded-3 col-md-8 col-lg-6 col-xl-4">
                     @csrf
                     @method('POST')
                     {{--                    heading--}}

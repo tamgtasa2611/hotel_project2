@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
 </head>
-<body class="overflow-x-hidden overflow-y-auto bg-secondary">
+<body class="overflow-x-hidden overflow-y-auto">
 @include('partials.guest.guestNavbar')
 {{--alert edit success--}}
 @if (session('success'))
