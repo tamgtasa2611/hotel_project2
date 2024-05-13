@@ -1,8 +1,8 @@
 <title>Edit admin information - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Admins Management</h4>
+            <h4 class="fw-bold m-0">Quản lý nhân viên</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,11 +11,11 @@
         </div>
     </div>
 
-    <div class="bg-white   shadow-sm  overflow-hidden">
+    <div class="bg-white   shadow-sm border rounded-3 overflow-hidden">
         <div
             class="p-4  -bottom">
             <div class="text-primary">
-                <i class="bi bi-pencil-square me-2"></i>Edit Admin
+                <i class="bi bi-pencil-square me-2"></i>Sửa thông tin nhân viên
             </div>
         </div>
         {{-- FORM  --}}
@@ -24,112 +24,89 @@
               class="m-0">
             @csrf
             @method('PUT')
-            <div class="d-flex flex-column flex-lg-row">
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <!-- name input -->
-                    <div class="p-4">
-                        <div class="">
-                            <label class="form-label" for="first_name">First name <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" id="first_name" name="first_name" class="form-control"
-                                   value="{{ $admin->first_name }}" required/>
-                        </div>
-                        @if ($errors->has('first_name'))
-                            @foreach ($errors->get('first_name') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
+            <!--  last name input -->
+            <div class="p-4 col-12 col-lg-10 col-xl-6">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label" for="last_name">Họ <span class="text-danger">*</span></label>
                     </div>
-
-                    <!-- description Number input -->
-                    <div class="p-4 pt-0">
-                        <div class="">
-                            <label class="form-label" for="last_name">Last name <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" id="last_name" name="last_name" class="form-control"
-                                   value="{{ $admin->last_name }}" required/>
-                        </div>
-                        @if ($errors->has('last_name'))
-                            @foreach ($errors->get('last_name') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-
-                    <!-- email input -->
-                    <div class="p-4 pt-0">
-                        <div class="">
-                            <label class="form-label" for="email">Email address <span
-                                    class="text-danger">*</span></label>
-                            <input type="email" id="email" name="email" class="form-control" value="{{ $admin->email }}"
-                                   required/>
-                        </div>
-                        @if ($errors->has('email'))
-                            @foreach ($errors->get('email') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-
-                    {{--            phone number--}}
-                    <div class="p-4 pt-0">
-                        <div class="">
-                            <label class="form-label" for="phone">Phone number <span
-                                    class="text-danger">*</span></label>
-                            <input type="tel" id="phone" name="phone" class="form-control"
-                                   value="{{ $admin->phone_number }}"
-                                   maxlength="20" required/>
-                        </div>
-                        @if ($errors->has('phone'))
-                            @foreach ($errors->get('phone') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-
-                    {{--            status --}}
-                    <div class="p-4 pt-0">
-                        <div class="d-flex flex-column align-items-center justify-content-between flex-md-row">
-                            <div class="mb-3 mb-md-0 form-label">
-                                Level
-                            </div>
-                            @if($admin->level == 0)
-                                <a class="badge bg-white ">Owner</a>
-                            @else
-                                <a class="badge bg-white  shadow-sm">Employee</a>
-                            @endif
-                        </div>
-                        @if ($errors->has('level'))
-                            @foreach ($errors->get('level') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
+                    <div class="col-8">
+                        <input type="text" id="last_name" name="last_name" class="form-control"
+                               value="{{ $admin->last_name }}" required/>
                     </div>
                 </div>
+                @if ($errors->has('last_name'))
+                    @foreach ($errors->get('last_name') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
+            </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    {{--            image input--}}
-                    <div class="p-4 pt-0 pt-lg-4">
-                        <label for="image" class="form-label">Avatar</label>
-                        <input type="file" class="form-control" id="image" name="image"/>
+            <!-- name input -->
+            <div class="p-4 col-12 col-lg-10 col-xl-6">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label" for="first_name">Tên <span class="text-danger">*</span></label>
                     </div>
-                    <div class="p-4 pt-0 w-75">
-                        <img
-                            src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
-                            alt="guest_image"
-                            class="img-fluid   shadow-sm">
+                    <div class="col-8">
+                        <input type="text" id="first_name" name="first_name" class="form-control"
+                               value="{{ $admin->first_name }}" required/>
                     </div>
                 </div>
+                @if ($errors->has('first_name'))
+                    @foreach ($errors->get('first_name') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
+            </div>
+
+            <!-- email input -->
+            <div class="p-4 col-12  col-lg-10 col-xl-6">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+
+                    </div>
+                    <div class="col-8">
+                        <input type="email" id="email" name="email" class="form-control" value="{{ $admin->email }}"
+                               required/>
+                    </div>
+
+                </div>
+                @if ($errors->has('email'))
+                    @foreach ($errors->get('email') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
+            </div>
+
+            {{--            phone number--}}
+            <div class="p-4  col-12 col-lg-10 col-xl-6 ">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label" for="phone">Số điện thoại <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="tel" id="phone" name="phone" class="form-control"
+                               value="{{ $admin->phone_number }}"
+                               maxlength="20" required/>
+                    </div>
+                </div>
+                @if ($errors->has('phone'))
+                    @foreach ($errors->get('phone') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
             </div>
 
             <div class="d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.admins') }}"
                    class="btn btn-secondary  tran-3 me-3">
-                    Back
+                    Quay lại
                 </a>
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary  tran-3">
-                    Update
+                    Cập nhật
                 </button>
             </div>
         </form>

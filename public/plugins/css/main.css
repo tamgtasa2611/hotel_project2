@@ -71,6 +71,10 @@ html.sr .load-hidden {
     font-size: 0.8rem !important;
 }
 
+.fs-ok {
+    font-size: 0.9rem !important;
+}
+
 /*font size =============================================*/
 
 /* CURSOR =============================== */
@@ -177,9 +181,9 @@ html.sr .load-hidden {
     /* background-size: cover; */
 }
 
-.list-group-item, .list-group-item.active, .list-group-item:hover, .list-group-item:focus {
-    border-left: 4px solid var(--bs-white) !important;
-}
+/*.list-group-item, .list-group-item.active, .list-group-item:hover, .list-group-item:focus {*/
+/*    border-left: 4px solid var(--bs-white) !important;*/
+/*}*/
 
 /*.list-group-item.active {*/
 /*    background-color: var(--bs-primary-bg-subtle) !important;*/

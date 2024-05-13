@@ -40,7 +40,7 @@
              load-hidden fade-in fade-bottom position-relative">
             {{--               login form--}}
             <form method="post" action="{{route('admin.loginProcess')}}" enctype="multipart/form-data"
-                  class="bg-white p-5  shadow-sm  col-md-8 col-lg-6 col-xl-4">
+                  class="bg-white p-5 border rounded-3 shadow-sm col-10 col-md-6 col-lg-5 col-xl-4">
                 @csrf
                 {{--                    heading--}}
                 <div class="d-flex justify-content-center align-items-center mb-4">
@@ -51,7 +51,7 @@
                     <div>
                         <input type="email" class="form-control" id="exampleInputEmail1" name="email"
                                value="{{old('email')}}" required
-                               aria-describedby="emailHelp" placeholder="Email address">
+                               aria-describedby="emailHelp" placeholder="Email">
                     </div>
                     @if ($errors->has('email'))
                         @foreach ($errors->get('email') as $error)

@@ -3,7 +3,7 @@
         <a class="navbar-brand d-block d-lg-none" href="/home">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div>SkyrimHotel</div>
-                <div class="fs-7 text-warning-emphasis">
+                <div class="fs-7 text-warning">
                     <i class="bi bi-star-fill"></i>
                     <i class="bi bi-star-fill"></i>
                     <i class="bi bi-star-fill"></i>

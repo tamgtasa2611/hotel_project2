@@ -12,7 +12,7 @@ class Activity extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'activities';
+    protected $table = 'activity';
     public $timestamps = false;
     protected $fillable = [
         'detail',

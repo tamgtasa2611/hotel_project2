@@ -1,8 +1,8 @@
-<title>Guests management - Skyrim Hotel</title>
+<title>Quản lý khách hàng - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Guests Management</h4>
+            <h4 class="fw-bold m-0">Quản lý khách hàng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -12,33 +12,35 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white  shadow-sm  overflow-hidden">
-        <div class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
+    <div class="bg-white  shadow-sm border rounded-3 overflow-hidden">
+        <div class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Guests Datatable
+                <i class="bi bi-table me-2"></i>Danh sách khách hàng
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.guests.create') }}" class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new guest
+                <a href="{{ route('admin.guests.create') }}"
+                   class="d-flex align-items-center align-items-center btn btn-primary me-3">
+                    <i class="me-2 bi bi-plus-circle"></i>Thêm khách hàng
                 </a>
                 <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
                     <i class="me-2 bi bi-download"></i>Export
                 </a>
             </div>
         </div>
+        <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($guests) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white  w-100"
+                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle">Name</th>
-                        <th class="align-middle text-center">Account Status</th>
-                        <th class="align-middle text-center">Phone number</th>
-                        <th class="align-middle text-center">Actions</th>
+                        <th class="align-middle">Tên</th>
+                        <th class="align-middle text-center">Trạng thái tài khoản</th>
+                        <th class="align-middle text-center">Số điện thoại</th>
+                        <th class="align-middle text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,10 +52,11 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden  shadow-sm">
+                                        class="div-img overflow-hidden ">
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
-                                            alt="guest_avatar" class="object-fit-cover" width="40px"
+                                            alt="guest_avatar" class="object-fit-cover border shadow-sm rounded-circle"
+                                            width="40px"
                                             height="40px"/>
                                     </div>
                                     <div class="ms-3">
@@ -67,11 +70,11 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($guest->status == 1)
-                                        <span class="badge bg-success ">
-                                        Active</span>
+                                        <span class="badge bg-success shadow-sm border">
+                                        Đang hoạt động</span>
                                     @else
-                                        <span class="badge bg-danger ">
-                                        Locked</span>
+                                        <span class="badge bg-danger shadow-sm border">
+                                        Bị khóa</span>
                                     @endif
                                 </div>
                             </td>

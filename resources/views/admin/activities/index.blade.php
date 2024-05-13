@@ -1,8 +1,8 @@
-<title>Activities Log - Skyrim Hotel</title>
+<title>Nhật ký hệ thống - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Activities Log</h4>
+            <h4 class="fw-bold m-0">Nhật ký hệ thống</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,11 +11,11 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white  shadow-sm  overflow-hidden">
+    <div class="bg-white  shadow-sm border rounded-3 overflow-hidden">
         <div
-            class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
+            class="p-4 d-flex flex-column flex-md-row justify-content-between">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Activities Datatable
+                <i class="bi bi-table me-2"></i>Bảng danh sách nhật ký hệ thống
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
@@ -23,14 +23,15 @@
                    class="d-flex align-items-center text-danger text-decoration-none"
                    data-bs-toggle="modal"
                    data-bs-target="#exampleModal1">
-                    <i class="me-2 bi bi-trash"></i>Clear activities
+                    <i class="me-2 bi bi-trash"></i>Xóa nhật ký
                 </a>
             </div>
         </div>
+        <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($activities) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white  w-100"
+                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
@@ -47,7 +48,7 @@
                                 {{ $activity->id }}
                             </td>
                             <td class="text-center">
-                                {{$activity->admin->first_name . ' ' . $activity->admin->first_name . ' (#' . $activity->admin->id . ')'}}
+                                {{$activity->admin->first_name . ' ' . $activity->admin->last_name . ' (#' . $activity->admin->id . ')'}}
                             </td>
                             <td class="text-break text-center">
                                 {{ $activity->detail }}
@@ -111,7 +112,7 @@
                 topEnd: {
                     search: {
                         text: "",
-                        placeholder: "Type to search...",
+                        placeholder: "Tìm kiếm...",
                     },
                 },
                 bottomEnd: {

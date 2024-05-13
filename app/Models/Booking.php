@@ -12,19 +12,20 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $table = 'bookings';
+    protected $table = 'booking';
     public $timestamps = false;
     protected $fillable = [
-        'created_date',
-        'status',
-        'guest_id',
-        'room_id',
-        'admin_id',
+        'date',
         'checkin_date',
         'checkout_date',
-        'guest_num',
+        'status',
         'total_price',
-        'note'
+        'note',
+        'guest_name',
+        'guest_email',
+        'guest_phone',
+        'guest_id',
+        'admin_id'
     ];
 
     public function rooms(): HasMany

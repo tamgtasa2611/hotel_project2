@@ -26,7 +26,7 @@ class UpdateAdminRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' =>
-                'required|max:255|unique:admins,email,' . preg_replace('/[^0-9]/', '', request()->path()),
+                'required|max:255|unique:admin,email,' . preg_replace('/[^0-9]/', '', request()->path()),
             // lay id tren thanh url de bo qua unique cho email cua guest dang edit
             'phone' => 'required|max:20',
         ];

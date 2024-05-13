@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -210,7 +211,8 @@ Route::prefix('admin')->group(function () {
 
         // SETTINGS
         Route::prefix('settings')->group(function () {
-            Route::get('/', [AdminController::class, 'settings'])->name('admin.settings');
+            Route::get('/', [SettingController::class, 'setting'])->name('admin.settings');
+            Route::post('/{admin}', [SettingController::class, 'saveSetting'])->name('admin.saveSetting');
         });
     });
 

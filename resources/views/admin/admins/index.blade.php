@@ -1,8 +1,8 @@
 <title>Admins management - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white border rounded-3 shadow-sm  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Admins Management</h4>
+            <h4 class="fw-bold m-0">Quản lý nhân viên</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -12,33 +12,34 @@
     </div>
 
     {{-- MAIN  --}}
-    <div class="bg-white  shadow-sm  overflow-hidden">
-        <div class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
+    <div class="bg-white  shadow-sm rounded-3 border overflow-hidden">
+        <div class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Admins Datatable
+                <i class="bi bi-table me-2"></i>Danh sách nhân viên
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.admins.create') }}" class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new admin
+                <a href="{{ route('admin.admins.create') }}" class="d-flex align-items-center me-3 btn btn-primary">
+                    <i class="me-2 bi bi-plus-circle"></i>Thêm nhân viên
                 </a>
                 <a href="{{ route('admin.admins.downloadPdf') }}" class="d-flex align-items-center">
                     <i class="me-2 bi bi-download"></i>Export
                 </a>
             </div>
         </div>
+        <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($admins) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white  w-100"
+                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle">Name</th>
-                        <th class="align-middle text-center">Level</th>
-                        <th class="align-middle text-center">Phone number</th>
-                        <th class="align-middle text-center">Actions</th>
+                        <th class="align-middle">Tên</th>
+                        <th class="align-middle text-center">Chức vụ</th>
+                        <th class="align-middle text-center">Số điện thoại</th>
+                        <th class="align-middle text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,10 +51,11 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div
-                                        class="div-img overflow-hidden  shadow-sm ">
+                                        class="div-img overflow-hidden ">
                                         <img
                                             src="{{ $admin->image != "" ? asset('storage/admin/admins/' . $admin->image) : asset('images/noavt.jpg') }}"
-                                            alt="admin_avatar" class="object-fit-cover" width="40px"
+                                            alt="admin_avatar" class="object-fit-cover rounded-circle border shadow-sm"
+                                            width="40px"
                                             height="40px"/>
                                     </div>
                                     <div class="ms-3">
@@ -67,10 +69,10 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($admin->level == 0)
-                                        <span class="badge bg-white ">
+                                        <span class="badge bg-dark shadow-sm border">
                                         Owner</span>
                                     @else
-                                        <span class="badge bg-white  shadow-sm">
+                                        <span class="badge bg-light border shadow-sm">
                                         Employee</span>
                                     @endif
                                 </div>

@@ -217,8 +217,8 @@
                 oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0])
                     ? oInit.aLengthMenu[0][0]
                     : $.isPlainObject(oInit.aLengthMenu[0])
-                      ? oInit.aLengthMenu[0].value
-                      : oInit.aLengthMenu[0];
+                        ? oInit.aLengthMenu[0].value
+                        : oInit.aLengthMenu[0];
             }
 
             // Apply the defaults and init options to make a single init object will all
@@ -1132,25 +1132,25 @@
     // Escape regular expression special characters
     var _re_escape_regex = new RegExp(
         "(\\" +
-            [
-                "/",
-                ".",
-                "*",
-                "+",
-                "?",
-                "|",
-                "(",
-                ")",
-                "[",
-                "]",
-                "{",
-                "}",
-                "\\",
-                "$",
-                "^",
-                "-",
-            ].join("|\\") +
+        [
+            "/",
+            ".",
+            "*",
+            "+",
+            "?",
+            "|",
+            "(",
             ")",
+            "[",
+            "]",
+            "{",
+            "}",
+            "\\",
+            "$",
+            "^",
+            "-",
+        ].join("|\\") +
+        ")",
         "g",
     );
 
@@ -1239,8 +1239,8 @@
         return !html
             ? null
             : _isNumber(_stripHtml(d), decimalPoint, formatted)
-              ? true
-              : null;
+                ? true
+                : null;
     };
 
     var _pluck = function (a, prop, prop2) {
@@ -1340,10 +1340,10 @@
 
         return typeof d === "string"
             ? d
-                  .replace(/&/g, "&amp;")
-                  .replace(/</g, "&lt;")
-                  .replace(/>/g, "&gt;")
-                  .replace(/"/g, "&quot;")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
             : d;
     };
 
@@ -1361,7 +1361,7 @@
         // Equally, here we check if a regex is needed or not
         return res.length !== str.length
             ? (both === true ? str + " " : "") +
-                  res.replace(/[\u0300-\u036f]/g, "")
+            res.replace(/[\u0300-\u036f]/g, "")
             : res;
     };
 
@@ -1567,7 +1567,8 @@
                 return DataTable.util.set(source._);
             } else if (source === null) {
                 // Nothing to do when the data source is null
-                return function () {};
+                return function () {
+                };
             } else if (typeof source === "function") {
                 return function (data, val, meta) {
                     source(data, "set", val, meta);
@@ -2424,8 +2425,8 @@
                     def.target !== undefined
                         ? def.target
                         : def.targets !== undefined
-                          ? def.targets
-                          : def.aTargets;
+                            ? def.targets
+                            : def.aTargets;
 
                 if (!Array.isArray(aTargets)) {
                     aTargets = [aTargets];
@@ -2544,6 +2545,7 @@
             return val * 1;
         });
     }
+
     /**
      * Add a data array to the table, creating DOM node etc. This is the parallel to
      * _fnGatherData, but for adding rows from a Javascript source, rather than a
@@ -2657,13 +2659,13 @@
                     settings,
                     0,
                     "Requested unknown parameter " +
-                        (typeof col.mData == "function"
-                            ? "{function}"
-                            : "'" + col.mData + "'") +
-                        " for row " +
-                        rowIdx +
-                        ", column " +
-                        colIdx,
+                    (typeof col.mData == "function"
+                        ? "{function}"
+                        : "'" + col.mData + "'") +
+                    " for row " +
+                    rowIdx +
+                    ", column " +
+                    colIdx,
                     4,
                 );
                 settings.iDrawError = draw;
@@ -3243,8 +3245,8 @@
                     while (
                         local[row + rowspan] !== undefined &&
                         local[row][column].cell ==
-                            local[row + rowspan][column].cell
-                    ) {
+                        local[row + rowspan][column].cell
+                        ) {
                         structure[row + rowspan][column] = null;
                         rowspan++;
                     }
@@ -3253,8 +3255,8 @@
                     while (
                         local[row][column + colspan] !== undefined &&
                         local[row][column].cell ==
-                            local[row][column + colspan].cell
-                    ) {
+                        local[row][column + colspan].cell
+                        ) {
                         // Which also needs to go over rows
                         for (var k = 0; k < rowspan; k++) {
                             structure[row + k][column + colspan] = null;
@@ -3540,7 +3542,7 @@
 
             // Transform to an object with a contents property
             if (!group[align] || !group[align].contents) {
-                group[align] = { contents: [] };
+                group[align] = {contents: []};
             }
 
             // Allow for an array or just a single object
@@ -3590,7 +3592,7 @@
         var rows = [];
         for (var i = 0, ien = filtered.length; i < ien; i++) {
             if (filtered[i].val.full) {
-                rows.push({ full: filtered[i].val.full });
+                rows.push({full: filtered[i].val.full});
                 _layoutResolve(settings, rows[rows.length - 1]);
 
                 delete filtered[i].val.full;
@@ -3948,8 +3950,8 @@
             oSettings._iDisplayStart = bServerSide
                 ? iInitDisplayStart
                 : iInitDisplayStart >= oSettings.fnRecordsDisplay()
-                  ? 0
-                  : iInitDisplayStart;
+                    ? 0
+                    : iInitDisplayStart;
 
             oSettings.iInitDisplayStart = -1;
         }
@@ -4383,8 +4385,8 @@
             input instanceof RegExp
                 ? input
                 : searchFunc
-                  ? null
-                  : _fnFilterCreateSearch(input, options);
+                    ? null
+                    : _fnFilterCreateSearch(input, options);
 
         // Then for each row, does the test pass. If not, lop the row from the array
         while (i < searchRows.length) {
@@ -4783,6 +4785,7 @@
     function _fnProcessingDisplay(settings, show) {
         _fnCallbackFire(settings, null, "processing", [settings, show]);
     }
+
     /**
      * Add any control elements for the table - specifically scrolling
      *  @param {object} settings dataTables settings object
@@ -4832,9 +4835,9 @@
          *        table - scroll foot table
          *          tfoot - tfoot
          */
-        var scroller = $(_div, { class: classes.container })
+        var scroller = $(_div, {class: classes.container})
             .append(
-                $(_div, { class: classes.header.self })
+                $(_div, {class: classes.header.self})
                     .css({
                         overflow: "hidden",
                         position: "relative",
@@ -4842,7 +4845,7 @@
                         width: scrollX ? size(scrollX) : "100%",
                     })
                     .append(
-                        $(_div, { class: classes.header.inner })
+                        $(_div, {class: classes.header.inner})
                             .css({
                                 "box-sizing": "content-box",
                                 width: scroll.sXInner || "100%",
@@ -4859,7 +4862,7 @@
                     ),
             )
             .append(
-                $(_div, { class: classes.body })
+                $(_div, {class: classes.body})
                     .css({
                         position: "relative",
                         overflow: "auto",
@@ -4870,14 +4873,14 @@
 
         if (footer) {
             scroller.append(
-                $(_div, { class: classes.footer.self })
+                $(_div, {class: classes.footer.self})
                     .css({
                         overflow: "hidden",
                         border: 0,
                         width: scrollX ? size(scrollX) : "100%",
                     })
                     .append(
-                        $(_div, { class: classes.footer.inner }).append(
+                        $(_div, {class: classes.footer.inner}).append(
                             footerClone
                                 .removeAttr("id")
                                 .css("margin-left", 0)
@@ -5121,7 +5124,7 @@
             settings,
             null,
             "column-calc",
-            { visible: visibleColumns },
+            {visible: visibleColumns},
             false,
         );
 
@@ -5207,13 +5210,13 @@
             .css(
                 scrollX || scrollY
                     ? {
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          height: 1,
-                          right: 0,
-                          overflow: "hidden",
-                      }
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        height: 1,
+                        right: 0,
+                        overflow: "hidden",
+                    }
                     : {},
             )
             .append(tmpTable)
@@ -5394,13 +5397,13 @@
             target,
             target === settings.nTHead
                 ? "tr" +
-                      notSelector +
-                      " th" +
-                      notSelector +
-                      ", tr" +
-                      notSelector +
-                      " td" +
-                      notSelector
+                notSelector +
+                " th" +
+                notSelector +
+                ", tr" +
+                notSelector +
+                " td" +
+                notSelector
                 : "th" + notSelector + ", td" + notSelector,
         );
 
@@ -6817,8 +6820,8 @@
                 struct.type === "function"
                     ? _api_scope(scope, struct.val, struct)
                     : struct.type === "object"
-                      ? {}
-                      : struct.val;
+                        ? {}
+                        : struct.val;
 
             obj[struct.name].__dt_wrapper = true;
 
@@ -6887,8 +6890,8 @@
                     typeof val === "function"
                         ? "function"
                         : $.isPlainObject(val)
-                          ? "object"
-                          : "other";
+                            ? "object"
+                            : "other";
             } else {
                 struct = method ? src.methodExt : src.propExt;
             }
@@ -7133,7 +7136,8 @@
      * Get the current page index.
      *
      * @return {integer} Current page index (zero based)
-     *//**
+     */
+    /**
      * Set the current page.
      *
      * Note that if you attempt to show a page which does not exist, DataTables will
@@ -7205,7 +7209,8 @@
      *
      * @return {integer} Current page length. Note `-1` indicates that all records
      *   are to be shown.
-     *//**
+     */
+    /**
      * Set the current page length.
      *
      * @param {integer} Page length to set. Use `-1` to show all records.
@@ -7314,7 +7319,8 @@
      * table in the current context.
      *
      * @return {string} Current Ajax source URL
-     *//**
+     */
+    /**
      * Set the Ajax URL. Note that this will set the URL for all tables in the
      * current context.
      *
@@ -7607,7 +7613,7 @@
                         : [];
                 } else if (cellIdx) {
                     return aoData[cellIdx.row] &&
-                        aoData[cellIdx.row].nTr === sel.parentNode
+                    aoData[cellIdx.row].nTr === sel.parentNode
                         ? [cellIdx.row]
                         : [];
                 } else {
@@ -8040,7 +8046,7 @@
                     return;
                 }
 
-                api.rows({ page: "current" })
+                api.rows({page: "current"})
                     .eq(0)
                     .each(function (idx) {
                         // Internal data grab
@@ -8387,8 +8393,8 @@
                         row !== undefined
                             ? row
                             : settings.bSortCellsTop // legacy support
-                              ? 0
-                              : header.length - 1;
+                                ? 0
+                                : header.length - 1;
 
                     return header[target][column].cell;
                 },
@@ -8412,7 +8418,7 @@
 
                     return settings.aoFooter[row !== undefined ? row : 0][
                         column
-                    ].cell;
+                        ].cell;
                 },
                 1,
             );
@@ -8716,8 +8722,8 @@
             if ($.isPlainObject(s)) {
                 // Valid cell index and its in the array of selectable rows
                 return s.column !== undefined &&
-                    s.row !== undefined &&
-                    rows.indexOf(s.row) !== -1
+                s.row !== undefined &&
+                rows.indexOf(s.row) !== -1
                     ? [s]
                     : [];
             }
@@ -8744,11 +8750,11 @@
             host = $(s).closest("*[data-dt-row]");
             return host.length
                 ? [
-                      {
-                          row: host.data("dt-row"),
-                          column: host.data("dt-column"),
-                      },
-                  ]
+                    {
+                        row: host.data("dt-row"),
+                        column: host.data("dt-column"),
+                    },
+                ]
                 : [];
         };
 
@@ -8788,10 +8794,10 @@
         // The default built in options need to apply to row and columns
         var internalOpts = opts
             ? {
-                  page: opts.page,
-                  order: opts.order,
-                  search: opts.search,
-              }
+                page: opts.page,
+                order: opts.order,
+                search: opts.search,
+            }
             : {};
 
         // Row + column selector
@@ -8945,7 +8951,8 @@
      * @param {array} order 1D array of sorting information to be applied.
      * @param {array} [...] Optional additional sorting conditions
      * @returns {DataTables.Api} this
-     *//**
+     */
+    /**
      * Set the ordering for the table.
      *
      * @param {array} order 2D array of sorting information to be applied.
@@ -8996,7 +9003,7 @@
             var ctx = this.context;
             var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
 
-            return Array.isArray(fixed) ? { pre: fixed } : fixed;
+            return Array.isArray(fixed) ? {pre: fixed} : fixed;
         }
 
         return this.iterator("table", function (settings) {
@@ -9193,7 +9200,8 @@
                 setMutate.time = +new Date() + 100;
             }
 
-            _fnImplementState(settings, setMutate, function () {});
+            _fnImplementState(settings, setMutate, function () {
+            });
         });
     });
 
@@ -9534,12 +9542,12 @@
             $("th, td", thead)
                 .removeClass(
                     orderClasses.canAsc +
-                        " " +
-                        orderClasses.canDesc +
-                        " " +
-                        orderClasses.isAsc +
-                        " " +
-                        orderClasses.isDesc,
+                    " " +
+                    orderClasses.canDesc +
+                    " " +
+                    orderClasses.isAsc +
+                    " " +
+                    orderClasses.isDesc,
                 )
                 .css("width", "");
 
@@ -10071,7 +10079,7 @@
          * Note that the `pageLength` property will be automatically set to the
          * first value given in this array, unless `pageLength` is also provided.
          */
-        aLengthMenu: [10, 20, 50, 100],
+        aLengthMenu: [10, 20, 30, 40, 50],
 
         /**
          * The `columns` option in the initialisation parameter allows you to define
@@ -10314,13 +10322,13 @@
             try {
                 return JSON.parse(
                     (settings.iStateDuration === -1
-                        ? sessionStorage
-                        : localStorage
+                            ? sessionStorage
+                            : localStorage
                     ).getItem(
                         "DataTables_" +
-                            settings.sInstance +
-                            "_" +
-                            location.pathname,
+                        settings.sInstance +
+                        "_" +
+                        location.pathname,
                     ),
                 );
             } catch (e) {
@@ -10351,13 +10359,13 @@
         fnStateSaveCallback: function (settings, data) {
             try {
                 (settings.iStateDuration === -1
-                    ? sessionStorage
-                    : localStorage
+                        ? sessionStorage
+                        : localStorage
                 ).setItem(
                     "DataTables_" +
-                        settings.sInstance +
-                        "_" +
-                        location.pathname,
+                    settings.sInstance +
+                    "_" +
+                    location.pathname,
                     JSON.stringify(data),
                 );
             } catch (e) {
@@ -10506,13 +10514,13 @@
              * * `\_PAGE\_` - Current page number
              * * `\_PAGES\_` - Total number of pages of data in the table
              */
-            sInfo: "Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_",
+            sInfo: "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ kết quả",
 
             /**
              * Display information string for when the table is empty. Typically the
              * format of this string should match `info`.
              */
-            sInfoEmpty: "Showing 0 to 0 of 0 _ENTRIES-TOTAL_",
+            sInfoEmpty: "Hiển thị từ 0 đến 0 trong tổng số 0 kết quả",
 
             /**
              * When a user filters the information in a table, this string is appended
@@ -10558,7 +10566,7 @@
              * with a default select list of 10, 25, 50 and 100, and can be replaced
              * with a custom select box if required.
              */
-            sLengthMenu: "Show _MENU_ _ENTRIES_ per page",
+            sLengthMenu: "Hiển thị _MENU_ kết quả",
 
             /**
              * When using Ajax sourced data and during the first draw when DataTables is
@@ -12313,6 +12321,7 @@
     }
 
     var __mlWarning = false;
+
     function __mldObj(d, format, locale) {
         var dt;
 
@@ -12586,7 +12595,7 @@
                     var intPart = parseInt(d, 10);
                     var floatPart = precision
                         ? decimal +
-                          (d - intPart).toFixed(precision).substring(2)
+                        (d - intPart).toFixed(precision).substring(2)
                         : "";
 
                     // If zero, then can't have a negative prefix
@@ -12646,7 +12655,7 @@
 
                 return ret === true ? name : ret;
             };
-            Object.defineProperty(cb, "name", { value: name });
+            Object.defineProperty(cb, "name", {value: name});
 
             var idx = _extTypes.detect.findIndex(function (fn) {
                 return fn.name === name;
@@ -12725,10 +12734,10 @@
                 return _empty(a)
                     ? ""
                     : typeof a === "string"
-                      ? a.toLowerCase()
-                      : !a.toString
-                        ? ""
-                        : a.toString();
+                        ? a.toLowerCase()
+                        : !a.toString
+                            ? ""
+                            : a.toString();
             },
         },
         search: _filterString(false, true),
@@ -12745,8 +12754,8 @@
                 return _empty(a)
                     ? ""
                     : a.replace
-                      ? _stripHtml(a).trim().toLowerCase()
-                      : a + "";
+                        ? _stripHtml(a).trim().toLowerCase()
+                        : a + "";
             },
         },
         search: _filterString(true, true),
@@ -12949,8 +12958,8 @@
                                 orderDirs.includes("asc")
                                     ? orderClasses.isAsc
                                     : "" + orderDirs.includes("desc")
-                                      ? orderClasses.isDesc
-                                      : "",
+                                        ? orderClasses.isDesc
+                                        : "",
                             );
                         }
 
@@ -12981,7 +12990,7 @@
                             "aria-label",
                             orderable
                                 ? col.ariaTitle +
-                                      ctx.api.i18n("oAria.orderable" + ariaType)
+                                ctx.api.i18n("oAria.orderable" + ariaType)
                                 : col.ariaTitle,
                         );
 
@@ -13329,7 +13338,7 @@
                 $(btn.clicker).addClass(button);
             }
 
-            _fnBindAction(btn.clicker, { action: button }, function (e) {
+            _fnBindAction(btn.clicker, {action: button}, function (e) {
                 e.preventDefault();
 
                 _fnPageChange(settings, e.data.action, true);
@@ -13361,7 +13370,7 @@
             _pagingDraw(
                 settings,
                 host,
-                $.extend({}, opts, { numbers: opts.numbers - 2 }),
+                $.extend({}, opts, {numbers: opts.numbers - 2}),
             );
         }
     }
@@ -13805,7 +13814,8 @@
     } else if (typeof exports === "object") {
         // CommonJS
         var jq = require("jquery");
-        var cjsRequires = function (root, $) {};
+        var cjsRequires = function (root, $) {
+        };
 
         if (typeof window === "undefined") {
             module.exports = function (root, $) {
@@ -13841,10 +13851,10 @@
      * @contact     www.datatables.net/contact
      */
 
-    // Supported formatting and parsing libraries:
-    // * Moment
-    // * Luxon
-    // * DayJS
+        // Supported formatting and parsing libraries:
+        // * Moment
+        // * Luxon
+        // * DayJS
     var dateLib;
 
     /*
@@ -13876,10 +13886,10 @@
             dateLib = window.moment
                 ? window.moment
                 : window.dayjs
-                  ? window.dayjs
-                  : window.luxon
-                    ? window.luxon
-                    : null;
+                    ? window.dayjs
+                    : window.luxon
+                        ? window.luxon
+                        : null;
         }
 
         this.c = $.extend(true, {}, DateTime.defaults, opts);
@@ -13901,72 +13911,72 @@
         // DOM structure
         var structure = $(
             '<div class="' +
-                classPrefix +
-                '">' +
-                '<div class="' +
-                classPrefix +
-                '-date">' +
-                '<div class="' +
-                classPrefix +
-                '-title">' +
-                '<div class="' +
-                classPrefix +
-                '-iconLeft">' +
-                '<button type="button"></button>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-iconRight">' +
-                '<button type="button"></button>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-label">' +
-                "<span></span>" +
-                '<select class="' +
-                classPrefix +
-                '-month"></select>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-label">' +
-                "<span></span>" +
-                '<select class="' +
-                classPrefix +
-                '-year"></select>' +
-                "</div>" +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-buttons">' +
-                '<a class="' +
-                classPrefix +
-                '-clear"></a>' +
-                '<a class="' +
-                classPrefix +
-                '-today"></a>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-calendar"></div>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-time">' +
-                '<div class="' +
-                classPrefix +
-                '-hours"></div>' +
-                '<div class="' +
-                classPrefix +
-                '-minutes"></div>' +
-                '<div class="' +
-                classPrefix +
-                '-seconds"></div>' +
-                "</div>" +
-                '<div class="' +
-                classPrefix +
-                '-error"></div>' +
-                "</div>",
+            classPrefix +
+            '">' +
+            '<div class="' +
+            classPrefix +
+            '-date">' +
+            '<div class="' +
+            classPrefix +
+            '-title">' +
+            '<div class="' +
+            classPrefix +
+            '-iconLeft">' +
+            '<button type="button"></button>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-iconRight">' +
+            '<button type="button"></button>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-label">' +
+            "<span></span>" +
+            '<select class="' +
+            classPrefix +
+            '-month"></select>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-label">' +
+            "<span></span>" +
+            '<select class="' +
+            classPrefix +
+            '-year"></select>' +
+            "</div>" +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-buttons">' +
+            '<a class="' +
+            classPrefix +
+            '-clear"></a>' +
+            '<a class="' +
+            classPrefix +
+            '-today"></a>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-calendar"></div>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-time">' +
+            '<div class="' +
+            classPrefix +
+            '-hours"></div>' +
+            '<div class="' +
+            classPrefix +
+            '-minutes"></div>' +
+            '<div class="' +
+            classPrefix +
+            '-seconds"></div>' +
+            "</div>" +
+            '<div class="' +
+            classPrefix +
+            '-error"></div>' +
+            "</div>",
         );
 
         this.dom = {
@@ -14317,8 +14327,8 @@
                                 hours === 12 && !pm
                                     ? 0
                                     : pm && hours !== 12
-                                      ? hours + 12
-                                      : hours,
+                                        ? hours + 12
+                                        : hours,
                             );
                         } else {
                             that.s.d.setUTCHours(val);
@@ -14468,8 +14478,8 @@
                                 unit === "hours"
                                     ? "setUTCHours"
                                     : unit === "minutes"
-                                      ? "setUTCMinutes"
-                                      : "setSeconds";
+                                        ? "setUTCMinutes"
+                                        : "setSeconds";
 
                             d[set](val);
                             that._setCalander();
@@ -14534,7 +14544,7 @@
             // luxon uses different method names so need to be able to call them
             return this._isLuxon()
                 ? dateLib.DateTime.fromJSDate(a).toUTC().toISODate() ===
-                      dateLib.DateTime.fromJSDate(b).toUTC().toISODate()
+                dateLib.DateTime.fromJSDate(b).toUTC().toISODate()
                 : this._dateToUtcString(a) === this._dateToUtcString(b);
         },
 
@@ -14591,11 +14601,11 @@
                 var dtMo =
                     val instanceof Date
                         ? dateLib.utc(
-                              val,
-                              undefined,
-                              this.c.locale,
-                              this.c.strict,
-                          )
+                            val,
+                            undefined,
+                            this.c.locale,
+                            this.c.strict,
+                        )
                         : dateLib(val, from, this.c.locale, this.c.strict);
 
                 if (!dtMo.isValid()) {
@@ -14694,10 +14704,10 @@
             return this._isLuxon()
                 ? dateLib.DateTime.fromJSDate(d).toUTC().toISODate()
                 : d.getUTCFullYear() +
-                      "-" +
-                      this._pad(d.getUTCMonth() + 1) +
-                      "-" +
-                      this._pad(d.getUTCDate());
+                "-" +
+                this._pad(d.getUTCMonth() + 1) +
+                "-" +
+                this._pad(d.getUTCDate());
         },
 
         /**
@@ -14997,9 +15007,9 @@
          */
         _isLuxon: function () {
             return dateLib &&
-                dateLib.DateTime &&
-                dateLib.Duration &&
-                dateLib.Settings
+            dateLib.DateTime &&
+            dateLib.Duration &&
+            dateLib.Settings
                 ? true
                 : false;
         },
@@ -15047,10 +15057,10 @@
             for (var i = 0, ien = values.length; i < ien; i++) {
                 select.append(
                     '<option value="' +
-                        values[i] +
-                        '">' +
-                        labels[i] +
-                        "</option>",
+                    values[i] +
+                    '">' +
+                    labels[i] +
+                    "</option>",
                 );
             }
         },
@@ -15096,8 +15106,8 @@
             var render =
                 count === 12
                     ? function (i) {
-                          return i;
-                      }
+                        return i;
+                    }
                     : this._pad;
             var className = classPrefix + "-table";
             var i18n = this.c.i18n;
@@ -15214,8 +15224,8 @@
                     range !== null
                         ? range
                         : val === -1
-                          ? 0
-                          : Math.floor(val / 10) * 10;
+                            ? 0
+                            : Math.floor(val / 10) * 10;
 
                 a += "<tr>";
                 for (j = start + 1; j < start + 10; j++) {
@@ -15230,17 +15240,17 @@
                 .empty()
                 .append(
                     '<table class="' +
-                        className +
-                        '">' +
-                        '<thead><tr><th colspan="' +
-                        span +
-                        '">' +
-                        i18n[unit] +
-                        "</th></tr></thead>" +
-                        "<tbody>" +
-                        a +
-                        "</tbody>" +
-                        "</table>",
+                    className +
+                    '">' +
+                    '<thead><tr><th colspan="' +
+                    span +
+                    '">' +
+                    i18n[unit] +
+                    "</th></tr></thead>" +
+                    "<tbody>" +
+                    a +
+                    "</tbody>" +
+                    "</table>",
                 );
         },
 
@@ -15549,7 +15559,7 @@
 
             // Create a DOM synthetic event. Can't use $().trigger() as
             // that doesn't actually trigger non-jQuery event listeners
-            var event = new Event("change", { bubbles: true });
+            var event = new Event("change", {bubbles: true});
             input[0].dispatchEvent(event);
 
             if (input.attr("type") === "hidden") {
@@ -15647,7 +15657,8 @@
 
         locale: "en",
 
-        onChange: function () {},
+        onChange: function () {
+        },
 
         secondsAvailable: null,
 
@@ -15767,12 +15778,15 @@
 
         var $$3;
         var dataTable$3;
+
         function moment() {
             return window.moment;
         }
+
         function luxon() {
             return window.luxon;
         }
+
         /**
          * Sets the value of jQuery for use in the file
          *
@@ -15782,6 +15796,7 @@
             $$3 = jq;
             dataTable$3 = jq.fn.dataTable;
         }
+
         /**
          * The Criteria class is used within SearchBuilder to represent a search criteria
          */
@@ -15955,6 +15970,7 @@
                 this._buildCriteria();
                 return this;
             }
+
             /**
              * Escape html characters within a string
              *
@@ -16281,7 +16297,7 @@
                             ($$3(this).text() === loadedCriteria.data ||
                                 (loadedCriteria.origData &&
                                     $$3(this).prop("origData") ===
-                                        loadedCriteria.origData))
+                                    loadedCriteria.origData))
                         ) {
                             $$3(this).prop("selected", true);
                             data_1.removeClass(italic_1);
@@ -16631,7 +16647,7 @@
                     if (
                         decimal !== "" &&
                         this.s.type.indexOf(decimal) ===
-                            this.s.type.length - decimal.length
+                        this.s.type.length - decimal.length
                     ) {
                         if (this.s.type.includes("num-fmt")) {
                             this.s.type = this.s.type.replace(decimal, "");
@@ -16644,10 +16660,10 @@
                         this.c.conditions[this.s.type] !== undefined
                             ? this.c.conditions[this.s.type]
                             : this.s.type.includes("moment")
-                              ? this.c.conditions.moment
-                              : this.s.type.includes("luxon")
-                                ? this.c.conditions.luxon
-                                : this.c.conditions.string;
+                                ? this.c.conditions.moment
+                                : this.s.type.includes("luxon")
+                                    ? this.c.conditions.luxon
+                                    : this.c.conditions.string;
                     // If it is a moment format then extract the date format
                     if (this.s.type.includes("moment")) {
                         this.s.dateFormat = this.s.type.replace(/moment-/g, "");
@@ -16667,7 +16683,7 @@
                             if (
                                 this.s.dt.page.info().serverSide &&
                                 conditionObj[condition].init ===
-                                    Criteria.initSelect
+                                Criteria.initSelect
                             ) {
                                 var col = colInits[column];
                                 if (
@@ -16784,7 +16800,7 @@
                                     (typeof condName === "string"
                                         ? condName
                                         : condName(this.s.dt, this.c.i18n)) ===
-                                        conditionOpts[i].text() &&
+                                    conditionOpts[i].text() &&
                                     // and the tokens match
                                     cond === defaultCondition
                                 ) {
@@ -16929,7 +16945,7 @@
                 // Check if the criteria can be used in a search
                 this.s.filled = this.s.conditions[
                     this.s.condition
-                ].isInputValid(this.dom.value, this);
+                    ].isInputValid(this.dom.value, this);
                 this.setListeners();
                 // If it can and this is different to before then trigger a draw
                 if (!this.s.preventRedraw && prevFilled !== this.s.filled) {
@@ -17449,11 +17465,11 @@
                             "change.dtsb",
                             searchDelay !== null
                                 ? DataTable.util.throttle(function () {
-                                      return fn(that, this);
-                                  }, searchDelay)
+                                    return fn(that, this);
+                                }, searchDelay)
                                 : function () {
-                                      fn(that, _this);
-                                  },
+                                    fn(that, _this);
+                                },
                         )
                         .on("input.dtsb keypress.dtsb", function (e) {
                             DataTable.util.throttle(
@@ -17486,30 +17502,30 @@
                             "change.dtsb",
                             searchDelay !== null
                                 ? DataTable.util.throttle(function () {
-                                      return fn(that, this);
-                                  }, searchDelay)
+                                    return fn(that, this);
+                                }, searchDelay)
                                 : function () {
-                                      fn(that, _this);
-                                  },
+                                    fn(that, _this);
+                                },
                         )
                         .on(
                             "input.dtsb keypress.dtsb",
                             !that.c.enterSearch &&
-                                !(
-                                    that.s.dt.settings()[0].oInit.search !==
-                                        undefined &&
-                                    that.s.dt.settings()[0].oInit.search[
-                                        "return"
+                            !(
+                                that.s.dt.settings()[0].oInit.search !==
+                                undefined &&
+                                that.s.dt.settings()[0].oInit.search[
+                                    "return"
                                     ]
-                                ) &&
-                                searchDelay !== null
+                            ) &&
+                            searchDelay !== null
                                 ? DataTable.util.throttle(function () {
-                                      return fn(that, this);
-                                  }, searchDelay)
+                                    return fn(that, this);
+                                }, searchDelay)
                                 : function (e) {
-                                      var code = e.keyCode || e.which;
-                                      fn(that, _this, code);
-                                  },
+                                    var code = e.keyCode || e.which;
+                                    fn(that, _this, code);
+                                },
                         ),
                 ];
                 if (that.c.greyscale) {
@@ -17537,13 +17553,13 @@
                     var element = el_1[_i];
                     if (
                         element.children("option:selected").length ===
-                            element.children("option").length -
-                                element.children(
-                                    "option." + Criteria.classes.notItalic,
-                                ).length &&
+                        element.children("option").length -
+                        element.children(
+                            "option." + Criteria.classes.notItalic,
+                        ).length &&
                         element.children("option:selected").length === 1 &&
                         element.children("option:selected")[0] ===
-                            element.children("option")[0]
+                        element.children("option")[0]
                     ) {
                         allFilled = false;
                     }
@@ -17611,7 +17627,7 @@
                         (!that.c.enterSearch &&
                             !(
                                 that.s.dt.settings()[0].oInit.search !==
-                                    undefined &&
+                                undefined &&
                                 that.s.dt.settings()[0].oInit.search["return"]
                             )) ||
                         code === 13
@@ -17644,7 +17660,7 @@
                     (!that.c.enterSearch &&
                         !(
                             that.s.dt.settings()[0].oInit.search !==
-                                undefined &&
+                            undefined &&
                             that.s.dt.settings()[0].oInit.search["return"]
                         )) ||
                     code === 13
@@ -18920,6 +18936,7 @@
 
         var $$2;
         var dataTable$2;
+
         /**
          * Sets the value of jQuery for use in the file
          *
@@ -18929,6 +18946,7 @@
             $$2 = jq;
             dataTable$2 = jq.fn.dataTable;
         }
+
         /**
          * The Group class is used within SearchBuilder to represent a group of criteria
          */
@@ -19010,6 +19028,7 @@
                 this._setup();
                 return this;
             }
+
             /**
              * Destroys the groups buttons, clears the internal criteria and removes it from the dom
              */
@@ -19077,13 +19096,13 @@
                     .html(
                         this.s.logic === "OR"
                             ? this.s.dt.i18n(
-                                  "searchBuilder.logicOr",
-                                  this.c.i18n.logicOr,
-                              )
+                                "searchBuilder.logicOr",
+                                this.c.i18n.logicOr,
+                            )
                             : this.s.dt.i18n(
-                                  "searchBuilder.logicAnd",
-                                  this.c.i18n.logicAnd,
-                              ),
+                                "searchBuilder.logicAnd",
+                                this.c.i18n.logicAnd,
+                            ),
                     );
                 // Add all of the criteria, be it a sub group or a criteria
                 if (Array.isArray(loadedDetails.criteria)) {
@@ -19250,14 +19269,14 @@
                     currentLeft -
                     shuffleLeft -
                     this.dom.logicContainer.outerHeight(true);
-                this.dom.logicContainer.offset({ left: newPos });
+                this.dom.logicContainer.offset({left: newPos});
                 // Set vertical alignment
                 var firstCrit = this.dom.logicContainer.next();
                 var currentTop = logicOffset.top;
                 var firstTop = $$2(firstCrit).offset().top;
                 var shuffleTop = currentTop - firstTop;
                 var newTop = currentTop - shuffleTop;
-                this.dom.logicContainer.offset({ top: newTop });
+                this.dom.logicContainer.offset({top: newTop});
                 this.dom.clear.outerHeight(this.dom.logicContainer.height());
                 this._setClearListener();
             };
@@ -19331,9 +19350,9 @@
                     } else if (
                         i < this.s.criteria.length - 1 &&
                         this.s.criteria[i].criteria.s.index <
-                            criteria.s.index &&
+                        criteria.s.index &&
                         this.s.criteria[i + 1].criteria.s.index >
-                            criteria.s.index
+                        criteria.s.index
                     ) {
                         // Add the node for the criteria in the correct location
                         criteria
@@ -19704,13 +19723,13 @@
                     .html(
                         this.c.logic === "OR"
                             ? this.s.dt.i18n(
-                                  "searchBuilder.logicOr",
-                                  this.c.i18n.logicOr,
-                              )
+                                "searchBuilder.logicOr",
+                                this.c.i18n.logicOr,
+                            )
                             : this.s.dt.i18n(
-                                  "searchBuilder.logicAnd",
-                                  this.c.i18n.logicAnd,
-                              ),
+                                "searchBuilder.logicAnd",
+                                this.c.i18n.logicAnd,
+                            ),
                     );
                 this.s.logic = this.c.logic === "OR" ? "OR" : "AND";
                 if (this.c.greyscale) {
@@ -19842,6 +19861,7 @@
 
         var $$1;
         var dataTable$1;
+
         /**
          * Sets the value of jQuery for use in the file
          *
@@ -19851,6 +19871,7 @@
             $$1 = jq;
             dataTable$1 = jq.fn.DataTable;
         }
+
         /**
          * SearchBuilder class for DataTables.
          * Allows for complex search queries to be constructed and implemented on a DataTable
@@ -19875,11 +19896,11 @@
                 this.dom = {
                     clearAll: $$1(
                         '<button type="button">' +
-                            table.i18n(
-                                "searchBuilder.clearAll",
-                                this.c.i18n.clearAll,
-                            ) +
-                            "</button>",
+                        table.i18n(
+                            "searchBuilder.clearAll",
+                            this.c.i18n.clearAll,
+                        ) +
+                        "</button>",
                     )
                         .addClass(this.classes.clearAll)
                         .addClass(this.classes.button)
@@ -19931,6 +19952,7 @@
                 }
                 return this;
             }
+
             /**
              * Gets the details required to rebuild the SearchBuilder as it currently is
              */
@@ -20546,7 +20568,7 @@
                 if (topGroup.s.criteria.length === 0) {
                     $(
                         "." +
-                            $.fn.dataTable.Group.classes.add.replace(/ /g, "."),
+                        $.fn.dataTable.Group.classes.add.replace(/ /g, "."),
                     ).click();
                 }
             },
@@ -20565,7 +20587,7 @@
                 );
                 dt.button(node).text(
                     config.text ||
-                        dt.i18n("searchBuilder.button", sb.c.i18n.button, 0),
+                    dt.i18n("searchBuilder.button", sb.c.i18n.button, 0),
                 );
                 config._searchBuilder = sb;
             },
@@ -20595,6 +20617,7 @@
             // If SearchBuilder has not been initialised on this instance then return
             return ctx._searchBuilder ? ctx._searchBuilder.getNode() : null;
         });
+
         /**
          * Init function for SearchBuilder
          *
@@ -20611,6 +20634,7 @@
             var node = searchBuilder.getNode();
             return node;
         }
+
         // Attach a listener to the document which listens for DataTables initialisation
         // events so we can automatically initialise
         $(document).on("preInit.dt.dtsp", function (e, settings) {
@@ -20768,10 +20792,12 @@
 
         var $$5;
         var dataTable$2;
+
         function setJQuery$4(jq) {
             $$5 = jq;
             dataTable$2 = jq.fn.dataTable;
         }
+
         var SearchPane = /** @class */ (function () {
             /**
              * Creates the panes, sets up the search function
@@ -20865,8 +20891,8 @@
                         ),
                     collapseButton: $$5(
                         '<button type="button"><span class="' +
-                            this.classes.caret +
-                            '">&#x5e;</span></button>',
+                        this.classes.caret +
+                        '">&#x5e;</span></button>',
                     )
                         .addClass(this.classes.paneButton)
                         .addClass(this.classes.collapseButton),
@@ -20875,13 +20901,13 @@
                         .addClass(this.s.colOpts.className)
                         .addClass(
                             this.classes.layout +
-                                (parseInt(this.c.layout.split("-")[1], 10) < 10
-                                    ? this.c.layout
-                                    : this.c.layout.split("-")[0] + "-9"),
+                            (parseInt(this.c.layout.split("-")[1], 10) < 10
+                                ? this.c.layout
+                                : this.c.layout.split("-")[0] + "-9"),
                         )
                         .addClass(
                             this.s.customPaneSettings &&
-                                this.s.customPaneSettings.className
+                            this.s.customPaneSettings.className
                                 ? this.s.customPaneSettings.className
                                 : "",
                         ),
@@ -20892,13 +20918,13 @@
                         .addClass(this.classes.countButton),
                     dtP: $$5(
                         '<table width="100%"><thead><tr><th class="fw-bold">' +
-                            (this.s.colExists
-                                ? $$5(
-                                      this.s.dt.column(this.s.index).header(),
-                                  ).text()
-                                : this.s.customPaneSettings.header ||
-                                  "Custom Pane") +
-                            "</th><th/></tr></thead></table>",
+                        (this.s.colExists
+                            ? $$5(
+                                this.s.dt.column(this.s.index).header(),
+                            ).text()
+                            : this.s.customPaneSettings.header ||
+                            "Custom Pane") +
+                        "</th><th/></tr></thead></table>",
                     ),
                     lower: $$5("<div/>")
                         .addClass(this.classes.subRow2)
@@ -21000,6 +21026,7 @@
                 );
                 return this;
             }
+
             /**
              * Adds a row to the panes table
              *
@@ -21036,7 +21063,7 @@
                 }
                 if (index === undefined) {
                     index = this.s.indexes.length;
-                    this.s.indexes.push({ filter: filter, index: index });
+                    this.s.indexes.push({filter: filter, index: index});
                 }
                 return this.s.dtPane.row.add({
                     className: className,
@@ -21108,7 +21135,7 @@
              */
             SearchPane.prototype.clearPane = function () {
                 // Deselect all rows which are selected and update the table and filter count.
-                this.s.dtPane.rows({ selected: true }).deselect();
+                this.s.dtPane.rows({selected: true}).deselect();
                 this.updateTable();
                 return this;
             };
@@ -21195,8 +21222,8 @@
              */
             SearchPane.prototype.getPaneCount = function () {
                 return this.s.dtPane
-                    ? this.s.dtPane.rows({ selected: true }).data().toArray()
-                          .length
+                    ? this.s.dtPane.rows({selected: true}).data().toArray()
+                        .length
                     : 0;
             };
             /**
@@ -21224,12 +21251,12 @@
                     if (maintainSelection) {
                         if (!this.s.dt.page.info().serverSide) {
                             selectedRows = this.s.dtPane
-                                .rows({ selected: true })
+                                .rows({selected: true})
                                 .data()
                                 .toArray();
                         } else {
                             this.s.serverSelect = this.s.dtPane
-                                .rows({ selected: true })
+                                .rows({selected: true})
                                 .data()
                                 .toArray();
                         }
@@ -21265,13 +21292,13 @@
                     .addClass(this.s.colOpts.className)
                     .addClass(
                         this.classes.layout +
-                            (parseInt(layout.split("-")[1], 10) < 10
-                                ? layout
-                                : layout.split("-")[0] + "-9"),
+                        (parseInt(layout.split("-")[1], 10) < 10
+                            ? layout
+                            : layout.split("-")[0] + "-9"),
                     )
                     .addClass(
                         this.s.customPaneSettings !== null &&
-                            this.s.customPaneSettings.className
+                        this.s.customPaneSettings.className
                             ? this.s.customPaneSettings.className
                             : "",
                     );
@@ -21305,7 +21332,7 @@
                             _this._updateSelection(true);
                             if (
                                 _this.s.dtPane
-                                    .rows({ selected: true })
+                                    .rows({selected: true})
                                     .data()
                                     .toArray().length === 0
                             ) {
@@ -21338,7 +21365,7 @@
                             // Get all of the data needed for the state save from the pane
                             if (_this.s.dtPane) {
                                 selected = _this.s.dtPane
-                                    .rows({ selected: true })
+                                    .rows({selected: true})
                                     .data()
                                     .map(function (item) {
                                         return item.filter !== null
@@ -21482,7 +21509,7 @@
                             (searchval.length > 0 ||
                                 (searchval.length === 0 &&
                                     _this.s.dtPane
-                                        .rows({ selected: true })
+                                        .rows({selected: true})
                                         .data()
                                         .toArray().length > 0))
                         ) {
@@ -21499,14 +21526,14 @@
                     });
                 this.s.dtPane.select.style(
                     this.s.colOpts.dtOpts &&
-                        this.s.colOpts.dtOpts.select &&
-                        this.s.colOpts.dtOpts.select.style
+                    this.s.colOpts.dtOpts.select &&
+                    this.s.colOpts.dtOpts.select.style
                         ? this.s.colOpts.dtOpts.select.style
                         : this.c.dtOpts &&
-                            this.c.dtOpts.select &&
-                            this.c.dtOpts.select.style
-                          ? this.c.dtOpts.select.style
-                          : "os",
+                        this.c.dtOpts.select &&
+                        this.c.dtOpts.select.style
+                            ? this.c.dtOpts.select.style
+                            : "os",
                 );
             };
             /**
@@ -21554,9 +21581,9 @@
                 if (
                     this.s.displayed === false &&
                     ((this.s.colOpts.show === undefined &&
-                    this.s.colOpts.threshold === null
-                        ? uniqueRatio > this.c.threshold
-                        : uniqueRatio > this.s.colOpts.threshold) ||
+                        this.s.colOpts.threshold === null
+                            ? uniqueRatio > this.c.threshold
+                            : uniqueRatio > this.s.colOpts.threshold) ||
                         (this.s.colOpts.show !== true && binLength <= 1))
                 ) {
                     this.dom.container.addClass(this.classes.hidden);
@@ -21597,7 +21624,7 @@
                 if (
                     rowCount > 0 &&
                     ((this.s.rowData.totalOptions > 0 &&
-                        !this.s.dt.page.info().serverSide) ||
+                            !this.s.dt.page.info().serverSide) ||
                         (this.s.dt.page.info().serverSide &&
                             this.s.tableLength > 0))
                 ) {
@@ -21611,7 +21638,7 @@
              */
             SearchPane.prototype.updateTable = function () {
                 var selectedRows = this.s.dtPane
-                    .rows({ selected: true })
+                    .rows({selected: true})
                     .data()
                     .toArray()
                     .map(function (el) {
@@ -21630,9 +21657,9 @@
                 var options = this.s.colOpts.options
                     ? this.s.colOpts.options
                     : this.s.customPaneSettings &&
-                        this.s.customPaneSettings.options
-                      ? this.s.customPaneSettings.options
-                      : undefined;
+                    this.s.customPaneSettings.options
+                        ? this.s.customPaneSettings.options
+                        : undefined;
                 if (options === undefined) {
                     return;
                 }
@@ -21749,7 +21776,7 @@
                                 }
                                 if (type === "filter") {
                                     return typeof data === "string" &&
-                                        data.match(/<[^>]*>/) !== null
+                                    data.match(/<[^>]*>/) !== null
                                         ? data.replace(/<[^>]*>/g, "")
                                         : data;
                                 }
@@ -21776,10 +21803,10 @@
                             //  would take place
                             type: this.s.dt.settings()[0].aoColumns[
                                 this.s.index
-                            ]
+                                ]
                                 ? this.s.dt.settings()[0].aoColumns[
-                                      this.s.index
-                                  ]._sManualType
+                                    this.s.index
+                                    ]._sManualType
                                 : null,
                         },
                         {
@@ -21918,7 +21945,7 @@
                 if (idx) {
                     var table = this.s.dtPane;
                     var rows = table
-                        .rows({ order: "index" })
+                        .rows({order: "index"})
                         .data()
                         .map(function (item) {
                             return item.filter !== null
@@ -21972,7 +21999,7 @@
                     ) {
                         if (!_this.s.serverSelecting) {
                             _this.s.serverSelect = _this.s.dtPane
-                                .rows({ selected: true })
+                                .rows({selected: true})
                                 .data()
                                 .toArray();
                             _this.s.dt.draw(false);
@@ -22154,9 +22181,9 @@
                         if (
                             this.s.displayed === false &&
                             ((this.s.colOpts.show === undefined &&
-                            this.s.colOpts.threshold === null
-                                ? uniqueRatio > this.c.threshold
-                                : uniqueRatio > this.s.colOpts.threshold) ||
+                                this.s.colOpts.threshold === null
+                                    ? uniqueRatio > this.c.threshold
+                                    : uniqueRatio > this.s.colOpts.threshold) ||
                                 (this.s.colOpts.show !== true &&
                                     binLength <= 1))
                         ) {
@@ -22221,25 +22248,25 @@
                         this.s.colOpts ? this.s.colOpts.dtOpts : {},
                         this.s.colOpts.options || !this.s.colExists
                             ? {
-                                  createdRow: function (row, data) {
-                                      $$5(row).addClass(data.className);
-                                  },
-                              }
+                                createdRow: function (row, data) {
+                                    $$5(row).addClass(data.className);
+                                },
+                            }
                             : undefined,
                         this.s.customPaneSettings !== null &&
-                            this.s.customPaneSettings.dtOpts
+                        this.s.customPaneSettings.dtOpts
                             ? this.s.customPaneSettings.dtOpts
                             : {},
                         $$5.fn.dataTable.versionCheck("2")
                             ? {
-                                  layout: {
-                                      bottomStart: null,
-                                      bottomEnd: null,
-                                      topStart: null,
-                                      topEnd: null,
-                                  },
-                              }
-                            : { dom: "t" },
+                                layout: {
+                                    bottomStart: null,
+                                    bottomEnd: null,
+                                    topStart: null,
+                                    topEnd: null,
+                                },
+                            }
+                            : {dom: "t"},
                     ),
                 );
                 this.dom.dtP.addClass(this.classes.table);
@@ -22256,7 +22283,7 @@
                     headerText = $$5.fn.dataTable.versionCheck("2")
                         ? this.s.dt.column(this.s.index).title()
                         : this.s.dt.settings()[0].aoColumns[this.s.index]
-                              .sTitle;
+                            .sTitle;
                 }
                 headerText = this._escapeHTML(headerText);
                 this.dom.searchBox.attr("placeholder", headerText);
@@ -22339,7 +22366,7 @@
                             if (
                                 this.s.dtPane.row(row).data() &&
                                 selection.filter ===
-                                    this.s.dtPane.row(row).data().filter
+                                this.s.dtPane.row(row).data().filter
                             ) {
                                 // If this is happening when serverSide processing is happening then
                                 //  different behaviour is needed
@@ -22360,7 +22387,7 @@
                 }
                 if (
                     ((this.c.initCollapsed &&
-                        this.s.colOpts.initCollapsed !== false) ||
+                            this.s.colOpts.initCollapsed !== false) ||
                         this.s.colOpts.initCollapsed) &&
                     ((this.c.collapse && this.s.colOpts.collapse !== false) ||
                         this.s.colOpts.collapse)
@@ -22436,7 +22463,7 @@
                     (this.s.customPaneSettings &&
                         this.s.customPaneSettings.dtOpts &&
                         this.s.customPaneSettings.dtOpts.searching !==
-                            undefined &&
+                        undefined &&
                         !this.s.customPaneSettings.dtOpts.searching)
                 ) {
                     this.dom.searchBox
@@ -22616,7 +22643,7 @@
                                 return true;
                             }
                         }
-                        // If the combiner is an "and" then we need to check against all possible selections
+                            // If the combiner is an "and" then we need to check against all possible selections
                         // so if it fails here then the and is not met and return false
                         else if (colOpts.combiner === "and") {
                             return false;
@@ -22660,7 +22687,7 @@
                         (this.s.customPaneSettings &&
                             this.s.customPaneSettings.dtOpts &&
                             this.s.customPaneSettings.dtOpts.searching !==
-                                undefined &&
+                            undefined &&
                             !this.s.customPaneSettings.dtOpts.searching)
                     )
                 ) {
@@ -22674,7 +22701,7 @@
                 var updating = this.s.updating;
                 this.s.updating = true;
                 var filters = this.s.dtPane
-                    .rows({ selected: true })
+                    .rows({selected: true})
                     .data()
                     .pluck("filter")
                     .toArray();
@@ -22774,7 +22801,7 @@
                 var extendStatics = function (d, b) {
                     extendStatics =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (d, b) {
                                 d.__proto__ = b;
                             }) ||
@@ -22786,9 +22813,11 @@
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype =
                         b === null
                             ? Object.create(b)
@@ -22797,6 +22826,7 @@
             })();
         var SearchPaneST = /** @class */ (function (_super) {
             __extends$4(SearchPaneST, _super);
+
             function SearchPaneST(
                 paneSettings,
                 opts,
@@ -22815,6 +22845,7 @@
                     ) || this
                 );
             }
+
             /**
              * When server-side processing is enabled, SP will remove rows and then readd them,
              * resulting in Select's reference to the last selected cell being lost.
@@ -22838,12 +22869,13 @@
                                     return data.index === selectedIndex_1;
                                 })
                                 .index();
-                            dt.select.last({ row: idx, column: 0 });
+                            dt.select.last({row: idx, column: 0});
                         }
                     };
                 }
                 dt.rows().remove();
-                return function () {};
+                return function () {
+                };
             };
             /**
              * Populates the SearchPane based off of the data that has been recieved from the server
@@ -22898,9 +22930,9 @@
                     !this.s.colOpts.show &&
                     this.s.displayed === false &&
                     ((this.s.colOpts.show === undefined &&
-                    this.s.colOpts.threshold === null
-                        ? uniqueRatio > this.c.threshold
-                        : uniqueRatio > this.s.colOpts.threshold) ||
+                        this.s.colOpts.threshold === null
+                            ? uniqueRatio > this.c.threshold
+                            : uniqueRatio > this.s.colOpts.threshold) ||
                         (this.s.colOpts.show !== true && binLength <= 1))
                 ) {
                     this.dom.container.addClass(this.classes.hidden);
@@ -22976,7 +23008,7 @@
                     }
                     // Store the selected rows
                     this.s.serverSelect = this.s.dtPane
-                        .rows({ selected: true })
+                        .rows({selected: true})
                         .data()
                         .toArray();
                     // Update the pane
@@ -22996,7 +23028,7 @@
                     for (
                         var _i = 0,
                             _a = this.s.dt
-                                .rows({ search: "applied" })
+                                .rows({search: "applied"})
                                 .indexes()
                                 .toArray();
                         _i < _a.length;
@@ -23070,7 +23102,7 @@
                     !this.s.serverSelecting
                 ) {
                     this.s.serverSelect = this.s.dtPane
-                        .rows({ selected: true })
+                        .rows({selected: true})
                         .data()
                         .toArray();
                 }
@@ -23125,7 +23157,7 @@
                 var extendStatics = function (d, b) {
                     extendStatics =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (d, b) {
                                 d.__proto__ = b;
                             }) ||
@@ -23137,9 +23169,11 @@
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype =
                         b === null
                             ? Object.create(b)
@@ -23147,11 +23181,14 @@
                 };
             })();
         var $$4;
+
         function setJQuery$3(jq) {
             $$4 = jq;
         }
+
         var SearchPaneViewTotal = /** @class */ (function (_super) {
             __extends$3(SearchPaneViewTotal, _super);
+
             function SearchPaneViewTotal(
                 paneSettings,
                 opts,
@@ -23176,6 +23213,7 @@
                     ) || this;
                 return _this;
             }
+
             /**
              * Gets the message that is to be used to indicate the count for each SearchPane row
              *
@@ -23205,7 +23243,7 @@
              */
             SearchPaneViewTotal.prototype._getShown = function (filter) {
                 return this.s.rowData.binsShown &&
-                    this.s.rowData.binsShown[filter]
+                this.s.rowData.binsShown[filter]
                     ? this.s.rowData.binsShown[filter]
                     : 0;
             };
@@ -23218,7 +23256,7 @@
                 var extendStatics = function (d, b) {
                     extendStatics =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (d, b) {
                                 d.__proto__ = b;
                             }) ||
@@ -23230,9 +23268,11 @@
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype =
                         b === null
                             ? Object.create(b)
@@ -23240,11 +23280,14 @@
                 };
             })();
         var $$3;
+
         function setJQuery$2(jq) {
             $$3 = jq;
         }
+
         var SearchPaneCascade = /** @class */ (function (_super) {
             __extends$2(SearchPaneCascade, _super);
+
             function SearchPaneCascade(
                 paneSettings,
                 opts,
@@ -23269,6 +23312,7 @@
                     ) || this;
                 return _this;
             }
+
             /**
              * This method updates the rows and their data within the SearchPanes
              *
@@ -23277,7 +23321,7 @@
             SearchPaneCascade.prototype.updateRows = function () {
                 // Note the currently selected values in the pane and remove all of the rows
                 var selected = this.s.dtPane
-                    .rows({ selected: true })
+                    .rows({selected: true})
                     .data()
                     .toArray();
                 var selection;
@@ -23323,7 +23367,7 @@
                         for (
                             var _a = 0,
                                 _b = this.s.dt
-                                    .rows({ search: "applied" })
+                                    .rows({search: "applied"})
                                     .indexes()
                                     .toArray();
                             _a < _b.length;
@@ -23416,7 +23460,7 @@
                     for (
                         var _i = 0,
                             _a = this.s.dt
-                                .rows({ search: "applied" })
+                                .rows({search: "applied"})
                                 .indexes()
                                 .toArray();
                         _i < _a.length;
@@ -23436,14 +23480,14 @@
                 var options = this.s.colOpts.options
                     ? this.s.colOpts.options
                     : this.s.customPaneSettings &&
-                        this.s.customPaneSettings.options
-                      ? this.s.customPaneSettings.options
-                      : undefined;
+                    this.s.customPaneSettings.options
+                        ? this.s.customPaneSettings.options
+                        : undefined;
                 if (options === undefined) {
                     return;
                 }
                 var allRows = this.s.dt.rows();
-                var shownRows = this.s.dt.rows({ search: "applied" });
+                var shownRows = this.s.dt.rows({search: "applied"});
                 var tableValsTotal = allRows.data().toArray();
                 var tableValsShown = shownRows.data().toArray();
                 var rows = [];
@@ -23535,7 +23579,7 @@
              */
             SearchPaneCascade.prototype._getShown = function (filter) {
                 return this.s.rowData.binsShown &&
-                    this.s.rowData.binsShown[filter]
+                this.s.rowData.binsShown[filter]
                     ? this.s.rowData.binsShown[filter]
                     : 0;
             };
@@ -23559,7 +23603,7 @@
                 var extendStatics = function (d, b) {
                     extendStatics =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (d, b) {
                                 d.__proto__ = b;
                             }) ||
@@ -23571,9 +23615,11 @@
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype =
                         b === null
                             ? Object.create(b)
@@ -23581,11 +23627,14 @@
                 };
             })();
         var $$2;
+
         function setJQuery$1(jq) {
             $$2 = jq;
         }
+
         var SearchPaneCascadeViewTotal = /** @class */ (function (_super) {
             __extends$1(SearchPaneCascadeViewTotal, _super);
+
             function SearchPaneCascadeViewTotal(
                 paneSettings,
                 opts,
@@ -23611,6 +23660,7 @@
                     ) || this;
                 return _this;
             }
+
             /**
              * Fill the array with the values that are currently being displayed in the table
              *
@@ -23625,7 +23675,7 @@
                         for (
                             var _i = 0,
                                 _a = this.s.dt
-                                    .rows({ search: "applied" })
+                                    .rows({search: "applied"})
                                     .indexes()
                                     .toArray();
                             _i < _a.length;
@@ -23667,10 +23717,12 @@
 
         var $$1;
         var dataTable$1;
+
         function setJQuery(jq) {
             $$1 = jq;
             dataTable$1 = jq.fn.dataTable;
         }
+
         var SearchPanes = /** @class */ (function () {
             function SearchPanes(paneSettings, opts, fromPreInit, paneClass) {
                 var _this = this;
@@ -23826,6 +23878,7 @@
                 }
                 return this;
             }
+
             /**
              * Clear the selections of all of the panes
              */
@@ -23945,7 +23998,7 @@
                                 highestmod_1 = 0;
                                 break;
                             }
-                            // If there are more left over at this amount of panes per row (ppr)
+                                // If there are more left over at this amount of panes per row (ppr)
                             // then it fits better so new values
                             else if (rem > highestmod_1) {
                                 highest_1 = ppr;
@@ -23957,18 +24010,18 @@
                     var widerIndexes_1 =
                         highestmod_1 !== 0
                             ? dispIndex.slice(
-                                  dispIndex.length - highestmod_1,
-                                  dispIndex.length,
-                              )
+                                dispIndex.length - highestmod_1,
+                                dispIndex.length,
+                            )
                             : [];
                     this.s.panes.forEach(function (pane) {
                         // Resize the pane with the new layout
                         if (pane.s.displayed) {
                             pane.resize(
                                 "columns-" +
-                                    (!widerIndexes_1.includes(pane.s.index)
-                                        ? highest_1
-                                        : highestmod_1),
+                                (!widerIndexes_1.includes(pane.s.index)
+                                    ? highest_1
+                                    : highestmod_1),
                             );
                         }
                     });
@@ -24085,7 +24138,7 @@
                     var pane = _a[_i];
                     if (pane.s.dtPane) {
                         var rows = pane.s.dtPane
-                            .rows({ selected: true })
+                            .rows({selected: true})
                             .data()
                             .toArray()
                             .map(function (el) {
@@ -24540,7 +24593,7 @@
                                 }
                                 if (pane.s.dtPane) {
                                     var rowData = pane.s.dtPane
-                                        .rows({ selected: true })
+                                        .rows({selected: true})
                                         .data()
                                         .toArray();
                                     for (var i = 0; i < rowData.length; i++) {
@@ -24578,8 +24631,8 @@
                                 data.searchPanesLast = _this.s.dt
                                     .column(
                                         _this.s.selectionList[
-                                            _this.s.selectionList.length - 1
-                                        ].column,
+                                        _this.s.selectionList.length - 1
+                                            ].column,
                                     )
                                     .dataSrc();
                             }
@@ -24779,7 +24832,7 @@
                 var extendStatics = function (d, b) {
                     extendStatics =
                         Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array &&
+                        ({__proto__: []} instanceof Array &&
                             function (d, b) {
                                 d.__proto__ = b;
                             }) ||
@@ -24791,9 +24844,11 @@
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype =
                         b === null
                             ? Object.create(b)
@@ -24802,6 +24857,7 @@
             })();
         var SearchPanesST = /** @class */ (function (_super) {
             __extends(SearchPanesST, _super);
+
             function SearchPanesST(paneSettings, opts, fromPreInit) {
                 if (fromPreInit === void 0) {
                     fromPreInit = false;
@@ -24829,8 +24885,8 @@
                     return _this._initSelectionListeners(
                         true,
                         loadedFilter &&
-                            loadedFilter.searchPanes &&
-                            loadedFilter.searchPanes.selectionList
+                        loadedFilter.searchPanes &&
+                        loadedFilter.searchPanes.selectionList
                             ? loadedFilter.searchPanes.selectionList
                             : _this.c.preSelect,
                     );
@@ -24842,6 +24898,7 @@
                 }
                 return _this;
             }
+
             /**
              * Ensures that the correct selection listeners are set for selection tracking
              *
@@ -24892,7 +24949,7 @@
                                     _c =
                                         this.s.serverData.searchPanes.options[
                                             colTitle
-                                        ];
+                                            ];
                                 _b < _c.length;
                                 _b++
                             ) {
@@ -24999,8 +25056,8 @@
                 return function () {
                     return pane
                         ? (pane.s.deselectTimeout = setTimeout(function () {
-                              return _this._updateSelectionList(pane);
-                          }, 50))
+                            return _this._updateSelectionList(pane);
+                        }, 50))
                         : _this._updateSelectionList();
                 };
             };
@@ -25031,7 +25088,7 @@
                     }
                     // Get filter values for all of the rows and the selections
                     var rows = paneIn.s.dtPane
-                        .rows({ selected: true })
+                        .rows({selected: true})
                         .data()
                         .toArray()
                         .map(function (el) {
@@ -25078,7 +25135,7 @@
                     // then another filter is present
                     if (
                         this.s.dt.rows().toArray()[0].length >
-                        this.s.dt.rows({ search: "applied" }).toArray()[0]
+                        this.s.dt.rows({search: "applied"}).toArray()[0]
                             .length
                     ) {
                         anotherFilter = true;
@@ -25196,9 +25253,9 @@
                         pane =
                             this.s.panes[
                                 this.s.selectionList[
-                                    this.s.selectionList.length - 1
-                                ].column
-                            ];
+                                this.s.selectionList.length - 1
+                                    ].column
+                                ];
                     }
                     // Update the rows of all of the other panes
                     for (var _l = 0, _m = this.s.panes; _l < _m.length; _l++) {
@@ -25317,7 +25374,7 @@
             init: function (dt, node, config) {
                 dt.button(node).text(
                     config.text ||
-                        dt.i18n("searchPanes.collapse", "SearchPanes", 0),
+                    dt.i18n("searchPanes.collapse", "SearchPanes", 0),
                 );
                 // For cases when we need to initialise the SearchPane immediately
                 if (dt.init().stateSave || config.delayInit === false) {
@@ -25328,6 +25385,7 @@
             text: "",
             delayInit: true,
         };
+
         function _buttonSourced(dt, node, config) {
             var buttonOpts = $.extend(
                 {
@@ -25336,11 +25394,11 @@
                             dt.i18n(
                                 "searchPanes.collapse",
                                 dt.context[0].oLanguage.searchPanes !==
-                                    undefined
+                                undefined
                                     ? dt.context[0].oLanguage.searchPanes
-                                          .collapse
+                                        .collapse
                                     : dt.context[0]._searchPanes.c.i18n
-                                          .collapse,
+                                        .collapse,
                                 count,
                             ),
                         );
@@ -25354,10 +25412,11 @@
                     : new DataTable.SearchPanes(dt, buttonOpts);
             dt.button(node).text(
                 config.text ||
-                    dt.i18n("searchPanes.collapse", panes.c.i18n.collapse, 0),
+                dt.i18n("searchPanes.collapse", panes.c.i18n.collapse, 0),
             );
             config._panes = panes;
         }
+
         function _init(settings, options, fromPre) {
             if (options === void 0) {
                 options = null;
@@ -25376,6 +25435,7 @@
             var node = searchPanes.getNode();
             return node;
         }
+
         // Attach a listener to the document which listens for DataTables initialisation
         // events so we can automatically initialise
         $(document).on("preInit.dt.dtsp", function (e, settings) {

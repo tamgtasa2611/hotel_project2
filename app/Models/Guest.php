@@ -14,7 +14,7 @@ class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     use Authenticatable;
     use SoftDeletes;
 
-    protected $table = 'guests';
+    protected $table = 'guest';
     public $timestamps = false;
     protected $fillable = [
         'first_name',

@@ -14,14 +14,12 @@ class Room extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'rooms';
+    protected $table = 'room';
     public $timestamps = false;
     protected $fillable = [
         'name',
-        'price',
-        'bed_size',
         'status',
-        'room_type_id',
+        'room_type_id'
     ];
 
     public function roomType(): BelongsTo

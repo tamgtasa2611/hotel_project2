@@ -1,8 +1,8 @@
-<title>Bookings management - Skyrim Hotel</title>
+<title>Quản lý đặt phòng - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Bookings Management</h4>
+            <h4 class="fw-bold m-0">Quản lý đặt phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,17 +11,17 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white  shadow-sm  overflow-hidden">
+    <div class="bg-white  shadow-sm border rounded-3 overflow-hidden">
         <div
-            class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
+            class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Bookings Datatable
+                <i class="bi bi-table me-2"></i>Danh sách đặt phòng
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
                 <a href="{{ route('admin.bookings.create') }}"
-                   class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new booking
+                   class="d-flex align-items-center me-3 btn btn-primary">
+                    <i class="me-2 bi bi-plus-circle"></i>Thêm đặt phòng
                 </a>
                 <a href="{{ route('admin.bookings.downloadPdf') }}"
                    class="d-flex align-items-center">
@@ -29,6 +29,7 @@
                 </a>
             </div>
         </div>
+        <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($bookings) != 0)
                 <table

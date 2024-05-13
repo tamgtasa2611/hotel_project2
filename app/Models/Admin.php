@@ -14,7 +14,7 @@ class Admin extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     use Authenticatable;
     use SoftDeletes;
 
-    protected $table = 'admins';
+    protected $table = 'admin';
     public $timestamps = false;
     protected $fillable = [
         'first_name',

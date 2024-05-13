@@ -12,13 +12,14 @@ class Rating extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'ratings';
+    protected $table = 'rating';
     public $timestamps = false;
     protected $fillable = [
         'rating',
         'review',
         'rate_date',
-        'booking_id',
+        'room_id',
+        'guest_id'
     ];
 
     public function room(): BelongsTo

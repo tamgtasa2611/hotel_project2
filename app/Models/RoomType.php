@@ -14,10 +14,13 @@ class RoomType extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'room_types';
+    protected $table = 'room_type';
     public $timestamps = false;
     protected $fillable = [
         'name',
+        'price',
+        'max_capacity',
+        'description'
     ];
 
     public function rooms(): HasMany
