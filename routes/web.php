@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
@@ -131,6 +132,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/create', 'store')->name('admin.roomTypes.store');
                 Route::get('/{roomType}/edit', 'edit')->name('admin.roomTypes.edit');
                 Route::put('/{roomType}/edit', 'update')->name('admin.roomTypes.update');
+                Route::get('/{roomType}/edit/destroyImage', 'destroyImage')->name('admin.roomTypes.destroyImage');
                 Route::delete('/delete', 'destroy')->name('admin.roomTypes.destroy');
                 // PDF
                 Route::get('downloadPdf', 'downloadPDF')->name('admin.roomTypes.downloadPdf');
@@ -150,17 +152,15 @@ Route::prefix('admin')->group(function () {
                 Route::get('downloadPdf', [AdminRoomController::class, 'downloadPDF'])->name('admin.rooms.downloadPdf');
             });
 
-            // EMPLOYEES =====================================================================================
-//        Route::prefix('employees')->group(function () {
-//            Route::get('/', [AdminEmployeeController::class, 'index'])->name('admin.employees');
-//            Route::get('/create', [AdminEmployeeController::class, 'create'])->name('admin.employees.create');
-//            Route::post('/create', [AdminEmployeeController::class, 'store'])->name('admin.employees.store');
-//            Route::get('/{employee}/edit', [AdminEmployeeController::class, 'edit'])->name('admin.employees.edit');
-//            Route::put('/{employee}/edit', [AdminEmployeeController::class, 'update'])->name('admin.employees.update');
-//            Route::delete('/delete', [AdminEmployeeController::class, 'destroy'])->name('admin.employees.destroy');
-//            // PDF
-//            Route::get('downloadPdf', [AdminEmployeeController::class, 'downloadPDF'])->name('admin.employees.downloadPdf');
-//        });
+            // AMENITIES =====================================================================================
+            Route::prefix('/amenities')->controller(AmenityController::class)->group(function () {
+                Route::get('/', 'index')->name('admin.amenities');
+                Route::get('/create', 'create')->name('admin.amenities.create');
+                Route::post('/create', 'store')->name('admin.amenities.store');
+                Route::get('/{room}/edit', 'edit')->name('admin.amenities.edit');
+                Route::put('/{room}/edit', 'update')->name('admin.amenities.update');
+                Route::delete('/destroy', 'destroy')->name('admin.amenities.destroy');
+            });
 
             // ADMINISTRATORS =====================================================================================
             Route::prefix('admins')->group(function () {

@@ -23,8 +23,7 @@ class UpdateRoomRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'capacity' => 'required|min:1',
-            'room_type_id' => 'required',
+            'status' => 'required|integer',
         ];
     }
 }

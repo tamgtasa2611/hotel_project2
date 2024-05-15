@@ -23,7 +23,8 @@ class StoreRoomTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'base_price' => 'required|min:0',
+            'price' => 'required|min:0',
+            'max_capacity' => 'required|min:1',
         ];
     }
 }

@@ -12,7 +12,7 @@ class RoomTypeImage extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'room_type_image';
+    protected $table = 'room_type_images';
     public $timestamps = false;
     protected $fillable = [
         'path',

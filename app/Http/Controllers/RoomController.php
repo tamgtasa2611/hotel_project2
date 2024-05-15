@@ -18,8 +18,7 @@ class RoomController extends Controller
     {
         $search = [
             'checkin' => $request->checkin,
-            'checkout' => $request->checkout,
-            'guest_num' => $request->guest_num ?? 1,
+            'checkout' => $request->checkout
         ];
 
         $checkInFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkin'])));
@@ -28,7 +27,7 @@ class RoomController extends Controller
         //        check in < check out
         if ($search['checkin'] != null || $search['checkout'] != null) {
             if ($checkInFormat >= $checkOutFormat) {
-                return back()->with('failed', 'Check Out date must be after Check In date!');
+                return back()->with('failed', 'Ngày trả phòng phải sau ngày nhận phòng!');
             }
         }
 
@@ -54,6 +53,9 @@ class RoomController extends Controller
         $view = $request->view ?? "grid";
         $sort = $request->sort ?? 0;
 //        get rooms
+        $roomTypes = RoomType::all();
+        dd($roomTypes);
+
         $roomList = Room::getRooms($search, $price, $type, $sort);
         $roomListCopy = $roomList;
         //        get room types for filter

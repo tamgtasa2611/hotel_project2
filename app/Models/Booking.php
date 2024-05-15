@@ -12,7 +12,7 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $table = 'booking';
+    protected $table = 'bookings';
     public $timestamps = false;
     protected $fillable = [
         'date',
@@ -28,14 +28,19 @@ class Booking extends Model
         'admin_id'
     ];
 
-    public function rooms(): HasMany
+    public function roomTypes(): HasMany
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(RoomType::class);
     }
 
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 
     public function guest(): BelongsTo

@@ -12,7 +12,7 @@ class Rating extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'rating';
+    protected $table = 'ratings';
     public $timestamps = false;
     protected $fillable = [
         'rating',

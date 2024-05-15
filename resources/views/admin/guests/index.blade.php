@@ -70,10 +70,10 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($guest->status == 1)
-                                        <span class="badge bg-success shadow-sm border">
+                                        <span class="badge bg-success shadow-sm">
                                         Đang hoạt động</span>
                                     @else
-                                        <span class="badge bg-danger shadow-sm border">
+                                        <span class="badge bg-danger shadow-sm">
                                         Bị khóa</span>
                                     @endif
                                 </div>

@@ -1,8 +1,8 @@
-<title>Rooms management - Skyrim Hotel</title>
+<title>Quản lý phòng - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Rooms Management</h4>
+            <h4 class="fw-bold m-0">Quản lý phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,17 +11,17 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white  shadow-sm  overflow-hidden">
+    <div class="bg-white  shadow-sm  border rounded-3 overflow-hidden">
         <div
-            class="p-4 d-flex flex-column flex-md-row justify-content-between  -bottom">
+            class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Rooms Datatable
+                <i class="bi bi-key me-2"></i>Danh sách phòng
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
                 <a href="{{ route('admin.rooms.create') }}"
-                   class="d-flex align-items-center me-3">
-                    <i class="me-2 bi bi-plus-circle"></i>Add new room
+                   class="d-flex align-items-center me-3 btn btn-primary">
+                    <i class="me-2 bi bi-plus-circle"></i>Thêm phòng
                 </a>
                 <a href="{{ route('admin.rooms.downloadPdf') }}"
                    class="d-flex align-items-center">
@@ -29,18 +29,19 @@
                 </a>
             </div>
         </div>
+        <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($rooms) != 0)
                 <table
-                    class="tran-3 table table-striped table-sm align-middle mb-0 bg-white  w-100"
+                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle text-center">Name</th>
-                        <th class="align-middle text-center">Capacity</th>
-                        <th class="align-middle text-center">Room Type</th>
-                        <th class="align-middle text-center">Actions</th>
+                        <th class="align-middle text-center">Tên phòng</th>
+                        <th class="align-middle text-center">Trạng thái</th>
+                        <th class="align-middle text-center">Loại phòng</th>
+                        <th class="align-middle text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,11 +54,21 @@
                                 {{ $room->name }}
                             </td>
                             <td class="text-center">
-                                {{ $room->capacity }}
+                                @switch($room->status)
+                                    @case(0)
+                                        <div class="badge bg-success shadow-sm ">Khả dụng</div>
+                                        @break
+                                    @case(1)
+                                        <div class="badge bg-info shadow-sm ">Đang sử dụng</div>
+                                        @break
+                                    @case(2)
+                                        <div class="badge bg-danger shadow-sm ">Không khả dụng</div>
+                                        @break
+                                @endswitch
                             </td>
                             @if($room->roomType == null)
-                                <td class="text-center bg-danger-subtle">
-                                    <i class="text-danger bi bi-exclamation-circle"></i>
+                                <td class="text-center text-danger">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>Chưa phân loại
                                 </td>
                             @else
                                 <td class="text-center">
@@ -68,13 +79,13 @@
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.rooms.edit', $room) }}"
                                        class="btn btn-outline-primary  me-3">
-                                        Edit<i class="bi bi-pencil-square ms-2"></i>
+                                        <i class="bi bi-pencil-square me-2"></i>Sửa
                                     </a>
                                     <a class="btn btn-outline-danger  dlt-btn"
                                        data-bs-toggle="modal"
                                        data-bs-target="#exampleModal1"
                                        data-id={{$room->id}}>
-                                        Delete<i class="bi bi-trash ms-2"></i>
+                                        <i class="bi bi-trash me-2"></i>Xóa
                                     </a>
                                 </div>
                             </td>
@@ -136,7 +147,7 @@
                 topEnd: {
                     search: {
                         text: "",
-                        placeholder: "Type to search...",
+                        placeholder: "Tìm kiếm...",
                     },
                 },
                 bottomEnd: {

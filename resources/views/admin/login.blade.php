@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     {{--    file css tuy chinh--}}
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
-    <title>Admin login - Skyrim Hotel</title>
+    <title>Trang quản trị - Skyrim Hotel</title>
 </head>
 <body class="overflow-x-hidden overflow-y-auto">
 {{--alert logout--}}
@@ -44,7 +44,7 @@
                 @csrf
                 {{--                    heading--}}
                 <div class="d-flex justify-content-center align-items-center mb-4">
-                    <h6 class="display-6 text-primary fw-bold">Admin Login</h6>
+                    <h6 class="display-6 text-primary fw-bold">Trang quản trị</h6>
                 </div>
                 <!-- Email input -->
                 <div class="mb-4">
@@ -64,7 +64,7 @@
                 <div class="mb-4">
                     <div class="input-group" id="show_hide_password">
                         <input type="password" class="form-control" id="exampleInputPassword1"
-                               placeholder="Password" autocomplete="off"
+                               placeholder="Mật khẩu" autocomplete="off"
                                name="password" required minlength="6">
                         <a href="#" class="input-group-text">
                             <i class="bi bi-eye-slash" aria-hidden="true"></i>
@@ -80,11 +80,11 @@
                 <!-- Submit button -->
                 <button type="submit"
                         class="btn btn-primary w-100 mb-4  tran-3">
-                    Sign in
+                    Đăng nhập
                 </button>
 
                 <div class="text-center">
-                    <a href="">Forgot password</a>
+                    <a href="">Quên mật khẩu</a>
                 </div>
             </form>
         </div>

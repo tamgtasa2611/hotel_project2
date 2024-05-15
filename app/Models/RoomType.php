@@ -14,7 +14,7 @@ class RoomType extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'room_type';
+    protected $table = 'room_types';
     public $timestamps = false;
     protected $fillable = [
         'name',
@@ -26,6 +26,21 @@ class RoomType extends Model
     public function rooms(): HasMany
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function amenities(): HasMany
+    {
+        return $this->hasMany(Amenity::class);
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(RoomTypeImage::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 
     public static function getRoomTypes(object $roomList)

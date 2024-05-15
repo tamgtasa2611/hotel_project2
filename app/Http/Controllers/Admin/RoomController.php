@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Activity;
+use App\Models\Amenity;
 use App\Models\Room;
 use App\Models\RoomImage;
 use App\Models\RoomType;
@@ -19,10 +20,12 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::with('roomType')->get();
+        $rooms = Room::all();
+        $amenities = Amenity::all();
 
         $data = [
             'rooms' => $rooms,
+            'amenities' => $amenities
         ];
 
         return view('admin.rooms.index', $data);
@@ -31,10 +34,9 @@ class RoomController extends Controller
     public function create()
     {
         $roomTypes = RoomType::all();
-        $data = [
-            'roomTypes' => $roomTypes
-        ];
-        return view('admin.rooms.create', $data);
+        return view('admin.rooms.create', [
+            'roomTypes' => $roomTypes,
+        ]);
     }
 
     public function store(StoreRoomRequest $request)
@@ -44,10 +46,8 @@ class RoomController extends Controller
         if ($validated) {
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'price', $request->price);
-            $data = Arr::add($data, 'bed_size', $request->bed_size);
-            $data = Arr::add($data, 'room_type_id', $request->room_type_id);
             $data = Arr::add($data, 'status', $request->status);
+            $data = Arr::add($data, 'room_type_id', $request->room_type_id);
             Room::create($data);
 
             //            images
@@ -77,34 +77,20 @@ class RoomController extends Controller
             }
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new room');
-            return to_route('admin.rooms')->with('success', 'Room created successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã thêm phòng mới');
+            return to_route('admin.rooms')->with('success', 'Thêm phòng thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
     public function edit(Room $room)
     {
         $roomTypes = RoomType::all();
-//        lay cac images thuoc ve room hien tai
-        $roomImageRecord = RoomImage::where('room_id', '=', $room->id)->get();
-//        tao array chua nhieu anh
-        $roomImages = [];
-        foreach ($roomImageRecord as $record) {
-////            tach anh giua dau |
-//            $images = explode('|', $record->path);
-////            lay tung path anh
-//            foreach ($images as $image) {
-//                $roomImages[] = $image;
-//            }
-            $roomImages[] = $record;
-        }
 
         $data = [
             'room' => $room,
-            'roomTypes' => $roomTypes,
-            'roomImages' => $roomImages
+            'roomTypes' => $roomTypes
         ];
         return view('admin.rooms.edit', $data);
     }
@@ -116,39 +102,39 @@ class RoomController extends Controller
         if ($validated) {
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'capacity', $request->capacity);
+            $data = Arr::add($data, 'status', $request->status);
             $data = Arr::add($data, 'room_type_id', $request->room_type_id);
             $room->update($data);
 
-            //            images
-            $roomId = $room->id;
-//            $newImages = [];
-            //            neu co input
-            if ($files = $request->file('images')) {
-                foreach ($files as $file) {
-                    $path = $file->getClientOriginalName();
-                    if (!Storage::exists('public/admin/rooms/' . $path)) {
-                        Storage::putFileAs('public/admin/rooms/', $file, $path);
-                    }
-//                    $newImages[] = $path;
-                    RoomImage::insert([
-                        'path' => $path,
-                        'room_id' => $roomId,
-                    ]);
-                }
-//                //           insert room image table
-//                //            1 record = multiple files
-//                RoomImage::insert([
-//                    'path' => implode("|", $newImages),
-//                    'room_id' => $roomId,
-//                ]);
-            }
+//            //            images
+//            $roomId = $room->id;
+////            $newImages = [];
+//            //            neu co input
+//            if ($files = $request->file('images')) {
+//                foreach ($files as $file) {
+//                    $path = $file->getClientOriginalName();
+//                    if (!Storage::exists('public/admin/rooms/' . $path)) {
+//                        Storage::putFileAs('public/admin/rooms/', $file, $path);
+//                    }
+////                    $newImages[] = $path;
+//                    RoomImage::insert([
+//                        'path' => $path,
+//                        'room_id' => $roomId,
+//                    ]);
+//                }
+////                //           insert room image table
+////                //            1 record = multiple files
+////                RoomImage::insert([
+////                    'path' => implode("|", $newImages),
+////                    'room_id' => $roomId,
+////                ]);
+//            }
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
-            return back()->with('success', 'Room updated successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật 1 phòng');
+            return back()->with('success', 'Cập nhật phòng thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 

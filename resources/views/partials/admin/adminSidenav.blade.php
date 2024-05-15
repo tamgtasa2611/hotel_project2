@@ -70,6 +70,13 @@
             <i class="bi bi-key me-2"></i>Danh sách phòng
         </a>
 
+        <a href="{{ route('admin.amenities') }}"
+           class="list-group-item list-group-item-action  border-0 px-5 py-3 d-flex align-items-center
+{{ request()->route()->getPrefix() == 'admin/amenities' ? 'active' : '' }}"
+           aria-current="true">
+            <i class="bi bi-heart me-2"></i>Tiện nghi phòng
+        </a>
+
         <a href="{{ route('admin.admins') }}"
            class="list-group-item list-group-item-action  border-0 px-5 py-3 d-flex align-items-center
      {{ request()->route()->getPrefix() == 'admin/admins' ? 'active' : '' }}"
@@ -82,7 +89,7 @@
            class="list-group-item list-group-item-action  border-0 px-5 py-3 d-flex align-items-center
     {{ request()->routeIs('admin.activities') ? 'active' : '' }}"
            aria-current="true">
-            <i class="bi bi-pie-chart me-2"></i>Báo cáo thống kê
+            <i class="bi bi-graph-up me-2"></i>Báo cáo thống kê
         </a>
 
         <a href="{{ route('admin.activities') }}"

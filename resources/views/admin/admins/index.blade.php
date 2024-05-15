@@ -69,11 +69,11 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($admin->level == 0)
-                                        <span class="badge bg-dark shadow-sm border">
-                                        Owner</span>
+                                        <span class="badge bg-dark shadow-sm">
+                                        Quản trị viên</span>
                                     @else
                                         <span class="badge bg-light border shadow-sm">
-                                        Employee</span>
+                                        Nhân viên</span>
                                     @endif
                                 </div>
                             </td>
