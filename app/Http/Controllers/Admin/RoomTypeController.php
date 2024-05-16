@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomTypeRequest;
 use App\Http\Requests\UpdateRoomTypeRequest;
 use App\Models\Activity;
+use App\Models\Amenity;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\RoomTypeImage;
@@ -32,7 +33,8 @@ class RoomTypeController extends Controller
     public function create()
     {
         $rooms = Room::whereNull('room_type_id')->get();
-        return view('admin.roomTypes.create', compact('rooms'));
+        $amenities = Amenity::all();
+        return view('admin.roomTypes.create', compact('rooms', 'amenities'));
     }
 
     public function store(StoreRoomTypeRequest $request)
@@ -47,6 +49,7 @@ class RoomTypeController extends Controller
             $data = Arr::add($data, 'description', $request->description);
 
             RoomType::create($data);
+            $newRoomTypeId = RoomType::max('id');
 
             //            images
 //            neu co input anh
@@ -58,7 +61,7 @@ class RoomTypeController extends Controller
                     }
                     RoomTypeImage::insert([
                         'path' => $path,
-                        'room_type_id' => RoomType::max('id'),
+                        'room_type_id' => $newRoomTypeId
                     ]);
                 }
             }
@@ -68,7 +71,16 @@ class RoomTypeController extends Controller
             if ($roomIds != null) {
                 foreach ($roomIds as $roomId) {
                     $room = Room::where('id', '=', $roomId)->first();
-                    $room->update(['room_type_id' => RoomType::max('id')]);
+                    $room->update(['room_type_id' => $newRoomTypeId]);
+                }
+            }
+
+            //them tien nghi
+            $amenityIds = $request->amenities;
+            if ($amenityIds != null) {
+                foreach ($amenityIds as $amenityId) {
+                    $amenity = Amenity::where('id', '=', $amenityId)->first();
+                    Amenity::insertToRoomTypeAmenities($newRoomTypeId, $amenity->id);
                 }
             }
 
@@ -91,10 +103,14 @@ class RoomTypeController extends Controller
             $roomImages[] = $record;
         }
 
+        $amenities = Amenity::all();
+        $currentAmenities = Amenity::getRoomTypeAmenities($roomType->id)->pluck('amenity_id')->toArray();
         return view('admin.roomTypes.edit', [
             'roomType' => $roomType,
             'rooms' => $rooms,
-            'roomImages' => $roomImages
+            'roomImages' => $roomImages,
+            'amenities' => $amenities,
+            'currentAmenities' => $currentAmenities
         ]);
     }
 
@@ -142,6 +158,27 @@ class RoomTypeController extends Controller
                 if (!in_array($roomId, $roomIds)) {
                     $room = Room::where('id', '=', $roomId)->first();
                     $room->update(['room_type_id' => null]);
+                }
+            }
+
+            //them/xoa tien nghi vao loai phong nay
+            $currentAmenities = Amenity::getRoomTypeAmenities($roomType->id)->pluck('amenity_id')->toArray();
+            $amenityIds = $request->amenities;
+
+            //them tien nghi
+            if ($amenityIds != null) {
+                foreach ($amenityIds as $amenityId) {
+                    //neu hien tai khong co thi insert
+                    if (!in_array($amenityId, $currentAmenities)) {
+                        Amenity::insertToRoomTypeAmenities($roomType->id, $amenityId);
+                    }
+                }
+            }
+
+            //xoa tien nghi
+            foreach ($currentAmenities as $currentAmenity) {
+                if (!in_array($currentAmenity, $amenityIds)) {
+                    Amenity::destroyRoomTypeAmenities($roomType->id, $currentAmenity);
                 }
             }
 

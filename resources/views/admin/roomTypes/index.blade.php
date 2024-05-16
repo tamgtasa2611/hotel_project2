@@ -115,7 +115,7 @@
                 </div>
                 {{--                end modal--}}
             @else
-                No results
+                Không có kết quả
             @endif
         </div>
     </div>

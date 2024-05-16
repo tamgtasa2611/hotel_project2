@@ -431,7 +431,7 @@
                         </div>
                     @else
                         <div>
-                            Không có phòng nào để hiện thị!
+                            Không có phòng nào để hiển thị!
                         </div>
                     @endif
                 </div>

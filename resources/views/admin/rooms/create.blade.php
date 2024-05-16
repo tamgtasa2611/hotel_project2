@@ -1,8 +1,8 @@
-<title>Add new room - Skyrim Hotel</title>
+<title>Thêm phòng - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Rooms Management</h4>
+            <h4 class="fw-bold m-0">Quản lý phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,11 +11,11 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white shadow-sm overflow-hidden">
+    <div class="bg-white shadow-sm border rounded-3 overflow-hidden">
         <div
             class="p-4">
             <div class="text-primary">
-                <i class="bi bi-plus-circle me-2"></i>Add new room
+                <i class="bi bi-plus-circle me-2"></i>Thêm phòng
             </div>
         </div>
         <hr class="m-0">
@@ -56,7 +56,8 @@
                                 <select type="text" id="status" name="status" class="form-select">
                                     <option value="0">Khả dụng</option>
                                     <option value="1">Đang sử dụng</option>
-                                    <option value="2">Không khả dụng</option>
+                                    <option value="2">Đã đặt trước</option>
+                                    <option value="3">Không khả dụng</option>
                                 </select>
                             </div>
                         </div>

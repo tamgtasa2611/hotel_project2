@@ -33,25 +33,6 @@
                         </div>
                         <!-- Grid column -->
                     </div>
-                    <div class="row mt-3">
-                        <form action="" class="m-0">
-                            <!--Grid row-->
-                            <div class="row">
-                                <div class="col-12 col-lg-6 row g-4">
-                                    <div class="col-12 col-md-6">
-                                        <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
-                                           rel="noopener noreferrer">Nhắn tin ngay <i
-                                                class="bi bi-messenger"></i></a>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <a href="/admin" class="" target="_blank"
-                                           rel="noopener noreferrer">Quản trị <i class="bi bi-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Grid row-->
-                        </form>
-                    </div>
                 </div>
 
                 <div class="col-12 col-lg-4">
@@ -72,8 +53,19 @@
     <!-- Section: Links  -->
 
     <!-- Copyright -->
-    <div class="text-center p-4 fs-7">
-        © 2024 Made by <span class="fw-bold text-primary">NguyenDucTam</span>
+    <div class="text-center py-4 fs-7 d-flex justify-content-between container">
+        <div>
+            Made by <span class="fw-bold text-primary">NguyenDucTam</span>
+        </div>
+        <!--Grid row-->
+        <div class="d-flex">
+            <a href="https://www.facebook.com/messages/t/296883000177663" target="_blank"
+               rel="noopener noreferrer">Nhắn tin ngay <i
+                    class="bi bi-messenger me-3"></i></a>
+            <a href="/admin" class="" target="_blank"
+               rel="noopener noreferrer">Quản trị <i class="bi bi-chevron-right"></i></a>
+        </div>
+        <!--Grid row-->
     </div>
     <!-- Copyright -->
 </footer>

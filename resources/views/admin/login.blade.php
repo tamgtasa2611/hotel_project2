@@ -40,11 +40,12 @@
              load-hidden fade-in fade-bottom position-relative">
             {{--               login form--}}
             <form method="post" action="{{route('admin.loginProcess')}}" enctype="multipart/form-data"
-                  class="bg-white p-5 border rounded-3 shadow-sm col-10 col-md-6 col-lg-5 col-xl-4">
+                  class="bg-white p-5 border rounded-3 shadow-sm col-10 col-md-6 col-lg-4">
                 @csrf
                 {{--                    heading--}}
-                <div class="d-flex justify-content-center align-items-center mb-4">
-                    <h6 class="display-6 text-primary fw-bold">Trang quản trị</h6>
+                <div class="d-flex justify-content-center flex-column align-items-center mb-4">
+                    <h6 class="text-primary fw-bold">Trang quản trị</h6>
+                    <h6 class="display-6 text-primary fw-bold">Đăng nhập</h6>
                 </div>
                 <!-- Email input -->
                 <div class="mb-4">

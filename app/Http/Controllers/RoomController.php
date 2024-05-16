@@ -54,7 +54,6 @@ class RoomController extends Controller
         $sort = $request->sort ?? 0;
 //        get rooms
         $roomTypes = RoomType::all();
-        dd($roomTypes);
 
         $roomList = Room::getRooms($search, $price, $type, $sort);
         $roomListCopy = $roomList;

@@ -23,7 +23,9 @@
     @vite(["resources/sass/app.scss", "resources/js/app.js"])
     <link rel="stylesheet" href="{{asset('plugins/bootstrap_theme/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-icons/font/bootstrap-icons.css')}}">
-
+    {{--    mcdatepicker--}}
+    <link href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"></script>
     {{--    file css tuy chinh --}}
     <link rel="stylesheet" href="{{ asset('plugins/css/main.css') }}" type="text/css">
     <title>Project 2 - Tam</title>
@@ -31,7 +33,7 @@
 
 <body class="overflow-x-hidden overflow-y-auto">
 <div class="row h-100">
-    <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 p-0 shadow-sm border bg-white ">
+    <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 p-0 shadow-sm border bg-white">
         @include('partials.admin.adminSidenav')
     </div>
     <div class="col-12 col-lg-9 col-xl-10 m-0 p-0">

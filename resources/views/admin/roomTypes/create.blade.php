@@ -1,8 +1,8 @@
-<title>Add new room type - Skyrim Hotel</title>
+<title>Thêm loại phòng - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm  mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Room Types Management</h4>
+            <h4 class="fw-bold m-0">Quản lý loại phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -116,13 +116,16 @@
                                             <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                                     aria-expanded="false" aria-controls="collapseTwo">
-                                                Danh sách phòng
+                                                Danh sách phòng & tiện nghi
                                             </button>
                                         </h2>
                                         <div id="collapseTwo" class="accordion-collapse collapse"
                                              aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 @if(count($rooms) != 0)
+                                                    <div class="fw-bold py-2">
+                                                        Danh sách phòng
+                                                    </div>
                                                     @foreach($rooms as $room)
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
@@ -138,6 +141,26 @@
                                                 @else
                                                     Danh sách phòng trống!
                                                 @endif
+
+                                                @if(count($amenities) != 0)
+                                                    <div class="fw-bold py-2">
+                                                        Danh sách tiện nghi
+                                                    </div>
+                                                    @foreach($amenities as $amenity)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   value="{{$amenity->id}}"
+                                                                   name="amenities[]"
+                                                                   id="1checkbox_{{$amenity->id}}">
+                                                            <label class="form-check-label"
+                                                                   for="1checkbox_{{$amenity->id}}">
+                                                                {{$amenity->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    Danh sách tiện nghi trống!
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -150,6 +173,8 @@
                             @endforeach
                         @endif
                     </div>
+
+
                 </div>
                 <div class="col-12 col-xl-6">
                     <div class="p-4 row">

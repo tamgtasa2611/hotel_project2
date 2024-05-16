@@ -8,16 +8,14 @@
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
-            ['Watch TV', 2],
-            ['Sleep', 7]
+            ['Tình trang', 'Số phòng'],
+            ['Đang sử dụng', 11],
+            ['Khả dụng', 8],
+            ['Không khả dụng', 2]
         ]);
 
         var options = {
-            title: 'My Daily Activities',
+            title: 'Tình trạng phòng',
             is3D: true,
         };
 

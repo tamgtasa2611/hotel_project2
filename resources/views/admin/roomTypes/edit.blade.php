@@ -125,6 +125,9 @@
                                              aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 @if(count($rooms) != 0)
+                                                    <div class="fw-bold py-2">
+                                                        Danh sách phòng
+                                                    </div>
                                                     @foreach($rooms as $room)
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
@@ -140,6 +143,27 @@
                                                     @endforeach
                                                 @else
                                                     Danh sách phòng trống!
+                                                @endif
+
+                                                @if(count($amenities) != 0)
+                                                    <div class="fw-bold py-2">
+                                                        Danh sách tiện nghi
+                                                    </div>
+                                                    @foreach($amenities as $amenity)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   value="{{$amenity->id}}"
+                                                                   name="amenities[]"
+                                                                   id="1checkbox_{{$amenity->id}}"
+                                                                {{in_array($amenity->id, $currentAmenities)  ? 'checked' : ''}}>
+                                                            <label class="form-check-label"
+                                                                   for="1checkbox_{{$amenity->id}}">
+                                                                {{$amenity->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    Danh sách tiện nghi trống!
                                                 @endif
                                             </div>
                                         </div>

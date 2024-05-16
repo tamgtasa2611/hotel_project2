@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Activity;
 use App\Models\Booking;
+use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -18,11 +19,14 @@ class BookingController extends Controller
     {
         $bookings = Booking::with('room')->with('guest')->with('admin')->get();
 
-        $data = [
-            'bookings' => $bookings,
-        ];
+        return view('admin.bookings.index', compact('bookings'));
+    }
 
-        return view('admin.bookings.index', $data);
+    public function create()
+    {
+        $guests = Guest::all();
+
+        return view('admin.bookings.create', compact('guests'));
     }
 
     public function edit(Booking $booking)

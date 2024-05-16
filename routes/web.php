@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\RoomTypeController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\CheckAdminAlreadyLogin;
 use App\Http\Middleware\CheckAdminLevel;
@@ -45,7 +46,7 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 //ROOMS
-Route::prefix('/rooms')->controller(RoomController::class)->group(function () {
+Route::prefix('/rooms')->controller(RoomTypeController::class)->group(function () {
     Route::get('/', 'index')->name('guest.rooms');
     Route::post('/', 'index')->name('guest.rooms.search');
     Route::get('/{room}', 'show')->name('guest.rooms.show');
@@ -157,8 +158,8 @@ Route::prefix('admin')->group(function () {
                 Route::get('/', 'index')->name('admin.amenities');
                 Route::get('/create', 'create')->name('admin.amenities.create');
                 Route::post('/create', 'store')->name('admin.amenities.store');
-                Route::get('/{room}/edit', 'edit')->name('admin.amenities.edit');
-                Route::put('/{room}/edit', 'update')->name('admin.amenities.update');
+                Route::get('/{amenity}/edit', 'edit')->name('admin.amenities.edit');
+                Route::put('/{amenity}/edit', 'update')->name('admin.amenities.update');
                 Route::delete('/destroy', 'destroy')->name('admin.amenities.destroy');
             });
 

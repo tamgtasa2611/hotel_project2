@@ -1,8 +1,8 @@
-<title>Edit room information - Skyrim Hotel</title>
+<title>Sửa phòng - Skyrim Hotel</title>
 <x-adminLayout>
     <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Rooms Management</h4>
+            <h4 class="fw-bold m-0">Quản lý phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -15,7 +15,7 @@
         <div
             class="p-4  -bottom">
             <div class="text-primary">
-                <i class="bi bi-pencil-square me-2"></i>Edit room
+                <i class="bi bi-pencil-square me-2"></i>Sửa phòng
             </div>
         </div>
         <hr class="m-0">
@@ -54,9 +54,10 @@
                             </div>
                             <div class="col-8">
                                 <select type="text" id="status" name="status" class="form-select">
-                                    <option value="0" {{$room->status == 0 ? 'selected' : ''}}>Sẵn sàng</option>
-                                    <option value="1" {{$room->status == 1 ? 'selected' : ''}}>Cần dọn dẹp</option>
-                                    <option value="2" {{$room->status == 2 ? 'selected' : ''}}>Hỏng</option>
+                                    <option value="0" {{$room->status == 0 ? 'selected' : ''}}>Khả dụng</option>
+                                    <option value="1" {{$room->status == 1 ? 'selected' : ''}}>Đang sử dụng</option>
+                                    <option value="2" {{$room->status == 2 ? 'selected' : ''}}>Đã đặt trước</option>
+                                    <option value="3" {{$room->status == 3 ? 'selected' : ''}}>Không khả dụng</option>
                                 </select>
                             </div>
                         </div>

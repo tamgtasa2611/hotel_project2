@@ -12,27 +12,27 @@
                         {{request()->routeIs('guest.profile') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-info-circle me-2"></i>
-        <div>My profile</div>
+        <div>Hồ sơ của tôi</div>
     </a>
     <a href="{{route('guest.myBooking')}}" class="list-group-item list-group-item-action
                         px-3  d-flex align-items-center justify-content-lg-start justify-content-center
-                        {{request()->route()->getPrefix() == '/myBooking' ? 'active' : ''}}"
+                        {{request()->is('myBooking/*') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-receipt me-2"></i>
-        <div>My bookings</div>
+        <div>Lịch sử đặt phòng</div>
     </a>
     <a href="{{route('guest.changePassword')}}" class="list-group-item list-group-item-action
                         px-3  d-flex align-items-center justify-content-lg-start justify-content-center
                         {{request()->routeIs('guest.changePassword') ? 'active' : ''}}"
        aria-current="true">
         <i class="bi bi-shield-lock me-2"></i>
-        <div>Change password</div>
+        <div>Đổi mật khẩu</div>
     </a>
     <a href="{{route('guest.logout')}}" class="list-group-item list-group-item-action
                         px-3  d-flex align-items-center justify-content-lg-start justify-content-center"
 
        aria-current="true">
         <i class="bi bi-box-arrow-left me-2"></i>
-        <div>Sign out</div>
+        <div>Đăng xuất</div>
     </a>
 </div>

@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tran-3 {{request()->route()->getPrefix() == '/rooms' ? 'active' : ''}}"
+                    <a class="nav-link tran-3 {{request()->is('rooms/*') ? 'active' : ''}}"
                        href="{{route('guest.rooms')}}">Phòng</a>
                 </li>
                 <li class="nav-item">
@@ -34,7 +34,7 @@
                 {{--                       href="{{route('guest.about')}}">Về chúng tôi</a>--}}
                 {{--                </li>--}}
             </ul>
-            <a class="navbar-brand d-none d-lg-block flex-fill" href="/home">
+            <a class="navbar-brand d-none d-lg-block flex-fill" href="{{route('guest.home')}}">
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div>SkyrimHotel</div>
                     <div class="fs-7 text-warning-emphasis">
@@ -46,7 +46,7 @@
             </a>
             <div class="d-lg-flex col-lg-4 justify-content-lg-end">
                 @guest('guest')
-                    <a class="btn btn-primary px-3 tran-3 me-3"
+                    <a class="btn btn-primary px-3 tran-3 me-3 shadow"
                        href="{{route('guest.login')}}">
                         Đăng nhập
                     </a>
@@ -73,16 +73,16 @@
                                 @endphp
                                 @if($avatar == null)
                                     <img src="{{asset('images/noavt.jpg')}}" alt="guest_avatar" width="24px"
-                                         height="24px" class=" object-fit-cover">
+                                         height="24px" class=" object-fit-cover rounded-circle">
                                 @else
                                     <img src="{{asset('storage/admin/guests/' . $avatar)}}" alt="guest_avatar"
                                          width="24px"
-                                         height="24px" class=" object-fit-cover">
+                                         height="24px" class=" object-fit-cover rounded-circle">
                                 @endif
                             </a>
                             <div class="dropdown-menu dropright" data-bs-theme="light">
                                 <a class="dropdown-item tran-3" href="{{route('guest.profile')}}">
-                                    <i class="bi bi-info-circle me-2"></i>Thông tin tài khoản</a>
+                                    <i class="bi bi-info-circle me-2"></i>Hồ sơ của tôi</a>
                                 <a class="dropdown-item tran-3" href="{{route('guest.myBooking')}}">
                                     <i class="bi bi-receipt me-2"></i>Lịch sử đặt phòng</a>
                                 <div class="dropdown-divider"></div>

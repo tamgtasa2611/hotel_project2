@@ -33,6 +33,11 @@ class Booking extends Model
         return $this->hasMany(RoomType::class);
     }
 
+    public function rooms(): HasMany
+    {
+        return $this->hasMany(Room::class);
+    }
+
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);

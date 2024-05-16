@@ -43,18 +43,8 @@ class RoomType extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public static function getRoomTypes(object $roomList)
+    public static function checkAndGetRoomTypes()
     {
-        $roomTypeIdWithRoom = [];
-        foreach ($roomList as $room) {
-            if (in_array($room->room_type_id, $roomTypeIdWithRoom)) {
-                continue;
-            } else {
-                $roomTypeIdWithRoom[] = $room->room_type_id;
-            }
-        }
-        return RoomType::with('rooms')
-            ->whereIn('id', $roomTypeIdWithRoom)
-            ->get();
+        return RoomType::with('rooms')->paginate(6)->withQueryString();
     }
 }
