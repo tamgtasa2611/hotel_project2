@@ -18,6 +18,8 @@
                 <i class="bi bi-pencil-square me-2"></i>Sửa thông tin nhân viên
             </div>
         </div>
+        <hr class="m-0">
+
         {{-- FORM  --}}
 
         <form method="post" action="{{ route('admin.admins.update', $admin) }}" enctype="multipart/form-data"
@@ -98,6 +100,7 @@
                     @endforeach
                 @endif
             </div>
+            <hr class="m-0">
 
             <div class="d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.admins') }}"

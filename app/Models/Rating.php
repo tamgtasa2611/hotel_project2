@@ -18,13 +18,13 @@ class Rating extends Model
         'rating',
         'review',
         'rate_date',
-        'room_id',
+        'room_type_id',
         'guest_id'
     ];
 
-    public function room(): BelongsTo
+    public function roomType(): BelongsTo
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(RoomType::class);
     }
 
     public function guest(): BelongsTo

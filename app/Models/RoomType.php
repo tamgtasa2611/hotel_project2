@@ -45,6 +45,6 @@ class RoomType extends Model
 
     public static function checkAndGetRoomTypes()
     {
-        return RoomType::with('rooms')->paginate(6)->withQueryString();
+        return RoomType::with('rooms')->paginate(4)->withQueryString();
     }
 }

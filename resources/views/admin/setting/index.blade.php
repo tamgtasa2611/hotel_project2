@@ -122,8 +122,8 @@
                             @endif
                         </div>
                     </div>
-                    <div class="p-4 row">
-                        <div class="col-10 col-md-6 col-lg-4">
+                    <div class="p-4 row justify-content-center">
+                        <div class="col-10 col-md-6 col-xl-4">
                             <div class="ratio ratio-1x1">
                                 <img
                                     src="{{($admin->image ? asset('storage/admin/admins/'.$admin->image) : asset('images/noavt.jpg'))}}"
@@ -135,7 +135,7 @@
             </div>
 
             <hr class="m-0">
-            
+
             <div class="d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.admins') }}"
                    class="btn btn-secondary  tran-3 me-3">

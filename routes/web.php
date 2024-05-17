@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AmenityController;
+use App\Http\Controllers\Admin\FoodItemController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -163,6 +166,26 @@ Route::prefix('admin')->group(function () {
                 Route::delete('/destroy', 'destroy')->name('admin.amenities.destroy');
             });
 
+            // SERVICES =====================================================================================
+            Route::prefix('/services')->controller(ServiceController::class)->group(function () {
+                Route::get('/', 'index')->name('admin.services');
+                Route::get('/create', 'create')->name('admin.services.create');
+                Route::post('/create', 'store')->name('admin.services.store');
+                Route::get('/{service}/edit', 'edit')->name('admin.services.edit');
+                Route::put('/{service}/edit', 'update')->name('admin.services.update');
+                Route::delete('/destroy', 'destroy')->name('admin.services.destroy');
+            });
+
+            // FOOD ITEMS =====================================================================================
+            Route::prefix('/food-items')->controller(FoodItemController::class)->group(function () {
+                Route::get('/', 'index')->name('admin.foodItems');
+                Route::get('/create', 'create')->name('admin.foodItems.create');
+                Route::post('/create', 'store')->name('admin.foodItems.store');
+                Route::get('/{foodItem}/edit', 'edit')->name('admin.foodItems.edit');
+                Route::put('/{foodItem}/edit', 'update')->name('admin.foodItems.update');
+                Route::delete('/destroy', 'destroy')->name('admin.foodItems.destroy');
+            });
+
             // ADMINISTRATORS =====================================================================================
             Route::prefix('admins')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
@@ -208,6 +231,15 @@ Route::prefix('admin')->group(function () {
             Route::delete('/delete', [AdminGuestController::class, 'destroy'])->name('admin.guests.destroy');
             // PDF
             Route::get('downloadPdf', [AdminGuestController::class, 'downloadPDF'])->name('admin.guests.downloadPdf');
+        });
+
+        //STATISTIC =====================================================================================
+        Route::prefix('statistics')->controller(StatisticController::class)->group(function () {
+            Route::get('/revenue', 'revenueReport')->name('admin.statistics.revenue');
+            Route::get('/rooms', 'roomReport')->name('admin.statistics.rooms');
+            Route::get('/services', 'serviceReport')->name('admin.statistics.services');
+            Route::get('/foods', 'foodReport')->name('admin.statistics.foods');
+            Route::get('/guests', 'guestReport')->name('admin.statistics.guests');
         });
 
         // SETTINGS

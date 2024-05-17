@@ -1,5 +1,6 @@
 <div class="list-group list-group-light bg-white overflow-x-hidden sticky-top overflow-y-scroll tran-3 hide-scroll-bar"
      style="max-height: 100vh;">
+    {{--  ==================  AVATAR ================================================================================================================--}}
     @php
         $adminId = \Illuminate\Support\Facades\Auth::guard('admin')->id();
         $currentAdmin = \App\Models\Admin::find($adminId);
@@ -29,6 +30,8 @@
         </div>
     </div>
 
+    {{--  ==================  MAIN ================================================================================================================--}}
+
     @if($currentAdmin->level == 0)
         <a href="{{ route('admin.dashboard') }}"
            class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 d-flex align-items-center
@@ -37,7 +40,7 @@
             <i class="bi bi-grid me-2"></i>Tổng quát
         </a>
 
-        {{--        dat phong--}}
+        {{--  ==================  BOOKING ================================================================================================================--}}
         <div class="accordion-item">
             <h2 class="accordion-header" id="bookingHeader">
                 <button
@@ -77,13 +80,18 @@
                         <i class="bi bi-list-stars me-2 ms-3"></i>Danh sách đặt phòng
                     </a>
 
+                    <a href="{{ route('admin.payments') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
+       {{ request()->route()->getPrefix() == 'admin/payments' ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-cup-hot me-2 ms-3"></i>Danh sách đặt món
+                    </a>
+
                 </div>
             </div>
         </div>
-        {{--    end dat phong--}}
 
-
-        {{--       thanh toan--}}
+        {{--  ==================  PAYMENT ================================================================================================================--}}
         <div class="accordion-item">
             <h2 class="accordion-header" id="paymentHeader">
                 <button
@@ -126,16 +134,53 @@
                 </div>
             </div>
         </div>
-        {{--    end thanh toan--}}
 
-        <a href="{{ route('admin.guests') }}"
-           class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 d-flex align-items-center  {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
-           aria-current="true">
-            <i class="bi bi-person me-2"></i>Khách hàng
-        </a>
+        {{--  ==================  GUEST ================================================================================================================--}}
 
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="guestHeader">
+                <button
+                    class="accordion-button collapsed list-group-item list-group-item-action tran-3 border-0 px-5 py-3 pe-4
+                    d-flex align-items-center tran-3"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#guest" aria-expanded="false" aria-controls="guest">
+                    <div class="d-flex justify-content-between w-100 align-items-center">
+                        <div>
+                            <i class="bi bi-person me-2"></i>Khách hàng
+                        </div>
+                        <div>
+                            <i class="bi bi-chevron-down"></i>
 
-        {{--    hotel--}}
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="guest" class="accordion-collapse collapse tran-3
+            @if(request()->route()->getPrefix() == 'admin/guests')
+            show
+            @endif
+            " aria-labelledby="guestHeader"
+                 data-bs-parent="#guest" style="">
+                <div class="accordion-body fs-7">
+                    <a href="{{ route('admin.roomTypes') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
+{{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-plus-circle me-2 ms-3"></i>Thêm khách hàng
+                    </a>
+
+                    <a href="{{ route('admin.guests') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
+                       {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-person me-2 ms-3"></i>Danh sách khách hàng
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        {{--  ==================  HOTEL ================================================================================================================--}}
         <div class="accordion-item">
             <h2 class="accordion-header" id="hotelHeader">
                 <button
@@ -157,6 +202,8 @@
             @if(request()->route()->getPrefix() == 'admin/roomTypes'
                 OR request()->route()->getPrefix() == 'admin/rooms'
                 OR request()->route()->getPrefix() == 'admin/amenities'
+                OR request()->route()->getPrefix() == 'admin/services'
+                OR request()->route()->getPrefix() == 'admin/food-items'
                 OR request()->route()->getPrefix() == 'admin/admins')
             show
             @endif
@@ -184,11 +231,18 @@
                         <i class="bi bi-heart me-2 ms-3"></i>Tiện nghi
                     </a>
 
-                    <a href="{{ route('admin.amenities') }}"
+                    <a href="{{ route('admin.services') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/amenities' ? 'active' : '' }}"
+{{ request()->route()->getPrefix() == 'admin/services' ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-cup-hot me-2 ms-3"></i>Dịch vụ
+                        <i class="bi bi-bookmark-plus me-2 ms-3"></i>Dịch vụ
+                    </a>
+
+                    <a href="{{ route('admin.foodItems') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
+       {{ request()->route()->getPrefix() == 'admin/food-items' ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-egg-fried me-2 ms-3"></i>Món ăn
                     </a>
 
                     <a href="{{ route('admin.admins') }}"
@@ -201,9 +255,8 @@
                 </div>
             </div>
         </div>
-        {{--    end hotel--}}
 
-        {{--    statistic --}}
+        {{--  ==================  STATISTIC ================================================================================================================--}}
         <div class="accordion-item">
             <h2 class="accordion-header" id="statisticHeader">
                 <button
@@ -222,42 +275,57 @@
                 </button>
             </h2>
             <div id="statistic" class="accordion-collapse collapse tran-3
-            @if(request()->route()->getPrefix() == 'admin/roomTypes'
-                OR request()->route()->getPrefix() == 'admin/rooms'
-                OR request()->route()->getPrefix() == 'admin/amenities'
-                OR request()->route()->getPrefix() == 'admin/admins')
+            @if(request()->routeIs('admin.statistics.revenue')
+                OR request()->routeIs('admin.statistics.rooms')
+                OR request()->routeIs('admin.statistics.services')
+                OR request()->routeIs('admin.statistics.foods')
+                OR request()->routeIs('admin.statistics.guests'))
             show
             @endif
             " aria-labelledby="statisticHeader"
                  data-bs-parent="#statistic" style="">
                 <div class="accordion-body fs-7">
-                    <a href="{{ route('admin.roomTypes') }}"
+                    <a href="{{ route('admin.statistics.revenue') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
+{{ request()->routeIs('admin.statistics.revenue') ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-door-closed me-2 ms-3"></i>Loại phòng
+                        <i class="bi bi-currency-dollar me-2 ms-3"></i>Thống kê doanh thu
                     </a>
 
-                    <a href="{{ route('admin.rooms') }}"
+                    <a href="{{ route('admin.statistics.rooms') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/rooms' ? 'active' : '' }}"
+{{ request()->routeIs('admin.statistics.rooms') ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-key me-2 ms-3"></i>Danh sách phòng
+                        <i class="bi bi-key me-2 ms-3"></i>Thống kê phòng
                     </a>
 
-                    <a href="{{ route('admin.amenities') }}"
+                    <a href="{{ route('admin.statistics.services') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/amenities' ? 'active' : '' }}"
+{{ request()->routeIs('admin.statistics.services') ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-heart me-2 ms-3"></i>Tiện nghi
+                        <i class="bi bi-bookmark-plus me-2 ms-3"></i>Thống kê dịch vụ
+                    </a>
+
+                    <a href="{{ route('admin.statistics.foods') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
+{{ request()->routeIs('admin.statistics.foods') ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-egg-fried me-2 ms-3"></i>Thống kê đặt món
+                    </a>
+
+                    <a href="{{ route('admin.statistics.guests') }}"
+                       class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
+{{ request()->routeIs('admin.statistics.guests') ? 'active' : '' }}"
+                       aria-current="true">
+                        <i class="bi bi-person me-2 ms-3"></i>Thống kê khách
                     </a>
 
                 </div>
             </div>
         </div>
-        {{--   end statistic --}}
 
 
+        {{--  ==================  OTHER ================================================================================================================--}}
         <a href="{{ route('admin.activities') }}"
            class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 d-flex align-items-center
     {{ request()->routeIs('admin.activities') ? 'active' : '' }}"
@@ -278,7 +346,8 @@
            data-bs-target="#exampleModal">
             <i class="bi bi-arrow-left-circle me-2"></i>Đăng xuất
         </a>
-        {{--     EMPLOYEE ---------------------------------------------------------------------------------------------------   --}}
+        {{--     END ADMIN  ---------------------------------------------------------------------------------------------------   --}}
+
     @else
         {{--     EMPLOYEE ---------------------------------------------------------------------------------------------------   --}}
         {{--        dat phong--}}

@@ -1,8 +1,8 @@
-<title>Quản lý loại phòng - Skyrim Hotel</title>
+<title>Quản lý món ăn - Skyrim Hotel</title>
 <x-adminLayout>
-    <div class="p-4 bg-white  shadow-sm rounded-3 border mb-4">
+    <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Quản lý loại phòng</h4>
+            <h4 class="fw-bold m-0">Quản lý món ăn</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -11,67 +11,64 @@
         </div>
     </div>
     {{--------------- MAIN --------------}}
-    <div class="bg-white  shadow-sm border rounded-3 overflow-hidden">
+    <div class="mt-4 bg-white  shadow-sm  border rounded-3 overflow-hidden">
         <div
             class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-door-closed me-2"></i>Danh sách loại phòng
+                <i class="bi bi-egg-fried me-2"></i>Danh sách món ăn
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.roomTypes.create') }}"
+                <a href="{{ route('admin.foodItems.create') }}"
                    class="d-flex align-items-center me-3 btn btn-primary">
-                    <i class="me-2 bi bi-plus-circle"></i>Thêm loại phòng
+                    <i class="me-2 bi bi-plus-circle"></i>Thêm món ăn
                 </a>
-                <a href="{{ route('admin.roomTypes.downloadPdf') }}"
+                <a href="{{ route('admin.rooms.downloadPdf') }}"
                    class="d-flex align-items-center">
                     <i class="me-2 bi bi-download"></i>Export
                 </a>
             </div>
         </div>
-        <div class="p-4 bg-white border text-muted">
-            @if (count($roomTypes) != 0)
+        <hr class="m-0">
+        <div class="p-4 bg-white  text-muted">
+            @if (count($foodItems) != 0)
                 <table
                     class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle text-center">Tên loại phòng</th>
-                        <th class="align-middle text-center">Sức chứa tối đa</th>
-                        <th class="align-middle text-center">Giá / 1 đêm</th>
+                        <th class="align-middle text-center">Tên món ăn</th>
+                        <th class="align-middle text-center">Giá</th>
                         <th class="align-middle text-center">Chú thích</th>
                         <th class="align-middle text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($roomTypes as $roomType)
+                    @foreach ($foodItems as $foodItem)
                         <tr>
                             <td class="text-center">
-                                {{ $roomType->id }}
+                                {{ $foodItem->id }}
                             </td>
-                            <td class="text-break text-center">
-                                {{ $roomType->name }}
-                            </td>
-                            <td class="text-break text-center">
-                                {{ $roomType->max_capacity }}
+                            <td class="text-center">
+                                {{ $foodItem->name }}
                             </td>
                             <td class="text-center text-success">
-                                {{ \App\Helpers\AppHelper::vnd_format($roomType->price) }}
+                                {{ \App\Helpers\AppHelper::vnd_format($foodItem->price) }}
                             </td>
                             <td class="text-break">
-                                {{ $roomType->description }}
+                                {{ $foodItem->description }}
                             </td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.roomTypes.edit', $roomType) }}"
+                                    <a href="{{ route('admin.foodItems.edit', $foodItem) }}"
                                        class="btn btn-outline-primary  me-3">
                                         <i class="bi bi-pencil-square me-2"></i>Sửa
                                     </a>
                                     <a class="btn btn-outline-danger  dlt-btn"
                                        data-bs-toggle="modal"
-                                       data-bs-target="#exampleModal1"
-                                       data-id={{$roomType->id}}>
+                                       data-bs-target="#exampleModal2"
+                                       data-id={{$foodItem->id}}>
                                         <i class="bi bi-trash me-2"></i>Xóa
                                     </a>
                                 </div>
@@ -81,22 +78,22 @@
                     </tbody>
                 </table>
                 <!-- DeleteModal -->
-                <div class="modal fade" id="exampleModal1" tabindex="-1"
-                     aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal fade" id="exampleModal2" tabindex="-1"
+                     aria-labelledby="exampleModalLabel2" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" action="{{ route('admin.roomTypes.destroy') }}">
+                            <form method="post" action="{{ route('admin.foodItems.destroy') }}">
                                 @csrf
                                 @method('DELETE')
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel1">
-                                        <i class="bi bi-x-circle me-2"></i>Xóa loại phòng
+                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel2">
+                                        <i class="bi bi-x-circle me-2"></i>Xác nhận xóa
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Bạn muốn xóa loại phòng này?
+                                    Bạn có chắc mình muốn xóa món ăn này?
                                     <input id="id" name="id" hidden class="visually-hidden"
                                            value="">
                                 </div>
@@ -115,7 +112,7 @@
                 </div>
                 {{--                end modal--}}
             @else
-                Không có kết quả
+                Không có kết quả nào
             @endif
         </div>
     </div>
@@ -126,7 +123,7 @@
             columnDefs: [
                 {
                     orderable: false,
-                    targets: 3,
+                    targets: 4,
                 },
             ],
             pagingType: "full_numbers",

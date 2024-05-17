@@ -31,7 +31,8 @@
     <title>Project 2 - Tam</title>
 </head>
 
-<body class="overflow-x-hidden overflow-y-auto">
+<body class="overflow-x-hidden overflow-y-auto"
+      style="background: url('{{asset('images/bg_admin.avif')}}'); background-size: contain">
 <div class="row h-100">
     <div class="d-none d-lg-block col-lg-3 col-xl-2 m-0 p-0 shadow-sm border bg-white">
         @include('partials.admin.adminSidenav')

@@ -57,7 +57,7 @@
                             <div>
                                 @if (count($bookings) != 0)
                                     <table
-                                        class="shadow-sm tran-3 table table-striped table-sm  align-middle mb-0 w-100"
+                                        class="shadow-sm tran-3 table table-striped table  align-middle mb-0 w-100"
                                         id="dataTable">
                                         <thead>
                                         <tr>

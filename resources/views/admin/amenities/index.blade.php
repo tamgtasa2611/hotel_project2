@@ -15,7 +15,7 @@
         <div
             class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-key me-2"></i>Danh sách tiện nghi
+                <i class="bi bi-heart me-2"></i>Danh sách tiện nghi
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
@@ -34,7 +34,7 @@
             @if (count($amenities) != 0)
                 <table
                     class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
-                    id="dataTable1">
+                    id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>

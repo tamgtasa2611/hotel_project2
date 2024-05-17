@@ -1,4 +1,4 @@
-<title>Admin dashboard - Skyrim Hotel</title>
+<title>Thống kê - Skyrim Hotel</title>
 <script src="{{asset('plugins/calendar/index.global.min.js')}}"></script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

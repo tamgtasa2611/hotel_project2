@@ -103,12 +103,12 @@
             <div class=" d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.rooms') }}"
                    class="btn btn-secondary  tran-3 me-3">
-                    Back
+                    Quay lại
                 </a>
                 <!-- Submit button -->
                 <button type="submit"
                         class="btn btn-primary  tran-3">
-                    Update
+                    Cập nhật
                 </button>
             </div>
         </form>

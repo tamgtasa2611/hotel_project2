@@ -15,7 +15,7 @@
         <div
             class="p-4 d-flex flex-column flex-md-row justify-content-between">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Bảng danh sách nhật ký hệ thống
+                <i class="bi bi-clock-history me-2"></i>Danh sách nhật ký hệ thống
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
@@ -36,9 +36,9 @@
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle text-center">Admin (ID)</th>
-                        <th class="align-middle text-center">Detail</th>
-                        <th class="align-middle text-center">Date</th>
+                        <th class="align-middle text-center">Tên nhân viên (ID)</th>
+                        <th class="align-middle text-center">Chi tiết</th>
+                        <th class="align-middle text-center">Thời gian</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@
                     </tbody>
                 </table>
             @else
-                No results
+                Không có dữ liệu
             @endif
         </div>
     </div>
@@ -75,14 +75,14 @@
                     @method('POST')
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel1">
-                            <i class="bi bi-x-circle me-2"></i>Are you sure?
+                            <i class="bi bi-x-circle me-2"></i>Xác nhận xóa
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <label for="deletePassword" class="form-label">
-                            Please enter your password:
+                            Vui lòng nhập mật khẩu của bạn:
                         </label>
                         <div>
                             <input type="password" name="deletePassword"
@@ -93,10 +93,10 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary "
                                 data-bs-dismiss="modal">
-                            Close
+                            Quay lại
                         </button>
                         <button type="submit" class="btn btn-danger ">
-                            Clear activities
+                            Xóa
                         </button>
                     </div>
                 </form>

@@ -18,6 +18,7 @@
                 <i class="bi bi-plus-circle me-2"></i>Thêm nhân viên
             </div>
         </div>
+        <hr class="m-0">
         {{-- FORM  --}}
 
         <form method="post" action="{{ route('admin.admins.store') }}" enctype="multipart/form-data"
@@ -121,6 +122,7 @@
                     @endforeach
                 @endif
             </div>
+            <hr class="m-0">
 
             <div class="d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.admins') }}"

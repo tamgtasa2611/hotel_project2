@@ -14,7 +14,7 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 bg-white shadow-sm border rounded-3  d-flex flex-column justify-content-between h-100">
+                        class="bg-white shadow-sm border rounded-3  d-flex flex-column justify-content-between h-100">
                         {{--alert edit success--}}
                         @if (session('success'))
                             @include('partials.flashMsgSuccess')
@@ -23,22 +23,23 @@
                         @if (session('failed'))
                             @include('partials.flashMsgFail')
                         @endif
-                        <div class="d-flex justify-content-between align-items-center mb-0 mb-md-4">
+                        <div class="d-flex justify-content-between flex-column flex-md-row align-items-center p-4">
                             <h4 class="text-primary fw-bold mb-4 mb-md-0">Hồ sơ của tôi</h4>
-                            <a class="btn btn-outline-danger  tran-3  mb-4 mb-md-0"
+                            <a class="text-danger hover-pointer tran-3  mb-4 mb-md-0"
                                data-bs-toggle="modal"
                                data-bs-target="#exampleModal"
                                data-id="1">
                                 <i class="bi bi-x-circle me-1"></i>Delete account
                             </a>
                         </div>
+                        <hr class="m-0">
                         {{--                    form--}}
                         <form method="post" action="{{route('guest.updateAccount')}}"
                               enctype="multipart/form-data"
                               class="mb-0">
                             @csrf
                             @method('PUT')
-                            <div class="row mb-4 g-4">
+                            <div class="row g-4 p-4">
                                 <div class="col-12 col-lg-8">
                                     {{--first name--}}
                                     <div class="mb-4">
@@ -103,24 +104,25 @@
                                         <label class="form-label" for="image">Avatar</label>
                                         <input type="file" class="form-control" id="image" name="image" value=""/>
                                     </div>
-                                    <div>
+                                    <div class="d-flex justify-content-center">
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
                                             alt="guest_image"
-                                            class="w-100 h-auto shadow-sm ">
+                                            class="w-75 h-auto shadow-sm rounded-circle">
                                     </div>
                                 </div>
                             </div>
+                            <hr class="m-0">
                             <!-- Submit button -->
                             <div
-                                class="d-flex flex-column-reverse flex-lg-row justify-content-between justify-content-md-start align-items-center">
+                                class="d-flex flex-column-reverse flex-lg-row justify-content-between justify-content-md-start align-items-center p-4">
                                 <a data-mdb-ripple-init href="{{ route('guest.profile') }}"
                                    class="btn btn-secondary col-12 col-lg-auto me-lg-3  tran-3">
-                                    Cancel
+                                    Hủy
                                 </a>
                                 <button data-mdb-ripple-init type="submit"
                                         class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0  tran-3">
-                                    Save
+                                    Lưu
                                 </button>
                             </div>
                         </form>

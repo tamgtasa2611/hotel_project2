@@ -15,7 +15,7 @@
     <div class="bg-white  shadow-sm rounded-3 border overflow-hidden">
         <div class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Danh sách nhân viên
+                <i class="bi bi-person-badge me-2"></i>Danh sách nhân viên
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
