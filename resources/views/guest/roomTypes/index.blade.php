@@ -104,70 +104,88 @@
                             {{--                    ROOMS DIV--}}
                             <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
                                 @foreach($roomTypes as $roomType)
-                                    <div class="col-12 col-md-6  ">
-                                        <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
-                                            <div class="col-12 p-0 overflow-hidden -4 position-relative">
-                                                <div class="overflow-hidden ratio ratio-16x9">
-                                                    <a href="{{route('guest.rooms.show', $roomType)}}">
-                                                        @if(count($roomType->images) != 0)
-                                                            <img
-                                                                src="{{asset('storage/rooms/'.$roomType->images[0]->path)}}"
-                                                                alt="room_img"
-                                                                class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
-                                                        @else
-                                                            <img src="{{asset('images/noimage.jpg')}}"
-                                                                 alt="room_img"
-                                                                 class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
-                                                <div
-                                                    class="col-12 p-0 mb-3">
-                                                    <div class="d-flex justify-content-between">
-                                                        <a href="{{route('guest.rooms.show', $roomType)}}"
-                                                           class="text-decoration-none">
-                                                            <h4 class="fw-bold m-0">
-                                                                {{$roomType->name}}
-                                                            </h4>
+                                    @if($roomType->rooms_count != 0)
+                                        <div class="col-12 col-md-6  ">
+                                            <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
+                                                <div class="col-12 p-0 overflow-hidden -4 position-relative">
+                                                    <div class="overflow-hidden ratio ratio-16x9">
+                                                        <a href="{{route('guest.rooms.show', $roomType)}}">
+                                                            @if(count($roomType->images) != 0)
+                                                                <img
+                                                                    src="{{asset('storage/rooms/'.$roomType->images[0]->path)}}"
+                                                                    alt="room_img"
+                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
+                                                            @else
+                                                                <img src="{{asset('images/noimage.jpg')}}"
+                                                                     alt="room_img"
+                                                                     class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
+                                                            @endif
                                                         </a>
-                                                        <div class="text-success">
-                                                            {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
-                                                            <span class="fs-7 text-secondary">/đêm</span>
-                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div
-                                                    class="col-12 p-0">
+                                                    class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
                                                     <div
-                                                        class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                @php
-                                                                    $roomCount = 0;
-                                                                    foreach ($roomType->rooms as $room) {
-                                                                        if($room->status == 0) {
-                                                                            $roomCount++;
-                                                                        }
-                                                                    }
-                                                                @endphp
-                                                                Còn {{$roomCount}} phòng trống
+                                                        class="col-12 p-0 mb-3">
+                                                        <div class="d-flex justify-content-between">
+                                                            <a href="{{route('guest.rooms.show', $roomType)}}"
+                                                               class="text-decoration-none">
+                                                                <h4 class="fw-bold m-0">
+                                                                    {{$roomType->name}}
+                                                                </h4>
+                                                            </a>
+                                                            <div class="text-success">
+                                                                {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
+                                                                <span class="fs-7 text-secondary">/đêm</span>
                                                             </div>
                                                         </div>
-                                                        <div>
-                                                            <a href="{{route('guest.rooms.show', $roomType)}}"
-                                                               class=" border-bottom border-primary border-2 pb-1">
-                                                                Tìm hiểu thêm <i class="bi bi-chevron-right"></i>
-                                                            </a>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-12 p-0">
+                                                        <div
+                                                            class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
+                                                            <div class="d-flex">
+                                                                <div>
+                                                                    @php
+                                                                        $roomCount = 0;
+                                                                        foreach ($roomType->rooms as $room) {
+                                                                            if($room->status == 0) {
+                                                                                $roomCount++;
+                                                                            }
+                                                                        }
+                                                                    @endphp
+                                                                    Còn {{$roomCount}} phòng trống
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <form
+                                                                    action="{{route('guest.cart.addToCart')}}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('POST')
+                                                                    <input type="hidden" hidden class="visually-hidden"
+                                                                           name="id"
+                                                                           value="{{$roomType->id}}">
+                                                                    <input type="hidden" hidden class="visually-hidden"
+                                                                           name="checkin"
+                                                                           value="{{$search['checkin']}}">
+                                                                    <input type="hidden" hidden class="visually-hidden"
+                                                                           name="checkout"
+                                                                           value="{{$search['checkout']}}">
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary tran-3">
+                                                                        Đặt ngay
+                                                                    </button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endforeach
                             </div>
                             {{--                   END ROOMS DIV--}}

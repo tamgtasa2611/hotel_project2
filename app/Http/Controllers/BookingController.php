@@ -12,154 +12,95 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
-use MongoDB\Driver\Session;
+use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
 {
-    public function bookRoom(Request $request)
+    public function booking()
     {
-        $validated = $request->validate([
-            'checkin' => 'required|date|before:checkout|after:yesterday',
-            'checkout' => 'required|date|after:checkin',
-            'guest_num' => 'required|integer',
-        ]);
+        $paymentData = Session::get('payment_data');
+        $cart = Session::get('cart');
+        $start = Session::get('start');
+        $end = Session::get('end');
+        $totalPrice = Session::get('totalPrice');
 
-        if ($validated) {
-            $room = Room::find($request->room_id);
-            $created_date = date('Y-m-d H:i:s');
-            $guest_id = Auth::guard('guest')->id();
-            $admin_id = Admin::first()->id;
-//            format lai tu d-m-y thanh y-m-d
-            $checkInDate = date('Y-m-d', strtotime($request->checkin));
-            $checkOutDate = date('Y-m-d', strtotime($request->checkout));
+        $bookingData = [
+            'date' => Carbon::now(),
+            'checkin' => Carbon::createFromDate($start)->format('Y-m-d'),
+            'checkout' => Carbon::createFromDate($end)->format('Y-m-d'),
+            'status' => 1,
+            'total_price' => $totalPrice,
+            'note' => $paymentData['note'],
+            'guest_lname' => $paymentData['guest_lname'],
+            'guest_fname' => $paymentData['guest_fname'],
+            'guest_email' => $paymentData['guest_email'],
+            'guest_phone' => $paymentData['guest_phone'],
+            'guest_id' => Auth::guard('guest')->id() ?? null,
+            'admin_id' => null
+        ];
 
-            //days booked
-            $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
-            $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
-            $datePeriod = CarbonPeriod::between($dateIn, $dateOut);
-            $daysBooked = $dateIn->diffInDays($dateOut);
+        Booking::create($bookingData);
 
-//            price
-            $basePrice = $room->roomType->base_price;
-            $totalPrice = $basePrice * $daysBooked;
+        //khach ko co tk
+        if ($bookingData['guest_id'] == null) {
+            $lastBookingId = Booking::where('date', '=', $bookingData['date'])
+                ->where('checkin', '=', $bookingData['checkin'])
+                ->where('checkout', '=', $bookingData['checkout'])
+                ->where('guest_email', '=', $bookingData['guest_email'])
+                ->where('guest_phone', '=', $bookingData['guest_phone'])
+                ->max('id');
+            $booking = Booking::find($lastBookingId);
 
-            //check trung nhau
-            $bookings = Booking::where('room_id', '=', $room->id)->get();
-            foreach ($bookings as $booking) {
-                $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
-                $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date);
-                $datePeriodCheck = CarbonPeriod::between($dateInCheck, $dateOutCheck);
-
-                //check
-                foreach ($datePeriod as $date) {
-                    if ($date->between($dateInCheck, $dateOutCheck)) {
-                        return back()->with('failed', 'This room has already been booked for this period!');
-                    }
-                }
-            }
-
-            $data = [
-                'created_date' => $created_date,
-                'status' => 0,
-                'guest_id' => $guest_id,
-                'room_id' => $room->id,
-                'admin_id' => $admin_id,
-                'checkin_date' => $checkInDate,
-                'checkout_date' => $checkOutDate,
-                'guest_num' => $request->guest_num,
-                'total_price' => $totalPrice,
-            ];
-
-//            Booking::create($data);
-//            return back()->with('success', 'Booked successfully!');
-            session()->put('bookingData', $data);
-            return Redirect::route('guest.checkOut');
-        } else {
-            return back()->with('failed', 'Something went wrong...');
-        }
-    }
-
-    public function checkOut()
-    {
-        if (session()->has('bookingData')) {
-            $data = session('bookingData');
-            $room = Room::with('roomType')->find($data['room_id']);
-            $guest = Auth::guard('guest')->user();
-
-            return view('guest.checkout.index', [
-                'data' => $data,
-                'room' => $room,
-                'guest' => $guest
-            ]);
-        } else {
-            session()->forget('bookingData');
-            return view('guest.checkout.empty');
-        }
-    }
-
-    public function payInPerson()
-    {
-        $data = session('bookingData');
-        if ($data != []) {
-            Booking::create($data);
-            $latestBookingId = Booking::where('guest_id', '=', $data['guest_id'])->max('id');
-            $booking = Booking::find($latestBookingId);
-
-            $paymentData = [
-                'date' => date('Y-m-d H:i:s'),
-                'amount' => $data['total_price'],
-                'note' => '',
-                'status' => 0,
-                'guest_id' => $data['guest_id'],
-                'booking_id' => $latestBookingId,
-                'method_id' => 1,
-            ];
-            Payment::create($paymentData);
-            session()->forget('bookingData');
-
-            Mail::to(Auth::guard('guest')->user())->send((new BookingInformation($booking))->afterCommit());
-            return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
-        } else {
-            session()->forget('bookingData');
-//            return Redirect::route('guest.rooms')->with('failed', 'Something went wrong, please try again later...');
-            return view('guest.checkout.empty');
-        }
-    }
-
-    public function banking()
-    {
-        $data = session('bookingData');
-        if ($data != []) {
-            $data['status'] = 1; //confirmed
-            Booking::create($data);
-            $latestBookingId = Booking::where('guest_id', '=', $data['guest_id'])->max('id');
-            $booking = Booking::find($latestBookingId);
-
-            $paymentData = [
-                'date' => date('Y-m-d H:i:s'),
-                'amount' => $data['total_price'],
-                'note' => 'Pay via VNPAY gateway',
-                'status' => 2,
-                'guest_id' => $data['guest_id'],
-                'booking_id' => $latestBookingId,
+            $depositPaymentData = [
+                'date' => Carbon::now(),
+                'amount' => $paymentData['total_price'],
+                'note' => 'Đặt cọc của khách hàng ' . $bookingData['guest_lname'] . ' ' . $bookingData['guest_fname']
+                    . ' cho đặt phòng #' . $lastBookingId,
+                'status' => 1,
+                'guest_id' => null,
+                'booking_id' => $lastBookingId,
                 'method_id' => 2,
             ];
-            Payment::create($paymentData);
-            session()->forget('bookingData');
+            Payment::create($depositPaymentData);
 
+            foreach ($cart as $roomTypeId => $roomType) {
+                DB::table('booked_room_types')->insert([
+                    'booking_id' => $lastBookingId,
+                    'room_type_id' => $roomTypeId,
+                    'number_of_room' => $roomType['quantity']
+                ]);
+            }
+            Mail::to($bookingData['guest_email'])->send((new BookingInformation($booking))->afterCommit());
+//            session()->forget('bookingData');
+        } //khach co tk
+        else {
+            $lastBookingId = Booking::where('guest_id', '=', $bookingData['guest_id'])->max('id');
+            $booking = Booking::find($lastBookingId);
+
+            $depositPaymentData = [
+                'date' => Carbon::now(),
+                'amount' => $paymentData['total_price'],
+                'note' => 'Đặt cọc',
+                'status' => 1,
+                'guest_id' => $bookingData['guest_id'],
+                'booking_id' => $lastBookingId,
+                'method_id' => 2,
+            ];
+            Payment::create($depositPaymentData);
+
+            foreach ($cart as $roomTypeId => $roomType) {
+                DB::table('booked_room_types')->insert([
+                    'booking_id' => $lastBookingId,
+                    'room_type_id' => $roomTypeId,
+                    'number_of_room' => $roomType['quantity']
+                ]);
+            }
+//            session()->forget('bookingData');
             Mail::to(Auth::guard('guest')->user())->send((new BookingInformation($booking))->afterCommit());
-            return Redirect::route('guest.checkOut.success')->with('success', 'Booked successfully!');
-        } else {
-            session()->forget('bookingData');
-//            return Redirect::route('guest.rooms')->with('failed', 'Something went wrong, please try again later...');
-            return view('guest.checkout.empty');
         }
-    }
-
-    public function success()
-    {
-        return view('guest.checkout.checkOutSuccess');
+        return Redirect::route('guest.paymentSuccess');
     }
 }

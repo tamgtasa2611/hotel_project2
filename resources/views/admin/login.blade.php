@@ -53,7 +53,7 @@
                 <!-- Email input -->
                 <div class="mb-4">
                     <div>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                        <input type="email" class="form-control tran-3" id="exampleInputEmail1" name="email"
                                value="{{old('email')}}" required aria-describedby="emailHelp" placeholder="Email">
                     </div>
                     @if ($errors->has('email'))
@@ -66,7 +66,7 @@
                 <!-- Password input -->
                 <div class="mb-4">
                     <div class="input-group" id="show_hide_password">
-                        <input type="password" class="form-control" id="exampleInputPassword1"
+                        <input type="password" class="form-control tran-3" id="exampleInputPassword1"
                                placeholder="Mật khẩu" autocomplete="off" name="password" required minlength="6">
                         <a href="#" class="input-group-text">
                             <i class="bi bi-eye-slash" aria-hidden="true"></i>
@@ -84,7 +84,7 @@
                     Đăng nhập
                 </button>
 
-                <div class="text-center">
+                <div class="text-center tran-3">
                     <a href="">Quên mật khẩu</a>
                 </div>
             </form>

@@ -17,8 +17,8 @@ class RoomTypeController extends Controller
     public function index(Request $request)
     {
         $search = [
-            'checkin' => $request->checkin,
-            'checkout' => $request->checkout
+            'checkin' => $request->checkin ?? Carbon::now()->format('d-m-Y'),
+            'checkout' => $request->checkout ?? Carbon::now()->addDay()->format('d-m-Y')
         ];
 
         $checkInFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkin'])));

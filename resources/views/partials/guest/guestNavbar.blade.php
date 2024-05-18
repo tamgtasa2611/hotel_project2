@@ -46,6 +46,12 @@
             </a>
             <div class="d-lg-flex col-lg-4 justify-content-lg-end">
                 @guest('guest')
+                    <a class="nav-link tran-3 tran-3 h-100"
+                       href="{{route('guest.cart')}}" role="button">
+                        <div class="d-flex align-items-center h-100 w-100">
+                            <i class="bi bi-bag"></i>
+                        </div>
+                    </a>
                     <a class="btn btn-primary px-3 tran-3 me-3 shadow"
                        href="{{route('guest.login')}}">
                         Đăng nhập
@@ -58,7 +64,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link tran-3 tran-3 h-100"
-                               href="{{route('guest.checkOut')}}" role="button">
+                               href="{{route('guest.cart')}}" role="button">
                                 <div class="d-flex align-items-center h-100 w-100">
                                     <i class="bi bi-bag"></i>
                                 </div>

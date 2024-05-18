@@ -113,13 +113,13 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed tran-3" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                                     aria-expanded="false" aria-controls="collapseTwo">
                                                 Danh sách phòng & tiện nghi
                                             </button>
                                         </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                        <div id="collapseTwo" class="accordion-collapse collapse tran-3"
                                              aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 @if(count($rooms) != 0)
@@ -139,7 +139,9 @@
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    Danh sách phòng trống!
+                                                    <div>
+                                                        Danh sách phòng trống!
+                                                    </div>
                                                 @endif
 
                                                 @if(count($amenities) != 0)
@@ -159,7 +161,9 @@
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    Danh sách tiện nghi trống!
+                                                    <div>
+                                                        Danh sách tiện nghi trống!
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>

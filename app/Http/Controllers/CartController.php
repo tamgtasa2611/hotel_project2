@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Helpers\AppHelper;
 use App\Models\Booking;
 use App\Models\Room;
+use App\Models\RoomType;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Ramsey\Uuid\Type\Integer;
@@ -17,61 +19,86 @@ class CartController extends Controller
 {
     public function cart()
     {
-        return view('guest.cart.index');
+        $carts = [];
+        $start = Session::get('start');
+        $end = Session::get('end');
+        if (Session::get('cart') != null) {
+            $carts = Session::get('cart');
+        } else {
+            $carts = null;
+        }
+
+        return view('guest.cart.index', compact('carts', 'start', 'end'));
     }
 
-    public function addToCart(Request $request, Room $room)
+    public function addToCart(Request $request)
     {
-        $validated = $request->validate([
-            'checkin' => 'required|date|before:checkout|after:yesterday',
-            'checkout' => 'required|date|after:checkin',
-        ]);
-
-        if (!$validated) {
-            return back()->with('failed', 'Thêm phòng vào giỏ hàng thất bại! Vui lòng thử lại sau ít phút...');
-        }
+        $start = $request->checkin ?? Carbon::now()->format('d-m-Y');
+        $end = $request->checkout ?? Carbon::now()->addDay()->format('d-m-Y');
+        $roomType = RoomType::where('id', '=', $request->id)->first();
 
         //tong so ngay luu tru
         //            format lai tu d-m-y thanh y-m-d
-        $checkInDate = date('Y-m-d', strtotime($request->checkin));
-        $checkOutDate = date('Y-m-d', strtotime($request->checkout));
+        $checkInDate = date('Y-m-d', strtotime($start));
+        $checkOutDate = date('Y-m-d', strtotime($end));
         $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
         $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
         $datePeriod = CarbonPeriod::between($dateIn, $dateOut);
         $totalDays = $dateIn->diffInDays($dateOut);
-        $totalPrice = $room->price * $totalDays;
 
         //check trung nhau
-        $bookings = Booking::where('room_id', '=', $room->id)->get();
-        foreach ($bookings as $booking) {
-            $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
-            $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date)->subDay();
-//            $datePeriodCheck = CarbonPeriod::between($dateInCheck, $dateOutCheck);
-
-            //check
-            foreach ($datePeriod as $date) {
-                if ($date->between($dateInCheck, $dateOutCheck)) {
-                    return back()->with('failed', 'Phòng không khả dụng trong khoảng thời gian này!');
-                }
-            }
-        }
+//        $bookings = Booking::where('room_id', '=', $room->id)->get();
+//        foreach ($bookings as $booking) {
+//            $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
+//            $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date)->subDay();
+////            $datePeriodCheck = CarbonPeriod::between($dateInCheck, $dateOutCheck);
+//
+//            //check
+//            foreach ($datePeriod as $date) {
+//                if ($date->between($dateInCheck, $dateOutCheck)) {
+//                    return back()->with('failed', 'Phòng không khả dụng trong khoảng thời gian này!');
+//                }
+//            }
+//        }
 
         //them vao session
         if (Session::exists('cart')) {
             $cart = Session::get('cart');
-            if (isset($cart[$room->id])) {
-                $cart[$room->id]['check_in'] = $dateIn;
-                $cart[$room->id]['check_out'] = $dateOut;
-                $cart[$room->id]['price'] = $totalPrice;
+            if (isset($cart[$roomType->id])) {
+                $cart[$roomType->id]['quantity']++;
             } else {
-                $cart = Arr::add($cart, $room->id, ['room' => $room, 'check_in' => $dateIn, 'check_out' => $dateOut, 'price' => $totalPrice]);
+                $cart = Arr::add($cart, $roomType->id, [
+                    'roomType' => $roomType,
+                    'quantity' => 1
+                ]);
             }
         } else {
             $cart = array();
-            $cart = Arr::add($cart, $room->id, ['room' => $room, 'check_in' => $dateIn, 'check_out' => $dateOut, 'price' => $totalPrice]);
+            $cart = Arr::add($cart, $roomType->id, [
+                'roomType' => $roomType,
+                'quantity' => 1
+            ]);
         }
-        Session::put(['cart' => $cart]);
-        return Redirect::route('guest.cart')->with('success', 'Thêm phòng vào giỏ thành công!');
+        Session::put('cart', $cart);
+        if (!Session::exists('start')) {
+            Session::put('start', $start);
+        }
+        if (!Session::exists('end')) {
+            Session::put('end', $end);
+        }
+
+        return Redirect::back()->with('success', 'Thêm phòng vào giỏ thành công!');
+    }
+
+    public function updateQuantity(int|string $roomTypeId, Request $request)
+    {
+        if (Session::exists('cart')) {
+            $cart = Session::get('cart');
+            $cart[$roomTypeId]['quantity'] = $request->quantity;
+            Session::put('cart', $cart);
+        }
+
+        return Redirect::back();
     }
 
     public function deleteFromCart(Request $request)

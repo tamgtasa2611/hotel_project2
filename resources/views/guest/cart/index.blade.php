@@ -2,33 +2,33 @@
 <x-guestLayout>
     <section id="" class="m-nav">
         <div class="container">
-            <div class="row h-auto py-5 g-4">
+            <div class="row h-auto py-4 g-4">
                 <div class="col-12">
-                    <div class="shadow-sm bg-white px-4 py-3 border rounded-3">
+                    <div class="">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
-                            @if(\Illuminate\Support\Facades\Session::get('cart') != null)
-                                <div class="bg-primary rounded-circle shadow-sm border p-3">
-                                    <i class="bi bi-bag display-6 text-white"></i>
+                            @if($carts != null)
+                                <div class="p-3 bg-primary rounded-circle shadow-sm">
+                                    <i class="bi bi-bag text-white"></i>
                                 </div>
                             @else
-                                <div class="bg-white rounded-circle shadow-sm border p-3">
-                                    <i class="bi bi-bag display-6 text-primary"></i>
+                                <div class="p-3 border rounded-circle shadow-sm">
+                                    <i class="bi bi-bag text-primary"></i>
                                 </div>
                             @endif
-                            <div class="bg-white shadow-sm rounded-circle border p-3">
-                                <i class="bi bi-credit-card display-6 text-primary"></i>
+                            <div class="p-3 border rounded-circle shadow-sm">
+                                <i class="bi bi-credit-card text-primary"></i>
                             </div>
-                            <div class="bg-white shadow-sm  rounded-circle border p-3">
-                                <i class="bi bi-check display-6 text-primary"></i>
+                            <div class="p-3 border rounded-circle shadow-sm">
+                                <i class="bi bi-check text-primary"></i>
                             </div>
                         </div>
                         <div class="progress" style="height: 8px">
-                            @if(\Illuminate\Support\Facades\Session::get('cart') != null)
+                            @if($carts != null)
                                 <div
                                     class="progress-bar"
                                     role="progressbar"
-                                    style="width: 3%;"
-                                    aria-valuenow="3"
+                                    style="width: 24px;"
+                                    aria-valuenow="2"
                                     aria-valuemin="0"
                                     aria-valuemax="100"
                                 ></div>
@@ -45,69 +45,95 @@
                         </div>
                     </div>
                 </div>
-                @if(\Illuminate\Support\Facades\Session::get('cart') != null)
+                @if($carts != null)
                     <div class="col-12 col-lg-8 load-hidden fade-in">
                         <div class="bg-white p-4 shadow-sm border rounded-3 overflow-x-auto">
-                            <table class="table table-responsive ">
-                                <thead>
+                            <div class="mb-4 text-center">
+                                <h3 class="fw-bold mb-4">Giỏ hàng</h3>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-between ">
+                                <div>
+                                    Ngày nhận phòng: {{$start}}
+                                </div>
+                                <div>
+                                    Ngày trả phòng: {{$end}}
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <table class="table table-responsive">
+                                <thead class="table-light">
                                 <tr>
-                                    <th class="align-middle text-center">Phòng</th>
-                                    <th class="align-middle text-center">Giá</th>
+                                    <th class="align-middle text-center py-3 col-8">Phòng</th>
+                                    <th class="align-middle text-center py-3 col-2">Số lượng</th>
+                                    <th class="align-middle text-center py-3 col-2">Tổng cộng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php
                                     $totalPrice = 0;
                                 @endphp
-                                @foreach(\Illuminate\Support\Facades\Session::get('cart') as $room_id => $room)
+                                @foreach($carts as $roomTypeId => $roomType)
                                     <tr>
-                                        <td class="align-middle">
+                                        <td class="align-middle col-6">
                                             <div class="row g-4 align-items-center">
-                                                <div class="col-1">
-                                                    <a href="{{route('guest.cart.delete', $room_id)}}">
-                                                        <i class="bi bi-x text-danger"></i>
+                                                <div class="col-2 text-center">
+                                                    <a href="{{route('guest.cart.delete', $roomTypeId)}}">
+                                                        <i class="bi bi-x-circle text-danger"></i>
                                                     </a>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-5 py-3">
                                                     <div class="ratio ratio-16x9">
-                                                        <a href="{{route('guest.rooms.show', $room['room'])}}"
-                                                           class="ratio ratio-16x9">
-                                                            @if(count($room['room']->images) == 0)
+                                                        <a href="{{route('guest.rooms.show', $roomType['roomType'])}}"
+                                                           class="ratio ratio-16x9 overflow-hidden">
+                                                            @if(count($roomType['roomType']->images) == 0)
                                                                 <img src="{{asset('images/noimage.jpg')}}"
-                                                                     alt="room_img" class="rounded-3">
+                                                                     alt="room_img"
+                                                                     class="rounded-3 object-fit-cover shadow-sm border">
                                                             @else
                                                                 <img
-                                                                    src="{{asset('storage/admin/rooms/'.$room['room']->images[0]->path)}}"
-                                                                    alt="room_img" class="rounded-3">
+                                                                    src="{{asset('storage/admin/rooms/'.$roomType['roomType']->images[0]->path)}}"
+                                                                    alt="room_img"
+                                                                    class="rounded-3 object-fit-cover shadow-sm border">
                                                             @endif
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <div class="col-8">
+                                                <div class="col-5">
                                                     <div>
-                                                        <a href="{{route('guest.rooms.show', $room['room'])}}">
-                                                            <h5>{{$room['room']->name}}</h5>
+                                                        <a href="{{route('guest.rooms.show', $roomType['roomType'])}}">
+                                                            <h5>{{$roomType['roomType']->name}}</h5>
                                                         </a>
-                                                        <div class="fs-7">
-                                                            <div>
-                                                                Ngày nhận phòng: {{$room['check_in']}}
-                                                            </div>
-                                                            <div class="mt-1">
-                                                                Ngày trả phòng: {{$room['check_out']}}
+                                                        <div class="">
+                                                            <div class="text-success">
+                                                                {{\App\Helpers\AppHelper::vnd_format($roomType['roomType']->price)}}
+                                                                <span class="text-dark"> / đêm</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="align-middle text-center col-2">
                                             <div>
-                                                {{\App\Helpers\AppHelper::vnd_format($room['price'])}}
+                                                <form action="{{route('guest.cart.updateQuantity', $roomTypeId)}}"
+                                                      method="POST">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <input type="number" value="{{$roomType['quantity']}}" min="1"
+                                                           name="quantity"
+                                                           class="form-control"
+                                                           onchange="this.form.submit()">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center col-2">
+                                            <div class="text-success">
+                                                {{\App\Helpers\AppHelper::vnd_format($roomType['roomType']->price * $roomType['quantity'])}}
                                             </div>
                                         </td>
                                     </tr>
                                     @php
-                                        $totalPrice += $room['price'];
+                                        $totalPrice += $roomType['roomType']->price * $roomType['quantity'];
                                     @endphp
                                 @endforeach
                                 </tbody>
@@ -126,15 +152,18 @@
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>Số phòng</div>
-                                    <div>{{count(\Illuminate\Support\Facades\Session::get('cart'))}}</div>
+                                    <div>{{count($carts)}}</div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>Thành tiền</div>
                                     <div>{{\App\Helpers\AppHelper::vnd_format($totalPrice)}}</div>
+                                    @php
+                                        \Illuminate\Support\Facades\Session::put('totalPrice', $totalPrice)
+                                    @endphp
                                 </div>
                                 <hr>
                                 <a class="btn btn-primary w-100 tran-3"
-                                   href="{{route('guest.checkOut.payInPerson')}}">Tiếp tục thanh toán</a>
+                                   href="{{route('guest.payment')}}">Tiếp tục thanh toán</a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +171,7 @@
                     <div class="col-12 load-hidden fade-in">
                         <div
                             class="p-4 bg-white border shadow-sm rounded-3 d-flex flex-column justify-content-center align-items-center">
-                            <h5 class="mt-5 mb-4">Giỏ hàng của bạn trống</h5>
+                            <h4 class="fw-bold mb-4 mt-5">Giỏ hàng của bạn trống</h4>
                             <a href="{{route('guest.rooms')}}" class="btn btn-primary mb-5 tran-3">Chọn phòng</a>
                         </div>
                     </div>

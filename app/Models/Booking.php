@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -16,31 +17,32 @@ class Booking extends Model
     public $timestamps = false;
     protected $fillable = [
         'date',
-        'checkin_date',
-        'checkout_date',
+        'checkin',
+        'checkout',
         'status',
         'total_price',
         'note',
-        'guest_name',
+        'guest_lname',
+        'guest_fname',
         'guest_email',
         'guest_phone',
         'guest_id',
         'admin_id'
     ];
 
-    public function roomTypes(): HasMany
+    public function roomTypes(): BelongsToMany
     {
-        return $this->hasMany(RoomType::class);
+        return $this->belongsToMany(RoomType::class)->withPivot('number_of_room');
     }
 
-    public function rooms(): HasMany
+    public function rooms(): BelongsToMany
     {
-        return $this->hasMany(Room::class);
+        return $this->belongsToMany(Room::class);
     }
 
-    public function services(): HasMany
+    public function services(): BelongsToMany
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class);
     }
 
     public function payments(): HasMany

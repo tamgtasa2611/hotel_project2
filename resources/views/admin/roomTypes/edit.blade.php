@@ -115,13 +115,13 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed tran-3" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                                     aria-expanded="false" aria-controls="collapseTwo">
                                                 Danh sách phòng
                                             </button>
                                         </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                        <div id="collapseTwo" class="accordion-collapse collapse tran-3"
                                              aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 @if(count($rooms) != 0)
@@ -142,7 +142,9 @@
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    Danh sách phòng trống!
+                                                    <div>
+                                                        Danh sách phòng trống!
+                                                    </div>
                                                 @endif
 
                                                 @if(count($amenities) != 0)
@@ -163,7 +165,9 @@
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    Danh sách tiện nghi trống!
+                                                    <div>
+                                                        Danh sách tiện nghi trống!
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -231,35 +235,35 @@
         </form>
     </div>
     <!-- Delete 1 Image Modal -->
-    {{--    <div class="modal fade" id="deleteOne" tabindex="-1"--}}
-    {{--         aria-labelledby="deleteOneLabel" aria-hidden="true">--}}
-    {{--        <div class="modal-dialog">--}}
-    {{--            <div class="modal-content">--}}
-    {{--                <form method="get" action="{{route('admin.roomTypes.destroyImage', $room)}}">--}}
-    {{--                    @csrf--}}
-    {{--                    <div class="modal-header">--}}
-    {{--                        <h1 class="modal-title fs-5 text-danger" id="deleteOneLabel">--}}
-    {{--                            <i class="bi bi-x-circle me-2"></i>Xóa ảnh--}}
-    {{--                        </h1>--}}
-    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
-    {{--                                aria-label="Close"></button>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-body">--}}
-    {{--                        Bạn có chắc muốn xóa ảnh này?--}}
-    {{--                        <input id="id" name="id" hidden class="visually-hidden"--}}
-    {{--                               value="">--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-footer">--}}
-    {{--                        <button type="button" class="btn btn-secondary "--}}
-    {{--                                data-bs-dismiss="modal">--}}
-    {{--                            Quay lại--}}
-    {{--                        </button>--}}
-    {{--                        <button type="submit" class="btn btn-danger ">--}}
-    {{--                            Xóa--}}
-    {{--                        </button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
+    <div class="modal fade" id="deleteOne" tabindex="-1"
+         aria-labelledby="deleteOneLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="get" action="{{route('admin.roomTypes.destroyImage', $roomType)}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-danger" id="deleteOneLabel">
+                            <i class="bi bi-x-circle me-2"></i>Xóa ảnh
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa ảnh này?
+                        <input id="id" name="id" hidden class="visually-hidden"
+                               value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary "
+                                data-bs-dismiss="modal">
+                            Quay lại
+                        </button>
+                        <button type="submit" class="btn btn-danger ">
+                            Xóa
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </x-adminLayout>

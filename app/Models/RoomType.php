@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +29,9 @@ class RoomType extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function amenities(): HasMany
+    public function amenities(): BelongsToMany
     {
-        return $this->hasMany(Amenity::class);
+        return $this->belongsToMany(Amenity::class);
     }
 
     public function images(): HasMany
@@ -38,13 +39,18 @@ class RoomType extends Model
         return $this->hasMany(RoomTypeImage::class);
     }
 
-    public function bookings(): HasMany
+    public function ratings(): HasMany
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Rating::class);
+    }
+
+    public function bookings(): BelongsToMany
+    {
+        return $this->belongsToMany(Booking::class)->withPivot('number_of_room');
     }
 
     public static function checkAndGetRoomTypes()
     {
-        return RoomType::with('rooms')->paginate(4)->withQueryString();
+        return RoomType::with('rooms')->withCount('rooms')->paginate(4)->withQueryString();
     }
 }

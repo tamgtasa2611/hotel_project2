@@ -57,26 +57,22 @@ Route::prefix('/rooms')->controller(RoomTypeController::class)->group(function (
 
 Route::prefix('/cart')->controller(CartController::class)->group(function () {
     Route::get('/', 'cart')->name('guest.cart');
-    Route::post('/addToCart/{room}', 'addToCart')->name('guest.cart.addToCart');
+    Route::post('/addToCart', 'addToCart')->name('guest.cart.addToCart');
+    Route::post('/{roomTypeId}', 'updateQuantity')->name('guest.cart.updateQuantity');
     Route::get('/delete/{id}', 'deleteFromCart')->name('guest.cart.delete');
     Route::get('/deleteAll', 'deleteAllFromCart')->name('guest.cart.deleteAll');
 });
-
-//BOOKING
-Route::prefix('/booking')->controller(BookingController::class)->group(function () {
-    Route::post('/', 'bookRoom')->name('guest.bookRoom');
-//    CHECKOUT
-    Route::prefix('/checkout')->group(function () {
-        Route::get('/', 'checkOut')->name('guest.checkOut');
-        Route::get('/payInPerson', 'payInPerson')->name('guest.checkOut.payInPerson');
-        Route::get('/banking', 'banking')->name('guest.checkOut.banking');
-        Route::get('/success', 'success')->name('guest.checkOut.success');
-    });
+//PAYMENT ===================
+Route::prefix('/payment')->controller(PaymentController::class)->group(function () {
+    Route::get('', 'payment')->name('guest.payment');
+    Route::post('', 'paymentProcess')->name('guest.paymentProcess');
+    Route::get('/redirect', 'paymentRedirect')->name('guest.paymentRedirect');
+    Route::post('/vnpay', 'vnpay_payment')->name('guest.vnpay');
+    Route::get('/success', 'paymentSuccess')->name('guest.paymentSuccess');
 });
 
-//VNPAY
-Route::post('/vnpay', [PaymentController::class, 'vnpay_payment'])->name('guest.vnpay');
-
+//BOOKING
+Route::get('/booking', [BookingController::class, 'booking'])->name('guest.booking');
 //END ROOMS
 
 //LOGIN REGISTER LOGOUT
@@ -174,16 +170,6 @@ Route::prefix('admin')->group(function () {
                 Route::get('/{service}/edit', 'edit')->name('admin.services.edit');
                 Route::put('/{service}/edit', 'update')->name('admin.services.update');
                 Route::delete('/destroy', 'destroy')->name('admin.services.destroy');
-            });
-
-            // FOOD ITEMS =====================================================================================
-            Route::prefix('/food-items')->controller(FoodItemController::class)->group(function () {
-                Route::get('/', 'index')->name('admin.foodItems');
-                Route::get('/create', 'create')->name('admin.foodItems.create');
-                Route::post('/create', 'store')->name('admin.foodItems.store');
-                Route::get('/{foodItem}/edit', 'edit')->name('admin.foodItems.edit');
-                Route::put('/{foodItem}/edit', 'update')->name('admin.foodItems.update');
-                Route::delete('/destroy', 'destroy')->name('admin.foodItems.destroy');
             });
 
             // ADMINISTRATORS =====================================================================================

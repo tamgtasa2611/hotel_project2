@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,9 @@ class Amenity extends Model
         'name'
     ];
 
-    public function roomTypes(): HasMany
+    public function roomTypes(): BelongsToMany
     {
-        return $this->hasMany(RoomType::class);
+        return $this->belongsToMany(RoomType::class);
     }
 
     public static function insertToRoomTypeAmenities($roomTypeId, $amenityId)

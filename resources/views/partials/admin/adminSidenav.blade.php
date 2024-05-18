@@ -79,14 +79,6 @@
                        aria-current="true">
                         <i class="bi bi-list-stars me-2 ms-3"></i>Danh sách đặt phòng
                     </a>
-
-                    <a href="{{ route('admin.payments') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
-       {{ request()->route()->getPrefix() == 'admin/payments' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-cup-hot me-2 ms-3"></i>Danh sách đặt món
-                    </a>
-
                 </div>
             </div>
         </div>
@@ -167,7 +159,6 @@
                 OR request()->route()->getPrefix() == 'admin/rooms'
                 OR request()->route()->getPrefix() == 'admin/amenities'
                 OR request()->route()->getPrefix() == 'admin/services'
-                OR request()->route()->getPrefix() == 'admin/food-items'
                 OR request()->route()->getPrefix() == 'admin/admins')
             show
             @endif
@@ -185,7 +176,7 @@
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
 {{ request()->route()->getPrefix() == 'admin/rooms' ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-key me-2 ms-3"></i>Danh sách phòng
+                        <i class="bi bi-key me-2 ms-3"></i>Phòng
                     </a>
 
                     <a href="{{ route('admin.amenities') }}"
@@ -200,13 +191,6 @@
 {{ request()->route()->getPrefix() == 'admin/services' ? 'active' : '' }}"
                        aria-current="true">
                         <i class="bi bi-bookmark-plus me-2 ms-3"></i>Dịch vụ
-                    </a>
-
-                    <a href="{{ route('admin.foodItems') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
-       {{ request()->route()->getPrefix() == 'admin/food-items' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-egg-fried me-2 ms-3"></i>Món ăn
                     </a>
 
                     <a href="{{ route('admin.admins') }}"
@@ -242,7 +226,6 @@
             @if(request()->routeIs('admin.statistics.revenue')
                 OR request()->routeIs('admin.statistics.rooms')
                 OR request()->routeIs('admin.statistics.services')
-                OR request()->routeIs('admin.statistics.foods')
                 OR request()->routeIs('admin.statistics.guests'))
             show
             @endif
@@ -268,13 +251,6 @@
 {{ request()->routeIs('admin.statistics.services') ? 'active' : '' }}"
                        aria-current="true">
                         <i class="bi bi-bookmark-plus me-2 ms-3"></i>Thống kê dịch vụ
-                    </a>
-
-                    <a href="{{ route('admin.statistics.foods') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
-{{ request()->routeIs('admin.statistics.foods') ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-egg-fried me-2 ms-3"></i>Thống kê đặt món
                     </a>
 
                     <a href="{{ route('admin.statistics.guests') }}"
