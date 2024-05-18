@@ -231,35 +231,35 @@
         </form>
     </div>
     <!-- Delete 1 Image Modal -->
-    <div class="modal fade" id="deleteOne" tabindex="-1"
-         aria-labelledby="deleteOneLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="get" action="{{route('admin.roomTypes.destroyImage', $room)}}">
-                    @csrf
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-danger" id="deleteOneLabel">
-                            <i class="bi bi-x-circle me-2"></i>Xóa ảnh
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn có chắc muốn xóa ảnh này?
-                        <input id="id" name="id" hidden class="visually-hidden"
-                               value="">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary "
-                                data-bs-dismiss="modal">
-                            Quay lại
-                        </button>
-                        <button type="submit" class="btn btn-danger ">
-                            Xóa
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {{--    <div class="modal fade" id="deleteOne" tabindex="-1"--}}
+    {{--         aria-labelledby="deleteOneLabel" aria-hidden="true">--}}
+    {{--        <div class="modal-dialog">--}}
+    {{--            <div class="modal-content">--}}
+    {{--                <form method="get" action="{{route('admin.roomTypes.destroyImage', $room)}}">--}}
+    {{--                    @csrf--}}
+    {{--                    <div class="modal-header">--}}
+    {{--                        <h1 class="modal-title fs-5 text-danger" id="deleteOneLabel">--}}
+    {{--                            <i class="bi bi-x-circle me-2"></i>Xóa ảnh--}}
+    {{--                        </h1>--}}
+    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
+    {{--                                aria-label="Close"></button>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-body">--}}
+    {{--                        Bạn có chắc muốn xóa ảnh này?--}}
+    {{--                        <input id="id" name="id" hidden class="visually-hidden"--}}
+    {{--                               value="">--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-footer">--}}
+    {{--                        <button type="button" class="btn btn-secondary "--}}
+    {{--                                data-bs-dismiss="modal">--}}
+    {{--                            Quay lại--}}
+    {{--                        </button>--}}
+    {{--                        <button type="submit" class="btn btn-danger ">--}}
+    {{--                            Xóa--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
+    {{--                </form>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 </x-adminLayout>

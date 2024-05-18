@@ -205,10 +205,14 @@ Route::prefix('admin')->group(function () {
         });
 
         // BOOKINGs
-        Route::prefix('bookings')->group(function () {
-            Route::get('/', [AdminBookingController::class, 'index'])->name('admin.bookings');
-            Route::get('/create', [AdminBookingController::class, 'create'])->name('admin.bookings.create');
-            Route::post('/create', [AdminBookingController::class, 'store'])->name('admin.bookings.store');
+        Route::prefix('bookings')->controller(AdminBookingController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.bookings');
+            Route::get('/create', 'create')->name('admin.bookings.create');
+            Route::post('/create', 'storeDate')->name('admin.bookings.storeDate');
+            Route::get('/create/choose_room', 'createChooseRoom')->name('admin.bookings.createChooseRoom');
+            Route::post('/create/choose_room', 'storeRoom')->name('admin.bookings.storeRoom');
+            Route::get('/create/choose_guest', 'createChooseGuest')->name('admin.bookings.createChooseGuest');
+            Route::post('/create/choose_guest', 'storeGuest')->name('admin.bookings.storeGuest');
             Route::get('/{booking}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
             Route::put('/{booking}/edit', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
             Route::delete('/delete', [AdminBookingController::class, 'destroy'])->name('admin.bookings.destroy');

@@ -66,7 +66,7 @@
             " aria-labelledby="bookingHeader"
                  data-bs-parent="#booking" style="">
                 <div class="accordion-body fs-7">
-                    <a href="{{ route('admin.roomTypes') }}"
+                    <a href="{{ route('admin.bookings.create') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
 {{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
                        aria-current="true">
@@ -137,48 +137,12 @@
 
         {{--  ==================  GUEST ================================================================================================================--}}
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="guestHeader">
-                <button
-                    class="accordion-button collapsed list-group-item list-group-item-action tran-3 border-0 px-5 py-3 pe-4
-                    d-flex align-items-center tran-3"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#guest" aria-expanded="false" aria-controls="guest">
-                    <div class="d-flex justify-content-between w-100 align-items-center">
-                        <div>
-                            <i class="bi bi-person me-2"></i>Khách hàng
-                        </div>
-                        <div>
-                            <i class="bi bi-chevron-down"></i>
-
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div id="guest" class="accordion-collapse collapse tran-3
-            @if(request()->route()->getPrefix() == 'admin/guests')
-            show
-            @endif
-            " aria-labelledby="guestHeader"
-                 data-bs-parent="#guest" style="">
-                <div class="accordion-body fs-7">
-                    <a href="{{ route('admin.roomTypes') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-plus-circle me-2 ms-3"></i>Thêm khách hàng
-                    </a>
-
-                    <a href="{{ route('admin.guests') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
+        <a href="{{ route('admin.guests') }}"
+           class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
                        {{ request()->route()->getPrefix() == 'admin/guests' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-person me-2 ms-3"></i>Danh sách khách hàng
-                    </a>
-
-                </div>
-            </div>
-        </div>
+           aria-current="true">
+            <i class="bi bi-person me-2"></i>Khách hàng
+        </a>
 
         {{--  ==================  HOTEL ================================================================================================================--}}
         <div class="accordion-item">

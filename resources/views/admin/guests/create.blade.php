@@ -1,8 +1,8 @@
-<title>Add new guest - Skyrim Hotel</title>
+<title>Thêm khách hàng - Skyrim Hotel</title>
 <x-adminLayout>
     <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Guests Management</h4>
+            <h4 class="fw-bold m-0">Quản lý khách hàng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -18,6 +18,7 @@
                 <i class="bi bi-plus-circle me-2"></i>Thêm khách hàng
             </div>
         </div>
+        <hr class="m-0">
         {{-- FORM  --}}
 
         <form method="post" action="{{ route('admin.guests.store') }}" enctype="multipart/form-data"
@@ -121,6 +122,7 @@
                     @endforeach
                 @endif
             </div>
+            <hr class="m-0">
 
             <div class="d-flex justify-content-between justify-content-md-start -top p-4">
                 <a href="{{ route('admin.guests') }}"
