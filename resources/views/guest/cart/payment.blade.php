@@ -41,28 +41,28 @@
                                     <label class="form-label" for="lname">Họ <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="lname" name="guest_lname" class="form-control"
-                                           value="nguyen">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->last_name}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="fname">Tên <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="fname" name="guest_fname" class="form-control"
-                                           value="tam">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->first_name}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="email">Email <span
                                             class="text-danger">*</span></label>
                                     <input required type="email" id="email" name="guest_email" class="form-control"
-                                           value="a@gmail.com">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->email}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="phone">Số điện thoại <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="phone" name="guest_phone" class="form-control"
-                                           value="123456789">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->phone_number}}">
                                 </div>
 
                                 <div class="mb-3">
@@ -111,18 +111,26 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="fst-italic opacity-75 fs-7 mb-4 text-center">
-                            Bạn sẽ thanh toán
-                            <span
-                                class="fst-italic fw-bold">{{\App\Helpers\AppHelper::vnd_format($totalPrice - ($totalPrice * 0.25))}}</span>
-                            còn lại sau khi trả phòng
-                        </div>
+                        {{--                        <div class="fst-italic opacity-75 fs-7 mb-3 text-center">--}}
+                        {{--                            Bạn sẽ thanh toán--}}
+                        {{--                            <span--}}
+                        {{--                                class="fst-italic fw-bold">{{\App\Helpers\AppHelper::vnd_format($totalPrice - ($totalPrice * 0.25))}}</span>--}}
+                        {{--                            còn lại sau khi trả phòng--}}
+                        {{--                        </div>--}}
                         <input type="hidden" class="visually-hidden" name="total_price"
                                value="{{$totalPrice * 0.25}}">
-                        <div class=" d-flex justify-content-between">
+                        <div class="mb-3">
+                            <button class="btn btn-secondary w-100 tran-3 mb-1" name="pay_layer" value="1"
+                                    type="submit">Thanh
+                                toán sau
+                            </button>
                             <button class="btn btn-primary w-100 tran-3" name="redirect" type="submit">Thanh toán tiền
                                 cọc
                             </button>
+                        </div>
+                        <div class="fst-italic opacity-75 fs-7 text-center">
+                            Nếu bạn chọn <span class="fw-bold fst-italic">Thanh toán sau</span>, nhân viên sẽ gọi điện
+                            cho bạn để xác nhận đặt phòng trong vòng 24h
                         </div>
                     </div>
                 </div>

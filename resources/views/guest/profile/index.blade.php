@@ -23,14 +23,8 @@
                         @if (session('failed'))
                             @include('partials.flashMsgFail')
                         @endif
-                        <div class="d-flex justify-content-between flex-column flex-md-row align-items-center p-4">
+                        <div class="d-flex justify-content-start align-items-center p-4">
                             <h4 class="text-primary fw-bold mb-4 mb-md-0">Hồ sơ của tôi</h4>
-                            <a class="text-danger hover-pointer tran-3  mb-4 mb-md-0"
-                               data-bs-toggle="modal"
-                               data-bs-target="#exampleModal"
-                               data-id="1">
-                                <i class="bi bi-x-circle me-1"></i>Delete account
-                            </a>
                         </div>
                         <hr class="m-0">
                         {{--                    form--}}
@@ -41,10 +35,23 @@
                             @method('PUT')
                             <div class="row g-4 p-4">
                                 <div class="col-12 col-lg-8">
+                                    {{-- last name--}}
+                                    <div class="mb-4">
+                                        <div>
+                                            <label class="form-label" for="last_name">Họ</label>
+                                            <input type="text" id="last_name" name="last_name" class="form-control"
+                                                   value="{{$guest->last_name}}" required/>
+                                        </div>
+                                        @if ($errors->has('last_name'))
+                                            @foreach ($errors->get('last_name') as $error)
+                                                <span class="text-danger fs-7">{{ $error }}</span>
+                                            @endforeach
+                                        @endif
+                                    </div>
                                     {{--first name--}}
                                     <div class="mb-4">
                                         <div>
-                                            <label class="form-label" for="first_name">First name</label>
+                                            <label class="form-label" for="first_name">Tên</label>
                                             <input type="text" id="first_name" name="first_name"
                                                    class="form-control"
                                                    value="{{$guest->first_name}}" required/>
@@ -55,24 +62,11 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                    {{-- last name--}}
-                                    <div class="mb-4">
-                                        <div>
-                                            <label class="form-label" for="last_name">Last name</label>
-                                            <input type="text" id="last_name" name="last_name" class="form-control"
-                                                   value="{{$guest->last_name}}" required/>
-                                        </div>
-                                        @if ($errors->has('last_name'))
-                                            @foreach ($errors->get('last_name') as $error)
-                                                <span class="text-danger fs-7">{{ $error }}</span>
-                                            @endforeach
-                                        @endif
-                                    </div>
 
                                     <!-- Email input -->
                                     <div class="mb-4">
                                         <div>
-                                            <label class="form-label" for="email">Email address</label>
+                                            <label class="form-label" for="email">Email</label>
                                             <input type="email" id="email" name="email" class="form-control"
                                                    value="{{$guest->email}}" required/>
                                         </div>
@@ -86,7 +80,7 @@
                                     <!-- Phone Number input -->
                                     <div class="">
                                         <div>
-                                            <label class="form-label" for="phone">Phone number</label>
+                                            <label class="form-label" for="phone">Số điện thoại</label>
                                             <input type="tel" id="phone" name="phone" class="form-control"
                                                    value="{{$guest->phone_number}}" maxlength="20" required/>
                                         </div>
@@ -101,14 +95,15 @@
                                 {{-- Image --}}
                                 <div class="col-12 col-lg-4">
                                     <div class="mb-4">
-                                        <label class="form-label" for="image">Avatar</label>
+                                        <label class="form-label" for="image">Ảnh đại diện</label>
                                         <input type="file" class="form-control" id="image" name="image" value=""/>
                                     </div>
-                                    <div class="d-flex justify-content-center">
+                                    <div
+                                        class="d-flex justify-content-center ratio ratio-1x1 overflow-hidden rounded-circle w-75">
                                         <img
                                             src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
                                             alt="guest_image"
-                                            class="w-75 h-auto shadow-sm rounded-circle">
+                                            class="shadow-sm border object-fit-cover rounded-circle">
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +116,7 @@
                                     Hủy
                                 </a>
                                 <button data-mdb-ripple-init type="submit"
-                                        class="btn btn-primary  col-12 col-lg-auto mb-3  mb-lg-0  tran-3">
+                                        class="btn btn-primary  col-12 col-lg-auto mb-3 px-4 mb-lg-0  tran-3">
                                     Lưu
                                 </button>
                             </div>

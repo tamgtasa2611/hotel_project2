@@ -1,4 +1,9 @@
 <title>Home - Skyrim Hotel</title>
+<style>
+    .text-shadow {
+        text-shadow: 0px 0px 5px var(--bs-primary);
+    }
+</style>
 <x-guestLayout>
     {{--    HERO--}}
     <section class="m-nav mb-5 position-relative bg-secondary">
@@ -6,15 +11,16 @@
             class="mh-screen overflow-hidden fade-in load-hidden">
             <div class="h-100 overflow-hidden"
                  style="background-image: url('{{asset('images/hero.jpg')}}'); background-position: center; background-size: cover">
-                <div style="background-color: rgba(0, 0, 0, 0.6);">
+                <div style="background-color: rgba(0, 0, 0, 0.5);">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="container text-white">
                             <div class="row justify-content-center text-center align-items-center">
-                                <div class="display-4 text-center text-capitalize col-12">
+                                <div class="display-4 text-center text-shadow fw-bold text-capitalize col-12">
                                     Khám phá thế giới nghỉ dưỡng
                                 </div>
                                 <div class="mb-4 col-12">
-                                    <p class="fs-4">Mở ra cánh cửa đến những trải nghiệm lưu trú đa dạng,
+                                    <p class="fs-4 text-shadow">Mở ra cánh cửa đến những trải nghiệm lưu trú đa
+                                        dạng,
                                         phong phú.</p>
                                 </div>
                                 <div class="col-10">

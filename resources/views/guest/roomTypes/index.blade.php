@@ -2,7 +2,7 @@
 <x-guestLayout>
     <section id="rooms" class="m-nav">
         {{--            heading--}}
-        <div class="mb-5 pt-5 d-flex flex-column justify-content-center align-items-center "
+        <div class="mb-5 d-flex flex-column justify-content-center align-items-center "
              style="height: 40dvh;background-image: url('{{asset('images/room_list.jpg')}}'); background-position: center; background-size: cover">
             <h6 class="display-6 fw-bold text-white m-0">
                 Danh sách phòng
@@ -18,7 +18,7 @@
                     {{--            search form--}}
                     <div class="shadow-sm bg-white mb-4 border rounded-3">
                         <div class="p-4">
-                            <h5 class="m-0 fw-bold text-primary">Tìm phòng trống <i class="ms-2 bi bi-search"></i>
+                            <h5 class="m-0 fw-bold text-primary text-center">Tìm phòng trống
                             </h5>
                         </div>
                         <hr class="m-0">
@@ -26,23 +26,30 @@
                               class="m-0 p-4" autocomplete="off">
                             <div class="row g-4">
                                 <div class="col-12">
+                                    <label for="checkin" class="form-label"><i
+                                            class="bi bi-box-arrow-in-right me-2"></i>Ngày
+                                        nhận
+                                        phòng</label>
                                     <!-- checkin input -->
                                     <div>
                                         <input id="checkin" name="checkin" type="text"
                                                placeholder="Ngày nhận phòng"
-                                               class="my-input form-control"
+                                               class=" form-control"
                                                value="{{$search['checkin']}}"
                                                required
                                         >
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                    <label for="checkout" class="form-label"><i
+                                            class="bi bi-box-arrow-in-left me-2"></i>Ngày
+                                        trả phòng</label>
                                     <!-- checkout input -->
                                     <div>
                                         <input id="checkout" name="checkout" type="text"
                                                placeholder="Ngày trả phòng"
                                                value="{{$search['checkout']}}"
-                                               class="my-input form-control"
+                                               class=" form-control"
                                                required
                                         >
                                     </div>
@@ -67,11 +74,7 @@
                         {{--                right side--}}
                         <div class="">
                             <div
-                                class="w-100 d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
-                                {{--                        VIEW GIRD/LIST FORM--}}
-                                abc
-                                {{--                        VIEW GIRD/LIST FORM--}}
-
+                                class="w-100 d-flex flex-column flex-md-row justify-content-end align-items-center mb-4">
                                 {{--                        SORTING--}}
                                 <div class="d-flex align-items-center justify-content-between col-12 col-md-auto">
                                     <div class="text-primary fw-bold me-3">
@@ -184,6 +187,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    @else
+                                        <div class="d-flex justify-content-center align-items-center w-100"
+                                             style="height: 200px">
+                                            Không có phòng nào trống trong khoảng thời gian này
                                         </div>
                                     @endif
                                 @endforeach

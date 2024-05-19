@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Guest;
 use App\Models\Payment;
 use App\Models\Rating;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -26,7 +27,7 @@ class ProfileController extends Controller
             'guest' => $guest
         ]);
     }
-    
+
 
     public function updateAccount(Request $request)
     {
@@ -110,6 +111,7 @@ class ProfileController extends Controller
         return back()->with('success', 'Change password successfully!');
     }
 
+    //booking ================================================================
     public function myBooking(Request $request)
     {
         $filter = 'all';
@@ -119,6 +121,7 @@ class ProfileController extends Controller
 
         $currentGuestId = Auth::guard('guest')->id();
         $bookings = Booking::where('guest_id', '=', $currentGuestId)->get();
+
         if ($filter != 'all') {
             $status = 0;
             switch ($filter) {
@@ -149,8 +152,15 @@ class ProfileController extends Controller
     public function bookingDetail(Booking $booking)
     {
         $payments = Payment::where('booking_id', '=', $booking->id)->get();
-        $rate = Rating::where('booking_id', '=', $booking->id)->first();
-        return view('guest.profile.bookings.bookingDetail', compact('booking', 'payments', 'rate'));
+        $bookedRoomTypes = Booking::getRoomTypes($booking->id);
+
+        $rating = Rating::where('room_type_id', '=', $booking->id)
+            ->where('guest_id', '=', $booking->guest_id)
+            ->get();
+
+        return view('guest.profile.bookings.bookingDetail', compact(
+            'booking', 'payments', 'bookedRoomTypes', 'rating'
+        ));
     }
 
     public function cancelBooking(Booking $booking, Request $request)
@@ -166,25 +176,25 @@ class ProfileController extends Controller
         return Redirect::back()->with('success', 'Cancel booking successfully!');
     }
 
-    public function deleteAccount(Request $request)
-    {
-        $validated = $request->validate([
-            'deletePassword' => 'required|min:6'
-        ]);
-        if ($validated) {
-            $guest = Auth::guard('guest')->user();
-
-//            check password
-            if (!Hash::check($request->deletePassword, $guest->password)) {
-                return Redirect::back()->with('failed', 'Wrong password!');
-            }
-
-            $guestRecord = Guest::find($guest->id);
-            //Xóa bản ghi được chọn
-            $guestRecord->delete();
-            return Redirect::route('guest.home')->with('success', 'You have deleted your account successfully!');
-        }
-        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
-    }
+//    public function deleteAccount(Request $request)
+//    {
+//        $validated = $request->validate([
+//            'deletePassword' => 'required|min:6'
+//        ]);
+//        if ($validated) {
+//            $guest = Auth::guard('guest')->user();
+//
+////            check password
+//            if (!Hash::check($request->deletePassword, $guest->password)) {
+//                return Redirect::back()->with('failed', 'Wrong password!');
+//            }
+//
+//            $guestRecord = Guest::find($guest->id);
+//            //Xóa bản ghi được chọn
+//            $guestRecord->delete();
+//            return Redirect::route('guest.home')->with('success', 'You have deleted your account successfully!');
+//        }
+//        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
+//    }
     //    profile
 }

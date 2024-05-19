@@ -45,58 +45,53 @@
                 </div>
             </a>
             <div class="d-lg-flex col-lg-4 justify-content-lg-end">
+                <a class="text-white tran-3 me-3"
+                   href="{{route('guest.cart')}}" role="button">
+                    <div class="d-flex align-items-center justify-content-between h-100 w-100">
+                        <i class="bi bi-bag"></i>
+                    </div>
+                </a>
                 @guest('guest')
-                    <a class="nav-link tran-3 tran-3 h-100"
-                       href="{{route('guest.cart')}}" role="button">
-                        <div class="d-flex align-items-center h-100 w-100">
-                            <i class="bi bi-bag"></i>
+                    <div class="dropdown">
+                        <a class="text-white tran-3 dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+                        <div class="dropdown-menu dropright" data-bs-theme="light">
+                            <a class="dropdown-item tran-3" href="{{route('guest.login')}}"><i
+                                    class="me-2 bi bi-person-lock"></i>Đăng
+                                nhập</a>
+                            <a class="dropdown-item tran-3" href="{{route('guest.register')}}"><i
+                                    class="me-2 bi bi-plus-circle"></i>Đăng
+                                ký</a>
                         </div>
-                    </a>
-                    <a class="btn btn-primary px-3 tran-3 me-3 shadow"
-                       href="{{route('guest.login')}}">
-                        Đăng nhập
-                    </a>
-                    <a class="btn btn-secondary px-3 tran-3 " href="{{route('guest.register')}}">
-                        Đăng ký
-                    </a>
+                    </div>
                 @endguest
                 @auth('guest')
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link tran-3 tran-3 h-100"
-                               href="{{route('guest.cart')}}" role="button">
-                                <div class="d-flex align-items-center h-100 w-100">
-                                    <i class="bi bi-bag"></i>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link tran-3 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                               aria-haspopup="true" aria-expanded="false">
-                                @php
-                                    $avatar = \Illuminate\Support\Facades\Auth::guard('guest')->user()->image;
-                                @endphp
-                                @if($avatar == null)
-                                    <img src="{{asset('images/noavt.jpg')}}" alt="guest_avatar" width="24px"
-                                         height="24px" class=" object-fit-cover rounded-circle">
-                                @else
-                                    <img src="{{asset('storage/admin/guests/' . $avatar)}}" alt="guest_avatar"
-                                         width="24px"
-                                         height="24px" class=" object-fit-cover rounded-circle">
-                                @endif
-                            </a>
-                            <div class="dropdown-menu dropright" data-bs-theme="light">
-                                <a class="dropdown-item tran-3" href="{{route('guest.profile')}}">
-                                    <i class="bi bi-info-circle me-2"></i>Hồ sơ của tôi</a>
-                                <a class="dropdown-item tran-3" href="{{route('guest.myBooking')}}">
-                                    <i class="bi bi-receipt me-2"></i>Lịch sử đặt phòng</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item tran-3" href="{{route('guest.logout')}}">
-                                    <i class="bi bi-box-arrow-left me-2"></i>Đăng xuất</a>
-                            </div>
-                        </li>
-                    </ul>
+                    <div class=" dropdown">
+                        <a class="tran-3 dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            @php
+                                $avatar = \Illuminate\Support\Facades\Auth::guard('guest')->user()->image;
+                            @endphp
+                            @if($avatar == null)
+                                <img src="{{asset('images/noavt.jpg')}}" alt="guest_avatar" width="24px"
+                                     height="24px" class=" object-fit-cover rounded-circle">
+                            @else
+                                <img src="{{asset('storage/admin/guests/' . $avatar)}}" alt="guest_avatar"
+                                     width="24px"
+                                     height="24px" class=" object-fit-cover rounded-circle">
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropright" data-bs-theme="light">
+                            <a class="dropdown-item tran-3" href="{{route('guest.profile')}}">
+                                <i class="bi bi-person me-2"></i>Hồ sơ của tôi</a>
+                            <a class="dropdown-item tran-3" href="{{route('guest.myBooking')}}">
+                                <i class="bi bi-receipt me-2"></i>Lịch sử đặt phòng</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item tran-3" href="{{route('guest.logout')}}">
+                                <i class="bi bi-box-arrow-left me-2"></i>Đăng xuất</a>
+                        </div>
+                    </div>
                 @endauth
             </div>
         </div>

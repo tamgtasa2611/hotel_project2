@@ -91,7 +91,7 @@
                                                                      class="rounded-3 object-fit-cover shadow-sm border">
                                                             @else
                                                                 <img
-                                                                    src="{{asset('storage/admin/rooms/'.$roomType['roomType']->images[0]->path)}}"
+                                                                    src="{{asset('storage/rooms/'.$roomType['roomType']->images[0]->path)}}"
                                                                     alt="room_img"
                                                                     class="rounded-3 object-fit-cover shadow-sm border">
                                                             @endif
@@ -158,7 +158,7 @@
                                     <div>Thành tiền</div>
                                     <div>{{\App\Helpers\AppHelper::vnd_format($totalPrice)}}</div>
                                     @php
-                                        \Illuminate\Support\Facades\Session::put('totalPrice', $totalPrice)
+                                        \Illuminate\Support\Facades\Session::put('total_price', $totalPrice)
                                     @endphp
                                 </div>
                                 <hr>

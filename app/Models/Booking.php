@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\DB;
 
 class Booking extends Model
 {
@@ -58,5 +59,18 @@ class Booking extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(Admin::class);
+    }
+
+    public static function getBookedRoomTypes(int|string $bookingId)
+    {
+        return DB::table('booked_room_types')->where('booking_id', '=', $bookingId)->get();
+    }
+
+    public static function getRoomTypes(int|string $bookingId)
+    {
+        return DB::table('booked_room_types')
+            ->join('room_types', 'booked_room_types.room_type_id', '=', 'room_types.id')
+            ->where('booking_id', '=', $bookingId)
+            ->get();
     }
 }

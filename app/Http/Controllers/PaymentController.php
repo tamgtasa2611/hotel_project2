@@ -13,7 +13,7 @@ class PaymentController extends Controller
         $carts = [];
         $start = Session::get('start');
         $end = Session::get('end');
-        $totalPrice = Session::get('totalPrice');
+        $totalPrice = Session::get('total_price');
         if (Session::get('cart') != null) {
             $carts = Session::get('cart');
         } else {
@@ -28,6 +28,11 @@ class PaymentController extends Controller
 
     public function paymentProcess(Request $request)
     {
+        //check neu ko co payment
+        if (!Session::exists('cart')) {
+            return Redirect::route('guest.cart');
+        }
+
         Session::put('payment_data', [
             'guest_lname' => $request->guest_lname,
             'guest_fname' => $request->guest_fname,
@@ -36,6 +41,12 @@ class PaymentController extends Controller
             'note' => $request->note,
             'total_price' => $request->total_price
         ]);
+
+        //thanh toan sau
+        if ($request->pay_layer != null) {
+            Session::put('pay_later', true);
+            return Redirect::route('guest.booking');
+        }
 
         return Redirect::route('guest.paymentRedirect');
     }
@@ -48,11 +59,13 @@ class PaymentController extends Controller
     public function vnpay_payment()
     {
         // bank : 	9704198526191432198
+        //check neu ko co payment
+        if (!Session::exists('payment_data')) {
+            return Redirect::route('guest.cart');
+        }
 
-//        if (!Session::get('payment_data')) {
-//            return Redirect::route('guest.cart');
-//        }
-        $price = Session::get('payment_data')['total_price'] * 10;
+        //lay gia (vnd = * 100)
+        $price = Session::get('payment_data')['total_price'] * 100;
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/booking";

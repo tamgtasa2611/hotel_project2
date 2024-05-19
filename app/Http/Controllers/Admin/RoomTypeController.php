@@ -34,6 +34,7 @@ class RoomTypeController extends Controller
     {
         $rooms = Room::whereNull('room_type_id')->get();
         $amenities = Amenity::all();
+
         return view('admin.roomTypes.create', compact('rooms', 'amenities'));
     }
 
@@ -197,6 +198,12 @@ class RoomTypeController extends Controller
         //Xóa bản ghi được chọn
         $roomType->delete();
 
+        //xoa lien ket cac phong
+        $rooms = Room::where('room_type_id', '=', $id)->get();
+        foreach ($rooms as $room) {
+            $room->update(['room_type_id' => null]);
+        }
+        
         //log
         Activity::saveActivity(Auth::guard('admin')->id(), 'đã xóa 1 loại phòng');
         //Quay về danh sách

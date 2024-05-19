@@ -30,9 +30,10 @@
                 </div>
                 <div class="col-12 load-hidden fade-in">
                     <div class="bg-white p-4 shadow-sm border rounded-3 overflow-x-auto">
-                        <div class="my-5 py-5 d-flex flex-column justify-content-center align-items-center text-center">
+                        <div class="my-5 d-flex flex-column justify-content-center align-items-center text-center">
+                            <i class="bi bi-check-circle-fill text-success display-1 mb-4"></i>
                             <h4 class="fw-bold mb-4">Đặt phòng thành công!</h4>
-                            <a href="" class="btn btn-primary tran-3">Xem đặt phòng</a>
+                            <a href="{{route('guest.myBooking')}}" class="btn btn-primary tran-3">Xem đặt phòng</a>
                         </div>
                     </div>
                 </div>

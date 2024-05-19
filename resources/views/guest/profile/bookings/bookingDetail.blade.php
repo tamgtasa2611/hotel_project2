@@ -1,11 +1,11 @@
-<title>My bookings - Skyrim Hotel</title>
+<title>Chi tiết đặt phòng - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="profile-section" class="m-nav">
         <div class="container">
             <div class="row py-5 g-4 justify-content-center position-relative">
                 {{--                MENU--}}
                 <div class="col-12 col-lg-3">
-                    <div class="p-4  shadow-sm  bg-white">
+                    <div class="p-4  shadow-sm border rounded-3 bg-white">
                         @include('partials.guest.guestProfile')
                     </div>
                 </div>
@@ -14,13 +14,13 @@
                 {{--                CONTENT--}}
                 <div class="col-12 col-lg-9 h-100">
                     <div
-                        class="p-4  shadow-sm  bg-white d-flex flex-column justify-content-between h-100">
+                        class=" shadow-sm border rounded-3 bg-white d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
-                                class="d-flex align-items-baseline justify-content-between flex-column flex-md-row mb-4">
+                                class="p-4 d-flex align-items-baseline justify-content-between flex-column flex-md-row">
                                 <h4 class="text-primary fw-bold m-0 d-flex">
                                     @php
-                                        $bookingDate = Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $booking->created_date);
+                                        $bookingDate = Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $booking->date);
 
                                         $bookingDay = $bookingDate->get('day');
                                     if(mb_strlen($bookingDay) == 1) {
@@ -45,263 +45,237 @@
                                     }
                                     @endphp
 
-                                    Booking #{{$booking->id}}
+                                    Đặt phòng #{{$booking->id}}
                                     <div class="ms-3 d-flex align-items-center justify-content-center">
                                         @switch($booking->status)
                                             @case(0)
                                                 <div class="badge bg-danger ">
-                                                    Pending
+                                                    Chờ xác nhận
                                                 </div>
                                                 @break
                                             @case(1)
-                                                <div class="badge bg-warning ">
-                                                    Confirmed
+                                                <div class="badge bg-success ">
+                                                    Đã xác nhận
                                                 </div>
                                                 @break
                                             @case(2)
                                                 <div class="badge bg-info ">
-                                                    Ongoing
+                                                    Đã nhận phòng
                                                 </div>
                                                 @break
                                             @case(3)
                                                 <div class="badge bg-success ">
-                                                    Completed
+                                                    Đã hoàn thành
                                                 </div>
                                                 @break
                                             @case(4)
                                                 <div class="badge bg-danger ">
-                                                    Cancelled
+                                                    Đã hủy
                                                 </div>
                                                 @break
                                             @case(5)
                                                 <div class="badge bg-white ">
-                                                    Refund
+                                                    Hoàn tiền
                                                 </div>
                                                 @break
                                         @endswitch
                                     </div>
                                 </h4>
-                                <p class="m-0">Placed
-                                    on {{$bookingDate->englishDayOfWeek . ', ' . $bookingDay . '/' . $bookingMonth . '/' . $bookingYear . ' at ' . $bookingHour . ':' . $bookingMin}}
+                                <p class="m-0 text-muted">Tạo vào
+                                    ngày {{$bookingDay . '-' . $bookingMonth . '-' . $bookingYear . ' lúc ' . $bookingHour . ':' . $bookingMin}}
                                 </p>
                             </div>
-                            <div class="overflow-x-auto">
-                                <div class="mb-2 fw-bold   -primary  ps-2">
-                                    Guest details<i class="bi bi-person text-warning ms-2"></i>
-                                </div>
-                                <div class="overflow-x-auto mb-2">
-                                    <table class="table table-hover align-middle">
-                                        <tr>
-                                            <td class="w-25">
-                                                Name
-                                            </td>
-                                            <td>
-                                                {{$booking->guest->first_name . ' ' . $booking->guest->last_name}}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="w-25">
-                                                Email
-                                            </td>
-                                            <td>
-                                                {{$booking->guest->email}}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="w-25">
-                                                Phone number
-                                            </td>
-                                            <td>
-                                                {{$booking->guest->phone_number}}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="mb-2 fw-bold   -primary  ps-2">Payment details<i
-                                    class="bi bi-currency-dollar text-success ms-2"></i>
-                            </div>
-                            <div class="mb-2">
-                                <div class="overflow-x-auto">
-                                    @foreach($payments as $payment)
-                                        <table class="table table-hover align-middle">
+                            <hr class="m-0">
+                            <div class="p-4 overflow-x-auto">
+                                <div>
+                                    <div class=" fw-bold mb-2 ">
+                                        Thông tin khách hàng
+                                    </div>
+                                    <div class="overflow-x-auto mb-4">
+                                        <table class="table m-0 table-striped align-middle">
                                             <tr>
                                                 <td class="w-25">
-                                                    ID
+                                                    Họ tên
                                                 </td>
                                                 <td>
-                                                    {{$payment->id}}
+                                                    {{$booking->guest_lname . ' ' . $booking->guest_fname}}
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td class="w-25">
-                                                    Date
+                                                    Email
                                                 </td>
                                                 <td>
-                                                    {{$payment->date}}
+                                                    {{$booking->guest_email}}
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td class="w-25">
-                                                    Amount
+                                                    Số điện thoại
                                                 </td>
                                                 <td>
-                                                    ${{$payment->amount}}
+                                                    {{$booking->guest_phone}}
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td class="w-25">
-                                                    Status
+                                                    Ngày nhận phòng
                                                 </td>
                                                 <td>
-                                                    @switch($payment->status)
-                                                        @case(0)
-                                                            Unpaid
-                                                            @break
-                                                        @case(1)
-                                                            Partial payment
-                                                            @break
-                                                        @case(2)
-                                                            Paid
-                                                            @break
-                                                        @case(3)
-                                                            Refunding
-                                                            @break
-                                                        @case(4)
-                                                            Refunded
-                                                            @break
-                                                    @endswitch
+                                                    {{\Carbon\Carbon::createFromDate($booking->checkin)->format('d-m-Y')}}
+                                                    lúc 14:00
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td class="w-25">
-                                                    Payment Method
+                                                    Ngày trả phòng
                                                 </td>
                                                 <td>
-                                                    {{$payment->method->name}}
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="w-25">
-                                                    Note
-                                                </td>
-                                                <td>
-                                                    {{$payment->note}}
+                                                    {{\Carbon\Carbon::createFromDate($booking->checkout)->format('d-m-Y')}}
+                                                    lúc 12:00
                                                 </td>
                                             </tr>
                                         </table>
-                                    @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            @if($booking->note)
-                                <div class="mb-2 fw-bold"><i class="bi bi-chat-dots me-2"></i>Note</div>
-                                <pre style="white-space: pre-line"
-                                     class="mb-4 p-3 text-bg-white">
-                                    {!! $booking->note !!}
-                                </pre>
-                            @endif
-                            <div
-                                class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
-                                @if($booking->status == 3 || $booking->status == 5)
-                                    @if(!$rate)
-                                        <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
-                                           data-bs-target="#ratingModal">Write a
-                                            review</a>
-                                    @else
-                                        <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
-                                           data-bs-target="#myReviewModal">My review</a>
+                                <div class=" fw-bold  mb-2">Thanh toán
+                                </div>
+                                <div class="">
+                                    <div class="overflow-x-auto">
+                                        @foreach($payments as $payment)
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h4 class="card-title text-success">{{\App\Helpers\AppHelper::vnd_format($payment->amount)}}</h4>
+                                                        <div class="overflow-hidden">
+                                                            @switch($payment->status)
+                                                                @case(0)
+                                                                    <div
+                                                                        class="badge bg-danger ">
+                                                                        Chưa thanh toán
+                                                                    </div>
+                                                                    @break
+                                                                @case(1)
+                                                                    <div
+                                                                        class="badge bg-success ">
+                                                                        Đã thanh toán
+                                                                    </div>
+                                                                    @break
+                                                                @case(2)
+                                                                    <div
+                                                                        class="badge bg-dark ">
+                                                                        Đã hoàn tiền
+                                                                    </div>
+                                                                    @break
+                                                            @endswitch
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h6 class="card-subtitle mb-2 text-muted">Thanh toán
+                                                            #{{$payment->id}} ({{$payment->date}})</h6>
+                                                        <div class="card-subtitle text-muted">
+                                                            {{$payment->method?->name}}
+                                                        </div>
+                                                    </div>
+                                                    <p class="card-text">{{$payment->note}}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div
+                                    class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
+                                    @if($booking->status == 3 || $booking->status == 5)
+                                        @if(!$rate)
+                                            <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
+                                               data-bs-target="#ratingModal">Write a
+                                                review</a>
+                                        @else
+                                            <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
+                                               data-bs-target="#myReviewModal">My review</a>
+                                        @endif
                                     @endif
-                                @endif
-                                <a href="" class="btn btn-dark  ">Refund
-                                    policies</a>
-                                @if($booking->status == 0)
-                                    <a class="btn btn-secondary  tran-3 ms-2"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#exampleModal"
-                                       data-id="1">
-                                        Cancel booking
-                                    </a>
-                                @endif
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="shadow-sm  table mb-4">
-                                    <thead>
-                                    <tr>
-                                        <th>Room booked</th>
-                                        <th class="text-center">Guests</th>
-                                        <th class="text-center">Check-in Date</th>
-                                        <th class="text-center">Check-out Date</th>
-                                        <th class="text-center">Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-column flex-xl-row align-middle align-items-center">
-                                                <div class="bg-image ratio ratio-16x9  shadow-sm">
-                                                    @if(count($booking->room->images) != 0)
-                                                        <img
-                                                            src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"
-                                                            alt="room_image"
-                                                            class="object-fit-cover  shadow-sm">
-                                                    @else
+                                    <a href="" class="btn btn-info">Chính sách hoàn tiền</a>
+                                    @if($booking->status == 0)
+                                        <a class="btn btn-secondary  tran-3 ms-2"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#exampleModal"
+                                           data-id="1">
+                                            Cancel booking
+                                        </a>
+                                    @endif
+                                </div>
+                                <div class="fw-bold mb-2">Thông tin phòng</div>
+                                <div class="overflow-x-auto mb-4">
+                                    <table class="table table-bordered m-0">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">Loại phòng</th>
+                                            <th class="text-center">Giá (1 đêm)</th>
+                                            <th class="text-center">Số lượng</th>
+                                            <th class="text-center">Thành tiền</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($bookedRoomTypes as $roomType)
+                                            <tr>
+                                                <td class="align-middle text-center col-2">
+                                                    <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
+
+                                                        {{--                                                    @if(count($booking->roomTypes->images) != 0)--}}
+                                                        {{--                                                        <img--}}
+                                                        {{--                                                            src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"--}}
+                                                        {{--                                                            alt="room_image"--}}
+                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
+                                                        {{--                                                    @else--}}
+                                                        {{--                                                        <img--}}
+                                                        {{--                                                            src="{{asset('images/noimage.jpg')}}"--}}
+                                                        {{--                                                            alt="room_image"--}}
+                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
+                                                        {{--                                                    @endif--}}
                                                         <img
                                                             src="{{asset('images/noimage.jpg')}}"
                                                             alt="room_image"
-                                                            class="object-fit-cover  shadow-sm">
-                                                    @endif
-                                                </div>
-                                                <div class="mt-3 mt-xl-0 ms-xl-3">
-                                                    <div>Room {{$booking->room->name}}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            {{$booking->guest_num}}
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            @php
-                                                $checkin = \Illuminate\Support\Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
-                                                $checkinMonth =$checkin->get('month');
-                                                if(mb_strlen($checkinMonth) == 1) {
-                                                     $checkinMonth = '0' . $checkinMonth;
-                                                }
-                                            @endphp
-                                            {{$checkin->get('day') . '/' . $checkinMonth . '/' . $checkin->get('year')}}
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            @php
-                                                $checkout = \Illuminate\Support\Carbon::createFromFormat('Y-m-d', $booking->checkout_date);
-                                                $checkoutMonth =$checkout->get('month');
-                                                if(mb_strlen($checkoutMonth) == 1) {
-                                                     $checkoutMonth = '0' . $checkoutMonth;
-                                                }
-//                                            @endphp
-                                            {{$checkout->get('day') . '/' . $checkoutMonth . '/' . $checkout->get('year')}}
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-success">${{$booking->total_price}}</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                                            class="object-fit-cover rounded-3 border shadow-sm">
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-start">
+                                                    {{$roomType->name}}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {{$roomType->number_of_room}}
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    {{\App\Helpers\AppHelper::vnd_format($roomType->price * $roomType->number_of_room)}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @if($booking->note)
+                                    <div class="">
+                                        <div class=" fw-bold mb-2">Ghi chú</div>
+                                        <pre style="white-space: pre-line"
+                                             class="p-3 m-0 bg-light">
+                                        {!! $booking->note !!}
+                                           </pre>
+                                    </div>
+                                @endif
                             </div>
-                            <div>
-
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{route('guest.myBooking')}}" class="text-decoration-none"><i
-                                        class="bi bi-chevron-left fw-bold me-2"></i>Back to my
-                                    bookings</a>
-                                <a href="" class="text-decoration-none"><i
-                                        class="bi bi-download fw-bold me-2"></i>Invoice</a>
+                            <hr class="m-0">
+                            <div class="d-flex justify-content-between p-4">
+                                <a href="{{route('guest.myBooking')}}" class="btn btn-primary"><i
+                                        class="bi bi-chevron-left fw-bold me-2 tran-3"></i>Quay lại</a>
+                                <a href="" class="btn btn-secondary tran-3"><i
+                                        class="bi bi-download fw-bold me-2"></i>Hóa đơn</a>
                             </div>
                         </div>
                     </div>
@@ -312,145 +286,146 @@
         </div>
         {{--                CONTENT--}}
     </section>
-    <!-- Rating Modal -->
-    <div class="modal fade" id="ratingModal" tabindex="-1"
-         aria-labelledby="ratingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" action="{{route('guest.rateBooking', $booking->id)}}">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-primary" id="ratingModalLabel">
-                            <i class="bi bi-pencil-square me-2"></i>Write a review
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <label for="input-1" class="form-label">Rate this room</label>
-                            <div class="my-3">
-                                <div class="star-rating text-center">
-                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="1"></span>
-                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="2"></span>
-                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="3"></span>
-                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="4"></span>
-                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="5"></span>
-                                    <input type="hidden" name="rating" id="rating" class="rating-value" value="5">
-                                </div>
-                                <div id="rate-comment" class="text-warning-emphasis text-center mt-1">
 
-                                </div>
-                            </div>
-                        </div>
-                        <label for="review" class="form-label mt-2">
-                            Review (optional)
-                        </label>
-                        <textarea name="review" id="review" cols="20" rows="6" class="form-control"
-                                  value=""></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary "
-                                data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" class="btn btn-primary ">
-                            Rate
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {{--    <!-- Rating Modal -->--}}
+    {{--    <div class="modal fade" id="ratingModal" tabindex="-1"--}}
+    {{--         aria-labelledby="ratingModalLabel" aria-hidden="true">--}}
+    {{--        <div class="modal-dialog">--}}
+    {{--            <div class="modal-content">--}}
+    {{--                <form method="post" action="{{route('guest.rateBooking', $booking->id)}}">--}}
+    {{--                    @csrf--}}
+    {{--                    @method('POST')--}}
+    {{--                    <div class="modal-header">--}}
+    {{--                        <h1 class="modal-title fs-5 text-primary" id="ratingModalLabel">--}}
+    {{--                            <i class="bi bi-pencil-square me-2"></i>Write a review--}}
+    {{--                        </h1>--}}
+    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
+    {{--                                aria-label="Close"></button>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-body">--}}
+    {{--                        <div>--}}
+    {{--                            <label for="input-1" class="form-label">Rate this room</label>--}}
+    {{--                            <div class="my-3">--}}
+    {{--                                <div class="star-rating text-center">--}}
+    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="1"></span>--}}
+    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="2"></span>--}}
+    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="3"></span>--}}
+    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="4"></span>--}}
+    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="5"></span>--}}
+    {{--                                    <input type="hidden" name="rating" id="rating" class="rating-value" value="5">--}}
+    {{--                                </div>--}}
+    {{--                                <div id="rate-comment" class="text-warning-emphasis text-center mt-1">--}}
 
-    <!--myReviewModal Modal -->
-    <div class="modal fade" id="myReviewModal" tabindex="-1"
-         aria-labelledby="myReviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" action="{{ route('guest.deleteRate', $booking) }}">
-                    @csrf
-                    @method('DELETE')
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-primary" id="myReviewModalLabel">
-                            <i class="bi bi-pencil-square me-2"></i>My review
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <label for="input-1" class="form-label">Rating</label>
-                            <div class="my-3">
-                                <div class="text-center">
-                                    @if($rate?->rating)
-                                        @switch($rate->rating)
-                                            @case(1)
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                @break
-                                            @case(2)
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                @break
-                                            @case(3)
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                @break
-                                            @case(4)
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star text-warning fs-4"></span>
-                                                @break
-                                            @case(5)
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                <span class="bi bi-star-fill text-warning fs-4"></span>
-                                                @break
-                                        @endswitch
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <label for="review" class="form-label mt-2">
-                            Review
-                        </label>
-                        @if($rate?->review)
-                            <div>
-                                  <pre style="white-space: pre-line"
-                                       class="mb-4 p-3 text-bg-white">
-                                    {!! $rate->review !!}
-                                </pre>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary "
-                                data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" class="btn btn-danger ">
-                            Delete this review
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                        <label for="review" class="form-label mt-2">--}}
+    {{--                            Review (optional)--}}
+    {{--                        </label>--}}
+    {{--                        <textarea name="review" id="review" cols="20" rows="6" class="form-control"--}}
+    {{--                                  value=""></textarea>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-footer">--}}
+    {{--                        <button type="button" class="btn btn-secondary "--}}
+    {{--                                data-bs-dismiss="modal">--}}
+    {{--                            Close--}}
+    {{--                        </button>--}}
+    {{--                        <button type="submit" class="btn btn-primary ">--}}
+    {{--                            Rate--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
+    {{--                </form>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+
+    {{--    <!--myReviewModal Modal -->--}}
+    {{--    <div class="modal fade" id="myReviewModal" tabindex="-1"--}}
+    {{--         aria-labelledby="myReviewModalLabel" aria-hidden="true">--}}
+    {{--        <div class="modal-dialog">--}}
+    {{--            <div class="modal-content">--}}
+    {{--                <form method="post" action="{{ route('guest.deleteRate', $booking) }}">--}}
+    {{--                    @csrf--}}
+    {{--                    @method('DELETE')--}}
+    {{--                    <div class="modal-header">--}}
+    {{--                        <h1 class="modal-title fs-5 text-primary" id="myReviewModalLabel">--}}
+    {{--                            <i class="bi bi-pencil-square me-2"></i>My review--}}
+    {{--                        </h1>--}}
+    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
+    {{--                                aria-label="Close"></button>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-body">--}}
+    {{--                        <div>--}}
+    {{--                            <label for="input-1" class="form-label">Rating</label>--}}
+    {{--                            <div class="my-3">--}}
+    {{--                                <div class="text-center">--}}
+    {{--                                    @if($rate?->rating)--}}
+    {{--                                        @switch($rate->rating)--}}
+    {{--                                            @case(1)--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                @break--}}
+    {{--                                            @case(2)--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                @break--}}
+    {{--                                            @case(3)--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                @break--}}
+    {{--                                            @case(4)--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
+    {{--                                                @break--}}
+    {{--                                            @case(5)--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
+    {{--                                                @break--}}
+    {{--                                        @endswitch--}}
+    {{--                                    @endif--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                        <label for="review" class="form-label mt-2">--}}
+    {{--                            Review--}}
+    {{--                        </label>--}}
+    {{--                        @if($rate?->review)--}}
+    {{--                            <div>--}}
+    {{--                                  <pre style="white-space: pre-line"--}}
+    {{--                                       class="mb-4 p-3 text-bg-white">--}}
+    {{--                                    {!! $rate->review !!}--}}
+    {{--                                </pre>--}}
+    {{--                            </div>--}}
+    {{--                        @endif--}}
+    {{--                    </div>--}}
+    {{--                    <div class="modal-footer">--}}
+    {{--                        <button type="button" class="btn btn-secondary "--}}
+    {{--                                data-bs-dismiss="modal">--}}
+    {{--                            Close--}}
+    {{--                        </button>--}}
+    {{--                        <button type="submit" class="btn btn-danger ">--}}
+    {{--                            Delete this review--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
+    {{--                </form>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 
     <!-- Cancel Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1"

@@ -14,59 +14,53 @@
                 {{--                CONTENT--}}
                 <div class="col-10 col-lg-9 h-100">
                     <div
-                        class="p-4 shadow-sm border rounded-3  bg-white d-flex flex-column justify-content-between h-100">
-                        {{--alert edit success--}}
-                        @if (session('success'))
-                            @include('partials.flashMsgSuccess')
-                        @endif
-                        {{--alert edit fail--}}
-                        @if (session('failed'))
-                            @include('partials.flashMsgFail')
-                        @endif
+                        class="shadow-sm border rounded-3  bg-white d-flex flex-column justify-content-between h-100">
                         <div>
                             <div
-                                class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-0 mb-md-4">
-                                <h4 class="text-primary fw-bold mb-4 mb-md-0">
-                                    My bookings</h4>
+                                class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                <h4 class="text-primary fw-bold">
+                                    Lịch sử đặt phòng</h4>
                                 <div class="mb-4 mb-md-0 col-12 col-md-3 col-xl-2">
                                     <form method="GET" class="m-0">
                                         <select name="filter" id="filter" class="form-select"
                                                 onchange="this.form.submit()">
-                                            <option value="all" {{$filter == 'all' ? 'selected' : ''}}>All
+                                            <option value="all" {{$filter == 'all' ? 'selected' : ''}}>Tất cả
                                             </option>
-                                            <option value="pending" {{$filter == 'pending' ? 'selected' : ''}}>Pending
+                                            <option value="pending" {{$filter == 'pending' ? 'selected' : ''}}>Chờ xác
+                                                nhận
                                             </option>
                                             <option value="confirmed" {{$filter == 'confirmed' ? 'selected' : ''}}>
-                                                Confirmed
+                                                Đã xác nhận
                                             </option>
-                                            <option value="ongoing" {{$filter == 'ongoing' ? 'selected' : ''}}>Ongoing
+                                            <option value="ongoing" {{$filter == 'ongoing' ? 'selected' : ''}}>Đã nhận
+                                                phòng
                                             </option>
                                             <option value="completed" {{$filter == 'completed' ? 'selected' : ''}}>
-                                                Completed
+                                                Đã hoàn thành
                                             </option>
                                             <option value="cancelled" {{$filter == 'cancelled' ? 'selected' : ''}}>
-                                                Cancelled
+                                                Đã hủy
                                             </option>
-                                            <option value="refund" {{$filter == 'refund' ? 'selected' : ''}}>Refund
+                                            <option value="refund" {{$filter == 'refund' ? 'selected' : ''}}>Hoàn tiền
                                             </option>
                                         </select>
                                     </form>
                                 </div>
                             </div>
-
-                            <div>
+                            <hr class="m-0">
+                            <div class="p-4 ">
                                 @if (count($bookings) != 0)
                                     <table
-                                        class="shadow-sm tran-3 table table-striped table  align-middle mb-0 w-100"
+                                        class="shadow-sm tran-3 table table-striped table-bordered align-middle mb-0 w-100"
                                         id="dataTable">
                                         <thead>
                                         <tr>
                                             <th class="align-middle text-center">ID</th>
-                                            <th class="align-middle text-center">Created Date</th>
-                                            <th class="align-middle text-center">Room</th>
-                                            <th class="align-middle text-center">Status</th>
-                                            <th class="align-middle text-center">Total</th>
-                                            <th class="align-middle text-center">Actions</th>
+                                            <th class="align-middle text-center">Ngày tạo</th>
+                                            <th class="align-middle text-center">Loại phòng</th>
+                                            <th class="align-middle text-center">Trạng thái</th>
+                                            <th class="align-middle text-center">Tổng cộng</th>
+                                            <th class="align-middle text-center">Thao tác</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -77,7 +71,7 @@
                                                 </td>
                                                 <td class="text-break text-center col">
                                                     @php
-                                                        $bookingDate = Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $booking->created_date);
+                                                        $bookingDate = Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $booking->date);
 
                                                         $bookingDay = $bookingDate->get('day');
                                                     if(mb_strlen($bookingDay) == 1) {
@@ -101,56 +95,66 @@
                                                         $bookingMin = '0' . $bookingMin;
                                                     }
                                                     @endphp
-                                                    {{$bookingDate->monthName . ' ' . $bookingDay . ', ' . $bookingYear . ' at ' . $bookingHour . ':' . $bookingMin}}
+                                                    {{$bookingDay . '-' . $bookingMonth
+                                                     . '-' . $bookingYear . ' (' . $bookingHour . ':' . $bookingMin . ')'}}
                                                 </td>
                                                 <td class="text-break text-center col">
-                                                    {{ $booking->room?->name }}
+                                                    @php
+                                                        $bookedRoomTypes = \App\Models\Booking::getBookedRoomTypes($booking->id);
+                                                    @endphp
+
+                                                    @foreach($bookedRoomTypes as $bookedRoomType)
+                                                        <div>
+                                                            {{\App\Models\RoomType::find($bookedRoomType->room_type_id)?->name}}
+                                                            x {{$bookedRoomType->number_of_room}}
+                                                        </div>
+                                                    @endforeach
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         @switch($booking->status)
                                                             @case(0)
                                                                 <div class="badge bg-danger ">
-                                                                    Pending
+                                                                    Chờ xác nhận
                                                                 </div>
                                                                 @break
                                                             @case(1)
-                                                                <div class="badge bg-warning ">
-                                                                    Confirmed
+                                                                <div class="badge bg-success ">
+                                                                    Đã xác nhận
                                                                 </div>
                                                                 @break
                                                             @case(2)
                                                                 <div class="badge bg-info ">
-                                                                    Ongoing
+                                                                    Đã nhận phòng
                                                                 </div>
                                                                 @break
                                                             @case(3)
                                                                 <div class="badge bg-success ">
-                                                                    Completed
+                                                                    Đã hoàn thành
                                                                 </div>
                                                                 @break
                                                             @case(4)
                                                                 <div class="badge bg-danger ">
-                                                                    Cancelled
+                                                                    Đã hủy
                                                                 </div>
                                                                 @break
                                                             @case(5)
                                                                 <div class="badge bg-white ">
-                                                                    Refund
+                                                                    Hoàn tiền
                                                                 </div>
                                                                 @break
                                                         @endswitch
                                                     </div>
                                                 </td>
                                                 <td class="text-center text-success fw-bold col">
-                                                    ${{ $booking->total_price }}
+                                                    {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
                                                 </td>
                                                 <td>
                                                     <div
                                                         class="d-flex flex-column align-items-center justify-content-center">
-                                                        <a href="{{route('guest.bookingDetail', $booking->id)}}"
-                                                           class="btn btn-sm btn btn-primary ">
-                                                            Details <i class="bi bi-chevron-right fw-bold"></i>
+                                                        <a href="{{route('guest.bookingDetail', $booking)}}"
+                                                           class="btn btn-sm btn btn-outline-primary tran-3">
+                                                            Chi tiết <i class="bi bi-chevron-right fw-bold"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -160,7 +164,7 @@
                                     </table>
                             </div>
                             @else
-                                No results to show!
+                                Không có kết quả nào
                             @endif
                         </div>
                     </div>
@@ -186,7 +190,7 @@
                 topEnd: {
                     search: {
                         text: "",
-                        placeholder: "Type to search...",
+                        placeholder: "Tìm kiếm...",
                     },
                 }
             },
