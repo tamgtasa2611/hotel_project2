@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AmenityController;
-use App\Http\Controllers\Admin\FoodItemController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GuestController as AdminGuestController;
 use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
-use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
+use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -109,21 +109,25 @@ Route::middleware([CheckLoginGuest::class])->controller(ProfileController::class
 //PROFILE
 
 //GUEST---------------------------------------------------------
-
-
+//=======================================================================================================================================================
 //ADMIN---------------------------------------------------------
 Route::prefix('admin')->group(function () {
+    //Check login
     Route::middleware([CheckLoginAdmin::class])->group(function () {
+        //Check level (level 0 - system admin)
         Route::middleware([CheckAdminLevel::class])->group(function () {
             //    DASHBOARD =====================================================================================
-            Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-            Route::prefix('dashboard')->group(function () {
-                Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+            Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+            Route::prefix('/dashboard')->controller(DashboardController::class)->group(function () {
+                Route::get('/', 'index')->name('admin.dashboard');
+                Route::get('/fast-confirm/{booking}', 'fastConfirm')->name('admin.dashboard.fastConfirm');
             });
 
             // ACTIVITIES =====================================================================================
-            Route::get('/activities', [AdminActivityController::class, 'index'])->name('admin.activities');
-            Route::post('/activities', [AdminActivityController::class, 'clear'])->name('admin.activities.clear');
+            Route::controller(ActivityController::class)->group(function () {
+                Route::get('/activities', 'index')->name('admin.activities');
+                Route::post('/activities', 'clear')->name('admin.activities.clear');
+            });
 
             // ROOM TYPES =====================================================================================
             Route::prefix('roomTypes')->controller(AdminRoomTypeController::class)->group(function () {
@@ -200,9 +204,9 @@ Route::prefix('admin')->group(function () {
             Route::post('/create/choose_room', 'storeRoom')->name('admin.bookings.storeRoom');
             Route::get('/create/choose_guest', 'createChooseGuest')->name('admin.bookings.createChooseGuest');
             Route::post('/create/choose_guest', 'storeGuest')->name('admin.bookings.storeGuest');
-            Route::get('/{booking}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
-            Route::put('/{booking}/edit', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
-            Route::delete('/delete', [AdminBookingController::class, 'destroy'])->name('admin.bookings.destroy');
+            Route::get('/{booking}/edit', 'edit')->name('admin.bookings.edit');
+            Route::put('/{booking}/edit', 'update')->name('admin.bookings.update');
+//            Route::delete('/delete', 'destroy')->name('admin.bookings.destroy');
             //room arrangement
             Route::get('/room_arrangement', 'roomArrangement')->name('admin.bookings.roomArrangement');
 

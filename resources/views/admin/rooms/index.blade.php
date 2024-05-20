@@ -59,12 +59,6 @@
                                         <div class="badge bg-success shadow-sm ">Khả dụng</div>
                                         @break
                                     @case(1)
-                                        <div class="badge bg-info shadow-sm ">Đang sử dụng</div>
-                                        @break
-                                    @case(2)
-                                        <div class="badge bg-warning shadow-sm ">Đã đặt trước</div>
-                                        @break
-                                    @case(3)
                                         <div class="badge bg-danger shadow-sm ">Không khả dụng</div>
                                         @break
                                 @endswitch

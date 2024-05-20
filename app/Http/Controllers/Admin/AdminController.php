@@ -20,18 +20,7 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AdminController extends Controller
 {
-    public function dashboard()
-    {
-        $currentId = Auth::guard('admin')->id();
-        $admin = Admin::find($currentId);
-        $bookings = Booking::where('status', '=', 0)->limit(3)->get();
-        $data = [
-            'admin' => $admin,
-            'bookings' => $bookings
-        ];
-        return view('admin.index', $data);
-    }
-
+    //LOGIN ==================================================================
     public function login()
     {
         return view('admin.login');
@@ -79,6 +68,7 @@ class AdminController extends Controller
         return to_route('admin.login')->with('success', 'You have been logged out successfully!');
     }
 
+    // CRUD ====================================================================================
     public function index()
     {
         $admins = Admin::all();

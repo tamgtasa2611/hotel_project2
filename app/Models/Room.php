@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Room extends Model
 {
@@ -94,5 +95,14 @@ class Room extends Model
             ->whereBetween('rooms.price', [$price['from_price'], $price['to_price']])
 //            ->whereIn('room_type_id', $type)
             ->orderBy($order['by'], $order['direction']);
+    }
+
+    public static function getRoomsWithBooking()
+    {
+        return DB::table('booked_rooms')
+            ->rightJoin('rooms', 'rooms.id', '=', 'booked_rooms.room_id')
+            ->leftJoin('bookings', 'bookings.id', '=', 'booked_rooms.booking_id')
+            ->where('rooms.status', '=', 0)
+            ->get();
     }
 }

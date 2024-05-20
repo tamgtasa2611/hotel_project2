@@ -55,9 +55,7 @@
                             <div class="col-8">
                                 <select type="text" id="status" name="status" class="form-select">
                                     <option value="0" {{$room->status == 0 ? 'selected' : ''}}>Khả dụng</option>
-                                    <option value="1" {{$room->status == 1 ? 'selected' : ''}}>Đang sử dụng</option>
-                                    <option value="2" {{$room->status == 2 ? 'selected' : ''}}>Đã đặt trước</option>
-                                    <option value="3" {{$room->status == 3 ? 'selected' : ''}}>Không khả dụng</option>
+                                    <option value="1" {{$room->status == 1 ? 'selected' : ''}}>Không khả dụng</option>
                                 </select>
                             </div>
                         </div>

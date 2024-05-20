@@ -55,9 +55,7 @@
                             <div class="col-8">
                                 <select type="text" id="status" name="status" class="form-select">
                                     <option value="0">Khả dụng</option>
-                                    <option value="1">Đang sử dụng</option>
-                                    <option value="2">Đã đặt trước</option>
-                                    <option value="3">Không khả dụng</option>
+                                    <option value="1">Không khả dụng</option>
                                 </select>
                             </div>
                         </div>

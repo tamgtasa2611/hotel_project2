@@ -73,4 +73,13 @@ class Booking extends Model
             ->where('booking_id', '=', $bookingId)
             ->get();
     }
+
+    public static function getBookedRooms(array $roomIds)
+    {
+        return DB::table('booked_rooms')
+            ->join('rooms', 'booked_rooms.room_id', '=', 'rooms.id')
+            ->join('bookings', 'bookings.id', '=', 'booked_rooms.booking_id')
+            ->whereIn('room_id', $roomIds)
+            ->get();
+    }
 }

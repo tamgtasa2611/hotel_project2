@@ -11,6 +11,8 @@ use App\Models\Guest;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\RoomTypeImage;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -76,9 +78,41 @@ class BookingController extends Controller
 
     public function edit(Booking $booking)
     {
-        return view('admin.bookings.edit', [
-            'booking' => $booking
-        ]);
+        //lay loai phong cua booking
+        $bookedRoomTypes = Booking::getRoomTypes($booking->id);
+        //lay cac phong thuoc loai phong
+        $rooms = Room::where('status', '=', 0)
+            ->whereIn('room_type_id', $bookedRoomTypes->pluck('room_type_id')->toArray())
+            ->get();
+        //lay cac phong da duoc sap xep o booking
+        $bookedRooms = Booking::getBookedRooms($rooms->pluck('id')->toArray());
+
+        if (count($bookedRooms) != 0) {
+            $thisCheckin = Carbon::createFromDate($booking->checkin);
+            $thisCheckout = Carbon::createFromDate($booking->checkout);
+
+            foreach ($bookedRooms as $bookedRoom) {
+                //check neu phong nay da co trong booking khac cung ngay checkin checkout
+                $checkinCheck = Carbon::createFromDate($bookedRoom->checkin);
+                $checkoutCheck = Carbon::createFromDate($bookedRoom->checkout);
+
+                if ($thisCheckin->between($checkinCheck, $checkoutCheck)
+                    or $thisCheckout->between($checkinCheck, $checkoutCheck)) {
+                    if ($booking->id != $bookedRoom->booking_id) {
+                        $bookedRooms->forget($bookedRooms->search($bookedRoom));
+                    }
+                }
+            }
+        }
+
+        $data = [
+            'booking' => $booking,
+            'bookedRoomTypes' => $bookedRoomTypes,
+            'rooms' => $rooms,
+            'bookedRooms' => $bookedRooms
+        ];
+
+        return view('admin.bookings.edit', $data);
     }
 
     public function update(Request $request, Booking $booking)
