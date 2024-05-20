@@ -19,7 +19,8 @@ class Payment extends Model
         'status',
         'guest_id',
         'booking_id',
-        'method_id'
+        'method_id',
+        'admin_id'
     ];
 
     public function booking(): BelongsTo
@@ -35,5 +36,10 @@ class Payment extends Model
     public function method(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

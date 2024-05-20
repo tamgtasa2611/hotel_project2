@@ -41,28 +41,28 @@
                                     <label class="form-label" for="lname">Họ <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="lname" name="guest_lname" class="form-control"
-                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->last_name}}">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->last_name ?? ''}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="fname">Tên <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="fname" name="guest_fname" class="form-control"
-                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->first_name}}">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->first_name ?? ''}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="email">Email <span
                                             class="text-danger">*</span></label>
                                     <input required type="email" id="email" name="guest_email" class="form-control"
-                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->email}}">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->email ?? ''}}">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="phone">Số điện thoại <span
                                             class="text-danger">*</span></label>
                                     <input required type="text" id="phone" name="guest_phone" class="form-control"
-                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->phone_number}}">
+                                           value="{{\Illuminate\Support\Facades\Auth::guard('guest')->user()->phone_number ?? ''}}">
                                 </div>
 
                                 <div class="mb-3">
@@ -73,7 +73,7 @@
                             <hr>
                         </div>
                         <div class="col-12">
-                            <a href="{{route('guest.cart')}}">Quay lại</a>
+                            <a class="btn btn-secondary tran-3" href="{{route('guest.cart')}}">Quay lại</a>
                         </div>
                     </div>
                 </div>

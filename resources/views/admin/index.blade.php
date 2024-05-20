@@ -96,16 +96,49 @@
     <div class="row gx-4">
         <div class="col-12 col-xl-7">
             <div class="my-4 p-4 border bg-white rounded-3 shadow-sm">
-                <div class="mb-4 fw-bold fs-5">Danh sách đặt phòng</div>
+                <div class="mb-4 fw-bold fs-5">Lịch đặt phòng</div>
                 <div id="calendar" class="mb-4"></div>
             </div>
         </div>
         <div class="col-12 col-xl-5">
             <div class="mt-0 mt-xl-4 p-4 bg-white border rounded-3 shadow-sm overflow-x-auto">
-                aaa
-            </div>
-            <div class="my-4 p-4 bg-white border rounded-3 shadow-sm">
-                abc
+                <div class="fw-bold fs-5">Đặt phòng chưa xác nhận</div>
+                <div>
+                    @if(count($bookings) != 0)
+                        @foreach($bookings as $booking)
+                            <div class="card mt-4">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">{{\App\Helpers\AppHelper::vnd_format($booking->total_price)}}
+                                            <span class="fst-italic text-muted fs-6">#{{$booking->id}}</span></h4>
+                                        <a href="" class="btn btn-success tran-3">
+                                            <i class="bi bi-check-circle  me-2"></i>Duyệt
+                                        </a>
+                                    </div>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{\Carbon\Carbon::createFromDate($booking->date)->format('d-m-Y H:i:s')}}</h6>
+                                    <p class="card-text">
+                                    <div>
+                                        Khách: {{$booking->guest_lname . ' ' . $booking->guest_fname}}
+                                    </div>
+                                    <div>
+                                        Ngày nhận
+                                        phòng: {{\Carbon\Carbon::createFromDate($booking->checkin)->format('d-m-Y')}}
+                                    </div>
+                                    <div>
+                                        Ngày trả
+                                        phòng: {{\Carbon\Carbon::createFromDate($booking->checkout)->format('d-m-Y')}}
+                                    </div>
+                                    </p>
+                                    <a href="" class="card-link">Chi tiết</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="mt-4">
+                            Không có đặt phòng mới nào cần duyệt...
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

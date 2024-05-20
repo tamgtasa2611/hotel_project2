@@ -15,7 +15,7 @@
         <div
             class="p-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="text-primary mb-3 mb-md-0">
-                <i class="bi bi-table me-2"></i>Danh sách đặt phòng
+                <i class="bi bi-list-stars me-2"></i>Danh sách đặt phòng
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
@@ -33,18 +33,18 @@
         <div class="p-4 bg-white  text-muted">
             @if (count($bookings) != 0)
                 <table
-                    class="tran-3 table table-striped table align-middle mb-0 bg-white  w-100"
+                    class="tran-3 table table-bordered align-middle mb-0 w-100"
                     id="dataTable">
                     <thead>
                     <tr>
                         <th class="align-middle text-center">ID</th>
-                        <th class="align-middle text-center">Created Date</th>
-                        <th class="align-middle text-center">Status</th>
-                        <th class="align-middle text-center">Guest</th>
-                        <th class="align-middle text-center">Room</th>
-                        <th class="align-middle text-center">Check-in</th>
-                        <th class="align-middle text-center">Check-out</th>
-                        <th class="align-middle text-center">Actions</th>
+                        <th class="align-middle text-center">Ngày tạo</th>
+                        <th class="align-middle text-center">Trạng thái</th>
+                        <th class="align-middle text-center">Khách hàng</th>
+                        <th class="align-middle text-center">Ngày nhận phòng</th>
+                        <th class="align-middle text-center">Ngày trả phòng</th>
+                        <th class="align-middle text-center">Tổng cộng</th>
+                        <th class="align-middle text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,59 +54,63 @@
                                 {{ $booking->id }}
                             </td>
                             <td class="text-break text-center">
-                                {{ $booking->created_date }}
+                                {{ $booking->date }}
                             </td>
                             <td class="text-center">
                                 @switch($booking->status)
                                     @case(0)
                                         <div class="badge bg-danger ">
-                                            Pending
+                                            Chờ xác nhận
                                         </div>
                                         @break
                                     @case(1)
-                                        <div class="badge bg-warning ">
-                                            Confirmed
+                                        <div class="badge bg-success ">
+                                            Đã xác nhận
                                         </div>
                                         @break
                                     @case(2)
                                         <div class="badge bg-info ">
-                                            Ongoing
+                                            Đã nhận phòng
                                         </div>
                                         @break
                                     @case(3)
                                         <div class="badge bg-success ">
-                                            Completed
+                                            Đã hoàn thành
                                         </div>
                                         @break
                                     @case(4)
                                         <div class="badge bg-danger ">
-                                            Cancelled
+                                            Đã hủy
                                         </div>
                                         @break
                                     @case(5)
                                         <div class="badge bg-white ">
-                                            Refund
+                                            Hoàn tiền
                                         </div>
                                         @break
                                 @endswitch
                             </td>
                             <td class="text-center">
-                                {{ $booking->guest?->first_name . ' ' . $booking->guest->last_name }}
+                                {{ $booking->guest_lname . ' ' . $booking->guest_fname }}
                             </td>
                             <td class="text-center">
-                                {{ $booking->room?->name }}
+                                {{ $booking->checkin}}
                             </td>
                             <td class="text-center">
-                                {{ $booking->checkin_date }}
+                                {{ $booking->checkout }}
                             </td>
                             <td class="text-center">
-                                {{ $booking->checkout_date }}
+                                {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
                             </td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('admin.bookings.show', $booking) }}"
+                                       class="btn btn-outline-dark tran-3 me-3">
+                                        <i class="bi bi-info-circle me-2"></i>Chi tiết
+                                    </a>
                                     <a href="{{ route('admin.bookings.edit', $booking) }}"
-                                       class="btn btn-outline-primary ">
-                                        View<i class="bi bi-chevron-right ms-2"></i>
+                                       class="btn btn-outline-primary tran-3">
+                                        <i class="bi bi-pencil-square me-2"></i>Sửa
                                     </a>
                                 </div>
                             </td>

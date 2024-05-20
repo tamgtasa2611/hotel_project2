@@ -107,67 +107,70 @@
                             {{--                    ROOMS DIV--}}
                             <div id="rooms_div" class="row row-cols-1 row-cols-md-2 g-4">
                                 @foreach($roomTypes as $roomType)
-                                    @if($roomType->rooms_count != 0)
-                                        <div class="col-12 col-md-6  ">
-                                            <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
-                                                <div class="col-12 p-0 overflow-hidden -4 position-relative">
-                                                    <div class="overflow-hidden ratio ratio-16x9">
-                                                        <a href="{{route('guest.rooms.show', $roomType)}}">
-                                                            @if(count($roomType->images) != 0)
-                                                                <img
-                                                                    src="{{asset('storage/rooms/'.$roomType->images[0]->path)}}"
-                                                                    alt="room_img"
-                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
-                                                            @else
-                                                                <img src="{{asset('images/noimage.jpg')}}"
-                                                                     alt="room_img"
-                                                                     class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
-                                                            @endif
+                                    <div class="col-12 col-md-6  ">
+                                        <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
+                                            <div class="col-12 p-0 overflow-hidden -4 position-relative">
+                                                <div class="overflow-hidden ratio ratio-16x9">
+                                                    <a href="{{route('guest.rooms.show', $roomType)}}">
+                                                        @if(count($roomType->images) != 0)
+                                                            <img
+                                                                src="{{asset('storage/rooms/'.$roomType->images[0]->path)}}"
+                                                                alt="room_img"
+                                                                class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
+                                                        @else
+                                                            <img src="{{asset('images/noimage.jpg')}}"
+                                                                 alt="room_img"
+                                                                 class="object-fit-cover shadow-sm tran-3 img-fluid rounded-top-3"/>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
+                                                <div
+                                                    class="col-12 p-0 mb-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <a href="{{route('guest.rooms.show', $roomType)}}"
+                                                           class="text-decoration-none">
+                                                            <h4 class="fw-bold m-0">
+                                                                {{$roomType->name}}
+                                                            </h4>
                                                         </a>
+                                                        <div class="text-success">
+                                                            {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
+                                                            <span class="fs-7 text-secondary">/đêm</span>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div
-                                                    class="col-12 row m-0 p-0 p-4 justify-content-between flex-column">
+                                                    class="col-12 p-0">
                                                     <div
-                                                        class="col-12 p-0 mb-3">
-                                                        <div class="d-flex justify-content-between">
-                                                            <a href="{{route('guest.rooms.show', $roomType)}}"
-                                                               class="text-decoration-none">
-                                                                <h4 class="fw-bold m-0">
-                                                                    {{$roomType->name}}
-                                                                </h4>
-                                                            </a>
-                                                            <div class="text-success">
-                                                                {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
-                                                                <span class="fs-7 text-secondary">/đêm</span>
+                                                        class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                @php
+                                                                    $roomCount = 0;
+                                                                    foreach ($roomType->rooms as $room) {
+                                                                        if($room->status == 0) {
+                                                                            $roomCount++;
+                                                                        }
+                                                                    }
+                                                                @endphp
+                                                                Còn {{$roomCount}} phòng trống
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div
-                                                        class="col-12 p-0">
-                                                        <div
-                                                            class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
-                                                            <div class="d-flex">
-                                                                <div>
-                                                                    @php
-                                                                        $roomCount = 0;
-                                                                        foreach ($roomType->rooms as $room) {
-                                                                            if($room->status == 0) {
-                                                                                $roomCount++;
-                                                                            }
-                                                                        }
-                                                                    @endphp
-                                                                    Còn {{$roomCount}} phòng trống
-                                                                </div>
-                                                            </div>
-                                                            <div>
+                                                        <div>
+                                                            @if($roomType->rooms_count != 0)
                                                                 <form
                                                                     action="{{route('guest.cart.addToCart')}}"
-                                                                    method="post">
+                                                                    method="post" class="addToCartForm">
                                                                     @csrf
                                                                     @method('POST')
+                                                                    <input type="hidden" name="_token" id="token" hidden
+                                                                           class="visually-hidden"
+                                                                           value="{{ csrf_token() }}">
                                                                     <input type="hidden" hidden class="visually-hidden"
                                                                            name="id"
                                                                            value="{{$roomType->id}}">
@@ -178,22 +181,22 @@
                                                                            name="checkout"
                                                                            value="{{$search['checkout']}}">
                                                                     <button type="submit"
-                                                                            class="btn btn-primary tran-3">
+                                                                            class="btn btn-primary tran-3 add-to-cart-btn">
                                                                         Đặt ngay
                                                                     </button>
                                                                 </form>
-                                                            </div>
+                                                            @else
+                                                                <button type="button" disabled
+                                                                        class="btn btn-secondary disabled tran-3">
+                                                                    Hết phòng
+                                                                </button>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="d-flex justify-content-center align-items-center w-100"
-                                             style="height: 200px">
-                                            Không có phòng nào trống trong khoảng thời gian này
-                                        </div>
-                                    @endif
+                                    </div>
                                 @endforeach
                             </div>
                             {{--                   END ROOMS DIV--}}
@@ -212,6 +215,27 @@
             </div>
             {{--            end rooms--}}
         </div>
+
+        {{--        add to cart success modal--}}
+        <div class="modal fade tran-3" id="ajax-modal">
+            <div class="modal-dialog w-fit" role="document">
+                <div class="modal-content w-fit overflow-hidden">
+                    <div class="rounded-top-3 overflow-hidden text-center">
+                        <h5 class="modal-title text-success mt-5 mb-4 text-center">
+                            <i class="bi bi-check-circle display-1"></i>
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center px-5" id="success-ajax">
+                    </div>
+                    <div class="p-4 pt-0 text-center d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary tran-3 me-2 w-50" data-bs-dismiss="modal">Đóng
+                        </button>
+                        <a href="{{route('guest.cart')}}" class="btn btn-primary tran-3 w-50">Tới giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--        end--}}
     </section>
     {{--     ==========   MCDATEPICKER FORM INPUT ==========--}}
     <script>
@@ -309,4 +333,40 @@
         }
     </script>
     {{--     ==========   END MCDATEPICKER FORM INPUT ==========--}}
+
+    {{--    JQUERY AJAX ADD TO CART--}}
+    <script>
+        var btns = $(".add-to-cart-btn");
+        // Attach a submit handler to the form
+        $(".addToCartForm").submit(function (event) {
+
+            // Stop form from submitting normally
+            event.preventDefault();
+
+            // Get some values from elements on the page:
+            var $form = $(this),
+                token = $form.find("input[name='_token']").val(),
+                roomTypeId = $form.find("input[name='id']").val(),
+                checkin = $form.find("input[name='checkin']").val(),
+                checkout = $form.find("input[name='checkout']").val(),
+                url = $form.attr("action");
+            btns.removeAttr("type").attr("type", "button");
+
+            // Send the data using post
+            var posting = $.post(url, {
+                _token: token,
+                id: roomTypeId,
+                checkin: checkin,
+                checkout: checkout
+            });
+
+            // Put the results in a div
+            posting.done(function (data) {
+                $("#success-ajax").empty().append("Thêm phòng vào giỏ hàng thành công!");
+                $("#ajax-modal").modal('show');
+                btns.removeAttr("type").attr("type", "submit");
+            });
+        });
+    </script>
+    {{--    END --}}
 </x-guestLayout>

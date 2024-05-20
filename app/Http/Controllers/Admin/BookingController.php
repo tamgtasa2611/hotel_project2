@@ -21,9 +21,14 @@ class BookingController extends Controller
 {
     public function index(Request $request)
     {
-        $bookings = Booking::with('room')->with('guest')->with('admin')->get();
+        $bookings = Booking::all();
 
         return view('admin.bookings.index', compact('bookings'));
+    }
+
+    public function show(Booking $booking)
+    {
+        return view('admin.bookings.show', compact('booking'));
     }
 
     public function create()
@@ -102,5 +107,10 @@ class BookingController extends Controller
             ->setPaper('a4', 'portrait');
 
         return $pdf->stream();
+    }
+
+    public function roomArrangement()
+    {
+
     }
 }

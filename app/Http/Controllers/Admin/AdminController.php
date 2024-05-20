@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Activity;
 use App\Models\Admin;
+use App\Models\Booking;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Traits\Date;
 use Illuminate\Http\Request;
@@ -23,8 +24,10 @@ class AdminController extends Controller
     {
         $currentId = Auth::guard('admin')->id();
         $admin = Admin::find($currentId);
+        $bookings = Booking::where('status', '=', 0)->limit(3)->get();
         $data = [
-            'admin' => $admin
+            'admin' => $admin,
+            'bookings' => $bookings
         ];
         return view('admin.index', $data);
     }

@@ -72,6 +72,7 @@ class BookingController extends Controller
                 'guest_id' => null,
                 'booking_id' => $lastBookingId,
                 'method_id' => 2, //online
+                'admin_id' => 1 //system admin
             ];
             Payment::create($depositPaymentData);
 
@@ -85,6 +86,7 @@ class BookingController extends Controller
                 'guest_id' => null,
                 'booking_id' => $lastBookingId,
                 'method_id' => null, //chua co phuong thuc (vi thanh toan sau khi tra phong)
+                'admin_id' => null
             ];
             Payment::create($remainPaymentData);
 
@@ -112,6 +114,7 @@ class BookingController extends Controller
                 'guest_id' => $bookingData['guest_id'],
                 'booking_id' => $lastBookingId,
                 'method_id' => 2,
+                'admin_id' => null
             ];
             Payment::create($depositPaymentData);
 
@@ -125,6 +128,7 @@ class BookingController extends Controller
                 'guest_id' => $bookingData['guest_id'],
                 'booking_id' => $lastBookingId,
                 'method_id' => null, //chua co phuong thuc (vi thanh toan sau khi tra phong)
+                'admin_id' => null
             ];
             Payment::create($remainPaymentData);
 

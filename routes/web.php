@@ -193,6 +193,7 @@ Route::prefix('admin')->group(function () {
         // BOOKINGs
         Route::prefix('bookings')->controller(AdminBookingController::class)->group(function () {
             Route::get('/', 'index')->name('admin.bookings');
+            Route::get('/{booking}', 'show')->name('admin.bookings.show');
             Route::get('/create', 'create')->name('admin.bookings.create');
             Route::post('/create', 'storeDate')->name('admin.bookings.storeDate');
             Route::get('/create/choose_room', 'createChooseRoom')->name('admin.bookings.createChooseRoom');
@@ -202,6 +203,9 @@ Route::prefix('admin')->group(function () {
             Route::get('/{booking}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
             Route::put('/{booking}/edit', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
             Route::delete('/delete', [AdminBookingController::class, 'destroy'])->name('admin.bookings.destroy');
+            //room arrangement
+            Route::get('/room_arrangement', 'roomArrangement')->name('admin.bookings.roomArrangement');
+
             // PDF
             Route::get('downloadPdf', [AdminBookingController::class, 'downloadPDF'])->name('admin.bookings.downloadPdf');
         });

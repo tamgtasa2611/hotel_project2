@@ -35,4 +35,9 @@ class Admin extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
