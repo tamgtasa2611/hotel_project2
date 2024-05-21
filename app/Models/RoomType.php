@@ -49,8 +49,26 @@ class RoomType extends Model
         return $this->belongsToMany(Booking::class)->withPivot('number_of_room');
     }
 
-    public static function checkAndGetRoomTypes()
+    public static function checkAndGetRoomTypes(int $sort)
     {
-        return RoomType::with('rooms')->withCount('rooms')->paginate(4)->withQueryString();
+        $orderBy = 'id';
+        $direction = 'ASC';
+        switch ($sort) {
+            case 0:
+                $direction = 'DESC';
+                break;
+            case 1:
+                $orderBy = 'price';
+                break;
+            case 2:
+                $orderBy = 'price';
+                $direction = 'DESC';
+                break;
+        }
+        return RoomType::with('rooms')
+            ->withCount('rooms')
+            ->orderBy($orderBy, $direction)
+            ->paginate(4)
+            ->withQueryString();
     }
 }

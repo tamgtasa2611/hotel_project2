@@ -3,7 +3,7 @@
     <section id="login-section" class="m-nav">
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
-             load-hidden fade-in position-relative">
+             load-hidden fade-in fade-bottom position-relative">
                 {{--                    form--}}
                 <form method="post" action="{{route('guest.forgotPassword.resetPasswordProcess')}}"
                       enctype="multipart/form-data"

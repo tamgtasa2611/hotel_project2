@@ -90,15 +90,23 @@ class CartController extends Controller
         return Redirect::back()->with('success', 'Thêm phòng vào giỏ thành công!');
     }
 
-    public function updateQuantity(int|string $roomTypeId, Request $request)
+    public function updateQuantity(Request $request)
     {
-        if (Session::exists('cart')) {
-            $cart = Session::get('cart');
-            $cart[$roomTypeId]['quantity'] = $request->quantity;
-            Session::put('cart', $cart);
+        if ($request->quantity < 1) {
+            return Redirect::back()->with('failed', 'Số lượng phòng ít nhất là 1!');
         }
 
-        return Redirect::back();
+        if (Session::exists('cart')) {
+            $cart = Session::get('cart');
+            if (isset($cart[$request->room_type_id])) {
+                $cart[$request->room_type_id]['quantity'] = $request->quantity;
+                Session::put('cart', $cart);
+                return Redirect::back()->with('success', 'Sửa số lượng phòng thành công!');
+            }
+            return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');
+        }
+
+        return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');
     }
 
     public function deleteFromCart(Request $request)

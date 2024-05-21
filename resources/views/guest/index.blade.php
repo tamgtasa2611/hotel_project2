@@ -23,41 +23,35 @@
                                         dạng,
                                         phong phú.</p>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <form method="post" action="{{route('guest.rooms.search')}}"
                                           class="bg-white p-4 m-0 shadow-sm rounded-3 border" autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row g-4">
-                                            <div class="col-12 col-lg-3">
+                                            <div class="col-12 col-lg-4">
                                                 <!-- checkin input -->
                                                 <div>
                                                     <input id="checkin" name="checkin" type="text"
-                                                           placeholder="Check in" required
-                                                           class="my-input form-control">
+                                                           placeholder="Ngày nhận phòng" required
+                                                           class="my-input form-control"
+                                                    >
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-3">
+                                            <div class="col-12 col-lg-4">
                                                 <!-- checkout input -->
                                                 <div>
                                                     <input id="checkout" name="checkout" type="text"
-                                                           placeholder="Check out" required
-                                                           class="my-input form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-lg-3">
-                                                <!-- guest num input -->
-                                                <div>
-                                                    <input type="number" id="guest_num" name="guest_num"
+                                                           placeholder="Ngày trả phòng" required
                                                            class="my-input form-control"
-                                                           required step="1" min="1" max="10" placeholder="Guests"/>
+                                                    >
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-3">
+                                            <div class="col-12 col-lg-4">
                                                 <!-- Submit button -->
                                                 <button type="submit" id="bookBtn"
                                                         class="btn btn-primary tran-3 w-100  h-100">
-                                                    Search
+                                                    <i class="bi bi-search me-2"></i>Tìm phòng
                                                 </button>
                                             </div>
                                         </div>
@@ -213,33 +207,42 @@
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
             theme: {
-                theme_color: '#137ea7',
+                theme_color: '#2fa4e7',
 
             },
+            showCalendarDisplay: false,
             bodyType: 'inline',
+            firstWeekday: 1,
             dateFormat: 'dd-mm-yyyy',
             closeOnBlur: true,
             selectedDate: new Date(),
             minDate: new Date(),
             maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3)),
             jumpToMinMax: true,
-            customCancelBTN: 'Cancel',
+            customCancelBTN: 'Quay lại',
+            customOkBTN: 'Chọn',
+            customClearBTN: 'Xóa',
             autoClose: true
         });
 
         const datePicker2 = MCDatepicker.create({
             el: '#checkout',
             theme: {
-                theme_color: '#137ea7',
+                theme_color: '#2fa4e7',
 
             },
+            showCalendarDisplay: false,
             bodyType: 'inline',
+            firstWeekday: 1,
             dateFormat: 'dd-mm-yyyy',
             closeOnBlur: true,
+            selectedDate: new Date(new Date().setDate(new Date().getDate() + 1)),
             minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
             maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3)),
             jumpToMinMax: true,
-            customCancelBTN: 'Cancel',
+            customCancelBTN: 'Quay lại',
+            customOkBTN: 'Chọn',
+            customClearBTN: 'Xóa',
             autoClose: true
         });
 

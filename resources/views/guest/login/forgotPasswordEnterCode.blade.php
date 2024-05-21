@@ -3,7 +3,7 @@
     <section id="login-section" class="m-nav">
         <div class="container mh-screen">
             <div class="w-100 h-100 d-flex align-items-center justify-content-center
-             load-hidden fade-in position-relative">
+             load-hidden fade-in fade-bottom position-relative">
                 {{--               login form--}}
                 <form method="post" action="{{route('guest.forgotPassword.checkCode')}}" enctype="multipart/form-data"
                       class="bg-white p-5 border rounded-3 shadow-sm  col-md-8 col-lg-6 col-xl-4">

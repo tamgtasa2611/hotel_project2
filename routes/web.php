@@ -58,7 +58,7 @@ Route::prefix('/rooms')->controller(RoomTypeController::class)->group(function (
 Route::prefix('/cart')->controller(CartController::class)->group(function () {
     Route::get('/', 'cart')->name('guest.cart');
     Route::post('/addToCart', 'addToCart')->name('guest.cart.addToCart');
-    Route::post('/{roomTypeId}', 'updateQuantity')->name('guest.cart.updateQuantity');
+    Route::post('/update', 'updateQuantity')->name('guest.cart.updateQuantity');
     Route::get('/delete/{id}', 'deleteFromCart')->name('guest.cart.delete');
     Route::get('/deleteAll', 'deleteAllFromCart')->name('guest.cart.deleteAll');
 });

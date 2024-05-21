@@ -1,8 +1,8 @@
 <title>Giỏ hàng - Skyrim Hotel</title>
 <x-guestLayout>
-    <section id="" class="m-nav">
+    <section class="m-nav">
         <div class="container">
-            <div class="row h-auto py-4 g-4">
+            <div class="row h-auto py-4 g-4" id="cart-page">
                 <div class="col-12">
                     <div class="">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 @if($carts != null)
-                    <div class="col-12 col-lg-8 load-hidden fade-in">
+                    <div class="col-12 col-lg-8 tran-3">
                         <div class="bg-white p-4 shadow-sm border rounded-3 overflow-x-auto">
                             <div class="mb-4 text-center">
                                 <h3 class="fw-bold mb-4">Giỏ hàng</h3>
@@ -115,13 +115,19 @@
                                         </td>
                                         <td class="align-middle text-center col-2">
                                             <div>
-                                                <form action="{{route('guest.cart.updateQuantity', $roomTypeId)}}"
-                                                      method="POST">
+                                                <form action="{{route('guest.cart.updateQuantity')}}"
+                                                      method="POST" class="quantity_form">
                                                     @method('POST')
                                                     @csrf
+                                                    <input type="hidden" name="_token"
+                                                           hidden
+                                                           class="visually-hidden"
+                                                           value="{{ csrf_token() }}">
+                                                    <input type="hidden" class="visually-hidden" hidden
+                                                           name="room_type_id" value="{{$roomTypeId}}">
                                                     <input type="number" value="{{$roomType['quantity']}}" min="1"
                                                            name="quantity"
-                                                           class="form-control"
+                                                           class="form-control quantity-input"
                                                            onchange="this.form.submit()">
                                                 </form>
                                             </div>
@@ -145,7 +151,7 @@
 
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4 load-hidden fade-in">
+                    <div class="col-12 col-lg-4 tran-3">
                         <div class="p-4 bg-white border shadow-sm rounded-3">
                             <div>
                                 <h4 class="m-0 text-primary fw-bold">Thông tin đặt phòng</h4>
@@ -168,7 +174,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="col-12 load-hidden fade-in">
+                    <div class="col-12 tran-3">
                         <div
                             class="p-4 bg-white border shadow-sm rounded-3 d-flex flex-column justify-content-center align-items-center">
                             <h4 class="fw-bold mb-4 mt-5">Giỏ hàng của bạn trống</h4>
@@ -179,4 +185,39 @@
             </div>
         </div>
     </section>
+    <script>
+        let updateQuantity = function () {
+            // $(".quantity-input").each(function (index, element) {
+            //     $(element).on("input", function (event) {
+            //         console.log($(element).parent())
+            //         var $form = $(element).parent(),
+            //             token = $form.find("input[name='_token']").val(),
+            //             roomTypeId = $form.find("input[name='room_type_id']").val(),
+            //             quantity = $form.find("input[name='quantity']").val(),
+            //             url = 'http://127.0.0.1:8000/cart/update';
+            //
+            //         console.log(token, roomTypeId, quantity, url)
+            //
+            //         var posting = $.post(url, {
+            //             _token: token,
+            //             room_type_id: roomTypeId,
+            //             quantity: quantity
+            //         });
+            //
+            //         posting.done(function (data) {
+            //             alert(data)
+            //         });
+            //     });
+            // })
+        };
+        updateQuantity();
+
+        //tu dong reload
+        setInterval(function () {
+            $("#cart-page").load(" #cart-page > *");
+
+            //update quantity
+            updateQuantity();
+        }, 1000);
+    </script>
 </x-guestLayout>

@@ -34,7 +34,7 @@ class RoomTypeController extends Controller
         $sort = $request->sort ?? 0;
 
         //check and get room
-        $roomTypes = RoomType::checkAndGetRoomTypes();
+        $roomTypes = RoomType::checkAndGetRoomTypes($sort);
         $availableRoomList = [];
         foreach ($roomTypes as $roomType) {
             foreach ($roomType->rooms as $room) {
