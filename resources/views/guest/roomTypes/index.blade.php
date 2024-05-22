@@ -208,12 +208,11 @@
                                             </div>
                                         @endforeach
                                     </div>
+                                    <div class="mt-4 ">
+                                        {{$roomTypes->onEachSide(2)->links()}}
+                                    </div>
                                 </div>
                                 {{--                   END ROOMS DIV--}}
-
-                                <div class="mt-4 ">
-                                    {{$roomTypes->onEachSide(2)->links()}}
-                                </div>
                             </div>
                         @else
                             <div>
@@ -341,7 +340,7 @@
 
         function dateErrorAction() {
             dateError.removeClass("d-none");
-            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Ngày nhận phòng phải sau ngày trả phòng!');
             bookBtn.removeAttr("type").attr("type", "button");
         }
 
@@ -389,6 +388,35 @@
             });
 
             var wave = $("#wave");
+
+            //pagination
+            $('.pagination a').unbind('click').on('click', function (e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                var sort = $("#sortForm").find(":selected").val(),
+                    checkin = $("#searchForm").find("input[name='checkin']").val(),
+                    checkout = $("#searchForm").find("input[name='checkout']").val(),
+                    url = `http://127.0.0.1:8000/rooms?page=` + page;
+
+                var getting = $.get(url, {
+                    page: page,
+                    sort: sort,
+                    checkin: checkin,
+                    checkout: checkout
+                });
+
+                $("#rooms_div").empty();
+                wave.removeClass(" d-none ");
+
+                getting.done(function (data) {
+                    setTimeout(function () {
+                        wave.addClass(" d-none ")
+                        $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
+                        searchBtn.removeAttr("type").attr("type", "submit");
+                        addToCartAjax();
+                    }, 200)
+                });
+            });
         }
 
         addToCartAjax();
