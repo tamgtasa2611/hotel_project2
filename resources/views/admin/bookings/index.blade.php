@@ -83,21 +83,16 @@
                                             Đã hủy
                                         </div>
                                         @break
-                                    @case(5)
-                                        <div class="badge bg-white ">
-                                            Hoàn tiền
-                                        </div>
-                                        @break
                                 @endswitch
                             </td>
                             <td class="text-center">
                                 {{ $booking->guest_lname . ' ' . $booking->guest_fname }}
                             </td>
                             <td class="text-center">
-                                {{ $booking->checkin}}
+                                {{ $booking->checkin}} <span class="text-muted ">(14:00)</span>
                             </td>
                             <td class="text-center">
-                                {{ $booking->checkout }}
+                                {{ $booking->checkout }} <span class="text-muted ">(12:00)</span>
                             </td>
                             <td class="text-center">
                                 {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
@@ -105,7 +100,7 @@
                             <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.bookings.show', $booking) }}"
-                                       class="btn btn-outline-secondary tran-3 me-3">
+                                       class="btn btn-outline-dark tran-3 me-3">
                                         <i class="bi bi-info-circle me-2"></i>Chi tiết
                                     </a>
                                     <a href="{{ route('admin.bookings.edit', $booking) }}"
@@ -130,7 +125,7 @@
             columnDefs: [
                 {
                     orderable: false,
-                    targets: 5,
+                    targets: 7,
                 },
             ],
             pagingType: "full_numbers",

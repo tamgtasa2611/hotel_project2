@@ -243,7 +243,7 @@
                                                             class="object-fit-cover rounded-3 border shadow-sm">
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-start">
+                                                <td class="align-middle text-center">
                                                     {{$roomType->name}}
                                                 </td>
                                                 <td class="align-middle text-center">

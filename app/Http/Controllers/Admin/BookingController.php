@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Activity;
 use App\Models\Booking;
 use App\Models\Guest;
+use App\Models\Payment;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\RoomTypeImage;
@@ -105,11 +106,14 @@ class BookingController extends Controller
             }
         }
 
+        $payments = Payment::where('booking_id', '=', $booking->id)->get();
+
         $data = [
             'booking' => $booking,
             'bookedRoomTypes' => $bookedRoomTypes,
             'rooms' => $rooms,
-            'bookedRooms' => $bookedRooms
+            'bookedRooms' => $bookedRooms,
+            'payments' => $payments,
         ];
 
         return view('admin.bookings.edit', $data);
@@ -117,7 +121,11 @@ class BookingController extends Controller
 
     public function update(Request $request, Booking $booking)
     {
-//        $validated = $request->validated();
+        $currentStatus = $booking->status;
+        $newStatus = $request->status ?? $booking->status;
+        if ($newStatus <= $currentStatus) {
+            return Redirect::back()->with('failed', 'Lỗi! Trạng thái đặt phòng đã bị thay đổi rồi...');
+        }
 
         if (true) {
             $booking->update([
@@ -126,9 +134,9 @@ class BookingController extends Controller
 
             //log
             Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
-            return to_route('admin.bookings')->with('success', 'Booking status updated successfully!');
+            return Redirect::back()->with('success', 'Cập nhật đặt phòng thành công');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');
         }
     }
 

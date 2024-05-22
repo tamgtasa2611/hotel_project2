@@ -27,7 +27,7 @@ class HomeController extends Controller
         $contact_message = $request->get('message');
         Mail::to($email)->send((new Contact($name, $email, $contact_message)));
 
-        return back()->with('success', 'Message sent successfully!');
+        return back()->with('success', 'Gửi tin nhắn thành công!');
     }
 
     public function about()

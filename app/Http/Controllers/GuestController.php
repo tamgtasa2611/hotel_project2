@@ -41,11 +41,11 @@ class GuestController extends Controller
         $guestEmail = $credentials['email'];
         $guestAccount = Guest::where('email', '=', $guestEmail)->first();
         if ($guestAccount == null) {
-            return Redirect::back()->with('failed', 'Email does not exist!');
+            return Redirect::back()->with('failed', 'Email không tồn tại!');
         }
         $accountStatus = $guestAccount->status;
         if ($accountStatus == 0) {
-            return to_route('guest.login')->with('failed', 'This account has been locked!')->withInput($request->input());
+            return to_route('guest.login')->with('failed', 'Tài khoản này đã bị khóa!')->withInput($request->input());
         }
         //check account trong db
         if (Auth::guard('guest')->attempt($credentials)) {
@@ -62,21 +62,21 @@ class GuestController extends Controller
 
             //tu register sang
             if (Str::contains($url, 'signup')) {
-                return to_route('guest.home')->with('success', 'Sign in successfully!');
+                return to_route('guest.home')->with('success', 'Đăng nhập thành công!');
             } //tu rooms/id sang
             else if (Str::contains($url, 'rooms/')) {
                 $roomId = Str::replace('/rooms/', '', $url);
-                return to_route('guest.rooms.show', $roomId)->with('success', 'Sign in successfully!');
+                return to_route('guest.rooms.show', $roomId)->with('success', 'Đăng nhập thành công!');
             }
-            return to_route('guest.profile')->with('success', 'Sign in successfully!');
+            return to_route('guest.profile')->with('success', 'Đăng nhập thành công!');
         }
-        return to_route('guest.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
+        return to_route('guest.login')->with('failed', 'Sai email hoặc mật khẩu!')->withInput($request->input());
     }
 
     public function logout(Request $request)
     {
         if (!Auth::guard('guest')->check()) {
-            return Redirect::route('guest.home')->with('success', 'You have already been logged out!');
+            return Redirect::route('guest.home')->with('success', 'Bạn đã đăng xuất!');
         }
         Auth::guard('guest')->logout();
         session()->forget('guest');
@@ -102,9 +102,9 @@ class GuestController extends Controller
             $data = Arr::add($data, 'status', 1);
             Guest::create($data);
 
-            return to_route('guest.login')->with('success', 'Account created successfully!');
+            return to_route('guest.login')->with('success', 'Đăng ký thành công!');
         } else {
-            return to_route('guest.register')->with('failed', 'Something went wrong!');
+            return to_route('guest.register')->with('failed', 'Vui lòng thử lại sau!');
         }
     }
 
@@ -131,7 +131,7 @@ class GuestController extends Controller
         Mail::to($guest)->send((new ForgotPassword($resetCode)));
         session()->put('resetEmail', $resetEmail);
         session()->put('resetCode', $resetCode);
-        return Redirect::route('guest.forgotPassword.enterCode')->with('Please check your email for the code!');
+        return Redirect::route('guest.forgotPassword.enterCode')->with('Vui lòng kiểm tra mã đặt lại được gửi về email của bạn!');
     }
 
     public function forgotPasswordEnterCode()
@@ -179,6 +179,6 @@ class GuestController extends Controller
             'password' => $hashedNewPassword
         ]);
 
-        return Redirect::route('guest.login')->with('success', 'Reset password successfully!');
+        return Redirect::route('guest.login')->with('success', 'Đổi mật khẩu thành công!');
     }
 }

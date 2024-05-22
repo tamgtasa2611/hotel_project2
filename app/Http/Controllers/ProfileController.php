@@ -94,21 +94,21 @@ class ProfileController extends Controller
 
         //kiem tra bo trong
         if ($oldPassword == "" || $newPassword == "" || $confirmNewPassword == "") {
-            return back()->with('failed', 'Please enter all the fields!');
+            return back()->with('failed', 'Vui lòng nhập đầy đủ các trường!');
         }
 
         if (!Hash::check($oldPassword, $currentPassword)) {
-            return back()->with('failed', 'Wrong old password!');
+            return back()->with('failed', 'Mật khẩu cũ không đúng!');
         }
 
         if ($confirmNewPassword != $newPassword) {
-            return back()->with('failed', 'Confirm new password is not the same as new password!');
+            return back()->with('failed', 'Mật khẩu nhập lại không khớp!');
         }
 
         $hashedNewPassword = Hash::make($newPassword);
         $guest->update(['password', $hashedNewPassword]);
 
-        return back()->with('success', 'Change password successfully!');
+        return back()->with('success', 'Đổi mật khẩu thành công!');
     }
 
     //booking ================================================================
@@ -173,7 +173,7 @@ class ProfileController extends Controller
             'note' => $note
         ]);
 
-        return Redirect::back()->with('success', 'Cancel booking successfully!');
+        return Redirect::back()->with('success', 'Hủy đặt phòng thành công!');
     }
 
 //    public function deleteAccount(Request $request)

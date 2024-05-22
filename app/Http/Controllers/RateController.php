@@ -18,13 +18,13 @@ class RateController extends Controller
             'booking_id' => $booking->id
         ];
         Rating::create($data);
-        return Redirect::back()->with('success', 'Thank you for voting!');
+        return Redirect::back()->with('success', 'Cảm ơn bạn đã đánh giá!');
     }
 
     public function deleteRate(Booking $booking)
     {
         $rating = Rating::where('booking_id', '=', $booking->id)->first();
         $rating->delete();
-        return Redirect::back()->with('success', 'Delete rating successfully!');
+        return Redirect::back()->with('success', 'Xóa đánh giá thành công!');
     }
 }

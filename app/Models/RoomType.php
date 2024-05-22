@@ -66,7 +66,6 @@ class RoomType extends Model
                 break;
         }
         return RoomType::with('rooms')
-            ->withCount('rooms')
             ->orderBy($orderBy, $direction)
             ->paginate(4)
             ->withQueryString();

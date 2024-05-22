@@ -4,7 +4,7 @@
         {{--            heading--}}
         <div class="mb-5 d-flex flex-column justify-content-center align-items-center "
              style="height: 40dvh;background-image: url('{{asset('images/room_list.jpg')}}'); background-position: center; background-size: cover">
-            <h6 class="display-6 fw-bold text-white m-0">
+            <h6 class="display-6 fw-bold text-white m-0 text-shadow">
                 Danh sách phòng
             </h6>
         </div>
@@ -75,11 +75,15 @@
                             {{--                right side--}}
                             <div class="">
                                 <div
-                                    class="w-100 d-flex flex-column flex-md-row justify-content-end align-items-center mb-4">
+                                    class="w-100 d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+                                    <div class="text-muted">
+                                        Nhận phòng lúc 14:00 - Trả phòng lúc
+                                        12:00
+                                    </div>
                                     {{--                        SORTING--}}
                                     <div class="d-flex align-items-center justify-content-between col-12 col-md-auto">
                                         <div class="text-primary fw-bold me-3">
-                                            Sắp xếp theo <i class="ms-2 bi bi-arrow-down-up"></i>
+                                            <i class="me-2 bi bi-arrow-down-up"></i>Sắp xếp theo
                                         </div>
                                         <form class="m-0 flex-fill" id="sortForm" method="get">
                                             <select class="form-select auto-submit" name="sort" id="sort"
@@ -95,7 +99,23 @@
                                     {{--                        SORTING--}}
                                 </div>
                                 {{--                    ROOMS DIV--}}
-                                <div id="rooms_div" class="tran-3">
+
+                                <div
+                                    class="center w-100 h-50 d-none d-flex justify-content-center align-items-center tran-3"
+                                    id="wave">
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                </div>
+
+                                <div id="rooms_div" class="tran-3 load-animation">
                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                         @foreach($roomTypes as $roomType)
                                             <div class="col-12 col-md-6  ">
@@ -141,19 +161,20 @@
                                                                 class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
                                                                 <div class="d-flex">
                                                                     <div>
-                                                                        @php
-                                                                            $roomCount = 0;
-                                                                            foreach ($roomType->rooms as $room) {
-                                                                                if($room->status == 0) {
-                                                                                    $roomCount++;
+                                                                        Còn @php
+                                                                            $countRoom = 0;
+                                                                                foreach ($rooms as $room) {
+                                                                                 if($room->room_type_id == $roomType->id) {
+                                                                                    $countRoom++;
+                                                                                    }
                                                                                 }
-                                                                            }
+                                                                                echo $countRoom;
                                                                         @endphp
-                                                                        Còn {{$roomCount}} phòng trống
+                                                                        phòng trống
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    @if($roomType->rooms_count != 0)
+                                                                    @if($countRoom != 0)
                                                                         <form
                                                                             action="{{route('guest.cart.addToCart')}}"
                                                                             method="post" class="addToCartForm">
@@ -366,13 +387,15 @@
                     btns.removeAttr("type").attr("type", "submit");
                 });
             });
+
+            var wave = $("#wave");
         }
 
         addToCartAjax();
         {{--    END ADD TO CART--}}
 
         {{--    JQUERY SEARCH ROOM--}}
-
+        var wave = $("#wave");
         var searchBtn = $("#searchBtn");
         $("#searchForm").submit(function (event) {
             event.preventDefault();
@@ -389,12 +412,17 @@
                 checkout: checkout
             });
 
+            $("#rooms_div").empty();
+            wave.removeClass(" d-none ");
+
             // Put the results in a div
             getting.done(function (data) {
-                $("#rooms_div").empty();
-                $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
-                searchBtn.removeAttr("type").attr("type", "submit");
-                addToCartAjax();
+                setTimeout(function () {
+                    wave.addClass(" d-none ")
+                    $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
+                    searchBtn.removeAttr("type").attr("type", "submit");
+                    addToCartAjax();
+                }, 1000)
             });
         });
         {{--    END SEARCH--}}
@@ -413,10 +441,16 @@
                 checkout: checkout
             });
 
+            $("#rooms_div").empty();
+            wave.removeClass(" d-none ");
+
             getting.done(function (data) {
-                $("#rooms_div").empty();
-                $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
-                addToCartAjax();
+                setTimeout(function () {
+                    wave.addClass(" d-none ")
+                    $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
+                    searchBtn.removeAttr("type").attr("type", "submit");
+                    addToCartAjax();
+                }, 500)
             });
         });
     </script>

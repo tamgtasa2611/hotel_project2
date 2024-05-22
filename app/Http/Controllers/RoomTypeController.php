@@ -7,6 +7,7 @@ use App\Models\Rating;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\RoomTypeImage;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -16,13 +17,15 @@ class RoomTypeController extends Controller
 {
     public function index(Request $request)
     {
+        //FORM
         $search = [
             'checkin' => $request->checkin ?? Carbon::now()->format('d-m-Y'),
             'checkout' => $request->checkout ?? Carbon::now()->addDay()->format('d-m-Y')
         ];
 
-        $checkInFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkin'])));
-        $checkOutFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkout'])));
+//        carbon
+        $checkInFormat = Carbon::createFromDate($search['checkin'])->setTime(14, 00);
+        $checkOutFormat = Carbon::createFromDate($search['checkout'])->setTime(12, 00);
 
         //        check in < check out
         if ($search['checkin'] != null || $search['checkout'] != null) {
@@ -31,21 +34,39 @@ class RoomTypeController extends Controller
             }
         }
 
+        //sap xep
         $sort = $request->sort ?? 0;
 
         //check and get room
         $roomTypes = RoomType::checkAndGetRoomTypes($sort);
-        $availableRoomList = [];
-        foreach ($roomTypes as $roomType) {
-            foreach ($roomType->rooms as $room) {
-                if ($room->status == 0) {
-                    $availableRoomList = Arr::add($availableRoomList, $roomType->id, $room);
+        //get room with booking info
+        $bookedRooms = Room::getRoomsInBooking();
+        //get room KHA DUNG
+        $rooms = Room::where('status', '=', 0)->get();
+        $unavailableRoomList = [];
+
+        foreach ($bookedRooms as $bookedRoom) {
+            $dates = [
+                $bookedRoom->room_id,
+                Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00),
+                Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00)
+            ];
+
+            if ($checkInFormat->between($dates[1], $dates[2]) || $checkOutFormat->between($dates[1], $dates[2])) {
+                if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                    //phong khong kha dung
+                    $unavailableRoomList[] = $bookedRoom->room_id;
                 }
             }
         }
 
-        $checkInFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkin'] ?? now())));
-        $checkOutFormat = Carbon::createFromFormat('Y-m-d', date('Y-m-d', strtotime($search['checkout'] ?? Carbon::now()->addDay())));
+
+        //filter xoa cac phong ko kha dung
+        $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
+            if (!in_array($room->id, $unavailableRoomList)) {
+                return $room;
+            }
+        })->all();
 
         $data = [
             'search' => $search,
@@ -53,7 +74,7 @@ class RoomTypeController extends Controller
             'checkout' => $checkOutFormat,
             'sort' => $sort,
             'roomTypes' => $roomTypes,
-            'rooms' => $availableRoomList
+            'rooms' => $rooms
         ];
         return view('guest.roomTypes.index', $data);
     }
