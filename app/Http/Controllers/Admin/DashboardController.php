@@ -28,8 +28,8 @@ class DashboardController extends Controller
         $now = Carbon::createFromDate(Carbon::now())->startOfDay();
         foreach ($rooms as $room) {
             if ($room->checkin != null && $room->checkout != null) {
-                $checkin = Carbon::createFromDate($room->checkin);
-                $checkout = Carbon::createFromDate($room->checkout);
+                $checkin = Carbon::createFromDate($room->checkin)->setTime(14, 00);
+                $checkout = Carbon::createFromDate($room->checkout)->setTime(12, 00);
 
                 //neu ngay hom nay phong do thuoc ve 1 booking nao do
                 if ($now->between($checkin, $checkout)) {
@@ -56,9 +56,27 @@ class DashboardController extends Controller
             }
         }
 
-//        dd($resources);
+        $events = [];
+        $bookedRooms = Booking::getAllBookedRooms();
+        foreach ($bookedRooms as $bookedRoom) {
+            $color = 'rgba(' . rand(40, 210) . ' , ' . rand(40, 210) . ', ' . rand(40, 210) . ', 0.9)';
 
-        $event = [];
+            foreach ($events as $event) {
+                if ($bookedRoom->booking_id == $event['id']) {
+                    $color = $event['color'];
+                }
+            }
+
+            $events[] = [
+                'id' => $bookedRoom->booking_id,
+                'resourceId' => $bookedRoom->room_id,
+                'title' => $bookedRoom->guest_lname . ' ' . $bookedRoom->guest_fname . ' (#' . $bookedRoom->booking_id . ')',
+                'start' => Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00),
+                'end' => Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00),
+                'color' => $color
+            ];
+        }
+
         $data = [
             'admin' => $admin,
             'bookings' => $bookings,
@@ -68,7 +86,7 @@ class DashboardController extends Controller
             'unavailRooms' => $unavailRooms,
             'roomTypes' => $roomTypes,
             'resources' => $resources,
-            'events' => $event
+            'events' => $events
         ];
         return view('admin.index', $data);
     }

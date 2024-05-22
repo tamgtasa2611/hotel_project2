@@ -66,29 +66,33 @@
         </div>
     </div>
 
-    <div class="row gx-4">
-        <div class="col-3">
-            <div class="bg-white border shadow-sm rounded-3 p-4">
-                <div class="fw-bold text-success">Phòng trống</div>
-                <div class="fs-5 text-center p-4  pb-0">10</div>
+    <div class="row g-4">
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-primary-subtle text-primary-emphasis px-4 py-3">Phòng khả dụng</div>
+                <div class="fs-4 text-center p-4 fw-bold text-primary-emphasis">{{count($availRooms)}}
+                    <i class="bi bi-house-check"></i></div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="bg-white border shadow-sm rounded-3 p-4">
-                <div class="fw-bold text-info">Phòng đang hoạt động</div>
-                <div class="fs-5 text-center p-4 pb-0">10</div>
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-success-subtle text-success-emphasis px-4 py-3">Phòng đang còn trống</div>
+                <div class="fs-4 text-center p-4 fw-bold text-success-emphasis">{{count($emptyRooms)}}
+                    <i class="bi bi-house-up"></i></div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="bg-white border shadow-sm rounded-3 p-4">
-                <div class="fw-bold text-warning">Phòng đã đặt trước</div>
-                <div class="fs-5 text-center p-4  pb-0">10</div>
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-warning-subtle text-warning-emphasis px-4 py-3">Phòng đang sử dụng</div>
+                <div class="fs-4 text-center p-4 fw-bold text-warning-emphasis">{{count($activeRooms)}}
+                    <i class="bi bi-house-lock"></i></div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="bg-white border shadow-sm rounded-3 p-4">
-                <div class="fw-bold text-danger">Phòng không khả dụng</div>
-                <div class="fs-5 text-center p-4  pb-0">10</div>
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-danger-subtle text-danger-emphasis px-4 py-3">Phòng không khả dụng</div>
+                <div class="fs-4 text-center p-4 fw-bold text-danger-emphasis">{{count($unavailRooms)}}
+                    <i class="bi bi-house-dash"></i></div>
             </div>
         </div>
     </div>
