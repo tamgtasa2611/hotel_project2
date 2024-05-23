@@ -60,72 +60,29 @@
                 </button>
             </h2>
             <div id="booking" class="accordion-collapse collapse tran-3
-            @if(request()->route()->getPrefix() == 'admin/bookings')
+            @if(request()->route()->getPrefix() == 'admin/bookings' OR  request()->route()->getPrefix() == 'admin/payments')
             show
             @endif
             " aria-labelledby="bookingHeader"
                  data-bs-parent="#booking" style="">
                 <div class="accordion-body fs-7">
-                    <a href="{{ route('admin.bookings.create') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-plus-circle me-2 ms-3"></i>Thêm đặt phòng
-                    </a>
-
                     <a href="{{ route('admin.bookings') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 pe-0 d-flex align-items-center
        {{ request()->route()->getPrefix() == 'admin/bookings' ? 'active' : '' }}"
                        aria-current="true">
                         <i class="bi bi-list-stars me-2 ms-3"></i>Danh sách đặt phòng
                     </a>
-                </div>
-            </div>
-        </div>
-
-        {{--  ==================  PAYMENT ================================================================================================================--}}
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="paymentHeader">
-                <button
-                    class="accordion-button collapsed list-group-item list-group-item-action tran-3 border-0 px-5 py-3 pe-4
-                    d-flex align-items-center tran-3"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#payment" aria-expanded="false" aria-controls="payment">
-                    <div class="d-flex justify-content-between w-100 align-items-center">
-                        <div>
-                            <i class="bi bi-currency-dollar me-2"></i>Thanh toán
-                        </div>
-                        <div>
-                            <i class="bi bi-chevron-down"></i>
-
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div id="payment" class="accordion-collapse collapse tran-3
-            @if(request()->route()->getPrefix() == 'admin/payments')
-            show
-            @endif
-            " aria-labelledby="paymentHeader"
-                 data-bs-parent="#payment" style="">
-                <div class="accordion-body fs-7">
-                    <a href="{{ route('admin.roomTypes') }}"
-                       class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
-{{ request()->route()->getPrefix() == 'admin/roomTypes' ? 'active' : '' }}"
-                       aria-current="true">
-                        <i class="bi bi-plus-circle me-2 ms-3"></i>Thêm thanh toán
-                    </a>
 
                     <a href="{{ route('admin.payments') }}"
                        class="list-group-item list-group-item-action tran-3  border-0 px-5 pe-0 py-3 d-flex align-items-center
        {{ request()->route()->getPrefix() == 'admin/payments' ? 'active' : '' }}"
                        aria-current="true">
-                        <i class="bi bi-currency-dollar me-2 ms-3"></i>Danh sách thanh toán
+                        <i class="bi bi-currency-dollar me-2 ms-3"></i>Thanh toán
                     </a>
-
                 </div>
             </div>
         </div>
+
 
         {{--  ==================  GUEST ================================================================================================================--}}
 

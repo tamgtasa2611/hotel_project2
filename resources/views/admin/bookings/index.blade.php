@@ -101,7 +101,7 @@
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a href="{{ route('admin.bookings.show', $booking) }}"
                                        class="btn btn-outline-dark tran-3 me-3">
-                                        <i class="bi bi-info-circle me-2"></i>Chi tiết
+                                        <i class="bi bi-eye me-2"></i>Xem
                                     </a>
                                     <a href="{{ route('admin.bookings.edit', $booking) }}"
                                        class="btn btn-outline-primary tran-3">

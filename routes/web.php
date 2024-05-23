@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RoomTypeController as AdminRoomTypeController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
@@ -215,8 +216,13 @@ Route::prefix('admin')->group(function () {
         });
 
         // PAYMENTS
-        Route::prefix('payments')->group(function () {
-            Route::get('/', [AdminController::class, 'bookings'])->name('admin.payments');
+        Route::prefix('payments')->controller(AdminPaymentController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.payments');
+            Route::get('/{payment}/show', 'show')->name('admin.payments.show');
+            Route::get('/create', 'create')->name('admin.payments.create');
+            Route::post('/create', 'store')->name('admin.payments.store');
+            Route::get('/{payment}/edit', 'edit')->name('admin.payments.edit');
+            Route::put('/{payment}/edit', 'update')->name('admin.payments.update');
         });
 
         // GUESTS =====================================================================================
