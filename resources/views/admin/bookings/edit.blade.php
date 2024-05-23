@@ -13,7 +13,7 @@
             <div class="text-primary">
                 <i class="bi bi-pencil-square me-2"></i>Sửa đặt phòng
             </div>
-            <form method="post" action="{{ route('admin.bookings.update', $booking) }}"
+            <form method="post" action="{{ route('admin.bookings.update', $booking) }}" autocomplete="off"
                   class="m-0">
                 @csrf
                 @method('PUT')
@@ -46,6 +46,7 @@
         <hr class="m-0">
         {{-- FORM  --}}
         <form method="post" action="{{ route('admin.bookings.update', $booking) }}" enctype="multipart/form-data"
+              autocomplete="off"
               class="m-0">
             @csrf
             @method('PUT')
@@ -285,31 +286,59 @@
                     </div>
 
                     <div class="row g-4">
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 col-lg-8">
                             <div>
                                 <div class="mb-2 fw-bold">Sắp xếp phòng</div>
                                 <div class="bg-light rounded-3 d-flex">
                                     @foreach($bookedRoomTypes as $bookedRoomType)
+                                        @php
+                                            $countCurrentRoom = 0;
+                                                if($groupCount->has($bookedRoomType->id)) {
+                                                    $countCurrentRoom = $groupCount->get($bookedRoomType->id);
+                                                }
+                                        @endphp
                                         <div class="px-3 py-2 type-id" id="type{{$bookedRoomType->id}}">
                                             <div>
                                                 {{$bookedRoomType->name}}
-                                                (<span class="type-quantity"
-                                                       name="type-quantity"
-                                                       value="{{$bookedRoomType->number_of_room}}">{{$bookedRoomType->number_of_room}}</span>
-                                                phòng)
+                                                @if($bookedRoomType->number_of_room - $countCurrentRoom != 0)
+                                                    <div class="d-inline">
+                                                        (Cần thêm <span class="type-quantity"
+                                                                        name="type-quantity"
+                                                                        value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
+                                                        phòng)
+                                                    </div>
+                                                @else
+                                                    <div class="d-none">
+                                                        (Cần thêm <span class="type-quantity"
+                                                                        name="type-quantity"
+                                                                        value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
+                                                        phòng)
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div>
-                                                @foreach($rooms as $room)
-                                                    @if($room->room_type_id == $bookedRoomType->id)
-                                                        <div class=" form-check">
-                                                            <label
-                                                                for="room{{$room->id}}"
-                                                                class="form-check-label">{{$room->name}}</label>
-                                                            <input type="checkbox" id="room{{$room->id}}"
-                                                                   class="form-check-input" name="room_id">
-                                                        </div>
+                                            <div class="">
+                                                @foreach($currentBookedRooms as $currentBookedRoom)
+                                                    @if($bookedRoomType->id == $currentBookedRoom->room_type_id)
+                                                        <li class="fw-bold">
+                                                            {{$currentBookedRoom->name}}<i
+                                                                class="bi bi-check ms-2 text-success"></i>
+                                                        </li>
                                                     @endif
                                                 @endforeach
+                                                @if($bookedRoomType->number_of_room > $countCurrentRoom)
+                                                    @foreach($rooms as $room)
+                                                        @if($room->room_type_id == $bookedRoomType->id)
+                                                            <div class=" form-check">
+                                                                <label
+                                                                    for="room{{$room->id}}"
+                                                                    class="form-check-label">{{$room->name}}</label>
+                                                                <input type="checkbox" id="room{{$room->id}}"
+                                                                       class="form-check-input" name="room_id[]"
+                                                                       value="{{$room->id}}">
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
@@ -317,7 +346,7 @@
                             </div>
                         </div>
                         @if($booking->note)
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-4">
                                 <div>
                                     <div class=" fw-bold mb-2">Ghi chú</div>
                                     <pre style="white-space: pre-line"
@@ -338,17 +367,17 @@
                             <i class="bi bi-arrow-left me-2"></i>Quay lại
                         </a>
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary  tran-3">
+                        <button type="submit" class="btn btn-primary  tran-3" name="status"
+                                value="{{$booking->status}}">
                             <i class="bi bi-floppy me-2"></i>Cập nhật
                         </button>
                     </div>
                     @if($booking->status < 2)
                         <div>
-                            <button type="submit"
-                                    class="btn btn-danger tran-3">
-                                <input type="hidden" hidden name="status" class="visually-hidden" value="4">
+                            <a href="{{route('admin.bookings.cancel', $booking)}}"
+                               class="btn btn-danger tran-3">
                                 <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
-                            </button>
+                            </a>
                         </div>
                     @endif
                 </div>
@@ -358,29 +387,56 @@
 
     <script>
         $(document).ready(function () {
-            let roomTypes = $(".type-id")
-            for (let i = 0; i < roomTypes.length; i++) {
-                let inputs = $(roomTypes[i]).find('input');
-                inputs.on("click", function () {
-                    let parentDiv = $(this).parent().parent().parent()
-                    let quantity = parentDiv.find('span').text()
+            setInterval(function () {
+                let roomTypes = $(".type-id")
+                for (let i = 0; i < roomTypes.length; i++) {
+                    let inputs = $(roomTypes[i]).find('input');
+                    inputs.on("click", function () {
+                        let parentDiv = $(this).parent().parent().parent()
+                        let quantity = parentDiv.find('span').text()
 
-                    var count = inputs.filter(':checked').length
-                    if (count < quantity) {  //only quantity of room type
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).removeAttr("disabled");
-                            // re-enable all checkboxes
+                        var count = inputs.filter(':checked').length
+                        if (count < quantity) {  //only quantity of room type
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).removeAttr("disabled");
+                                // re-enable all checkboxes
+                            }
+                        } else {
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).prop("disabled", "disabled");
+                                // re-enable all checkboxes
+                                inputs.filter(':checked').removeAttr("disabled");
+                                // only enable the elements that are already checked.
+                            }
                         }
-                    } else {
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).prop("disabled", "disabled");
-                            // re-enable all checkboxes
-                            inputs.filter(':checked').removeAttr("disabled");
-                            // only enable the elements that are already checked.
+                    })
+                }
+            }, 100)
+            $("input[type='checkbox']").on("click", function () {
+                let roomTypes = $(".type-id")
+                for (let i = 0; i < roomTypes.length; i++) {
+                    let inputs = $(roomTypes[i]).find('input');
+                    inputs.on("click", function () {
+                        let parentDiv = $(this).parent().parent().parent()
+                        let quantity = parentDiv.find('span').text()
+
+                        var count = inputs.filter(':checked').length
+                        if (count < quantity) {  //only quantity of room type
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).removeAttr("disabled");
+                                // re-enable all checkboxes
+                            }
+                        } else {
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).prop("disabled", "disabled");
+                                // re-enable all checkboxes
+                                inputs.filter(':checked').removeAttr("disabled");
+                                // only enable the elements that are already checked.
+                            }
                         }
-                    }
-                })
-            }
+                    })
+                }
+            })
         });
     </script>
 </x-adminLayout>

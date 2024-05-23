@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class BookingController extends Controller
@@ -115,11 +116,21 @@ class BookingController extends Controller
 
         $payments = Payment::where('booking_id', '=', $booking->id)->get();
 
+        $currentBookedRooms = Booking::getBookedRoomsByBookingId($booking->id);
+        $grouped = $currentBookedRooms->groupBy(function ($item, $key) {
+            return $item->room_type_id;
+        });
+
+        $groupCount = $grouped->map(function ($item, $key) {
+            return collect($item)->count();
+        });
+//        dd($currentBookedRooms, $groupCount);
         $data = [
             'booking' => $booking,
             'bookedRoomTypes' => $bookedRoomTypes,
             'rooms' => $rooms,
-//            'bookedRooms' => $bookedRooms,
+            'currentBookedRooms' => $currentBookedRooms,
+            'groupCount' => $groupCount,
             'payments' => $payments,
         ];
 
@@ -129,22 +140,46 @@ class BookingController extends Controller
     public function update(Request $request, Booking $booking)
     {
         $currentStatus = $booking->status;
-        $newStatus = $request->status ?? $booking->status;
-        if ($newStatus <= $currentStatus) {
+        $newStatus = $request->status;
+
+        if ($newStatus < $currentStatus) {
             return Redirect::back()->with('failed', 'Lỗi! Trạng thái đặt phòng đã bị thay đổi rồi...');
-        }
-
-        if (true) {
-            $booking->update([
-                'status' => $request->status
-            ]);
-
+        } else if ($newStatus > $currentStatus) {
+            if ($newStatus != $currentStatus) {
+                $booking->update([
+                    'status' => $request->status
+                ]);
+            }
             //log
             Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
-            return Redirect::back()->with('success', 'Cập nhật đặt phòng thành công');
+            return Redirect::back()->with('success', 'Cập nhật trạng thái đặt phòng thành công');
         } else {
-            return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');
+            $roomIds = $request->room_id;
+            if ($roomIds != null) {
+                foreach ($roomIds as $roomId) {
+                    DB::table('booked_rooms')->insert([
+                        'room_id' => $roomId,
+                        'booking_id' => $booking->id,
+                        'status' => 0
+                    ]);
+                }
+            }
+            //log
+            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
+            return Redirect::back()->with('success', 'Sắp xếp phòng thành công');
         }
+    }
+
+    public function cancelBooking(Booking $booking)
+    {
+        if ($booking->status >= 2) {
+            return Redirect::back()->with('failed', 'Xảy ra lỗi!');
+        }
+
+        $booking->update(['status' => 4]);
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'cancel a booking');
+        return Redirect::back()->with('success', 'Hủy đặt phòng thành công');
     }
 
     // PDF

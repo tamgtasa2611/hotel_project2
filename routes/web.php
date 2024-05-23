@@ -207,6 +207,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/create/choose_guest', 'storeGuest')->name('admin.bookings.storeGuest');
             Route::get('/{booking}/edit', 'edit')->name('admin.bookings.edit');
             Route::put('/{booking}/edit', 'update')->name('admin.bookings.update');
+            Route::get('/{booking}/cancel', 'cancelBooking')->name('admin.bookings.cancel');
 //            Route::delete('/delete', 'destroy')->name('admin.bookings.destroy');
             //room arrangement
             Route::get('/room_arrangement', 'roomArrangement')->name('admin.bookings.roomArrangement');
