@@ -79,32 +79,39 @@ class BookingController extends Controller
 
     public function edit(Booking $booking)
     {
+        $checkInFormat = Carbon::createFromDate($booking->checkin)->setTime(14, 00);
+        $checkOutFormat = Carbon::createFromDate($booking->checkout)->setTime(12, 00);
+
         //lay loai phong cua booking
         $bookedRoomTypes = Booking::getRoomTypes($booking->id);
-        //lay cac phong thuoc loai phong
-        $rooms = Room::where('status', '=', 0)
-            ->whereIn('room_type_id', $bookedRoomTypes->pluck('room_type_id')->toArray())
-            ->get();
-        //lay cac phong da duoc sap xep o booking
-        $bookedRooms = Booking::getBookedRooms($rooms->pluck('id')->toArray());
+        //get room with booking info
+        $bookedRooms = Room::getRoomsInBooking();
+        //get room KHA DUNG
+        $rooms = Room::where('status', '=', 0)->get();
+        $unavailableRoomList = [];
 
-        if (count($bookedRooms) != 0) {
-            $thisCheckin = Carbon::createFromDate($booking->checkin);
-            $thisCheckout = Carbon::createFromDate($booking->checkout);
+        foreach ($bookedRooms as $bookedRoom) {
+            $dates = [
+                $bookedRoom->room_id,
+                Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00),
+                Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00)
+            ];
 
-            foreach ($bookedRooms as $bookedRoom) {
-                //check neu phong nay da co trong booking khac cung ngay checkin checkout
-                $checkinCheck = Carbon::createFromDate($bookedRoom->checkin);
-                $checkoutCheck = Carbon::createFromDate($bookedRoom->checkout);
-
-                if ($thisCheckin->between($checkinCheck, $checkoutCheck)
-                    or $thisCheckout->between($checkinCheck, $checkoutCheck)) {
-                    if ($booking->id != $bookedRoom->booking_id) {
-                        $bookedRooms->forget($bookedRooms->search($bookedRoom));
-                    }
+            if ($checkInFormat->between($dates[1], $dates[2]) || $checkOutFormat->between($dates[1], $dates[2])) {
+                if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                    //phong khong kha dung
+                    $unavailableRoomList[] = $bookedRoom->room_id;
                 }
             }
         }
+
+
+        //filter xoa cac phong ko kha dung
+        $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
+            if (!in_array($room->id, $unavailableRoomList)) {
+                return $room;
+            }
+        })->all();
 
         $payments = Payment::where('booking_id', '=', $booking->id)->get();
 
@@ -112,7 +119,7 @@ class BookingController extends Controller
             'booking' => $booking,
             'bookedRoomTypes' => $bookedRoomTypes,
             'rooms' => $rooms,
-            'bookedRooms' => $bookedRooms,
+//            'bookedRooms' => $bookedRooms,
             'payments' => $payments,
         ];
 

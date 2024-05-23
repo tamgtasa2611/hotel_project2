@@ -285,24 +285,28 @@
                     </div>
 
                     <div class="row g-4">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-lg-6">
                             <div>
                                 <div class="mb-2 fw-bold">Sắp xếp phòng</div>
-                                <div class="bg-light rounded-3">
+                                <div class="bg-light rounded-3 d-flex">
                                     @foreach($bookedRoomTypes as $bookedRoomType)
-                                        <div class="px-3 py-2">
+                                        <div class="px-3 py-2 type-id" id="type{{$bookedRoomType->id}}">
                                             <div>
-                                                {{$bookedRoomType->name}} ({{$bookedRoomType->number_of_room}} phòng)
+                                                {{$bookedRoomType->name}}
+                                                (<span class="type-quantity"
+                                                       name="type-quantity"
+                                                       value="{{$bookedRoomType->number_of_room}}">{{$bookedRoomType->number_of_room}}</span>
+                                                phòng)
                                             </div>
-                                            <div class="ms-3">
-                                                @foreach($bookedRooms as $bookedRoom)
-                                                    @if($bookedRoom->room_type_id == $bookedRoomType->id)
-                                                        <div class="form-check">
+                                            <div>
+                                                @foreach($rooms as $room)
+                                                    @if($room->room_type_id == $bookedRoomType->id)
+                                                        <div class=" form-check">
                                                             <label
-                                                                for="room{{$bookedRoom->room_id}}"
-                                                                class="form-check-label">{{$bookedRoom->name}}</label>
-                                                            <input type="checkbox" id="room{{$bookedRoom->room_id}}"
-                                                                   class="form-check-input">
+                                                                for="room{{$room->id}}"
+                                                                class="form-check-label">{{$room->name}}</label>
+                                                            <input type="checkbox" id="room{{$room->id}}"
+                                                                   class="form-check-input" name="room_id">
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -313,7 +317,7 @@
                             </div>
                         </div>
                         @if($booking->note)
-                            <div class="col-12 col-md-8">
+                            <div class="col-12 col-lg-6">
                                 <div>
                                     <div class=" fw-bold mb-2">Ghi chú</div>
                                     <pre style="white-space: pre-line"
@@ -352,4 +356,31 @@
         </form>
     </div>
 
+    <script>
+        $(document).ready(function () {
+            let roomTypes = $(".type-id")
+            for (let i = 0; i < roomTypes.length; i++) {
+                let inputs = $(roomTypes[i]).find('input');
+                inputs.on("click", function () {
+                    let parentDiv = $(this).parent().parent().parent()
+                    let quantity = parentDiv.find('span').text()
+
+                    var count = inputs.filter(':checked').length
+                    if (count < quantity) {  //only quantity of room type
+                        for (let j = 0; j < inputs.length; j++) {
+                            $(inputs[j]).removeAttr("disabled");
+                            // re-enable all checkboxes
+                        }
+                    } else {
+                        for (let j = 0; j < inputs.length; j++) {
+                            $(inputs[j]).prop("disabled", "disabled");
+                            // re-enable all checkboxes
+                            inputs.filter(':checked').removeAttr("disabled");
+                            // only enable the elements that are already checked.
+                        }
+                    }
+                })
+            }
+        });
+    </script>
 </x-adminLayout>

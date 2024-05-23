@@ -25,7 +25,7 @@
             @method('POST')
             <div class="row">
                 <div class="col-12 col-xl-6">
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="method">Ngày tạo</label>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <!-- booking input -->
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="booking_id">Đặt phòng</label>
@@ -50,7 +50,7 @@
                     </div>
 
                     {{--                    amout--}}
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="amount">Số tiền</label>
@@ -63,7 +63,7 @@
                     </div>
 
                     {{--                    status--}}
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="status">Trạng thái</label>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-12 col-xl-6">
                     <!-- booking input -->
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="booking_id">Khách</label>
@@ -99,7 +99,7 @@
                     </div>
 
                     {{--                    amout--}}
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="amount">Người quản lý</label>
@@ -113,7 +113,7 @@
 
                     {{--                    method--}}
 
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="method">Phương thức</label>
@@ -125,7 +125,7 @@
                     </div>
 
                     {{--note--}}
-                    <div class="p-4 col-12 ">
+                    <div class="p-4 col-12 pt-0">
                         <div class="row">
                             <div class="col-4">
                                 <label class="form-label" for="note">Ghi chú</label>

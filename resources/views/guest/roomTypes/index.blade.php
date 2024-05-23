@@ -354,52 +354,117 @@
 
     {{--    JQUERY AJAX ADD TO CART--}}
     <script>
-        var addToCartAjax = function () {
-            var btns = $(".add-to-cart-btn");
-            // Attach a submit handler to the form
-            $(".addToCartForm").submit(function (event) {
+        $(document).ready(function () {
+            var addToCartAjax = function () {
+                var btns = $(".add-to-cart-btn");
+                // Attach a submit handler to the form
+                $(".addToCartForm").submit(function (event) {
 
-                // Stop form from submitting normally
+                    // Stop form from submitting normally
+                    event.preventDefault();
+
+                    // Get some values from elements on the page:
+                    var $form = $(this),
+                        token = $form.find("input[name='_token']").val(),
+                        roomTypeId = $form.find("input[name='id']").val(),
+                        checkin = $("#searchForm").find("input[name='checkin']").val(),
+                        checkout = $("#searchForm").find("input[name='checkout']").val(),
+                        url = $form.attr("action");
+                    btns.removeAttr("type").attr("type", "button");
+
+                    // Send the data using post
+                    var posting = $.post(url, {
+                        _token: token,
+                        id: roomTypeId,
+                        checkin: checkin,
+                        checkout: checkout
+                    });
+
+                    // Put the results in a div
+                    posting.done(function (data) {
+                        $("#success-ajax").empty().append("Thêm phòng vào giỏ hàng thành công!");
+                        $("#ajax-modal").modal('show');
+                        btns.removeAttr("type").attr("type", "submit");
+                    });
+                });
+
+                var wave = $("#wave");
+
+                //pagination
+                $('.pagination a').unbind('click').on('click', function (e) {
+                    e.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    var sort = $("#sortForm").find(":selected").val(),
+                        checkin = $("#searchForm").find("input[name='checkin']").val(),
+                        checkout = $("#searchForm").find("input[name='checkout']").val(),
+                        url = `http://127.0.0.1:8000/rooms?page=` + page;
+
+                    var getting = $.get(url, {
+                        page: page,
+                        sort: sort,
+                        checkin: checkin,
+                        checkout: checkout
+                    });
+
+                    $("#rooms_div").empty();
+                    wave.removeClass(" d-none ");
+
+                    getting.done(function (data) {
+                        setTimeout(function () {
+                            wave.addClass(" d-none ")
+                            $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
+                            searchBtn.removeAttr("type").attr("type", "submit");
+                            addToCartAjax();
+                        }, 200)
+                    });
+                });
+            }
+
+            addToCartAjax();
+            {{--    END ADD TO CART--}}
+
+            {{--    JQUERY SEARCH ROOM--}}
+            var wave = $("#wave");
+            var searchBtn = $("#searchBtn");
+            $("#searchForm").submit(function (event) {
                 event.preventDefault();
+                var $form = $("#searchForm"),
+                    sort = $("#sortForm").find(":selected").val(),
+                    checkin = $form.find("input[name='checkin']").val(),
+                    checkout = $form.find("input[name='checkout']").val(),
+                    url = `http://127.0.0.1:8000/rooms`;
+                searchBtn.removeAttr("type").attr("type", "button");
 
-                // Get some values from elements on the page:
-                var $form = $(this),
-                    token = $form.find("input[name='_token']").val(),
-                    roomTypeId = $form.find("input[name='id']").val(),
-                    checkin = $("#searchForm").find("input[name='checkin']").val(),
-                    checkout = $("#searchForm").find("input[name='checkout']").val(),
-                    url = $form.attr("action");
-                btns.removeAttr("type").attr("type", "button");
-
-                // Send the data using post
-                var posting = $.post(url, {
-                    _token: token,
-                    id: roomTypeId,
+                var getting = $.get(url, {
+                    sort: sort,
                     checkin: checkin,
                     checkout: checkout
                 });
 
+                $("#rooms_div").empty();
+                wave.removeClass(" d-none ");
+
                 // Put the results in a div
-                posting.done(function (data) {
-                    $("#success-ajax").empty().append("Thêm phòng vào giỏ hàng thành công!");
-                    $("#ajax-modal").modal('show');
-                    btns.removeAttr("type").attr("type", "submit");
+                getting.done(function (data) {
+                    setTimeout(function () {
+                        wave.addClass(" d-none ")
+                        $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
+                        searchBtn.removeAttr("type").attr("type", "submit");
+                        addToCartAjax();
+                    }, 1000)
                 });
             });
+            {{--    END SEARCH--}}
 
-            var wave = $("#wave");
-
-            //pagination
-            $('.pagination a').unbind('click').on('click', function (e) {
-                e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                var sort = $("#sortForm").find(":selected").val(),
+            {{--    JQUERY SORT--}}
+            $("select").on("change", function (event) {
+                var $form = $("#sortForm"),
+                    sort = $form.find(":selected").val(),
                     checkin = $("#searchForm").find("input[name='checkin']").val(),
                     checkout = $("#searchForm").find("input[name='checkout']").val(),
-                    url = `http://127.0.0.1:8000/rooms?page=` + page;
+                    url = `http://127.0.0.1:8000/rooms`;
 
                 var getting = $.get(url, {
-                    page: page,
                     sort: sort,
                     checkin: checkin,
                     checkout: checkout
@@ -414,73 +479,10 @@
                         $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
                         searchBtn.removeAttr("type").attr("type", "submit");
                         addToCartAjax();
-                    }, 200)
+                    }, 500)
                 });
             });
-        }
-
-        addToCartAjax();
-        {{--    END ADD TO CART--}}
-
-        {{--    JQUERY SEARCH ROOM--}}
-        var wave = $("#wave");
-        var searchBtn = $("#searchBtn");
-        $("#searchForm").submit(function (event) {
-            event.preventDefault();
-            var $form = $("#searchForm"),
-                sort = $("#sortForm").find(":selected").val(),
-                checkin = $form.find("input[name='checkin']").val(),
-                checkout = $form.find("input[name='checkout']").val(),
-                url = `http://127.0.0.1:8000/rooms`;
-            searchBtn.removeAttr("type").attr("type", "button");
-
-            var getting = $.get(url, {
-                sort: sort,
-                checkin: checkin,
-                checkout: checkout
-            });
-
-            $("#rooms_div").empty();
-            wave.removeClass(" d-none ");
-
-            // Put the results in a div
-            getting.done(function (data) {
-                setTimeout(function () {
-                    wave.addClass(" d-none ")
-                    $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
-                    searchBtn.removeAttr("type").attr("type", "submit");
-                    addToCartAjax();
-                }, 1000)
-            });
-        });
-        {{--    END SEARCH--}}
-
-        {{--    JQUERY SORT--}}
-        $("select").on("change", function (event) {
-            var $form = $("#sortForm"),
-                sort = $form.find(":selected").val(),
-                checkin = $("#searchForm").find("input[name='checkin']").val(),
-                checkout = $("#searchForm").find("input[name='checkout']").val(),
-                url = `http://127.0.0.1:8000/rooms`;
-
-            var getting = $.get(url, {
-                sort: sort,
-                checkin: checkin,
-                checkout: checkout
-            });
-
-            $("#rooms_div").empty();
-            wave.removeClass(" d-none ");
-
-            getting.done(function (data) {
-                setTimeout(function () {
-                    wave.addClass(" d-none ")
-                    $("#rooms_div").html($($.parseHTML(data)).find("#rooms_div"));
-                    searchBtn.removeAttr("type").attr("type", "submit");
-                    addToCartAjax();
-                }, 500)
-            });
-        });
+        })
     </script>
     {{--    END--}}
 </x-guestLayout>
