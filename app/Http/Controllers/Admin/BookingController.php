@@ -142,43 +142,85 @@ class BookingController extends Controller
         $currentStatus = $booking->status;
         $newStatus = $request->status;
 
-        if ($newStatus < $currentStatus) {
-            return Redirect::back()->with('failed', 'Lỗi! Trạng thái đặt phòng đã bị thay đổi rồi...');
-        } else if ($newStatus > $currentStatus) {
-            if ($newStatus != $currentStatus) {
-                $booking->update([
-                    'status' => $request->status
+        if ($currentStatus == 4) {
+            return Redirect::back()->with('failed', 'Lỗi! Đặt phòng đã bị hủy rồi...');
+        }
+
+        if ($newStatus != $currentStatus) {
+            $booking->update([
+                'status' => $request->status
+            ]);
+        } else {
+            return Redirect::back()->with('failed', 'Trạng thái đặt phòng đã bị thay đổi rồi...');
+        }
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật trạng thái 1 đặt phòng');
+        return Redirect::back()->with('success', 'Cập nhật trạng thái đặt phòng thành công');
+
+    }
+
+    public function arrangeRoom(Request $request, Booking $booking)
+    {
+        $roomIds = $request->room_id;
+        if ($roomIds != null) {
+            foreach ($roomIds as $roomId) {
+                $current = DB::table('booked_rooms')
+                    ->where('booking_id', '=', $booking->id)
+                    ->get()->pluck('room_id')->toArray();
+
+                if (in_array($roomId, $current)) {
+                    return Redirect::back()->with('failed', 'Phòng này đã được sắp xếp cho đặt phòng này rồi!');
+                }
+
+                //can fix
+                //2 nguoi cung them vao 1 dat phong
+                //2 nguoi them cung 1 phong vao 2 dat phong khac nhau
+
+                DB::table('booked_rooms')->insert([
+                    'room_id' => $roomId,
+                    'booking_id' => $booking->id,
+                    'status' => 0
                 ]);
             }
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
-            return Redirect::back()->with('success', 'Cập nhật trạng thái đặt phòng thành công');
-        } else {
-            $roomIds = $request->room_id;
-            if ($roomIds != null) {
-                foreach ($roomIds as $roomId) {
-                    DB::table('booked_rooms')->insert([
-                        'room_id' => $roomId,
-                        'booking_id' => $booking->id,
-                        'status' => 0
-                    ]);
-                }
-            }
-            //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a booking');
-            return Redirect::back()->with('success', 'Sắp xếp phòng thành công');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật trạng thái 1 đặt phòng');
+            return Redirect::back()->with('success', 'Sắp xếp phòng thành công!');
         }
+        return Redirect::back()->with('failed', 'Bạn chưa chọn phòng nào cả!');
+    }
+
+    public function deleteRoom(Booking $booking, $id)
+    {
+        $roomToDelete = Room::find($id);
+        if ($roomToDelete == null) {
+            return Redirect::back()->with('failed', 'Xảy ra lỗi!');
+        }
+
+        DB::table('booked_rooms')
+            ->where('room_id', '=', $roomToDelete->id)
+            ->where('booking_id', '=', $booking->id)
+            ->delete();
+
+        //log
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã xóa 1 phòng khỏi đặt phòng #' . $booking->id);
+        return Redirect::back()->with('success', 'Xóa phòng khỏi đặt phòng thành công!');
     }
 
     public function cancelBooking(Booking $booking)
     {
-        if ($booking->status >= 2) {
-            return Redirect::back()->with('failed', 'Xảy ra lỗi!');
+        if ($booking->status == 2) {
+            return Redirect::back()->with('failed', 'Không thể hủy đặt phòng khi khách đã nhận phòng!');
+        }
+        if ($booking->status == 3) {
+            return Redirect::back()->with('failed', 'Không thể hủy đặt phòng đã hoàn thành!');
+        }
+        if ($booking->status == 4) {
+            return Redirect::back()->with('failed', 'Đặt phòng đã bị hủy rồi!');
         }
 
         $booking->update(['status' => 4]);
         //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'cancel a booking');
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã hủy 1 đặt phòng');
         return Redirect::back()->with('success', 'Hủy đặt phòng thành công');
     }
 
@@ -191,10 +233,5 @@ class BookingController extends Controller
             ->setPaper('a4', 'portrait');
 
         return $pdf->stream();
-    }
-
-    public function roomArrangement()
-    {
-
     }
 }

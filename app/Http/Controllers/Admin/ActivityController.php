@@ -14,9 +14,11 @@ class ActivityController extends Controller
 {
     public function index(Request $request)
     {
-        $activities = Activity::with('admin')->get();
+        $date = $request->date ?? 0;
+        $activities = Activity::getByDate($date);
 
         $data = [
+            'date' => $date,
             'activities' => $activities,
         ];
 
@@ -34,12 +36,12 @@ class ActivityController extends Controller
 
 //            check password
             if (!Hash::check($request->deletePassword, $admin->password)) {
-                return Redirect::back()->with('failed', 'Wrong password!');
+                return Redirect::back()->with('failed', 'Sai mật khẩu');
             }
 
             Activity::truncate();
-            return Redirect::back()->with('success', 'Activities cleared successfully!');
+            return Redirect::back()->with('success', 'Xóa lịch sử thành công');
         }
-        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
+        return Redirect::back()->with('failed', 'Xảy ra lỗi!');
     }
 }

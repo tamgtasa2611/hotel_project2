@@ -13,9 +13,15 @@
 
     <div class="bg-white   shadow-sm border rounded-3 overflow-hidden">
         <div
-            class="p-4  -bottom">
-            <div class="text-primary">
-                <i class="bi bi-pencil-square me-2"></i>Sửa thông tin tài khoản
+            class="p-4 ">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="text-primary">
+                    <i class="bi bi-pencil-square me-2"></i>Sửa thông tin tài khoản
+                </div>
+                <div>
+                    <a href="{{route('admin.changePwd')}}" class="btn btn-primary tran-3"><i
+                            class="bi bi-shield-lock me-2"></i>Đổi mật khẩu</a>
+                </div>
             </div>
         </div>
         <hr class="m-0">

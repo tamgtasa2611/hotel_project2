@@ -35,7 +35,7 @@ class SettingController
             if (!Storage::exists('public/admin/admins/' . $imagePath)) {
                 Storage::putFileAs('public/admin/admins/', $request->file('image'), $imagePath);
             }
-            
+
             $data = [];
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
@@ -50,5 +50,10 @@ class SettingController
         } else {
             return Redirect::back()->with('failed', 'Xảy ra lỗi!');
         }
+    }
+
+    public function changePwd()
+    {
+        dd("chuc nang doi mat khau admin");
     }
 }

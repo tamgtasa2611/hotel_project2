@@ -13,53 +13,69 @@
     {{--------------- MAIN --------------}}
     <div class="bg-white  shadow-sm border rounded-3 overflow-hidden">
         <div
-            class="p-4 d-flex flex-column flex-md-row justify-content-between">
+            class="p-4 d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div class="text-primary mb-3 mb-md-0">
                 <i class="bi bi-clock-history me-2"></i>Danh sách nhật ký hệ thống
             </div>
-            {{-- Button  --}}
-            <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="#!"
-                   class="d-flex align-items-center text-danger text-decoration-none"
-                   data-bs-toggle="modal"
-                   data-bs-target="#exampleModal1">
-                    <i class="me-2 bi bi-trash"></i>Xóa nhật ký
-                </a>
-            </div>
+            @if(count($activities) != 0)
+                {{-- Button  --}}
+                <div class="d-flex align-items-center justify-content-start justify-content-md-end">
+                    <div class="me-3">
+                        <form method="GET">
+                            <select name="date" id="date" class="form-select" onchange="this.form.submit()">
+                                <option value="0" {{$date == 0 ? 'selected' : ''}}>24 giờ qua</option>
+                                <option value="1" {{$date == 1 ? 'selected' : ''}}>Tuần này</option>
+                                <option value="2" {{$date == 2 ? 'selected' : ''}}>Tháng này</option>
+                                <option value="3" {{$date == 3 ? 'selected' : ''}}>Toàn bộ</option>
+                            </select>
+                        </form>
+                    </div>
+                    <a href="#!"
+                       class="btn btn-danger tran-3"
+                       data-bs-toggle="modal"
+                       data-bs-target="#exampleModal1">
+                        <i class="me-2 bi bi-trash"></i>Xóa nhật ký
+                    </a>
+                </div>
+            @endif
         </div>
         <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
-            @if (count($activities) != 0)
-                <table
-                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
-                    id="dataTable">
-                    <thead>
-                    <tr>
-                        <th class="align-middle text-center">ID</th>
-                        <th class="align-middle text-center">Tên nhân viên (ID)</th>
-                        <th class="align-middle text-center">Chi tiết</th>
-                        <th class="align-middle text-center">Thời gian</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($activities as $activity)
+            @if($activities != null)
+                @if (count($activities) != 0)
+                    <table
+                        class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
+                        id="dataTable">
+                        <thead>
                         <tr>
-                            <td class="text-center">
-                                {{ $activity->id }}
-                            </td>
-                            <td class="text-center">
-                                {{$activity->admin->first_name . ' ' . $activity->admin->last_name . ' (#' . $activity->admin->id . ')'}}
-                            </td>
-                            <td class="text-break text-center">
-                                {{ $activity->detail }}
-                            </td>
-                            <td class="text-center">
-                                {{ $activity->date }}
-                            </td>
+                            <th class="align-middle text-center">ID</th>
+                            <th class="align-middle text-center">Tên nhân viên (ID)</th>
+                            <th class="align-middle text-center">Chi tiết</th>
+                            <th class="align-middle text-center">Thời gian</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach ($activities as $activity)
+                            <tr>
+                                <td class="text-center">
+                                    {{ $activity->id }}
+                                </td>
+                                <td class="text-center">
+                                    {{$activity->admin->first_name . ' ' . $activity->admin->last_name . ' (#' . $activity->admin->id . ')'}}
+                                </td>
+                                <td class="text-break text-center">
+                                    {{ $activity->detail }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $activity->date }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    Không có dữ liệu
+                @endif
             @else
                 Không có dữ liệu
             @endif

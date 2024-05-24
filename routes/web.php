@@ -207,10 +207,9 @@ Route::prefix('admin')->group(function () {
             Route::post('/create/choose_guest', 'storeGuest')->name('admin.bookings.storeGuest');
             Route::get('/{booking}/edit', 'edit')->name('admin.bookings.edit');
             Route::put('/{booking}/edit', 'update')->name('admin.bookings.update');
+            Route::post('/{booking}/arrange', 'arrangeRoom')->name('admin.bookings.arrange');
+            Route::get('/{booking}/delete-room/{id}', 'deleteRoom')->name('admin.bookings.deleteRoom');
             Route::get('/{booking}/cancel', 'cancelBooking')->name('admin.bookings.cancel');
-//            Route::delete('/delete', 'destroy')->name('admin.bookings.destroy');
-            //room arrangement
-            Route::get('/room_arrangement', 'roomArrangement')->name('admin.bookings.roomArrangement');
 
             // PDF
             Route::get('downloadPdf', [AdminBookingController::class, 'downloadPDF'])->name('admin.bookings.downloadPdf');
@@ -248,9 +247,10 @@ Route::prefix('admin')->group(function () {
         });
 
         // SETTINGS
-        Route::prefix('settings')->group(function () {
-            Route::get('/', [SettingController::class, 'setting'])->name('admin.settings');
-            Route::post('/{admin}', [SettingController::class, 'saveSetting'])->name('admin.saveSetting');
+        Route::prefix('settings')->controller(SettingController::class)->group(function () {
+            Route::get('/', 'setting')->name('admin.settings');
+            Route::post('/{admin}', 'saveSetting')->name('admin.saveSetting');
+            Route::get('/change-pwd', 'changePwd')->name('admin.changePwd');
         });
     });
 
