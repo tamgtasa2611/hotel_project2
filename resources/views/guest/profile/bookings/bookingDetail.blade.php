@@ -189,23 +189,13 @@
                                 </div>
                                 <div
                                     class="overflow-x-auto d-flex justify-content-center justify-content-md-end mb-4">
-                                    @if($booking->status == 3 || $booking->status == 5)
-                                        @if(!$rate)
-                                            <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
-                                               data-bs-target="#ratingModal">Write a
-                                                review</a>
-                                        @else
-                                            <a href="" class="btn btn-primary  me-2" data-bs-toggle="modal"
-                                               data-bs-target="#myReviewModal">My review</a>
-                                        @endif
-                                    @endif
                                     <a href="" class="btn btn-info">Chính sách hoàn tiền</a>
                                     @if($booking->status == 0)
                                         <a class="btn btn-secondary  tran-3 ms-2"
                                            data-bs-toggle="modal"
                                            data-bs-target="#exampleModal"
                                            data-id="1">
-                                            Cancel booking
+                                            Hủy đặt phòng
                                         </a>
                                     @endif
                                 </div>
@@ -218,6 +208,11 @@
                                             <th class="text-center">Giá (1 đêm)</th>
                                             <th class="text-center">Số lượng</th>
                                             <th class="text-center">Thành tiền</th>
+                                            @if($booking->status == 3)
+                                                <th class="text-center">
+                                                    Thao tác
+                                                </th>
+                                            @endif
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -225,26 +220,23 @@
                                             <tr>
                                                 <td class="align-middle text-center col-2">
                                                     <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
-
-                                                        {{--                                                    @if(count($booking->roomTypes->images) != 0)--}}
-                                                        {{--                                                        <img--}}
-                                                        {{--                                                            src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"--}}
-                                                        {{--                                                            alt="room_image"--}}
-                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
-                                                        {{--                                                    @else--}}
-                                                        {{--                                                        <img--}}
-                                                        {{--                                                            src="{{asset('images/noimage.jpg')}}"--}}
-                                                        {{--                                                            alt="room_image"--}}
-                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
-                                                        {{--                                                    @endif--}}
-                                                        <img
-                                                            src="{{asset('images/noimage.jpg')}}"
-                                                            alt="room_image"
-                                                            class="object-fit-cover rounded-3 border shadow-sm">
+                                                        @foreach($roomTypesImages as $image)
+                                                            @if($roomType->id == $image->room_type_id)
+                                                                <img
+                                                                    src="{{asset('storage/rooms/'.$image->path)}}"
+                                                                    alt="room_img"
+                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3"/>
+                                                                @break
+                                                            @else
+                                                                <img src="{{asset('images/noimage.jpg')}}"
+                                                                     alt="room_img"
+                                                                     class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3"/>
+                                                            @endif
+                                                        @endforeach
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    {{$roomType->name}}
+                                                    <a href="{{route('guest.rooms.show', $roomType->id)}}">{{$roomType->name}}</a>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     {{\App\Helpers\AppHelper::vnd_format($roomType->price)}}
@@ -255,6 +247,29 @@
                                                 <td class="align-middle text-center">
                                                     {{\App\Helpers\AppHelper::vnd_format($roomType->price * $roomType->number_of_room)}}
                                                 </td>
+                                                @if($booking->status == 3)
+                                                    <td class=" align-middle text-center">
+                                                        @if(in_array($roomType->id, $ratings->pluck('room_type_id')->toArray()))
+                                                            @foreach($ratings as $rating)
+                                                                @if($roomType->id == $rating->room_type_id)
+                                                                    <a href=""
+                                                                       class="btn btn-warning tran-3 rate-btn"
+                                                                       data-bs-toggle="modal"
+                                                                       data-bs-target="#myReviewModal{{$rating->id}}"
+                                                                       data-id="{{$roomType->id}}"><i
+                                                                            class="bi bi-eye me-2"></i>Xem đánh giá</a>
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            <a href="" class="btn btn-warning tran-3 rate-btn"
+                                                               data-bs-toggle="modal"
+                                                               data-bs-target="#ratingModal"
+                                                               data-id="{{$roomType->id}}"><i
+                                                                    class="bi bi-star me-2"></i>Đánh
+                                                                giá</a>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -287,145 +302,164 @@
         {{--                CONTENT--}}
     </section>
 
-    {{--    <!-- Rating Modal -->--}}
-    {{--    <div class="modal fade" id="ratingModal" tabindex="-1"--}}
-    {{--         aria-labelledby="ratingModalLabel" aria-hidden="true">--}}
-    {{--        <div class="modal-dialog">--}}
-    {{--            <div class="modal-content">--}}
-    {{--                <form method="post" action="{{route('guest.rateBooking', $booking->id)}}">--}}
-    {{--                    @csrf--}}
-    {{--                    @method('POST')--}}
-    {{--                    <div class="modal-header">--}}
-    {{--                        <h1 class="modal-title fs-5 text-primary" id="ratingModalLabel">--}}
-    {{--                            <i class="bi bi-pencil-square me-2"></i>Write a review--}}
-    {{--                        </h1>--}}
-    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
-    {{--                                aria-label="Close"></button>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-body">--}}
-    {{--                        <div>--}}
-    {{--                            <label for="input-1" class="form-label">Rate this room</label>--}}
-    {{--                            <div class="my-3">--}}
-    {{--                                <div class="star-rating text-center">--}}
-    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="1"></span>--}}
-    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="2"></span>--}}
-    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="3"></span>--}}
-    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="4"></span>--}}
-    {{--                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="5"></span>--}}
-    {{--                                    <input type="hidden" name="rating" id="rating" class="rating-value" value="5">--}}
-    {{--                                </div>--}}
-    {{--                                <div id="rate-comment" class="text-warning-emphasis text-center mt-1">--}}
+    <!-- Rating Modal -->
+    <div class="modal fade tran-3" id="ratingModal" tabindex="-1"
+         aria-labelledby="ratingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{route('guest.rateBooking', $booking->id)}}">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-primary" id="ratingModalLabel">
+                            <i class="bi bi-pencil-square me-2"></i>Đánh giá phòng
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="room_type_id" hidden class="visually-hidden room_type_id"
+                               value="">
+                        <div>
+                            <div class="my-3">
+                                <div class="star-rating text-center">
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="1"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="2"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="3"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="4"></span>
+                                    <span class="bi bi-star text-warning fs-4 hover-pointer" data-rating="5"></span>
+                                    <input type="hidden" name="rating" id="rating" class="rating-value" value="5">
+                                </div>
+                                <div id="rate-comment" class="text-warning-emphasis text-center mt-1">
 
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <label for="review" class="form-label mt-2">--}}
-    {{--                            Review (optional)--}}
-    {{--                        </label>--}}
-    {{--                        <textarea name="review" id="review" cols="20" rows="6" class="form-control"--}}
-    {{--                                  value=""></textarea>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-footer">--}}
-    {{--                        <button type="button" class="btn btn-secondary "--}}
-    {{--                                data-bs-dismiss="modal">--}}
-    {{--                            Close--}}
-    {{--                        </button>--}}
-    {{--                        <button type="submit" class="btn btn-primary ">--}}
-    {{--                            Rate--}}
-    {{--                        </button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
+                                </div>
+                            </div>
+                        </div>
+                        <label for="review" class="form-label mt-2">
+                            Review
+                        </label>
+                        <textarea name="review" id="review" cols="20" rows="6" class="form-control"
+                                  value=""></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary "
+                                data-bs-dismiss="modal">
+                            Đóng
+                        </button>
+                        <button type="submit" class="btn btn-primary ">
+                            Đánh giá
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    {{--    <!--myReviewModal Modal -->--}}
-    {{--    <div class="modal fade" id="myReviewModal" tabindex="-1"--}}
-    {{--         aria-labelledby="myReviewModalLabel" aria-hidden="true">--}}
-    {{--        <div class="modal-dialog">--}}
-    {{--            <div class="modal-content">--}}
-    {{--                <form method="post" action="{{ route('guest.deleteRate', $booking) }}">--}}
-    {{--                    @csrf--}}
-    {{--                    @method('DELETE')--}}
-    {{--                    <div class="modal-header">--}}
-    {{--                        <h1 class="modal-title fs-5 text-primary" id="myReviewModalLabel">--}}
-    {{--                            <i class="bi bi-pencil-square me-2"></i>My review--}}
-    {{--                        </h1>--}}
-    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}}
-    {{--                                aria-label="Close"></button>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-body">--}}
-    {{--                        <div>--}}
-    {{--                            <label for="input-1" class="form-label">Rating</label>--}}
-    {{--                            <div class="my-3">--}}
-    {{--                                <div class="text-center">--}}
-    {{--                                    @if($rate?->rating)--}}
-    {{--                                        @switch($rate->rating)--}}
-    {{--                                            @case(1)--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                @break--}}
-    {{--                                            @case(2)--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                @break--}}
-    {{--                                            @case(3)--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                @break--}}
-    {{--                                            @case(4)--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star text-warning fs-4"></span>--}}
-    {{--                                                @break--}}
-    {{--                                            @case(5)--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                <span class="bi bi-star-fill text-warning fs-4"></span>--}}
-    {{--                                                @break--}}
-    {{--                                        @endswitch--}}
-    {{--                                    @endif--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <label for="review" class="form-label mt-2">--}}
-    {{--                            Review--}}
-    {{--                        </label>--}}
-    {{--                        @if($rate?->review)--}}
-    {{--                            <div>--}}
-    {{--                                  <pre style="white-space: pre-line"--}}
-    {{--                                       class="mb-4 p-3 text-bg-white">--}}
-    {{--                                    {!! $rate->review !!}--}}
-    {{--                                </pre>--}}
-    {{--                            </div>--}}
-    {{--                        @endif--}}
-    {{--                    </div>--}}
-    {{--                    <div class="modal-footer">--}}
-    {{--                        <button type="button" class="btn btn-secondary "--}}
-    {{--                                data-bs-dismiss="modal">--}}
-    {{--                            Close--}}
-    {{--                        </button>--}}
-    {{--                        <button type="submit" class="btn btn-danger ">--}}
-    {{--                            Delete this review--}}
-    {{--                        </button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
+    @foreach($ratings as $rating)
+        <!--myReviewModal Modal -->
+        <div class="modal fade tran-3" id="myReviewModal{{$rating->id}}" tabindex="-1"
+             aria-labelledby="myReviewModalLabel{{$rating->id}}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{{ route('guest.deleteRate', $booking) }}">
+                        @csrf
+                        @method('POST')
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-primary" id="myReviewModalLabel{{$rating->id}}">
+                                <i class="bi bi-star me-2"></i>Xem đánh giá
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input name="room_type_id" hidden class="visually-hidden room_type_id"
+                                   value="">
+                            <div>
+                                <div class="my-3">
+                                    <div class="text-center">
+                                        @if($rating->rating)
+                                            @switch($rating->rating)
+                                                @case(1)
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <div>
+                                                        😡 Tồi tệ!
+                                                    </div>
+                                                    @break
+                                                @case(2)
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <div>
+                                                        😒 Kém!
+                                                    </div>
+                                                    @break
+                                                @case(3)
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <div>
+                                                        🙂 Tạm được!
+                                                    </div>
+                                                    @break
+                                                @case(4)
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star text-warning fs-4"></span>
+                                                    <div>
+                                                        😊 Tốt!
+                                                    </div>
+                                                    @break
+                                                @case(5)
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <span class="bi bi-star-fill text-warning fs-4"></span>
+                                                    <div>
+                                                        😍 Tuyệt vời!
+                                                    </div>
+                                                    @break
+                                            @endswitch
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="review" class="form-label mt-2">
+                                Review
+                            </label>
+                            @if($rating->review)
+                                <div>
+                                          <pre style="white-space: pre-line"
+                                               class="mb-4 p-3 text-bg-light rounded-3">
+                                            {!! $rating->review !!}
+                                        </pre>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary "
+                                    data-bs-dismiss="modal">
+                                Đóng
+                            </button>
+                            <button type="submit" class="btn btn-danger ">
+                                Xóa đánh giá
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     <!-- Cancel Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -437,24 +471,24 @@
                     @method('POST')
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">
-                            <i class="bi bi-x-circle me-2"></i>Are you sure?
+                            <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <label for="reason" class="form-label">
-                            Please let us know the reason (optional):
+                            Hãy cho chúng tôi biết lý do:
                         </label>
                         <textarea name="note" id="reason" cols="20" rows="6" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary "
                                 data-bs-dismiss="modal">
-                            Close
+                            Đóng
                         </button>
                         <button type="submit" class="btn btn-danger ">
-                            Cancel booking
+                            Xác nhận hủy
                         </button>
                     </div>
                 </form>
@@ -489,7 +523,7 @@
 
     $star_rating.siblings('input.rating-value').val(5);
     let rateVal = $("#rating").val();
-    rateComment.html('😍 Amazing!');
+    rateComment.html('😍 Tuyệt vời!');
 
     // onclick
     $star_rating.on('click', function () {
@@ -497,15 +531,15 @@
 
         rateVal = $("#rating").val();
         if (rateVal == 1) {
-            rateComment.html('😡 Worst!');
+            rateComment.html('😡 Tồi tệ!');
         } else if (rateVal == 2) {
-            rateComment.html('😒 Bad!');
+            rateComment.html('😒 Kém!');
         } else if (rateVal == 3) {
-            rateComment.html('🙂 Neutral!');
+            rateComment.html('🙂 Tạm được!');
         } else if (rateVal == 4) {
-            rateComment.html('😊 Good!');
+            rateComment.html('😊 Tốt!');
         } else {
-            rateComment.html('😍 Amazing!');
+            rateComment.html('😍 Tuyệt vời!');
         }
 
         // console.log(rateVal, rateComment)
@@ -513,5 +547,10 @@
     });
 
     SetRatingStar();
+
+    $(document).on("click", ".rate-btn", function () {
+        let id = $(this).attr("data-id");
+        $(".room_type_id").val(id);
+    });
 </script>
 

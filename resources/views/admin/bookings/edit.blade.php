@@ -241,22 +241,19 @@
                                             <tr>
                                                 <td class="align-middle text-center col-2">
                                                     <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
-
-                                                        {{--                                                    @if(count($booking->roomTypes->images) != 0)--}}
-                                                        {{--                                                        <img--}}
-                                                        {{--                                                            src="{{asset('storage/admin/rooms/' .  $booking->room->images[0]->path)}}"--}}
-                                                        {{--                                                            alt="room_image"--}}
-                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
-                                                        {{--                                                    @else--}}
-                                                        {{--                                                        <img--}}
-                                                        {{--                                                            src="{{asset('images/noimage.jpg')}}"--}}
-                                                        {{--                                                            alt="room_image"--}}
-                                                        {{--                                                            class="object-fit-cover  shadow-sm">--}}
-                                                        {{--                                                    @endif--}}
-                                                        <img
-                                                            src="{{asset('images/noimage.jpg')}}"
-                                                            alt="room_image"
-                                                            class="object-fit-cover rounded-3 border shadow-sm">
+                                                        @foreach($images as $image)
+                                                            @if($roomType->id == $image->room_type_id)
+                                                                <img
+                                                                    src="{{asset('storage/rooms/'.$image->path)}}"
+                                                                    alt="room_img"
+                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3"/>
+                                                                @break
+                                                            @else
+                                                                <img src="{{asset('images/noimage.jpg')}}"
+                                                                     alt="room_img"
+                                                                     class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3"/>
+                                                            @endif
+                                                        @endforeach
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
@@ -288,71 +285,73 @@
                         </div>
                     </div>
 
-                    <div class="row g-4">
 
-                        <div class="col-12 col-lg-8">
-                            <div>
-                                <div class="mb-2 fw-bold">Sắp xếp phòng</div>
-                                @if($booking->status == 1)
-                                    <div class="bg-light rounded-3 d-flex">
-                                        @foreach($bookedRoomTypes as $bookedRoomType)
-                                            @php
-                                                $countCurrentRoom = 0;
-                                                    if($groupCount->has($bookedRoomType->id)) {
-                                                        $countCurrentRoom = $groupCount->get($bookedRoomType->id);
-                                                    }
-                                            @endphp
-                                            <div class="px-3 py-2 type-id" id="type{{$bookedRoomType->id}}">
-                                                <div>
-                                                    {{$bookedRoomType->name}}
-                                                    @if($bookedRoomType->number_of_room - $countCurrentRoom != 0)
-                                                        <div class="d-inline">
-                                                            (Cần thêm <span class="type-quantity"
-                                                                            name="type-quantity"
-                                                                            value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
-                                                            phòng)
-                                                        </div>
-                                                    @else
-                                                        <div class="d-none visually-hidden">
-                                                            (Cần thêm <span class="type-quantity"
-                                                                            name="type-quantity"
-                                                                            value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
-                                                            phòng)
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    @foreach($currentBookedRooms as $currentBookedRoom)
-                                                        @if($bookedRoomType->id == $currentBookedRoom->room_type_id)
-                                                            <li class="fw-bold">
-                                                                {{$currentBookedRoom->name}}<a
-                                                                    href="{{route('admin.bookings.deleteRoom', [$booking, $currentBookedRoom->id])}}"
-                                                                    class="link-danger"><i
-                                                                        class="bi bi-x-circle ms-1 text-danger"></i></a>
-                                                            </li>
+                    <div class="row g-4">
+                        @if($booking->status != 0 && $booking->status != 4)
+                            <div class="col-12 col-lg-8">
+                                <div>
+                                    <div class="mb-2 fw-bold">Sắp xếp phòng</div>
+                                    @if($booking->status == 1)
+                                        <div class="bg-light rounded-3 d-flex">
+                                            @foreach($bookedRoomTypes as $bookedRoomType)
+                                                @php
+                                                    $countCurrentRoom = 0;
+                                                        if($groupCount->has($bookedRoomType->id)) {
+                                                            $countCurrentRoom = $groupCount->get($bookedRoomType->id);
+                                                        }
+                                                @endphp
+                                                <div class="px-3 py-2 type-id" id="type{{$bookedRoomType->id}}">
+                                                    <div>
+                                                        {{$bookedRoomType->name}}
+                                                        @if($bookedRoomType->number_of_room - $countCurrentRoom != 0)
+                                                            <div class="d-inline">
+                                                                (Cần thêm <span class="type-quantity"
+                                                                                name="type-quantity"
+                                                                                value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
+                                                                phòng)
+                                                            </div>
+                                                        @else
+                                                            <div class="d-none visually-hidden">
+                                                                (Cần thêm <span class="type-quantity"
+                                                                                name="type-quantity"
+                                                                                value="{{$bookedRoomType->number_of_room - $countCurrentRoom}}">{{$bookedRoomType->number_of_room - $countCurrentRoom}}</span>
+                                                                phòng)
+                                                            </div>
                                                         @endif
-                                                    @endforeach
-                                                    @if($bookedRoomType->number_of_room > $countCurrentRoom)
-                                                        @foreach($rooms as $room)
-                                                            @if($room->room_type_id == $bookedRoomType->id)
-                                                                <div class=" form-check">
-                                                                    <label
-                                                                        for="room{{$room->id}}"
-                                                                        class="form-check-label">{{$room->name}}</label>
-                                                                    <input type="checkbox" id="room{{$room->id}}"
-                                                                           class="form-check-input" name="room_id[]"
-                                                                           value="{{$room->id}}">
-                                                                </div>
+                                                    </div>
+                                                    <div class="">
+                                                        @foreach($currentBookedRooms as $currentBookedRoom)
+                                                            @if($bookedRoomType->id == $currentBookedRoom->room_type_id)
+                                                                <li class="fw-bold">
+                                                                    {{$currentBookedRoom->name}}<a
+                                                                        href="{{route('admin.bookings.deleteRoom', [$booking, $currentBookedRoom->id])}}"
+                                                                        class="link-danger"><i
+                                                                            class="bi bi-x-circle ms-1 text-danger"></i></a>
+                                                                </li>
                                                             @endif
                                                         @endforeach
-                                                    @endif
+                                                        @if($bookedRoomType->number_of_room > $countCurrentRoom)
+                                                            @foreach($rooms as $room)
+                                                                @if($room->room_type_id == $bookedRoomType->id)
+                                                                    <div class=" form-check">
+                                                                        <label
+                                                                            for="room{{$room->id}}"
+                                                                            class="form-check-label">{{$room->name}}</label>
+                                                                        <input type="checkbox" id="room{{$room->id}}"
+                                                                               class="form-check-input" name="room_id[]"
+                                                                               value="{{$room->id}}">
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         @if($booking->note)
                             <div class="col-12 col-lg-4">

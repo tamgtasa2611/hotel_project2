@@ -7,6 +7,7 @@ use App\Models\Guest;
 use App\Models\Payment;
 use App\Models\Rating;
 use App\Models\RoomType;
+use App\Models\RoomTypeImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -153,18 +154,26 @@ class ProfileController extends Controller
     {
         $payments = Payment::where('booking_id', '=', $booking->id)->get();
         $bookedRoomTypes = Booking::getRoomTypes($booking->id);
-
-        $rating = Rating::where('room_type_id', '=', $booking->id)
+        $roomTypesImages = RoomTypeImage::all();
+        $ratings = Rating::whereIn('room_type_id', $bookedRoomTypes->pluck('room_type_id')->toArray())
             ->where('guest_id', '=', $booking->guest_id)
             ->get();
 
         return view('guest.profile.bookings.bookingDetail', compact(
-            'booking', 'payments', 'bookedRoomTypes', 'rating'
+            'booking', 'payments', 'bookedRoomTypes', 'ratings', 'roomTypesImages'
         ));
     }
 
     public function cancelBooking(Booking $booking, Request $request)
     {
+        if ($booking->status == 4) {
+            return Redirect::back()->with('failed', 'Đặt phòng này đã bị hủy rồi!');
+        }
+
+        if ($booking->status != 0) {
+            return Redirect::back()->with('failed', 'Đặt phòng này đã được duyệt!');
+        }
+
         $note = $request->note ?? '';
         $note = trim($note);
 

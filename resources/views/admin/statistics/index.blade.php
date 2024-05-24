@@ -7,28 +7,12 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Tình trang', 'Số phòng'],
-            ['Đang sử dụng', 11],
-            ['Khả dụng', 8],
-            ['Không khả dụng', 2]
-        ]);
-
-        var options = {
-            title: 'Tình trạng phòng',
-            is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-
         ///////////////////////////////////////////////////////////////////////
         var data1 = google.visualization.arrayToDataTable([
-            ["Element", "Density", {role: "style"}],
-            ["Copper", 8.94, "#b87333"],
-            ["Silver", 10.49, "silver"],
-            ["Gold", 19.30, "gold"],
-            ["Platinum", 21.45, "color: #e5e4e2"]
+            ["Element", "Tổng số phòng đã đặt", {role: "style"}],
+                @foreach($dataChart as $data)
+            ['{{$data[0]}}', {{$data[1]}}, '{{$data[2]}}'],
+            @endforeach
         ]);
 
         var view1 = new google.visualization.DataView(data1);
@@ -42,8 +26,8 @@
             2]);
 
         var options1 = {
-            title: "Density of Precious Metals, in g/cm^3",
-            width: 600,
+            title: " ",
+            width: 1000,
             height: 400,
             bar: {groupWidth: "95%"},
             legend: {position: "none"},
@@ -55,9 +39,9 @@
 </script>
 
 <x-adminLayout>
-    <div class="p-3 bg-white shadow-sm border rounded-3 mb-4">
+    <div class="p-4 bg-white shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Tổng quát</h4>
+            <h4 class="fw-bold m-0">Thống kê phòng</h4>
             <a class="d-block d-lg-none"
                data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                aria-controls="offcanvasExample">
@@ -70,67 +54,77 @@
         <div class="col-6 col-xl-3">
             <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
                 <div class="fw-bold bg-primary-subtle text-primary-emphasis px-4 py-3">Phòng khả dụng</div>
-                <div class="fs-4 text-center p-4 fw-bold text-primary-emphasis">{{count($availRooms)}}
+                <div
+                    class="fs-4 text-center p-4 fw-bold text-primary-emphasis">{{!is_null($availRooms) ? count($availRooms) : 0}}
                     <i class="bi bi-house-check"></i></div>
             </div>
         </div>
         <div class="col-6 col-xl-3">
             <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
                 <div class="fw-bold bg-success-subtle text-success-emphasis px-4 py-3">Phòng đang còn trống</div>
-                <div class="fs-4 text-center p-4 fw-bold text-success-emphasis">{{count($emptyRooms)}}
+                <div
+                    class="fs-4 text-center p-4 fw-bold text-success-emphasis">{{!is_null($emptyRooms) ? count($emptyRooms) : 0}}
                     <i class="bi bi-house-up"></i></div>
             </div>
         </div>
         <div class="col-6 col-xl-3">
             <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
                 <div class="fw-bold bg-warning-subtle text-warning-emphasis px-4 py-3">Phòng đang sử dụng</div>
-                <div class="fs-4 text-center p-4 fw-bold text-warning-emphasis">{{count($activeRooms)}}
+                <div
+                    class="fs-4 text-center p-4 fw-bold text-warning-emphasis">{{!is_null($activeRooms) ? count($activeRooms) : 0}}
                     <i class="bi bi-house-lock"></i></div>
             </div>
         </div>
         <div class="col-6 col-xl-3">
             <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
                 <div class="fw-bold bg-danger-subtle text-danger-emphasis px-4 py-3">Phòng không khả dụng</div>
-                <div class="fs-4 text-center p-4 fw-bold text-danger-emphasis">{{count($unavailRooms)}}
+                <div
+                    class="fs-4 text-center p-4 fw-bold text-danger-emphasis">{{!is_null($unavailRooms) ? count($unavailRooms) : 0}}
                     <i class="bi bi-house-dash"></i></div>
             </div>
         </div>
     </div>
 
-    <div class="row gx-4">
-        <div class="col-12 col-xl-7">
-            <div class="my-4 p-4 border bg-white rounded-3 shadow-sm">
-                <div class="mb-4 fw-bold fs-5">Danh sách đặt phòng</div>
-                <div id="calendar" class="mb-4"></div>
-            </div>
+    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
+        <div>
+            <h5 class="m-0 fw-bold">Loại phòng được đặt phổ biến nhất (toàn thời gian)</h5>
         </div>
-        <div class="col-12 col-xl-5">
-            <div class="mt-0 mt-xl-4 p-4 bg-white border rounded-3 shadow-sm overflow-x-auto">
-                aaa
-            </div>
-            <div class="my-4 p-4 bg-white border rounded-3 shadow-sm">
-                abc
-            </div>
-        </div>
-    </div>
-
-    <div class="w-100">
         <div
-            class="p-4 border rounded-3 bg-white shadow-sm w-100 d-flex align-items-center justify-content-md-center overflow-x-auto">
-            <div id="piechart_3d" style="width: 100%; height: 400px;"></div>
+            class="overflow-x-auto">
+            <div id="columnchart_values" style=""
+                 class="d-flex justify-content-center w-100"></div>
         </div>
+
     </div>
 
     <div class="row gx-4">
-        <div class="col-12 col-xl-6">
-            <div class="mt-4 p-4 border bg-white rounded-3 shadow-sm">
-                abc
-            </div>
-        </div>
-        <div class="col-12 col-xl-6">
-            <div
-                class="mt-4 p-4 border bg-white rounded-3 shadow-sm w-100 d-flex align-items-center justify-content-md-center overflow-x-auto">
-                <div id="columnchart_values" style="width: 100%; height: 100%;"></div>
+        <div class="col-12">
+            <div class=" p-4 border bg-white rounded-3 shadow-sm">
+                <div class="">
+                    <h5 class="m-0 fw-bold text-danger"> Phòng hỏng/cần dọn dẹp</h5>
+                </div>
+                <div class="row g-4">
+                    @if(count($unavailRooms) != 0)
+                        @foreach($unavailRooms as $room)
+                            <div class="col-6 col-xl-4">
+                                <div
+                                    class="border shadow-sm rounded-3 mt-4 p-4 d-flex align-items-center justify-content-between">
+                                    <div class="fs-5 fw-bold">
+                                        {{$room->name}}
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-outline-dark tran-3"
+                                           href="{{route('admin.rooms.edit', $room)}}"><i class="bi bi-eye me-2"></i>Xem</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="mt-4">
+                            Không có phòng nào
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

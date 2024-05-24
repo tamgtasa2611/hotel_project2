@@ -9,59 +9,6 @@
     }
 </style>
 <script src="{{asset('plugins/calendar/index.global.min.js')}}"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load("current", {packages: ["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Tình trang', 'Số phòng'],
-            ['Phòng khả dụng', {{count($availRooms)}}],
-            ['Phòng không khả dụng', {{count($unavailRooms)}}],
-            ['Phòng đang sử dụng', {{count($activeRooms)}}],
-            ['Phòng đang còn trống', {{count($emptyRooms)}}]
-        ]);
-
-        var options = {
-            title: 'Tình trạng phòng',
-            is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-
-        ///////////////////////////////////////////////////////////////////////
-        var data1 = google.visualization.arrayToDataTable([
-            ["Element", "Density", {role: "style"}],
-            ["Copper", 8.94, "#b87333"],
-            ["Silver", 10.49, "silver"],
-            ["Gold", 19.30, "gold"],
-            ["Platinum", 21.45, "color: #e5e4e2"]
-        ]);
-
-        var view1 = new google.visualization.DataView(data1);
-        view1.setColumns([0, 1,
-            {
-                calc: "stringify",
-                sourceColumn: 1,
-                type: "string",
-                role: "annotation"
-            },
-            2]);
-
-        var options1 = {
-            title: "Density of Precious Metals, in g/cm^3",
-            width: 600,
-            height: 400,
-            bar: {groupWidth: "95%"},
-            legend: {position: "none"},
-        };
-        var chart1 = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-        chart1.draw(view1, options1);
-        ////////////////////////////////////////////////////////////
-    }
-</script>
 
 <x-adminLayout>
     <div class="p-4 bg-white shadow-sm border rounded-3 mb-4">
@@ -84,7 +31,7 @@
         </div>
     </div>
 
-    <div class="w-100 my-4">
+    <div class="w-100 mt-4">
         <div class="p-4 bg-white border rounded-3 shadow-sm overflow-x-auto">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="fw-bold fs-5">Đặt phòng mới nhất</div>
@@ -136,21 +83,6 @@
             </div>
         </div>
     </div>
-
-    <div class="row g-4">
-        <div class="col-12 col-xl-6">
-            <div class="p-4 border bg-white rounded-3 shadow-sm overflow-x-auto">
-                <div id="piechart_3d" style="width: 100%; height: 400px;"></div>
-            </div>
-        </div>
-        <div class="col-12 col-xl-6">
-            <div
-                class="p-4 border bg-white rounded-3 shadow-sm w-100 d-flex align-items-center justify-content-md-center overflow-x-auto">
-                <div id="columnchart_values" style="width: 100%; height: 400px;"></div>
-            </div>
-        </div>
-    </div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

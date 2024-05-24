@@ -76,6 +76,19 @@ class PaymentController extends Controller
                 'admin_id' => Auth::guard('admin')->id()
             ];
 
+            if ($payment->status == 1) {
+                $data = [
+                    'date' => Carbon::now(),
+                    'amount' => $request->amount,
+                    'note' => $request->note,
+                    'status' => 1,
+                    'guest_id' => $payment->guest_id,
+                    'booking_id' => $request->booking_id,
+                    'method_id' => $request->method_id,
+                    'admin_id' => Auth::guard('admin')->id()
+                ];
+            }
+
             $payment->update($data);
             Activity::saveActivity(Auth::guard('admin')->id(), 'đã sửa 1 thanh toán');
             return Redirect::route('admin.payments.show', $payment)->with('success', 'Cập nhật thanh toán thành công!');

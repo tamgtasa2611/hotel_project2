@@ -103,7 +103,7 @@ Route::middleware([CheckLoginGuest::class])->controller(ProfileController::class
         Route::get('/{booking}', 'bookingDetail')->name('guest.bookingDetail');
         Route::post('/{booking}/cancel', 'cancelBooking')->name('guest.cancelBooking');
         Route::post('/{booking}/rate', [RateController::class, 'rateBooking'])->name('guest.rateBooking');
-        Route::delete('/{booking}/deleteRate', [RateController::class, 'deleteRate'])->name('guest.deleteRate');
+        Route::post('/{booking}/deleteRate', [RateController::class, 'deleteRate'])->name('guest.deleteRate');
     });
     Route::post('/deleteAccount', 'deleteAccount')->name('guest.deleteAccount');
 });
@@ -242,7 +242,6 @@ Route::prefix('admin')->group(function () {
             Route::get('/revenue', 'revenueReport')->name('admin.statistics.revenue');
             Route::get('/rooms', 'roomReport')->name('admin.statistics.rooms');
             Route::get('/services', 'serviceReport')->name('admin.statistics.services');
-            Route::get('/foods', 'foodReport')->name('admin.statistics.foods');
             Route::get('/guests', 'guestReport')->name('admin.statistics.guests');
         });
 

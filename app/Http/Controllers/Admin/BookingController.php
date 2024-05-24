@@ -82,7 +82,7 @@ class BookingController extends Controller
     {
         $checkInFormat = Carbon::createFromDate($booking->checkin)->setTime(14, 00);
         $checkOutFormat = Carbon::createFromDate($booking->checkout)->setTime(12, 00);
-
+        $roomTypesImages = RoomTypeImage::all();
         //lay loai phong cua booking
         $bookedRoomTypes = Booking::getRoomTypes($booking->id);
         //get room with booking info
@@ -127,6 +127,7 @@ class BookingController extends Controller
 //        dd($currentBookedRooms, $groupCount);
         $data = [
             'booking' => $booking,
+            'images' => $roomTypesImages,
             'bookedRoomTypes' => $bookedRoomTypes,
             'rooms' => $rooms,
             'currentBookedRooms' => $currentBookedRooms,

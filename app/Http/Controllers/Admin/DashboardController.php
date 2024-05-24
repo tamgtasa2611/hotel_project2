@@ -19,29 +19,7 @@ class DashboardController extends Controller
         $currentId = Auth::guard('admin')->id();
         $admin = Admin::find($currentId);
         $bookings = Booking::where('status', '=', 0)->limit(3)->get();
-        $availRooms = Room::where('status', '=', 0)->get();
         $rooms = Room::getRoomsWithBooking();
-        $emptyRooms = [];
-        $activeRooms = [];
-        $unavailRooms = Room::where('status', '=', 1)->get();
-
-        $now = Carbon::createFromDate(Carbon::now())->startOfDay();
-        foreach ($rooms as $room) {
-            if ($room->checkin != null && $room->checkout != null) {
-                $checkin = Carbon::createFromDate($room->checkin)->setTime(14, 00);
-                $checkout = Carbon::createFromDate($room->checkout)->setTime(12, 00);
-
-                //neu ngay hom nay phong do thuoc ve 1 booking nao do
-                if ($now->between($checkin, $checkout)) {
-//                    $rooms->forget($rooms->search($room));
-                    $activeRooms[] = $room;
-                } else {
-                    $emptyRooms[] = $room;
-                }
-            } else {
-                $emptyRooms[] = $room;
-            }
-        }
 
         $roomTypes = RoomType::all();
         $resources = [];
@@ -59,7 +37,7 @@ class DashboardController extends Controller
         $events = [];
         $bookedRooms = Booking::getAllBookedRooms();
         foreach ($bookedRooms as $bookedRoom) {
-            $color = 'rgba(' . rand(40, 210) . ' , ' . rand(40, 210) . ', ' . rand(40, 210) . ', 0.9)';
+            $color = 'rgba(' . rand(30, 210) . ' , ' . rand(35, 215) . ', ' . rand(40, 220) . ', 0.9)';
 
             foreach ($events as $event) {
                 if ($bookedRoom->booking_id == $event['id']) {
@@ -80,10 +58,6 @@ class DashboardController extends Controller
         $data = [
             'admin' => $admin,
             'bookings' => $bookings,
-            'availRooms' => $availRooms,
-            'emptyRooms' => $emptyRooms,
-            'activeRooms' => $activeRooms,
-            'unavailRooms' => $unavailRooms,
             'roomTypes' => $roomTypes,
             'resources' => $resources,
             'events' => $events

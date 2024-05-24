@@ -94,7 +94,7 @@
                             <td class="text-center">
                                 {{ $booking->checkout }} <span class="text-muted ">(12:00)</span>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center fw-bold text-success">
                                 {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
                             </td>
                             <td>

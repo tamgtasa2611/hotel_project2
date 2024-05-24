@@ -30,21 +30,34 @@
                     <div class="p-4 col-12 ">
                         <div class="row">
                             <div class="col-4">
-                                <label class="form-label" for="booking_id">Đặt phòng <span
-                                        class="text-danger">*</span></label>
+                                <label class="form-label" for="booking_id">Đặt phòng
+                                    @if($payment->status != 1)
+                                        <span
+                                            class="text-danger">*</span>
+                                    @endif</label>
                             </div>
                             <div class="col-8">
-                                <select name="booking_id" id="booking_id" class="form-select" required>
-                                    @foreach($bookings as $booking)
-                                        <option value="{{$booking->id}}"
-                                            {{$payment->booking_id == $booking->id ? 'selected' : ''}}
-                                        >#{{$booking->id}}
-                                            ({{\App\Helpers\AppHelper::vnd_format($booking->total_price)}}
-                                            - {{$booking->guest_lname . ' ' . $booking->guest_fname}}
-                                            - {{\Carbon\Carbon::createFromDate($booking->date)->format('d-m-Y')}})
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if($payment->status != 1)
+                                    <select name="booking_id" id="booking_id" class="form-select" required>
+                                        @foreach($bookings as $booking)
+                                            <option value="{{$booking->id}}"
+                                                {{$payment->booking_id == $booking->id ? 'selected' : ''}}
+                                            >#{{$booking->id}}
+                                                ({{\App\Helpers\AppHelper::vnd_format($booking->total_price)}}
+                                                - {{$booking->guest_lname . ' ' . $booking->guest_fname}}
+                                                - {{\Carbon\Carbon::createFromDate($booking->date)->format('d-m-Y')}})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <div>
+                                        #{{$payment->booking->id}}
+                                        ({{\App\Helpers\AppHelper::vnd_format($payment->booking->total_price)}}
+                                        - {{$payment->booking->guest_lname . ' ' . $payment->booking->guest_fname}}
+                                        - {{\Carbon\Carbon::createFromDate($payment->booking->date)->format('d-m-Y')}})
+                                        <input type="hidden" hidden name="booking_id" value="{{$payment->booking->id}}">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         @if ($errors->has('booking_id'))
@@ -58,13 +71,23 @@
                     <div class="p-4 col-12 ">
                         <div class="row">
                             <div class="col-4">
-                                <label class="form-label" for="amount">Số tiền <span
-                                        class="text-danger">*</span></label>
+                                <label class="form-label" for="amount">Số tiền
+                                    @if($payment->status != 1)
+                                        <span
+                                            class="text-danger">*</span>
+                                    @endif</label>
                             </div>
                             <div class="col-8">
-                                <input type="number" class="form-control" id="amount" name="amount" min="10000"
-                                       step="1000"
-                                       required value="{{$payment->amount}}">
+                                @if($payment->status != 1)
+                                    <input type="number" class="form-control" id="amount" name="amount" min="10000"
+                                           required value="{{$payment->amount}}">
+                                @else
+                                    <div class="fw-bold text-success">
+                                        {{\App\Helpers\AppHelper::vnd_format($payment->amount)}}
+                                        <input type="hidden" hidden name="amount"
+                                               value="{{$payment->amount}}">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         @if ($errors->has('amount'))
@@ -82,14 +105,21 @@
                                         class="text-danger">*</span></label>
                             </div>
                             <div class="col-8">
-                                <select name="status" id="status" class="form-select" required>
-                                    <option value="0" {{$payment->status == 0 ? 'selected' : ''}}>Chưa
-                                        thanh toán
-                                    </option>
-                                    <option value="1" {{$payment->status == 1 ? 'selected' : ''}}>Đã thanh
-                                        toán
-                                    </option>
-                                </select>
+                                @if($payment->status != 1)
+                                    <select name="status" id="status" class="form-select" required>
+                                        <option value="0" {{$payment->status == 0 ? 'selected' : ''}}>Chưa
+                                            thanh toán
+                                        </option>
+                                        <option value="1" {{$payment->status == 1 ? 'selected' : ''}}>Đã thanh
+                                            toán
+                                        </option>
+                                    </select>
+                                @else
+                                    <div class="badge bg-success">
+                                        Đã thanh toán
+                                        <input type="hidden" hidden name="status" value="1">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         @if ($errors->has('status'))
