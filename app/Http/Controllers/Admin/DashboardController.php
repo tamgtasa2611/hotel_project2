@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         $currentId = Auth::guard('admin')->id();
         $admin = Admin::find($currentId);
-        $bookings = Booking::where('status', '=', 0)->limit(3)->get();
+        $bookings = Booking::where('status', '=', 0)->orderBy('date', 'DESC')->limit(3)->get();
         $rooms = Room::getRoomsWithBooking();
 
         $roomTypes = RoomType::all();

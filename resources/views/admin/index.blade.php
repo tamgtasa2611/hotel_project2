@@ -22,16 +22,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="p-4 border bg-white rounded-3 shadow-sm h-auto">
-                <div class="mb-4 fw-bold fs-5">Lịch đặt phòng</div>
-                <div id="calendar" class="mb-4"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-100 mt-4">
+    {{--    newest--}}
+    <div class="w-100 my-4">
         <div class="p-4 bg-white border rounded-3 shadow-sm overflow-x-auto">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="fw-bold fs-5">Đặt phòng mới nhất</div>
@@ -42,7 +34,7 @@
             <div class="row gx-4">
                 @if(count($bookings) != 0)
                     @foreach($bookings as $booking)
-                        <div class="col-12 col-xl-6">
+                        <div class="col-12 col-md-6 col-xl-4">
                             <div class="card mt-4">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -80,6 +72,16 @@
                         Không có đặt phòng mới nào cần duyệt...
                     </div>
                 @endif
+            </div>
+        </div>
+    </div>
+
+    {{--    calendar--}}
+    <div class="row">
+        <div class="col-12">
+            <div class="p-4 border bg-white rounded-3 shadow-sm h-auto">
+                <div class="mb-4 fw-bold fs-5">Lịch đặt phòng</div>
+                <div id="calendar" class="mb-4"></div>
             </div>
         </div>
     </div>

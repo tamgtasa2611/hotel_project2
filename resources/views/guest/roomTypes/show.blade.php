@@ -117,68 +117,70 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-white p-4 m-0 shadow-sm border rounded-3"
+                              class="bg-white m-0 shadow-sm border rounded-3"
                               action="{{route('guest.cart.addToCart', $roomType)}}">
                             @csrf
                             @method('POST')
-                            <div class="mb-4 d-flex justify-content-between align-items-center">
+                            <div class=" p-4 d-flex justify-content-between align-items-center">
                                 <h4 class="m-0 fw-bold text-primary">Đặt phòng</h4>
                                 <div><span
                                         class="text-success">{{AppHelper::vnd_format($roomType->price)}}</span> / đêm
                                 </div>
                             </div>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <!-- checkin input -->
-                                    <div>
-                                        <input id="checkin" name="checkin" type="text"
-                                               placeholder="Check in"
-                                               class="my-input form-control"
-                                               value=""
-                                               required
-                                               autocomplete="one-time-code">
+                            <hr class="m-0">
+                            <div class="p-4">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <!-- checkin input -->
+                                        <div>
+                                            <input id="checkin" name="checkin" type="text"
+                                                   placeholder="Check in"
+                                                   class="my-input form-control"
+                                                   value=""
+                                                   required
+                                                   autocomplete="one-time-code">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <!-- checkout input -->
-                                    <div>
-                                        <input id="checkout" name="checkout" type="text"
-                                               placeholder="Check out"
-                                               value=""
-                                               class="my-input form-control"
-                                               required
-                                               autocomplete="one-time-code">
+                                    <div class="col-12">
+                                        <!-- checkout input -->
+                                        <div>
+                                            <input id="checkout" name="checkout" type="text"
+                                                   placeholder="Check out"
+                                                   value=""
+                                                   class="my-input form-control"
+                                                   required
+                                                   autocomplete="one-time-code">
+                                        </div>
                                     </div>
+                                    <div id="dateError" class="col-12 d-none text-danger"></div>
                                 </div>
-                                <div id="dateError" class="col-12 d-none text-danger"></div>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <!-- Submit button -->
-                                <button type="submit" id="bookBtn"
-                                        class="btn btn-primary  tran-3 w-100">
-                                    Xác nhận
-                                </button>
+                                <div class="col-12 mt-4">
+                                    <!-- Submit button -->
+                                    <button type="submit" id="bookBtn"
+                                            class="btn btn-primary  tran-3 w-100">
+                                        Xác nhận
+                                    </button>
+                                </div>
                             </div>
                         </form>
 
-                        <div class="mt-5 bg-white p-4 shadow-sm  border rounded-3">
-                            <h4 class="mb-3 mt-md-0 fw-bold text-primary">Đánh giá</h4>
-                            <div id='' class="">
+                        <div class="mt-5 bg-white  shadow-sm  border rounded-3">
+                            <div class="d-flex justify-content-between align-items-center p-4">
+                                <h4 class="m-0 fw-bold text-primary ">Đánh giá</h4>
+                                <div>
+                                    <i class="bi bi-chat-dots text-primary fs-5"></i>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <div id='review-div' class="p-4">
                                 @if(count($roomRatings) != 0)
                                     @foreach($roomRatings as $roomRating)
-                                        <div class="text-bg-white p-4 mb-4 rounded-3 border shadow-sm">
+                                        <div class="text-bg-white mb-4">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="div-img overflow-hidden rounded-circle shadow-sm"
-                                                         style="height: 40px; width: 40px">
-                                                        <img
-                                                            src="{{asset(($roomRating->guest->image) ? 'storage/admin/guests/'.$roomRating->booking->guest->image : 'images/noavt.jpg')}}"
-                                                            class=" object-fit-cover rounded-circle"
-                                                            alt="guest_avatar" height="40px" width="40px">
-                                                    </div>
-                                                    <div class="ms-3">
+                                                    <div class="">
                                                         <div class="fw-bold">
-                                                            {{$roomRating->guest->first_name . ' ' . $roomRating->guest->last_name}}
+                                                            {{$roomRating->guest->last_name . ' ' . $roomRating->guest->first_name }}
                                                         </div>
                                                         <div
                                                             class="fs-7 fst-italic text-muted">{{$roomRating->rate_date}}
@@ -247,13 +249,16 @@
                                             </div>
                                             @if($roomRating->review)
                                                 <div class="mt-3">
-                                                    <p class="m-0 p-0">
+                                                    <p class="m-0 p-0 text-bg-light rounded-3 p-2">
                                                         {{$roomRating->review}}
                                                     </p>
                                                 </div>
                                             @endif
                                         </div>
                                     @endforeach
+                                    <div class="d-flex justify-content-center">
+                                        {{$roomRatings->onEachSide(2)->links()}}
+                                    </div>
                                 @else
                                     Chưa có đánh giá nào...
                                 @endif
@@ -262,115 +267,9 @@
                     </div>
                 </div>
             </div>
-
-            {{--            rating--}}
-
-            {{--
-            <div class="mb-5 bg-white p-4 shadow-sm border rounded-3" id="rating">
-                <h4 class="mb-4 fw-bold text-primary">Đánh giá <i class="bi bi-star"></i></h4>
-
-                <div class="row g-4">
-                    <div class="col-12">
-                        @if(count($roomRatings) != 0)
-                            @foreach($roomRatings as $roomRating)
-                                <div class="text-bg-white p-4 mb-4  shadow-sm">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <div class="div-img overflow-hidden  shadow-sm"
-                                                 style="height: 40px; width: 40px">
-                                                <img
-                                                    src="{{asset(($roomRating->booking->guest->image) ? 'storage/admin/guests/'.$roomRating->booking->guest->image : 'images/noavt.jpg')}}"
-                                                    class=" object-fit-cover"
-                                                    alt="guest_avatar" height="40px" width="40px">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">
-                                                    {{$roomRating->booking->guest->first_name . ' ' . $roomRating->booking->guest->last_name}}
-                                                </div>
-                                                <div
-                                                    class="fs-7 fst-italic text-muted">{{$roomRating->rate_date}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-end">
-                                            @if($roomRating->rating == 5)
-                                                <div>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                </div>
-                                                <div class="text-warning-emphasis">
-                                                    😍 Amazing!
-                                                </div>
-                                            @elseif($roomRating->rating == 4)
-                                                <div>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                </div>
-                                                <div class="text-warning-emphasis">
-                                                    😊 Good!
-                                                </div>
-                                            @elseif($roomRating->rating == 3)
-                                                <div>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                </div>
-                                                <div class="text-warning-emphasis">
-                                                    🙂 Neutral!
-                                                </div>
-                                            @elseif($roomRating->rating == 2)
-                                                <div>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                </div>
-                                                <div class="text-warning-emphasis">
-                                                    😒 Bad!
-                                                </div>
-                                            @elseif($roomRating->rating == 1)
-                                                <div>
-                                                    <i class="bi bi-star-fill text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                    <i class="bi bi-star text-warning"></i>
-                                                </div>
-                                                <div class="text-warning-emphasis">
-                                                    😡 Worst!
-                                                </div>
-                                            @endif
-
-                                        </div>
-                                    </div>
-                                    @if($roomRating->review)
-                                        <div class="mt-3">
-                                            <p class="m-0 p-0">
-                                                {{$roomRating->review}}
-                                            </p>
-                                        </div>
-                                    @endif
-                                </div>
-                            @endforeach
-                        @else
-                            Chưa có đánh giá nào...
-                        @endif
-                    </div>
-                </div>
-            </div>
-            --}}
-
         </div>
     </section>
+
     <script src="{{asset('plugins/calendar/moment.min.js')}}"></script>
     <script>
         moment().format();

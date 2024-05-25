@@ -176,7 +176,7 @@
                 @else
                     <div class="col-12 tran-3">
                         <div
-                            class="p-4 bg-white border shadow-sm rounded-3 d-flex flex-column justify-content-center align-items-center">
+                            class="p-4 my-4 bg-white border shadow-sm rounded-3 d-flex flex-column justify-content-center align-items-center">
                             <h4 class="fw-bold mb-4 mt-5">Giỏ hàng của bạn trống</h4>
                             <a href="{{route('guest.rooms')}}" class="btn btn-primary mb-5 tran-3">Chọn phòng</a>
                         </div>

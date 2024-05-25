@@ -88,7 +88,7 @@ class RoomTypeController extends Controller
             ->join('amenities', 'room_type_amenities.amenity_id', '=', 'amenities.id')
             ->where('room_type_id', '=', $id)
             ->get();
-        $roomRatings = Rating::where('room_type_id', '=', $id)->with('guest')->paginate(3)->withQueryString();
+        $roomRatings = Rating::where('room_type_id', '=', $id)->with('guest')->simplePaginate(3)->withQueryString();
 
         return view('guest.roomTypes.show', compact('roomType', 'roomImages', 'roomAmenities', 'roomRatings'));
     }
