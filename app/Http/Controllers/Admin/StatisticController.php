@@ -13,7 +13,7 @@ class StatisticController extends Controller
 {
     public function revenueReport()
     {
-        return view('admin.statistics.index');
+        return view('admin.statistics.revenue');
     }
 
     public function roomReport()
@@ -55,7 +55,7 @@ class StatisticController extends Controller
 //        print_r($dataChart);
 //        dd($dataChart, $bookedTypes);
 
-        return view('admin.statistics.index', compact('availRooms', 'unavailRooms', 'emptyRooms', 'activeRooms', 'dataChart'));
+        return view('admin.statistics.room', compact('availRooms', 'unavailRooms', 'emptyRooms', 'activeRooms', 'dataChart'));
 
     }
 
