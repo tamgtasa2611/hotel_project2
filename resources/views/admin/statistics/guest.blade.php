@@ -1,10 +1,10 @@
-<title>Thống kê doanh thu - Skyrim Hotel</title>
+<title>Thống kê khách hàng - Skyrim Hotel</title>
 <script src="{{ asset('plugins/calendar/index.global.min.js') }}"></script>
 
 <x-adminLayout>
     <div class="p-4 bg-white shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold m-0">Thống kê doanh thu</h4>
+            <h4 class="fw-bold m-0">Thống kê khách hàng</h4>
             <a class="d-block d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                 aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-4"></i>

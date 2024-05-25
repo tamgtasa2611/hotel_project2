@@ -61,13 +61,13 @@ class StatisticController extends Controller
 
     public function serviceReport()
     {
-        return view('admin.statistics.index');
+        return view('admin.statistics.service');
 
     }
 
     public function guestReport()
     {
-        return view('admin.statistics.index');
+        return view('admin.statistics.guest');
 
     }
 }
