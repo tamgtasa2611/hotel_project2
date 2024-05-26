@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,18 +37,35 @@ class Activity extends Model
         ]);
     }
 
-    public static function getByDate($date)
+    public static function deleteByDate($date)
     {
         switch ($date) {
-            case 0:
+            case 'day':
+                $date = [
+                    Carbon::now()->startOfDay(),
+                    Carbon::now()->endOfDay()
+                ];
                 break;
-            case 1:
+            case 'week':
+                $date = [
+                    Carbon::now()->startOfWeek(),
+                    Carbon::now()->endOfWeek()
+                ];
                 break;
-            case 2:
+            case 'month':
+                $date = [
+                    Carbon::now()->startOfMonth(),
+                    Carbon::now()->endOfMonth()
+                ];
                 break;
-            case 3:
+            case 'all':
+                $date = [
+                    Carbon::now()->startOfCentury(),
+                    Carbon::now()->endOfCentury()
+                ];
                 break;
         }
-        return Activity::all();
+
+        return Activity::whereBetween('date', $date)->delete();
     }
 }

@@ -50,4 +50,22 @@
             </div>
         </div>
     </div>
+
+    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="m-0 fw-bold">Doanh thu theo loại phòng</h5>
+            <form>
+                <select name="room_type_revenue" class="form-select" id="" onchange="this.form.submit()">
+
+                    <option value="week">Tuần này</option>
+                    <option value="month">Tháng hiện tại</option>
+                    <option value="quarter">Quý hiện tại</option>
+                    <option value="year">Năm nay</option>
+                </select>
+            </form>
+        </div>
+        <div class="overflow-x-auto h-auto overflow-y-hidden">
+            a
+        </div>
+    </div>
 </x-adminLayout>

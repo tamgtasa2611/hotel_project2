@@ -9,6 +9,20 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Phòng', 'Số phòng'],
+            ['Phòng được sử dụng', {{ !is_null($activeRooms) ? count($activeRooms) : 0 }}],
+            ['Phòng trống', {{ !is_null($emptyRooms) ? count($emptyRooms) : 0 }}]
+        ]);
+
+        var options = {
+            title: ''
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+
         ///////////////////////////////////////////////////////////////////////
         var data1 = google.visualization.arrayToDataTable([
             ["Element", "Tổng số phòng đã đặt", {
@@ -104,7 +118,22 @@
         <div class="overflow-x-auto">
             <div id="columnchart_values" style="" class="d-flex justify-content-center w-100"></div>
         </div>
+    </div>
 
+    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="m-0 fw-bold">Tỷ lệ phòng được sử dụng</h5>
+            <form>
+                <select name="occu_rate" class="form-select" id="" onchange="this.form.submit()">
+                    <option value="day">Hôm nay</option>
+                    <option value="week">Tuần này</option>
+                    <option value="month">Tháng này</option>
+                </select>
+            </form>
+        </div>
+        <div class="overflow-x-auto h-auto overflow-y-hidden">
+            <div id="piechart" style="height: 400px" class="d-flex justify-content-center w-100"></div>
+        </div>
     </div>
 
     <div class="row gx-4">

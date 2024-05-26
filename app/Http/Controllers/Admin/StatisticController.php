@@ -52,8 +52,7 @@ class StatisticController extends Controller
             $dataChart[] = [$typeName, $type->sum_room, '#' . rand(100000, 999999)];
         }
 
-//        print_r($dataChart);
-//        dd($dataChart, $bookedTypes);
+//TODO: occu rate
 
         return view('admin.statistics.room', compact('availRooms', 'unavailRooms', 'emptyRooms', 'activeRooms', 'dataChart'));
 
@@ -67,6 +66,7 @@ class StatisticController extends Controller
 
     public function guestReport()
     {
+
         return view('admin.statistics.guest');
 
     }

@@ -14,11 +14,9 @@ class ActivityController extends Controller
 {
     public function index(Request $request)
     {
-        $date = $request->date ?? 0;
-        $activities = Activity::getByDate($date);
+        $activities = Activity::all();
 
         $data = [
-            'date' => $date,
             'activities' => $activities,
         ];
 
@@ -31,6 +29,7 @@ class ActivityController extends Controller
         $validated = $request->validate([
             'deletePassword' => 'required|min:6'
         ]);
+
         if ($validated) {
             $admin = Auth::guard('admin')->user();
 
@@ -39,7 +38,9 @@ class ActivityController extends Controller
                 return Redirect::back()->with('failed', 'Sai mật khẩu');
             }
 
-            Activity::truncate();
+            $date = $request->date ?? 'day';
+
+            Activity::deleteByDate($date);
             return Redirect::back()->with('success', 'Xóa lịch sử thành công');
         }
         return Redirect::back()->with('failed', 'Xảy ra lỗi!');
