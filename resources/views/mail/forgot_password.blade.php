@@ -318,7 +318,7 @@
         style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
 
         <div>
-            Your reset password code is: {{$resetCode}}
+            Mã đặt lại mật khẩu của bạn là: {{$resetCode}}
         </div>
 
     </td>

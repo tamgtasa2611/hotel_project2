@@ -1,4 +1,4 @@
-<title>Contact - Skyrim Hotel</title>
+<title>Liên hệ - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="login-section" class="m-nav">
         {{--        breadcrumb--}}

@@ -47,12 +47,13 @@ class StatisticController extends Controller
             ->groupBy('room_type_id')
             ->get();
 
+        $dataChart = [];
+
         foreach ($bookedTypes as $type) {
             $typeName = RoomType::find($type->room_type_id)->name ?? 'Không xác định';
             $dataChart[] = [$typeName, $type->sum_room, '#' . rand(100000, 999999)];
         }
 
-//TODO: occu rate
 
         return view('admin.statistics.room', compact('availRooms', 'unavailRooms', 'emptyRooms', 'activeRooms', 'dataChart'));
 

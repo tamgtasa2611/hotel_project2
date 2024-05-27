@@ -1,4 +1,4 @@
-<title>Refund policies - Skyrim Hotel</title>
+<title>Chính sách hoàn tiền - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="about-section" class="m-nav">
         <div class="container px-0" style="min-height: 91dvh">

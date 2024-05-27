@@ -1,4 +1,4 @@
-<title>Home - Skyrim Hotel</title>
+<title>Trang chủ - Skyrim Hotel</title>
 <x-guestLayout>
     {{--    HERO--}}
     <section class="m-nav mb-5 position-relative bg-secondary">

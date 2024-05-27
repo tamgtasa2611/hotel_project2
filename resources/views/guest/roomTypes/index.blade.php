@@ -1,4 +1,4 @@
-<title>Rooms - Skyrim Hotel</title>
+<title>Danh sách phòng - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="rooms" class="m-nav">
         {{--            heading--}}
@@ -118,9 +118,17 @@
                                 <div id="rooms_div" class="tran-3 load-animation">
                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                         @foreach($roomTypes as $roomType)
+                                            @php
+                                                $countRoom = 0;
+                                                    foreach ($rooms as $room) {
+                                                     if($room->room_type_id == $roomType->id) {
+                                                        $countRoom++;
+                                                        }
+                                                    }
+                                            @endphp
                                             <div class="col-12 col-md-6  ">
                                                 <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
-                                                    <div class="col-12 p-0 overflow-hidden -4 position-relative">
+                                                    <div class="col-12 p-0 overflow-hidden position-relative">
                                                         <div class="overflow-hidden ratio ratio-16x9">
                                                             <a href="{{route('guest.rooms.show', $roomType)}}">
                                                                 @if(count($roomType->images) != 0)
@@ -161,16 +169,7 @@
                                                                 class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
                                                                 <div class="d-flex">
                                                                     <div>
-                                                                        Còn @php
-                                                                            $countRoom = 0;
-                                                                                foreach ($rooms as $room) {
-                                                                                 if($room->room_type_id == $roomType->id) {
-                                                                                    $countRoom++;
-                                                                                    }
-                                                                                }
-                                                                                echo $countRoom;
-                                                                        @endphp
-                                                                        phòng trống
+                                                                        Còn {{$countRoom}} phòng trống
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -180,6 +179,9 @@
                                                                             method="post" class="addToCartForm">
                                                                             @csrf
                                                                             @method('POST')
+                                                                            <input type="hidden" hidden
+                                                                                   name="room_count"
+                                                                                   value="{{$countRoom}}">
                                                                             <input type="hidden" name="_token"
                                                                                    id="token"
                                                                                    hidden
@@ -196,7 +198,7 @@
                                                                         </form>
                                                                     @else
                                                                         <button type="button" disabled
-                                                                                class="btn btn-secondary disabled tran-3">
+                                                                                class="btn btn-danger disabled tran-3">
                                                                             Hết phòng
                                                                         </button>
                                                                     @endif

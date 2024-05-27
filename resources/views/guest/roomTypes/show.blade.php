@@ -117,10 +117,22 @@
                     {{--               booking details--}}
                     <div class="col-12 col-lg-4 h-100">
                         <form method="post"
-                              class="bg-white m-0 shadow-sm border rounded-3"
-                              action="{{route('guest.cart.addToCart', $roomType)}}">
+                              class="bg-white m-0 shadow-sm border rounded-3 addToCartForm"
+                              action="{{route('guest.cart.addToCart', $roomType->id)}}">
                             @csrf
                             @method('POST')
+                            <input type="hidden" hidden
+                                   name="room_count"
+                                   value="">
+                            <input type="hidden" name="_token"
+                                   id="token"
+                                   hidden
+                                   class="visually-hidden"
+                                   value="{{ csrf_token() }}">
+                            <input type="hidden" hidden
+                                   class="visually-hidden"
+                                   name="id"
+                                   value="{{$roomType->id}}">
                             <div class=" p-4 d-flex justify-content-between align-items-center">
                                 <h4 class="m-0 fw-bold text-primary">Đặt phòng</h4>
                                 <div><span
@@ -129,27 +141,34 @@
                             </div>
                             <hr class="m-0">
                             <div class="p-4">
-                                <div class="row g-3">
+                                <div class="row g-4">
                                     <div class="col-12">
+                                        <label for="checkin" class="form-label"><i
+                                                class="bi bi-box-arrow-in-right me-2"></i>Ngày
+                                            nhận
+                                            phòng</label>
                                         <!-- checkin input -->
                                         <div>
                                             <input id="checkin" name="checkin" type="text"
-                                                   placeholder="Check in"
-                                                   class="my-input form-control"
+                                                   placeholder="Checkin"
+                                                   class=" form-control"
                                                    value=""
                                                    required
-                                                   autocomplete="one-time-code">
+                                            >
                                         </div>
                                     </div>
                                     <div class="col-12">
+                                        <label for="checkout" class="form-label"><i
+                                                class="bi bi-box-arrow-in-left me-2"></i>Ngày
+                                            trả phòng</label>
                                         <!-- checkout input -->
                                         <div>
                                             <input id="checkout" name="checkout" type="text"
-                                                   placeholder="Check out"
+                                                   placeholder="Checkout"
                                                    value=""
-                                                   class="my-input form-control"
+                                                   class=" form-control"
                                                    required
-                                                   autocomplete="one-time-code">
+                                            >
                                         </div>
                                     </div>
                                     <div id="dateError" class="col-12 d-none text-danger"></div>
@@ -157,7 +176,7 @@
                                 <div class="col-12 mt-4">
                                     <!-- Submit button -->
                                     <button type="submit" id="bookBtn"
-                                            class="btn btn-primary  tran-3 w-100">
+                                            class="btn btn-primary  tran-3 w-100 add-to-cart-btn">
                                         Xác nhận
                                     </button>
                                 </div>
@@ -279,36 +298,42 @@
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
             theme: {
-                theme_color: '#008cba',
-                main_background: 'rgb(30,36,49)',
-                active_text_color: 'rgb(255,255,255)',
-                inactive_text_color: 'rgba(255,255,255,0.3)',
+                theme_color: '#2fa4e7',
+
             },
+            showCalendarDisplay: false,
             bodyType: 'inline',
+            firstWeekday: 1,
             dateFormat: 'dd-mm-yyyy',
             closeOnBlur: true,
+            selectedDate: new Date(`{{\Carbon\Carbon::today()}}`),
             minDate: new Date(),
             maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3)),
             jumpToMinMax: true,
-            customCancelBTN: 'Cancel',
+            customCancelBTN: 'Quay lại',
+            customOkBTN: 'Chọn',
+            customClearBTN: 'Xóa',
             autoClose: true
         });
 
         const datePicker2 = MCDatepicker.create({
             el: '#checkout',
             theme: {
-                theme_color: '#008cba',
-                main_background: 'rgb(30,36,49)',
-                active_text_color: 'rgb(255,255,255)',
-                inactive_text_color: 'rgba(255,255,255,0.3)',
+                theme_color: '#2fa4e7',
+
             },
+            showCalendarDisplay: false,
             bodyType: 'inline',
+            firstWeekday: 1,
             dateFormat: 'dd-mm-yyyy',
             closeOnBlur: true,
+            selectedDate: new Date(`{{\Carbon\Carbon::today()->addDay()}}`),
             minDate: new Date(new Date().setDate(new Date().getDate() + 1)),
             maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3)),
             jumpToMinMax: true,
-            customCancelBTN: 'Cancel',
+            customCancelBTN: 'Quay lại',
+            customOkBTN: 'Chọn',
+            customClearBTN: 'Xóa',
             autoClose: true
         });
 

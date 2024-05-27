@@ -1,4 +1,4 @@
-<title>Login - Skyrim Hotel</title>
+<title>Đăng nhập - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="login-section" class="m-nav">
         <div class="container mh-screen">

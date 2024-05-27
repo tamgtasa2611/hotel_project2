@@ -37,30 +37,43 @@ class CartController extends Controller
         $end = $request->checkout ?? Carbon::now()->addDay()->format('d-m-Y');
         $roomType = RoomType::where('id', '=', $request->id)->first();
 
-        //tong so ngay luu tru
-        //            format lai tu d-m-y thanh y-m-d
-        $checkInDate = date('Y-m-d', strtotime($start));
-        $checkOutDate = date('Y-m-d', strtotime($end));
-        $dateIn = Carbon::createFromFormat('Y-m-d', $checkInDate);
-        $dateOut = Carbon::createFromFormat('Y-m-d', $checkOutDate);
-        $datePeriod = CarbonPeriod::between($dateIn, $dateOut);
-        $totalDays = $dateIn->diffInDays($dateOut);
+        $checkInFormat = Carbon::createFromDate($start)->setTime(14, 00);
+        $checkOutFormat = Carbon::createFromDate($end)->setTime(12, 00);
 
-        //check trung nhau
-//        $bookings = Booking::where('room_id', '=', $room->id)->get();
-//        foreach ($bookings as $booking) {
-//            $dateInCheck = Carbon::createFromFormat('Y-m-d', $booking->checkin_date);
-//            $dateOutCheck = Carbon::createFromFormat('Y-m-d', $booking->checkout_date)->subDay();
-////            $datePeriodCheck = CarbonPeriod::between($dateInCheck, $dateOutCheck);
-//
-//            //check
-//            foreach ($datePeriod as $date) {
-//                if ($date->between($dateInCheck, $dateOutCheck)) {
-//                    return back()->with('failed', 'Phòng không khả dụng trong khoảng thời gian này!');
-//                }
-//            }
-//        }
+        //get room with booking info
+        $bookedRooms = Room::getRoomsInBookingByTypeId($roomType->id);
+        //get room KHA DUNG
+        $rooms = Room::where('status', '=', 0)->where('room_type_id', '=', $roomType->id)->get();
+        $unavailableRoomList = [];
 
+        if (count($bookedRooms) != 0) {
+            foreach ($bookedRooms as $bookedRoom) {
+                $dates = [
+                    $bookedRoom->room_id,
+                    Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00),
+                    Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00)
+                ];
+
+                if ($checkInFormat->between($dates[1], $dates[2]) || $checkOutFormat->between($dates[1], $dates[2])) {
+                    if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                        //phong khong kha dung
+                        $unavailableRoomList[] = $bookedRoom->room_id;
+                    }
+                }
+            }
+        }
+
+        //filter xoa cac phong ko kha dung
+        $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
+            if (!in_array($room->id, $unavailableRoomList)) {
+                return $room;
+            }
+        })->all();
+
+        if (count($rooms) == 0) {
+            return Redirect::back()->with('failed', 'Đã hết ' . $roomType->name . ' trong khoảng thời gian này!');
+        }
+        
         //them vao session
         if (Session::exists('cart')) {
             $cart = Session::get('cart');

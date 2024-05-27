@@ -1,4 +1,4 @@
-<title>Edit account - Skyrim Hotel</title>
+<title>Đổi mật khẩu - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="profile-section" class="m-nav">
         <div class="container">

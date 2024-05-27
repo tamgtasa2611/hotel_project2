@@ -1,4 +1,4 @@
-<title>My bookings - Skyrim Hotel</title>
+<title>Lịch sử đặt phòng - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="profile-section" class="m-nav">
         <div class="container">

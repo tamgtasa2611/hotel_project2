@@ -1,4 +1,4 @@
-<title>Forgot password enter code - Skyrim Hotel</title>
+<title>Quên mật khẩu - Skyrim Hotel</title>
 <x-guestLayout>
     <section id="login-section" class="m-nav">
         <div class="container mh-screen">

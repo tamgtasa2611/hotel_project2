@@ -11,8 +11,8 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Phòng', 'Số phòng'],
-            ['Phòng được sử dụng', {{ !is_null($activeRooms) ? count($activeRooms) : 0 }}],
-            ['Phòng trống', {{ !is_null($emptyRooms) ? count($emptyRooms) : 0 }}]
+            ['Phòng đang sử dụng', {{ !is_null($activeRooms) ? count($activeRooms) : 0 }}],
+            ['Phòng còn trống', {{ !is_null($emptyRooms) ? count($emptyRooms) : 0 }}]
         ]);
 
         var options = {
@@ -24,12 +24,13 @@
         chart.draw(data, options);
 
         ///////////////////////////////////////////////////////////////////////
+        @if(count($dataChart) != 0)
         var data1 = google.visualization.arrayToDataTable([
             ["Element", "Tổng số phòng đã đặt", {
                 role: "style"
             }],
-            @foreach ($dataChart as $data)
-                ['{{ $data[0] }}', {{ $data[1] }}, '{{ $data[2] }}'],
+                @foreach ($dataChart as $data)
+            ['{{ $data[0] }}', {{ $data[1] }}, '{{ $data[2] }}'],
             @endforeach
         ]);
 
@@ -57,6 +58,7 @@
         };
         var chart1 = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
         chart1.draw(view1, options1);
+        @endif
         ////////////////////////////////////////////////////////////
     }
 </script>
@@ -66,7 +68,7 @@
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Thống kê phòng</h4>
             <a class="d-block d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                aria-controls="offcanvasExample">
+               aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-4"></i>
             </a>
         </div>
@@ -111,14 +113,16 @@
         </div>
     </div>
 
-    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
-        <div>
-            <h5 class="m-0 fw-bold">Loại phòng được đặt phổ biến nhất (toàn thời gian)</h5>
+    @if(count($dataChart) != 0)
+        <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
+            <div>
+                <h5 class="m-0 fw-bold">Loại phòng được đặt phổ biến nhất (toàn thời gian)</h5>
+            </div>
+            <div class="overflow-x-auto">
+                <div id="columnchart_values" style="" class="d-flex justify-content-center w-100"></div>
+            </div>
         </div>
-        <div class="overflow-x-auto">
-            <div id="columnchart_values" style="" class="d-flex justify-content-center w-100"></div>
-        </div>
-    </div>
+    @endif
 
     <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center">
@@ -153,7 +157,7 @@
                                     </div>
                                     <div>
                                         <a class="btn btn-outline-dark tran-3"
-                                            href="{{ route('admin.rooms.edit', $room) }}"><i
+                                           href="{{ route('admin.rooms.edit', $room) }}"><i
                                                 class="bi bi-eye me-2"></i>Xem</a>
                                     </div>
                                 </div>
@@ -170,7 +174,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'vi',

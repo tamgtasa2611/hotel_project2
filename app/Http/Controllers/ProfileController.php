@@ -90,8 +90,8 @@ class ProfileController extends Controller
         $newPassword = $request->new_password;
         $confirmNewPassword = $request->confirm_new_password;
 
-        $guest = Auth::guard('guest')->user();
-        $currentPassword = $guest->getAuthPassword();
+        $guest = Guest::find(Auth::guard('guest')->id());
+        $currentPassword = $guest->password;
 
         //kiem tra bo trong
         if ($oldPassword == "" || $newPassword == "" || $confirmNewPassword == "") {
@@ -107,8 +107,10 @@ class ProfileController extends Controller
         }
 
         $hashedNewPassword = Hash::make($newPassword);
-        $guest->update(['password', $hashedNewPassword]);
-
+        $guest->update([
+            'password' => $hashedNewPassword
+        ]);
+        
         return back()->with('success', 'Đổi mật khẩu thành công!');
     }
 

@@ -115,4 +115,15 @@ class Room extends Model
             ->join('rooms', 'rooms.id', '=', 'booked_rooms.room_id')
             ->get();
     }
+
+    public static function getRoomsInBookingByTypeId($id)
+    {
+        return DB::table('booked_rooms')
+            ->selectRaw('booked_rooms.*, bookings.*')
+            ->addSelect('bookings.status as booking_status')
+            ->join('bookings', 'bookings.id', '=', 'booked_rooms.booking_id')
+            ->join('rooms', 'rooms.id', '=', 'booked_rooms.room_id')
+            ->where('room_type_id', '=', $id)
+            ->get();
+    }
 }

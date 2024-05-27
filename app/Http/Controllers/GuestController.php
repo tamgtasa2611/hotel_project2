@@ -119,19 +119,24 @@ class GuestController extends Controller
     {
         //validation: email, required
         //...
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+        ]);
 
-        $resetEmail = $request->email;
-        $emailList = Guest::pluck('email')->toArray();
-        if (!in_array($resetEmail, $emailList)) {
-            return back()->with('failed', 'Email doesn\'t exist!');
+        if ($validated) {
+            $resetEmail = $request->email;
+            $emailList = Guest::pluck('email')->toArray();
+            if (!in_array($resetEmail, $emailList)) {
+                return back()->with('failed', 'Email không tồn tại');
+            }
+
+            $guest = Guest::where('email', '=', $resetEmail)->first();
+            $resetCode = rand(100000, 999999);
+            Mail::to($guest)->send((new ForgotPassword($resetCode)));
+            session()->put('resetEmail', $resetEmail);
+            session()->put('resetCode', $resetCode);
+            return Redirect::route('guest.forgotPassword.enterCode')->with('Vui lòng kiểm tra mã đặt lại được gửi về email của bạn!');
         }
-
-        $guest = Guest::where('email', '=', $resetEmail)->first();
-        $resetCode = rand(100000, 999999);
-        Mail::to($guest)->send((new ForgotPassword($resetCode)));
-        session()->put('resetEmail', $resetEmail);
-        session()->put('resetCode', $resetCode);
-        return Redirect::route('guest.forgotPassword.enterCode')->with('Vui lòng kiểm tra mã đặt lại được gửi về email của bạn!');
     }
 
     public function forgotPasswordEnterCode()
@@ -141,13 +146,20 @@ class GuestController extends Controller
 
     public function forgotPasswordCheckCode(Request $request)
     {
-        $resetCode = session()->get('resetCode');
-        $inputCode = $request->reset_code;
-        if (!$inputCode == $resetCode) {
-            return back()->with('failed', 'Wrong reset code!');
+        $validated = $request->validate([
+            'reset_code' => 'integer'
+        ]);
+
+        if ($validated) {
+            $resetCode = session()->get('resetCode');
+            $inputCode = $request->reset_code;
+
+            if ($inputCode != $resetCode) {
+                return back()->with('failed', 'Sai mã đặt lại!');
+            }
+            session()->forget('resetCode');
+            return Redirect::route('guest.forgotPassword.resetPassword');
         }
-        session()->forget('resetCode');
-        return Redirect::route('guest.forgotPassword.resetPassword');
     }
 
     public function resetPassword()
@@ -159,26 +171,27 @@ class GuestController extends Controller
     {
         $newPassword = $request->new_password;
         $confirmNewPassword = $request->confirm_new_password;
-
-        //kiem tra bo trong
-        if ($newPassword == "" || $confirmNewPassword == "") {
-            return back()->with('failed', 'Please enter all the fields!');
-        }
-
-        if ($confirmNewPassword != $newPassword) {
-            return back()->with('failed', 'Confirm new password is not the same as new password!');
-        }
-
-        $hashedNewPassword = Hash::make($newPassword);
-
-        $resetEmail = session()->get('resetEmail');
-        $guest = Guest::where('email', '=', $resetEmail)->firstOrFail();
-        session()->forget('resetEmail');
-
-        $guest->update([
-            'password' => $hashedNewPassword
+        $validated = $request->validate([
+            'new_password' => 'min:6',
+            'confirm_new_password' => 'min:6',
         ]);
 
-        return Redirect::route('guest.login')->with('success', 'Đổi mật khẩu thành công!');
+        if ($validated) {
+            if ($confirmNewPassword != $newPassword) {
+                return back()->with('failed', 'Mật khẩu nhập lại không khớp!');
+            }
+
+            $hashedNewPassword = Hash::make($newPassword);
+
+            $resetEmail = session()->get('resetEmail');
+            $guest = Guest::where('email', '=', $resetEmail)->firstOrFail();
+            session()->forget('resetEmail');
+
+            $guest->update([
+                'password' => $hashedNewPassword
+            ]);
+
+            return Redirect::route('guest.login')->with('success', 'Đặt lại mật khẩu thành công!');
+        }
     }
 }
