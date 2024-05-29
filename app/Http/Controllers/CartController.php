@@ -73,7 +73,7 @@ class CartController extends Controller
         if (count($rooms) == 0) {
             return Redirect::back()->with('failed', 'Đã hết ' . $roomType->name . ' trong khoảng thời gian này!');
         }
-        
+
         //them vao session
         if (Session::exists('cart')) {
             $cart = Session::get('cart');
@@ -111,10 +111,47 @@ class CartController extends Controller
 
         if (Session::exists('cart')) {
             $cart = Session::get('cart');
+
+
             if (isset($cart[$request->room_type_id])) {
-                $cart[$request->room_type_id]['quantity'] = $request->quantity;
-                Session::put('cart', $cart);
-                return Redirect::back()->with('success', 'Sửa số lượng phòng thành công!');
+                $newQuantity = $request->quantity;
+                $rooms = Room::where('status', '=', 0)
+                    ->where('room_type_id', '=', $request->room_type_id)
+                    ->get();
+                $bookedRoom = Room::getRoomsInBookingByTypeId($request->room_type_id);
+                $checkin = Carbon::createFromDate($request->checkin)->setTime(14, 00);
+                $checkout = Carbon::createFromDate($request->checkout)->setTime(12, 00);
+                $unavailableRoomList = [];
+
+                if (count($bookedRoom) > 0) {
+                    foreach ($bookedRoom as $broom) {
+                        $dateIn = Carbon::createFromDate($broom->checkin);
+                        $dateOut = Carbon::createFromDate($broom->checkout);
+                        if ($checkin->between($dateIn, $dateOut) || $checkout->between($dateIn, $dateOut)) {
+                            if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                                //phong khong kha dung
+                                $unavailableRoomList[] = $bookedRoom->room_id;
+                            }
+                        }
+                    }
+                }
+
+                //filter xoa cac phong ko kha dung
+                $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
+                    if (!in_array($room->id, $unavailableRoomList)) {
+                        return $room;
+                    }
+                })->all();
+
+                if (count($rooms) == 0) {
+                    return Redirect::back()->with('failed', 'Đã hết phòng trong khoảng thời gian này!');
+                } else if ($newQuantity > count($rooms)) {
+                    return Redirect::back()->with('failed', 'Số lượng phòng đạt tối đa!');
+                } else {
+                    $cart[$request->room_type_id]['quantity'] = $newQuantity;
+                    Session::put('cart', $cart);
+                    return Redirect::back()->with('success', 'Sửa số lượng phòng thành công!');
+                }
             }
             return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');
         }
