@@ -148,9 +148,13 @@ class CartController extends Controller
                 } else if ($newQuantity > count($rooms)) {
                     return Redirect::back()->with('failed', 'Số lượng phòng đạt tối đa!');
                 } else {
-                    $cart[$request->room_type_id]['quantity'] = $newQuantity;
-                    Session::put('cart', $cart);
-                    return Redirect::back()->with('success', 'Sửa số lượng phòng thành công!');
+                    if ($cart[$request->room_type_id]['quantity'] != $newQuantity) {
+                        $cart[$request->room_type_id]['quantity'] = $newQuantity;
+                        Session::put('cart', $cart);
+                        return Redirect::back()->with('success', 'Sửa số lượng phòng thành công!');
+                    } else {
+                        return Redirect::back()->with('failed', 'Số lượng phòng ít nhất là 1!');
+                    }
                 }
             }
             return Redirect::back()->with('failed', 'Vui lòng thử lại sau!');

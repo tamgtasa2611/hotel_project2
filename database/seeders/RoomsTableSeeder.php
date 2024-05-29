@@ -16,7 +16,7 @@ class RoomsTableSeeder extends Seeder
         $limit = 150;
 
         $status = array(0, 0, 0, 0, 1);
-        $roomType = array(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8);
+        $roomType = array(1, 1, 2, 2, 3, 3, 4, 4, 5);
 
         for ($i = 100; $i < $limit; $i++) {
             DB::table('rooms')->insert([
