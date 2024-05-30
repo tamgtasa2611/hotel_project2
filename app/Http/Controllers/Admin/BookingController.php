@@ -124,7 +124,7 @@ class BookingController extends Controller
         $groupCount = $grouped->map(function ($item, $key) {
             return collect($item)->count();
         });
-//        dd($currentBookedRooms, $groupCount);
+        //        dd($currentBookedRooms, $groupCount);
         $data = [
             'booking' => $booking,
             'images' => $roomTypesImages,
@@ -157,7 +157,6 @@ class BookingController extends Controller
         //log
         Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật trạng thái 1 đặt phòng');
         return Redirect::back()->with('success', 'Cập nhật trạng thái đặt phòng thành công');
-
     }
 
     public function arrangeRoom(Request $request, Booking $booking)
@@ -170,17 +169,38 @@ class BookingController extends Controller
                     ->get()->pluck('room_id')->toArray();
 
                 if (in_array($roomId, $current)) {
-                    return Redirect::back()->with('failed', 'Phòng này đã được sắp xếp cho đặt phòng này rồi!');
+                    $roomName = Room::find($roomId)->name;
+                    return Redirect::back()->with('failed', 'Phòng ' . $roomName . ' đã được sắp xếp cho đặt phòng này rồi!');
                 }
 
-                //can fix
-                //2 nguoi cung them vao 1 dat phong
-                //2 nguoi them cung 1 phong vao 2 dat phong khac nhau
+                $checkin = Carbon::createFromDate($booking->checkin)->setTime(14, 00);
+                $checkout = Carbon::createFromDate($booking->checkout)->setTime(12, 00);
 
+                //2 nguoi cung them vao 1 dat phong
+
+
+                //2 nguoi them cung 1 phong vao 2 dat phong khac nhau
+                $roomInOtherBookings =
+                    DB::table('booked_rooms')
+                    ->where('room_id', '=', $roomId)
+                    ->join('bookings', 'bookings.id', '=', 'booked_rooms.booking_id')
+                    ->get();
+
+                foreach ($roomInOtherBookings as $bookedRoom) {
+                    $dateIn =
+                        Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00);
+                    $dateOut = Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00);
+                    $roomName = Room::find($roomId)->name;
+                    if ($checkin->between($dateIn, $dateOut) || $checkout->between($dateIn, $dateOut)) {
+                        return Redirect::back()->with('failed', 'Phòng ' . $roomName . ' đã được xếp cho đặt phòng khác trong khoảng thời gian này!');
+                    }
+                }
+
+
+                //insert
                 DB::table('booked_rooms')->insert([
                     'room_id' => $roomId,
-                    'booking_id' => $booking->id,
-                    'status' => 0
+                    'booking_id' => $booking->id
                 ]);
             }
             //log
