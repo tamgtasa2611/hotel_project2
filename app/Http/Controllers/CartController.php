@@ -19,16 +19,30 @@ class CartController extends Controller
 {
     public function cart()
     {
-        $carts = [];
+        $cart = [];
         $start = Session::get('start');
         $end = Session::get('end');
         if (Session::get('cart') != null) {
-            $carts = Session::get('cart');
+            $cart = Session::get('cart');
+            foreach ($cart as $roomTypeId => $roomType) {
+                $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
+                    ->where('status', '=', 0)
+                    ->count();
+                $cartQuantity = $roomType['quantity'];
+
+                if ($countCurrentRoom == 0) {
+                    unset($cart[$roomTypeId]);
+                } //neu so luong phong hien tai it hon trong cart
+                else if ($countCurrentRoom < $cartQuantity) {
+                    $cart[$roomTypeId]['quantity'] = $countCurrentRoom;
+                }
+                Session::put('cart', $cart);
+            }
         } else {
-            $carts = null;
+            $cart = null;
         }
 
-        return view('guest.cart.index', compact('carts', 'start', 'end'));
+        return view('guest.cart.index', compact('cart', 'start', 'end'));
     }
 
     public function addToCart(Request $request)

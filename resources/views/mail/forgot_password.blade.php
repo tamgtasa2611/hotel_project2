@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
-      xmlns:o="urn:schemas-microsoft-com:office:office">
+    xmlns:o="urn:schemas-microsoft-com:office:office">
+
 <head>
     <!--[if (gte mso 9)|(IE)]>
     <xml>
@@ -55,7 +56,8 @@
             max-width: auto;
             height: auto;
             margin: auto;
-            display: block !important;: 0 px;
+            display: block !important;
+            : 0 px;
         }
 
         td p {
@@ -78,7 +80,12 @@
             width: 100%;
         }
 
-        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
             line-height: inherit;
         }
 
@@ -98,7 +105,7 @@
         }
 
         /*Gmail blue links*/
-        u + #body a {
+        u+#body a {
             color: inherit;
             text-decoration: none;
             font-size: inherit;
@@ -108,7 +115,8 @@
         }
 
         /*Buttons fix*/
-        .undoreset a, .undoreset a:hover {
+        .undoreset a,
+        .undoreset a:hover {
             text-decoration: none !important;
         }
 
@@ -276,72 +284,75 @@
     style="margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"
     bgcolor="#f0f0f0">
 
-<span class="preheader-text"
-      style="color: transparent; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; visibility: hidden; width: 0; display: none; mso-hide: all;"></span>
+    <span class="preheader-text"
+        style="color: transparent; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; visibility: hidden; width: 0; display: none; mso-hide: all;"></span>
 
-<div
-    style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;"></div>
+    <div
+        style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">
+    </div>
 
-<table
-="0" align="center" cellpadding="0" cellspacing="0" width="100%" style="width: 100%
+    <table
+="0" align="center" cellpadding="0" cellspacing="0" width="100%"
+    style="width: 100%
 ;
     max-width: 100%
 ;">
-<tr><!-- Outer Table -->
-    <td align="center" bgcolor="#f0f0f0" data-composer>
+    <tr><!-- Outer Table -->
+        <td align="center" bgcolor="#f0f0f0" data-composer>
 
-        <table
+            <table
         ="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%"
-        style="width: 100%
+            style="width: 100%
         ;
             max-width: 100%
         ;">
-        <!-- lotus-header-18-->
-<tr>
-    <td align="center" bgcolor="#343e9e" class="container-padding">
+            <!-- lotus-header-18-->
+    <tr>
+        <td align="center" bgcolor="#343e9e" class="container-padding">
 
-        <!-- Content -->
-        <table
+            <!-- Content -->
+            <table
         ="0" align="center" cellpadding="0" cellspacing="0" role="presentation" class="row"
-        width="580" style="width: 580px
+            width="580" style="width: 580px
         ;
             max-width: 580px
         ;">
-<tr>
-    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-</tr>
-<tr>
-    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-</tr>
-<tr>
-    <td class="center-text" align="center"
-        style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
+    <tr>
+        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="center-text" align="center"
+            style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
 
-        <div>
-            Mã đặt lại mật khẩu của bạn là: {{$resetCode}}
-        </div>
+            <div>
+                Mã đặt lại mật khẩu: <br>{{ $resetCode }}
+            </div>
+
+        </td>
+    </tr>
+    <tr>
+        <td height="10" style="font-size:20px;color: white; line-height:10px;">&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
+    </tr>
+    </table>
+    <!-- Content -->
 
     </td>
-</tr>
-<tr>
-    <td height="10" style="font-size:20px;color: white; line-height:10px;">&nbsp;
+    </tr>
+    </table>
     </td>
-</tr>
-<tr>
-    <td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td>
-</tr>
-<tr>
-    <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-</tr>
-</table>
-<!-- Content -->
-
-</td>
-</tr>
-</table>
-</td>
-</tr><!-- Outer-Table -->
-</table>
+    </tr><!-- Outer-Table -->
+    </table>
 
 </body>
+
 </html>

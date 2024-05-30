@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="">
                         <div class="mb-3 d-flex align-items-center justify-content-between">
-                            @if ($carts != null)
+                            @if ($cart != null)
                                 <div class="p-3 bg-primary rounded-circle shadow-sm">
                                     <i class="bi bi-bag text-white"></i>
                                 </div>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="progress" style="height: 8px">
-                            @if ($carts != null)
+                            @if ($cart != null)
                                 <div class="progress-bar" role="progressbar" style="width: 24px;" aria-valuenow="2"
                                     aria-valuemin="0" aria-valuemax="100"></div>
                             @else
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($carts != null)
+                @if ($cart != null)
                     <div class="col-12 col-lg-8 tran-3">
                         <div class="bg-white p-4 shadow-sm border rounded-3 overflow-x-auto">
                             <div class="mb-4 text-center">
@@ -60,7 +60,7 @@
                                     @php
                                         $totalPrice = 0;
                                     @endphp
-                                    @foreach ($carts as $roomTypeId => $roomType)
+                                    @foreach ($cart as $roomTypeId => $roomType)
                                         <tr>
                                             <td class="align-middle col-6">
                                                 <div class="row g-4 align-items-center">
@@ -146,7 +146,7 @@
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>Số phòng</div>
-                                    <div>{{ count($carts) }}</div>
+                                    <div>{{ count($cart) }}</div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>Thành tiền</div>
@@ -206,6 +206,6 @@
 
             //update quantity
             updateQuantity();
-        }, 1000);
+        }, 2000);
     </script>
 </x-guestLayout>
