@@ -68,4 +68,67 @@
             a
         </div>
     </div>
+
+
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-xl-6">
+            <div class="p-4 border shadow-sm rounded-3 bg-white">
+                <div class="mb-4">
+                    <h5 class="m-0 fw-bold">Khung giờ có nhiều khách đặt</h5>
+                </div>
+                <div>
+                    <table class="table table-bordered" id="datatable">
+                        <thead>
+                            <th class="fw-bold text-center">Khung giờ</th>
+                            <th class="fw-bold text-center">Số đặt phòng</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($bookHours as $hour)
+                                <tr>
+                                    <td class=" align-middle text-center">{{ $hour[0] }}</td>
+                                    <td class="text-center align-middle">{{ $hour[1] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-6">
+            <div class="p-4 border shadow-sm rounded-3 bg-white">
+                <div class="mb-4">
+                    <h5 class="m-0 fw-bold">abc</h5>
+                </div>
+                <div>
+                    abc
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#datatable").DataTable({
+                columnDefs: [{
+                    orderable: false,
+                    targets: 0,
+                }, ],
+                layout: {
+                    topStart: {
+
+                    },
+                    topEnd: {
+
+                    },
+                    bottomStart: {
+
+                    },
+                    bottomEnd: {
+
+                    },
+                },
+            });
+        });
+    </script>
 </x-adminLayout>

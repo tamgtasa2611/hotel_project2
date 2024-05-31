@@ -110,51 +110,6 @@
         </div>
     @endif
 
-    <div class="row g-4 mb-4">
-        <div class="col-12 col-lg-6">
-            <div class="p-4 border shadow-sm rounded-3 bg-white">
-                <div class="mb-4">
-                    <h5 class="m-0 fw-bold">Khung giờ nhiều khách đặt</h5>
-                </div>
-                <div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <th class="fw-bold text-center">Khung giờ</th>
-                            <th class="fw-bold text-center">Số phòng</th>
-                        </thead>
-                        <tbody>
-                            <td class=" align-middle text-center">abc</td>
-                            <td class="text-center align-middle">abc</td>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6">
-            <div class="p-4 border shadow-sm rounded-3 bg-white">
-                <div>
-                    <h5 class="mb-4 fw-bold">Khách hàng chi nhiều tiền nhất</h5>
-                </div>
-                <div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <th class="fw-bold text-center">Tên khách hàng</th>
-                            <th class="fw-bold text-center">Tổng số tiền</th>
-
-                        </thead>
-                        <tbody>
-                            <td class=" align-middle text-center">abc</td>
-                            <td class="text-center align-middle text-success fw-bold">
-                                {{ AppHelper::vnd_format(1000000) }}
-                            </td>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row gx-4">
         <div class="col-12">
             <div class=" p-4 border bg-white rounded-3 shadow-sm">

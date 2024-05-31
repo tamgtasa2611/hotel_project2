@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
-use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\BookingController;
@@ -18,7 +17,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RateController;
-use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Middleware\CheckLoginAdmin;
@@ -167,16 +165,6 @@ Route::prefix('admin')->group(function () {
                 Route::delete('/destroy', 'destroy')->name('admin.amenities.destroy');
             });
 
-            // SERVICES =====================================================================================
-            Route::prefix('/services')->controller(ServiceController::class)->group(function () {
-                Route::get('/', 'index')->name('admin.services');
-                Route::get('/create', 'create')->name('admin.services.create');
-                Route::post('/create', 'store')->name('admin.services.store');
-                Route::get('/{service}/edit', 'edit')->name('admin.services.edit');
-                Route::put('/{service}/edit', 'update')->name('admin.services.update');
-                Route::delete('/destroy', 'destroy')->name('admin.services.destroy');
-            });
-
             // ADMINISTRATORS =====================================================================================
             Route::prefix('admins')->group(function () {
                 Route::get('/', [AdminController::class, 'index'])->name('admin.admins');
@@ -241,7 +229,6 @@ Route::prefix('admin')->group(function () {
         Route::prefix('statistics')->controller(StatisticController::class)->group(function () {
             Route::get('/revenue', 'revenueReport')->name('admin.statistics.revenue');
             Route::get('/rooms', 'roomReport')->name('admin.statistics.rooms');
-            Route::get('/services', 'serviceReport')->name('admin.statistics.services');
             Route::get('/guests', 'guestReport')->name('admin.statistics.guests');
         });
 
@@ -262,4 +249,3 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 //ADMIN---------------------------------------------------------
-

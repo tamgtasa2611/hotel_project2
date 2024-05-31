@@ -171,3 +171,7 @@ INSERT INTO guests VALUES
 INSERT INTO payment_methods(name) VALUES
 ('Thanh toán trực tiếp'),
 ('Thanh toán online');
+
+
+SELECT * FROM bookings;
+update bookings set date = "2024-05-30 16:00:00" where id = 1;
