@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Admin\LoginController as AdminLoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\BookingController;
@@ -241,11 +242,20 @@ Route::prefix('admin')->group(function () {
     });
 
     //    LOGIN
-    Route::middleware(CheckAdminAlreadyLogin::class)->controller(AdminController::class)->group(function () {
-        Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
-        Route::post('/login', [AdminController::class, 'loginProcess'])->name('admin.loginProcess');
+    Route::middleware(CheckAdminAlreadyLogin::class)->group(function () {
+        Route::get('/login', [AdminLoginController::class, 'login'])->name('admin.login');
+        Route::post('/login', [AdminLoginController::class, 'loginProcess'])->name('admin.loginProcess');
+        //reset mk
+        Route::controller(AdminLoginController::class)->group(function () {
+            Route::get('/forgotPassword', 'forgotPassword')->name('admin.forgotPassword');
+            Route::post('/forgotPassword', 'forgotPasswordSendEmail')->name('admin.forgotPassword.sendEmail');
+            Route::get('/forgotPassword/enterCode', 'forgotPasswordEnterCode')->name('admin.forgotPassword.enterCode');
+            Route::post('/forgotPassword/enterCode', 'forgotPasswordCheckCode')->name('admin.forgotPassword.checkCode');
+            Route::get('/resetPassword', 'resetPassword')->name('admin.forgotPassword.resetPassword');
+            Route::put('/resetPassword', 'resetPasswordProcess')->name('admin.forgotPassword.resetPasswordProcess');
+        });
     });
 
-    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 //ADMIN---------------------------------------------------------

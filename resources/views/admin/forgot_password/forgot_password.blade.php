@@ -41,18 +41,20 @@
                 class="w-100 h-100 d-flex align-items-center justify-content-center
              load-hidden fade-in fade-bottom position-relative">
                 {{--               login form --}}
-                <form method="post" action="{{ route('admin.loginProcess') }}" enctype="multipart/form-data"
-                    class="bg-white p-5 border rounded-3 shadow-sm col-md-8 col-lg-6 col-xl-4">
+                <form method="post" action="{{ route('admin.forgotPassword.sendEmail') }}"
+                    enctype="multipart/form-data"
+                    class="bg-white p-5 border rounded-3 shadow-sm  col-md-8 col-lg-6 col-xl-5">
                     @csrf
+                    @method('POST')
                     {{--                    heading --}}
-                    <div class="d-flex justify-content-center flex-column align-items-center mb-4">
-                        <h6 class="text-primary fw-bold">Trang quản trị</h6>
-                        <h6 class="display-6 text-primary fw-bold">Đăng nhập</h6>
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <h6 class="display-6 text-primary fw-bold">Quên mật khẩu</h6>
                     </div>
                     <!-- Email input -->
                     <div class="mb-4">
                         <div>
-                            <input type="email" class="form-control tran-3" id="exampleInputEmail1" name="email"
+                            <label for="exampleInputEmail1" class="form-label">Vui lòng nhập email của bạn: </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email"
                                 value="{{ old('email') }}" required aria-describedby="emailHelp" placeholder="Email">
                         </div>
                         @if ($errors->has('email'))
@@ -62,30 +64,10 @@
                         @endif
                     </div>
 
-                    <!-- Password input -->
-                    <div class="mb-4">
-                        <div class="input-group" id="show_hide_password">
-                            <input type="password" class="form-control tran-3" id="exampleInputPassword1"
-                                placeholder="Mật khẩu" autocomplete="off" name="password" required minlength="6">
-                            <a href="#" class="input-group-text">
-                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        @if ($errors->has('password'))
-                            @foreach ($errors->get('password') as $error)
-                                <span class="text-danger fs-7">{{ $error }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary w-100 mb-4  tran-3">
-                        Đăng nhập
+                    <button class="btn btn-primary tran-3 w-100 mb-4">
+                        Gửi mã đặt lại mật khẩu
                     </button>
-
-                    <div class="text-center tran-3">
-                        <a href="{{ route('admin.forgotPassword') }}">Quên mật khẩu</a>
-                    </div>
                 </form>
             </div>
         </div>

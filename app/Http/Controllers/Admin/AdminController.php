@@ -7,67 +7,15 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Activity;
 use App\Models\Admin;
-use App\Models\Booking;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Traits\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AdminController extends Controller
 {
-    //LOGIN ==================================================================
-    public function login()
-    {
-        return view('admin.login');
-    }
-
-    public function loginProcess(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:6'],
-        ]);
-        $loginData = [
-            'email' => $credentials['email'],
-            'password' => $credentials['password'],
-        ];
-//        $admin = Admin::where('email', $loginData['email'])->first();
-        //check db
-        if (Auth::guard('admin')->attempt($loginData)) {
-            $request->session()->regenerate();
-            //Lấy thông tin của admin đang login
-            $admin = Auth::guard('admin')->user();
-            //Cho login
-            Auth::guard('admin')->login($admin);
-            //Ném thông tin user đăng nhập lên session
-            session(['admin' => $admin]);
-
-            //log activity
-            Activity::saveActivity($admin->id, 'login into the system');
-            return to_route('admin.dashboard')->with('success', 'Sign in successfully!');
-        }
-        return to_route('admin.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
-    }
-
-    public function logout(Request $request)
-    {
-        if (!Auth::guard('admin')->check()) {
-            return Redirect::route('admin.login')->with('success', 'You have already logged out!');
-        }
-        //log activity
-        Activity::saveActivity(Auth::guard('admin')->id(), 'logout of the system');
-
-        Auth::guard('admin')->logout();
-        session()->forget('admin');
-
-        return to_route('admin.login')->with('success', 'You have been logged out successfully!');
-    }
-
     // CRUD ====================================================================================
     public function index()
     {
@@ -179,6 +127,6 @@ class AdminController extends Controller
             ->setPaper('a4', 'portrait');
 
         return $pdf->stream();
-//        return $pdf->download('data.pdf');
+        //        return $pdf->download('data.pdf');
     }
 }

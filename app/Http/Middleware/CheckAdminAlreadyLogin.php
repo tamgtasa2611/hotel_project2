@@ -18,7 +18,7 @@ class CheckAdminAlreadyLogin
     public function handle(Request $request, Closure $next)
     {
         if (\Illuminate\Support\Facades\Auth::guard('admin')->check()) {
-            return Redirect::route('admin.dashboard')->with('success', 'You have already logged in!');
+            return Redirect::route('admin.dashboard')->with('failed', 'Bạn đã đăng nhập rồi!');
         }
         return $next($request);
     }
