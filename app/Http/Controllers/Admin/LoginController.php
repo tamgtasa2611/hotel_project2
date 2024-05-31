@@ -152,6 +152,8 @@ class LoginController extends Controller
                 'password' => $hashedNewPassword
             ]);
 
+            session()->forget('reset_ready');
+
             return Redirect::route('admin.login')->with(
                 'success',
                 'Đặt lại mật khẩu thành công!'

@@ -21,7 +21,7 @@ class GuestController extends Controller
     //    login logout register
     public function login()
     {
-//        lay url chuyen huong sang login
+        //        lay url chuyen huong sang login
         session([
             'myUrl' => url()->previous()
         ]);
@@ -57,7 +57,7 @@ class GuestController extends Controller
             //Ném thông tin user đăng nhập lên session
             session(['guest' => $guest]);
 
-//            lay thong tin url truoc do de chuyen guest ve
+            //            lay thong tin url truoc do de chuyen guest ve
             $url = Str::replace(url('/'), '', session('myUrl'));
 
             //tu register sang
@@ -141,6 +141,10 @@ class GuestController extends Controller
 
     public function forgotPasswordEnterCode()
     {
+        if (!session()->has('resetCode')) {
+            return Redirect::back()->with('failed', 'Bạn chưa nhập email để nhận mã!');
+        }
+
         return view('guest.login.forgotPasswordEnterCode');
     }
 
@@ -158,12 +162,16 @@ class GuestController extends Controller
                 return back()->with('failed', 'Sai mã đặt lại!');
             }
             session()->forget('resetCode');
+            session()->put('reset_ready', true);
             return Redirect::route('guest.forgotPassword.resetPassword');
         }
     }
 
     public function resetPassword()
     {
+        if (!session()->has('reset_ready')) {
+            return Redirect::back()->with('failed', 'Bạn chưa nhập mã đặt lại!');
+        }
         return view('guest.login.resetPassword');
     }
 
@@ -190,6 +198,8 @@ class GuestController extends Controller
             $guest->update([
                 'password' => $hashedNewPassword
             ]);
+
+            session()->forget('reset_ready');
 
             return Redirect::route('guest.login')->with('success', 'Đặt lại mật khẩu thành công!');
         }
