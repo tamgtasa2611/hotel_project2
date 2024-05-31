@@ -40,4 +40,14 @@ class Guest extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     {
         return $this->hasMany(Rating::class);
     }
+
+    public static function countBooking()
+    {
+        return Guest::with('bookings')->withCount('bookings')->get();
+    }
+
+    public static function countMoney()
+    {
+        return Guest::with('bookings')->withSum('bookings', 'total_price')->get();
+    }
 }

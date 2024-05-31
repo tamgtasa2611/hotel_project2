@@ -11,8 +11,11 @@
 
         var data = google.visualization.arrayToDataTable([
             ['Nhóm', 'Khách hàng', ],
-            ['Có tài khoản', 20],
-            ['Không có tài khoản', 12],
+            // ['Có tài khoản', 20],
+            // ['Không có tài khoản', 12],
+            @foreach ($guestTypes as $guestType)
+                ['{{ $guestType[0] }}', {{ $guestType[1] }}],
+            @endforeach
         ]);
 
         var options = {
@@ -30,72 +33,6 @@
         chart.draw(data, options);
 
         ////////////////////////////////////////////////////////////////
-        var data1 = new google.visualization.DataTable();
-        data1.addColumn('timeofday', 'Time of Day');
-        data1.addColumn('number', 'Số ngày');
-
-        data1.addRows([
-            [{
-                v: [8, 0, 0],
-                f: '8 am'
-            }, 1],
-            [{
-                v: [9, 0, 0],
-                f: '9 am'
-            }, 2],
-            [{
-                v: [10, 0, 0],
-                f: '10 am'
-            }, 3],
-            [{
-                v: [11, 0, 0],
-                f: '11 am'
-            }, 4],
-            [{
-                v: [12, 0, 0],
-                f: '12 pm'
-            }, 5],
-            [{
-                v: [13, 0, 0],
-                f: '1 pm'
-            }, 6],
-            [{
-                v: [14, 0, 0],
-                f: '2 pm'
-            }, 7],
-            [{
-                v: [15, 0, 0],
-                f: '3 pm'
-            }, 8],
-            [{
-                v: [16, 0, 0],
-                f: '4 pm'
-            }, 9],
-            [{
-                v: [17, 0, 0],
-                f: '5 pm'
-            }, 10],
-        ]);
-
-        var options1 = {
-            title: 'Motivation Level Throughout the Day',
-            hAxis: {
-                title: 'Time of Day',
-                format: 'h:mm a',
-                viewWindow: {
-                    min: [7, 30, 0],
-                    max: [17, 30, 0]
-                }
-            },
-            vAxis: {
-                title: 'Rating (scale of 1-10)'
-            }
-        };
-
-        var chart1 = new google.visualization.ColumnChart(
-            document.getElementById('chart_div1'));
-
-        chart1.draw(data1, options1);
     }
 </script>
 
@@ -123,22 +60,22 @@
         <div class="col-12 col-lg-6">
             <div class="p-4 border shadow-sm rounded-3 bg-white">
                 <div class="mb-4">
-                    <h5 class="m-0 fw-bold">Khách hàng đặt phòng nhiều nhất</h5>
+                    <h5 class="m-0 fw-bold">Khách hàng đặt nhiều nhất (có tài khoản)</h5>
                 </div>
                 <div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="datatable1">
                         <thead>
-                            <th class="fw-bold">Tên khách hàng</th>
+                            <th class="fw-bold text-center">Tên khách hàng</th>
                             <th class="fw-bold text-center">Số đặt phòng</th>
-                            <th class="fw-bold text-center">Số phòng</th>
                         </thead>
                         <tbody>
-                            <td class=" align-middle">abc</td>
-                            <td class="text-center align-middle">abc</td>
-                            <td class="text-center align-middle">
-                                <a href="" class="btn btn-outline-dark btn-sm tran-3"><i
-                                        class="bi bi-eye me-2"></i>Xem</a>
-                            </td>
+                            @foreach ($countBookingOfGuest as $guest)
+                                <tr>
+                                    <td class=" align-middle text-center">
+                                        {{ $guest->last_name . ' ' . $guest->first_name }}</td>
+                                    <td class="text-center align-middle">{{ $guest->bookings_count }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -147,20 +84,25 @@
         <div class="col-12 col-lg-6">
             <div class="p-4 border shadow-sm rounded-3 bg-white">
                 <div>
-                    <h5 class="mb-4 fw-bold">Khách hàng chi nhiều tiền nhất</h5>
+                    <h5 class="mb-4 fw-bold">Khách hàng chi nhiều tiền nhất (có tài khoản)</h5>
                 </div>
                 <div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="datatable2">
                         <thead>
-                            <th class="fw-bold">Tên khách hàng</th>
+                            <th class="fw-bold text-center">Tên khách hàng</th>
                             <th class="fw-bold text-center">Tổng số tiền</th>
 
                         </thead>
                         <tbody>
-                            <td class=" align-middle">abc</td>
-                            <td class="text-center align-middle text-success fw-bold">
-                                {{ AppHelper::vnd_format(1000000) }}
-                            </td>
+                            @foreach ($guestSpentMoney as $guest)
+                                <tr>
+                                    <td class=" align-middle text-center">
+                                        {{ $guest->last_name . ' ' . $guest->first_name }}</td>
+                                    <td class="text-center align-middle text-success fw-bold">
+                                        {{ AppHelper::vnd_format($guest->bookings_sum_total_price) }}
+                                    </td>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -169,12 +111,40 @@
         </div>
     </div>
 
-    <div class="mt-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="m-0 fw-bold">Thời gian khách hàng lưu trú</h5>
-        </div>
-        <div class="overflow-x-auto h-auto overflow-y-hidden">
-            <div id="chart_div1" style="height: 280px" class="d-flex justify-content-center w-100"></div>
-        </div>
-    </div>
+    <script>
+        $(document).ready(function() {
+            $("#datatable1").DataTable({
+                pagingType: "full_numbers",
+                layout: {
+                    topEnd: {
+                        search: {
+                            text: "",
+                            placeholder: "Tìm kiếm...",
+                        },
+                    },
+                    bottomEnd: {
+                        paging: {
+                            numbers: 3,
+                        },
+                    },
+                },
+            });
+            $("#datatable2").DataTable({
+                pagingType: "full_numbers",
+                layout: {
+                    topEnd: {
+                        search: {
+                            text: "",
+                            placeholder: "Tìm kiếm...",
+                        },
+                    },
+                    bottomEnd: {
+                        paging: {
+                            numbers: 3,
+                        },
+                    },
+                },
+            });
+        });
+    </script>
 </x-adminLayout>

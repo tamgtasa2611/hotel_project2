@@ -232,7 +232,7 @@
                                     <table class="table table-bordered m-0">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" colspan="2">Loại phòng</th>
+                                                <th class="text-center">Loại phòng</th>
                                                 <th class="text-center">Giá (1 đêm)</th>
                                                 <th class="text-center">Số lượng</th>
                                                 <th class="text-center">Thành tiền</th>
@@ -241,209 +241,193 @@
                                         <tbody>
                                             @foreach ($bookedRoomTypes as $roomType)
                                                 <tr>
-                                                    <td class="align-middle text-center col-2">
-                                                        <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
-                                                            @foreach ($images as $image)
-                                                                @if ($roomType->id == $image->room_type_id)
-                                                                    <img src="{{ asset('storage/rooms/' . $image->path) }}"
-                                                                        alt="room_img"
-                                                                        class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3" />
-                                                                @break
 
-                                                            @else
-                                                                <img src="{{ asset('images/noimage.jpg') }}"
-                                                                    alt="room_img"
-                                                                    class="object-fit-cover shadow-sm tran-3 img-fluid rounded-3" />
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
+                                                    <td class="align-middle text-center">
+                                                        {{ $roomType->name }}
+                                                    </td>
+                                                    <td class="align-middle text-center text-success">
+                                                        {{ \App\Helpers\AppHelper::vnd_format($roomType->price) }}
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        {{ $roomType->number_of_room }}
+                                                    </td>
+                                                    <td class="align-middle text-center text-success">
+                                                        {{ \App\Helpers\AppHelper::vnd_format($roomType->price * $roomType->number_of_room) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr class="fs-5 table-secondary">
+                                                <td colspan="3" class="text-center fw-bold">
+                                                    Tổng cộng
                                                 </td>
-                                                <td class="align-middle text-center">
-                                                    {{ $roomType->name }}
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    {{ \App\Helpers\AppHelper::vnd_format($roomType->price) }}
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    {{ $roomType->number_of_room }}
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    {{ \App\Helpers\AppHelper::vnd_format($roomType->price * $roomType->number_of_room) }}
+                                                <td class="text-center fw-bold text-success">
+                                                    {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                        <tr class="fs-5 ">
-                                            <td colspan="4" class="text-end fw-bold">
-                                                Tổng cộng
-                                            </td>
-                                            <td class="text-end fw-bold">
-                                                {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div class="row g-4">
-                    @if ($booking->status != 0 && $booking->status != 4)
-                        <div class="col-12 col-lg-8">
-                            <div>
-                                <div class="mb-2 fw-bold">Sắp xếp phòng</div>
-                                @if ($booking->status == 1)
-                                    <div class="bg-light rounded-3 d-flex">
-                                        @foreach ($bookedRoomTypes as $bookedRoomType)
-                                            @php
-                                                $countCurrentRoom = 0;
-                                                if ($groupCount->has($bookedRoomType->id)) {
-                                                    $countCurrentRoom = $groupCount->get($bookedRoomType->id);
-                                                }
-                                            @endphp
-                                            <div class="px-3 py-2 type-id" id="type{{ $bookedRoomType->id }}">
-                                                <div>
-                                                    {{ $bookedRoomType->name }}
-                                                    @if ($bookedRoomType->number_of_room - $countCurrentRoom != 0)
-                                                        <div class="d-inline">
-                                                            (Cần thêm <span class="type-quantity"
-                                                                name="type-quantity"
-                                                                value="{{ $bookedRoomType->number_of_room - $countCurrentRoom }}">{{ $bookedRoomType->number_of_room - $countCurrentRoom }}</span>
-                                                            phòng)
-                                                        </div>
-                                                    @else
-                                                        <div class="d-none visually-hidden">
-                                                            (Cần thêm <span class="type-quantity"
-                                                                name="type-quantity"
-                                                                value="{{ $bookedRoomType->number_of_room - $countCurrentRoom }}">{{ $bookedRoomType->number_of_room - $countCurrentRoom }}</span>
-                                                            phòng)
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    @foreach ($currentBookedRooms as $currentBookedRoom)
-                                                        @if ($bookedRoomType->id == $currentBookedRoom->room_type_id)
-                                                            <li class="fw-bold text-primary">
-                                                                {{ $currentBookedRoom->name }}<a
-                                                                    href="{{ route('admin.bookings.deleteRoom', [$booking, $currentBookedRoom->id]) }}"
-                                                                    class="link-danger"><i
-                                                                        class="bi bi-x-circle ms-2 text-danger"></i></a>
-                                                            </li>
+                    <div class="row g-4">
+                        @if ($booking->status != 0 && $booking->status != 4)
+                            <div class="col-12 col-lg-8">
+                                <div>
+                                    <div class="mb-2 fw-bold">Sắp xếp phòng</div>
+                                    @if ($booking->status == 1)
+                                        <div class="bg-light rounded-3 d-flex">
+                                            @foreach ($bookedRoomTypes as $bookedRoomType)
+                                                @php
+                                                    $countCurrentRoom = 0;
+                                                    if ($groupCount->has($bookedRoomType->id)) {
+                                                        $countCurrentRoom = $groupCount->get($bookedRoomType->id);
+                                                    }
+                                                @endphp
+                                                <div class="px-3 py-2 type-id" id="type{{ $bookedRoomType->id }}">
+                                                    <div>
+                                                        {{ $bookedRoomType->name }}
+                                                        @if ($bookedRoomType->number_of_room - $countCurrentRoom != 0)
+                                                            <div class="d-inline">
+                                                                (Cần thêm <span class="type-quantity"
+                                                                    name="type-quantity"
+                                                                    value="{{ $bookedRoomType->number_of_room - $countCurrentRoom }}">{{ $bookedRoomType->number_of_room - $countCurrentRoom }}</span>
+                                                                phòng)
+                                                            </div>
+                                                        @else
+                                                            <div class="d-none visually-hidden">
+                                                                (Cần thêm <span class="type-quantity"
+                                                                    name="type-quantity"
+                                                                    value="{{ $bookedRoomType->number_of_room - $countCurrentRoom }}">{{ $bookedRoomType->number_of_room - $countCurrentRoom }}</span>
+                                                                phòng)
+                                                            </div>
                                                         @endif
-                                                    @endforeach
-                                                    @if ($bookedRoomType->number_of_room > $countCurrentRoom)
-                                                        @foreach ($rooms as $room)
-                                                            @if ($room->room_type_id == $bookedRoomType->id)
-                                                                <div class=" form-check">
-                                                                    <label for="room{{ $room->id }}"
-                                                                        class="form-check-label">{{ $room->name }}</label>
-                                                                    <input type="checkbox"
-                                                                        id="room{{ $room->id }}"
-                                                                        class="form-check-input" name="room_id[]"
-                                                                        value="{{ $room->id }}">
-                                                                </div>
+                                                    </div>
+                                                    <div class="">
+                                                        @foreach ($currentBookedRooms as $currentBookedRoom)
+                                                            @if ($bookedRoomType->id == $currentBookedRoom->room_type_id)
+                                                                <li class="fw-bold text-primary">
+                                                                    {{ $currentBookedRoom->name }}<a
+                                                                        href="{{ route('admin.bookings.deleteRoom', [$booking, $currentBookedRoom->id]) }}"
+                                                                        class="link-danger"><i
+                                                                            class="bi bi-x-circle ms-2 text-danger"></i></a>
+                                                                </li>
                                                             @endif
                                                         @endforeach
-                                                    @endif
+                                                        @if ($bookedRoomType->number_of_room > $countCurrentRoom)
+                                                            @foreach ($rooms as $room)
+                                                                @if ($room->room_type_id == $bookedRoomType->id)
+                                                                    <div class=" form-check">
+                                                                        <label for="room{{ $room->id }}"
+                                                                            class="form-check-label">{{ $room->name }}</label>
+                                                                        <input type="checkbox"
+                                                                            id="room{{ $room->id }}"
+                                                                            class="form-check-input" name="room_id[]"
+                                                                            value="{{ $room->id }}">
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
 
-                    @if ($booking->note)
-                        <div class="col-12 col-lg-4">
-                            <div>
-                                <div class=" fw-bold mb-2">Ghi chú</div>
-                                <pre style="white-space: pre-line" class="p-3 m-0 bg-light rounded-3 text-break">
+                        @if ($booking->note)
+                            <div class="col-12 col-lg-4">
+                                <div>
+                                    <div class=" fw-bold mb-2">Ghi chú</div>
+                                    <pre style="white-space: pre-line" class="p-3 m-0 bg-light rounded-3 text-break">
                                         {!! $booking->note !!}
                                            </pre>
+                                </div>
                             </div>
+                        @endif
+                    </div>
+                </div>
+
+                <hr class="m-0">
+                <div class="d-flex justify-content-between justify-content-md-between p-4">
+                    <div class="d-flex justify-content-between justify-content-md-start">
+                        <a href="{{ route('admin.bookings') }}" class="btn btn-secondary  tran-3 me-3">
+                            <i class="bi bi-arrow-left me-2"></i>Quay lại
+                        </a>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary  tran-3" name="status"
+                            value="{{ $booking->status }}">
+                            <i class="bi bi-floppy me-2"></i>Cập nhật
+                        </button>
+                    </div>
+                    @if ($booking->status < 2)
+                        <div>
+                            <a href="{{ route('admin.bookings.cancel', $booking) }}" class="btn btn-danger tran-3">
+                                <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
+                            </a>
                         </div>
                     @endif
                 </div>
             </div>
+        </form>
+    </div>
 
-            <hr class="m-0">
-            <div class="d-flex justify-content-between justify-content-md-between p-4">
-                <div class="d-flex justify-content-between justify-content-md-start">
-                    <a href="{{ route('admin.bookings') }}" class="btn btn-secondary  tran-3 me-3">
-                        <i class="bi bi-arrow-left me-2"></i>Quay lại
-                    </a>
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary  tran-3" name="status"
-                        value="{{ $booking->status }}">
-                        <i class="bi bi-floppy me-2"></i>Cập nhật
-                    </button>
-                </div>
-                @if ($booking->status < 2)
-                    <div>
-                        <a href="{{ route('admin.bookings.cancel', $booking) }}" class="btn btn-danger tran-3">
-                            <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
-                        </a>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </form>
-</div>
+    <script>
+        $(document).ready(function() {
+            setInterval(function() {
+                let roomTypes = $(".type-id")
+                for (let i = 0; i < roomTypes.length; i++) {
+                    let inputs = $(roomTypes[i]).find('input');
+                    inputs.on("click", function() {
+                        let parentDiv = $(this).parent().parent().parent()
+                        let quantity = parentDiv.find('span').text()
 
-<script>
-    $(document).ready(function() {
-        setInterval(function() {
-            let roomTypes = $(".type-id")
-            for (let i = 0; i < roomTypes.length; i++) {
-                let inputs = $(roomTypes[i]).find('input');
-                inputs.on("click", function() {
-                    let parentDiv = $(this).parent().parent().parent()
-                    let quantity = parentDiv.find('span').text()
+                        var count = inputs.filter(':checked').length
+                        if (count < quantity) { //only quantity of room type
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).removeAttr("disabled");
+                                // re-enable all checkboxes
+                            }
+                        } else {
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).prop("disabled", "disabled");
+                                // re-enable all checkboxes
+                                inputs.filter(':checked').removeAttr("disabled");
+                                // only enable the elements that are already checked.
+                            }
+                        }
+                    })
+                }
+            }, 100)
+            $("input[type='checkbox']").on("click", function() {
+                let roomTypes = $(".type-id")
+                for (let i = 0; i < roomTypes.length; i++) {
+                    let inputs = $(roomTypes[i]).find('input');
+                    inputs.on("click", function() {
+                        let parentDiv = $(this).parent().parent().parent()
+                        let quantity = parentDiv.find('span').text()
 
-                    var count = inputs.filter(':checked').length
-                    if (count < quantity) { //only quantity of room type
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).removeAttr("disabled");
-                            // re-enable all checkboxes
+                        var count = inputs.filter(':checked').length
+                        if (count < quantity) { //only quantity of room type
+                            for (let j = 0; j < inputs.length; j++) {
+                                $(inputs[j]).removeAttr("disabled");
+                                // re-enable all checkboxes
+                            }
+                        } else {
+                            for (let j = 0; j < x - adminLayout inputs.length; j++) {
+                                $(inputs[j]).prop("disabled", "disabled");
+                                // re-enable all checkboxes
+                                inputs.filter(':checked').removeAttr("disabled");
+                                // only enable the elements that are already checked.
+                            }
                         }
-                    } else {
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).prop("disabled", "disabled");
-                            // re-enable all checkboxes
-                            inputs.filter(':checked').removeAttr("disabled");
-                            // only enable the elements that are already checked.
-                        }
-                    }
-                })
-            }
-        }, 100)
-        $("input[type='checkbox']").on("click", function() {
-            let roomTypes = $(".type-id")
-            for (let i = 0; i < roomTypes.length; i++) {
-                let inputs = $(roomTypes[i]).find('input');
-                inputs.on("click", function() {
-                    let parentDiv = $(this).parent().parent().parent()
-                    let quantity = parentDiv.find('span').text()
-
-                    var count = inputs.filter(':checked').length
-                    if (count < quantity) { //only quantity of room type
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).removeAttr("disabled");
-                            // re-enable all checkboxes
-                        }
-                    } else {
-                        for (let j = 0; j < inputs.length; j++) {
-                            $(inputs[j]).prop("disabled", "disabled");
-                            // re-enable all checkboxes
-                            inputs.filter(':checked').removeAttr("disabled");
-                            // only enable the elements that are already checked.
-                        }
-                    }
-                })
-            }
-        })
-    });
-</script>
+                    })
+                }
+            })
+        });
+    </script>
 </x-adminLayout>

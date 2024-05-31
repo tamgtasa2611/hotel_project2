@@ -9,55 +9,41 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Phòng', 'Số phòng'],
-            ['Phòng đang sử dụng', {{ !is_null($activeRooms) ? count($activeRooms) : 0 }}],
-            ['Phòng còn trống', {{ !is_null($emptyRooms) ? count($emptyRooms) : 0 }}]
-        ]);
-
-        var options = {
-            title: ''
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-
         ///////////////////////////////////////////////////////////////////////
-        @if(count($dataChart) != 0)
-        var data1 = google.visualization.arrayToDataTable([
-            ["Element", "Tổng số phòng đã đặt", {
-                role: "style"
-            }],
+        @if (count($dataChart) != 0)
+            var data1 = google.visualization.arrayToDataTable([
+                ["Element", "Tổng số phòng đã đặt", {
+                    role: "style"
+                }],
                 @foreach ($dataChart as $data)
-            ['{{ $data[0] }}', {{ $data[1] }}, '{{ $data[2] }}'],
-            @endforeach
-        ]);
+                    ['{{ $data[0] }}', {{ $data[1] }}, '{{ $data[2] }}'],
+                @endforeach
+            ]);
 
-        var view1 = new google.visualization.DataView(data1);
-        view1.setColumns([0, 1,
-            {
-                calc: "stringify",
-                sourceColumn: 1,
-                type: "string",
-                role: "annotation"
-            },
-            2
-        ]);
+            var view1 = new google.visualization.DataView(data1);
+            view1.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2
+            ]);
 
-        var options1 = {
-            title: " ",
-            width: 1000,
-            height: 400,
-            bar: {
-                groupWidth: "95%"
-            },
-            legend: {
-                position: "none"
-            },
-        };
-        var chart1 = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-        chart1.draw(view1, options1);
+            var options1 = {
+                title: " ",
+                width: 1000,
+                height: 400,
+                bar: {
+                    groupWidth: "95%"
+                },
+                legend: {
+                    position: "none"
+                },
+            };
+            var chart1 = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart1.draw(view1, options1);
         @endif
         ////////////////////////////////////////////////////////////
     }
@@ -68,7 +54,7 @@
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Thống kê phòng</h4>
             <a class="d-block d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-               aria-controls="offcanvasExample">
+                aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-4"></i>
             </a>
         </div>
@@ -113,7 +99,7 @@
         </div>
     </div>
 
-    @if(count($dataChart) != 0)
+    @if (count($dataChart) != 0)
         <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
             <div>
                 <h5 class="m-0 fw-bold">Loại phòng được đặt phổ biến nhất (toàn thời gian)</h5>
@@ -124,19 +110,48 @@
         </div>
     @endif
 
-    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="m-0 fw-bold">Tỷ lệ phòng được sử dụng</h5>
-            <form>
-                <select name="occu_rate" class="form-select" id="" onchange="this.form.submit()">
-                    <option value="day">Hôm nay</option>
-                    <option value="week">Tuần này</option>
-                    <option value="month">Tháng này</option>
-                </select>
-            </form>
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-lg-6">
+            <div class="p-4 border shadow-sm rounded-3 bg-white">
+                <div class="mb-4">
+                    <h5 class="m-0 fw-bold">Khung giờ nhiều khách đặt</h5>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th class="fw-bold text-center">Khung giờ</th>
+                            <th class="fw-bold text-center">Số phòng</th>
+                        </thead>
+                        <tbody>
+                            <td class=" align-middle text-center">abc</td>
+                            <td class="text-center align-middle">abc</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="overflow-x-auto h-auto overflow-y-hidden">
-            <div id="piechart" style="height: 400px" class="d-flex justify-content-center w-100"></div>
+        <div class="col-12 col-lg-6">
+            <div class="p-4 border shadow-sm rounded-3 bg-white">
+                <div>
+                    <h5 class="mb-4 fw-bold">Khách hàng chi nhiều tiền nhất</h5>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th class="fw-bold text-center">Tên khách hàng</th>
+                            <th class="fw-bold text-center">Tổng số tiền</th>
+
+                        </thead>
+                        <tbody>
+                            <td class=" align-middle text-center">abc</td>
+                            <td class="text-center align-middle text-success fw-bold">
+                                {{ AppHelper::vnd_format(1000000) }}
+                            </td>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -146,7 +161,7 @@
                 <div class="">
                     <h5 class="m-0 fw-bold text-danger"> Phòng hỏng/cần dọn dẹp</h5>
                 </div>
-                <div class="row g-4">
+                <div class="row gx-4">
                     @if (count($unavailRooms) != 0)
                         @foreach ($unavailRooms as $room)
                             <div class="col-6 col-xl-4">
@@ -157,7 +172,7 @@
                                     </div>
                                     <div>
                                         <a class="btn btn-outline-dark tran-3"
-                                           href="{{ route('admin.rooms.edit', $room) }}"><i
+                                            href="{{ route('admin.rooms.edit', $room) }}"><i
                                                 class="bi bi-eye me-2"></i>Xem</a>
                                     </div>
                                 </div>
@@ -174,7 +189,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'vi',
