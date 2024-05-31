@@ -61,10 +61,19 @@ class Booking extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public static function getBookedRoomTypes(int|string $bookingId)
+    public static function getBookedRoomTypes($bookingId)
     {
         return DB::table('booked_room_types')->where('booking_id', '=', $bookingId)->get();
     }
+
+    public static function getBookedRoomType($bookingId, $roomTypeId)
+    {
+        return DB::table('booked_room_types')
+            ->where('booking_id', '=', $bookingId)
+            ->where('room_type_id', '=', $roomTypeId)
+            ->get();
+    }
+
 
     public static function getRoomTypes(int|string $bookingId)
     {
@@ -96,5 +105,14 @@ class Booking extends Model
             ->join('rooms', 'booked_rooms.room_id', '=', 'rooms.id')
             ->where('booking_id', '=', $bookingId)
             ->get();
+    }
+
+    public static function countBookedRoomByRoomType($bookingId, $roomTypeId)
+    {
+        return DB::table('booked_rooms')
+            ->join('rooms', 'booked_rooms.room_id', '=', 'rooms.id')
+            ->where('booking_id', '=', $bookingId)
+            ->where('room_type_id', '=', $roomTypeId)
+            ->count();
     }
 }

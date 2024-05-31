@@ -176,8 +176,14 @@ class BookingController extends Controller
                 $checkin = Carbon::createFromDate($booking->checkin)->setTime(14, 00);
                 $checkout = Carbon::createFromDate($booking->checkout)->setTime(12, 00);
 
-                //2 nguoi cung them vao 1 dat phong
+                //check them qua so luong phong
+                $roomType = RoomType::find(Room::find($roomId)->room_type_id);
+                $bookingRoomType = Booking::getBookedRoomType($booking->id, $roomType->id);
+                $countCurrentRooms = Booking::countBookedRoomByRoomType($booking->id, $roomType->id);
 
+                if ($countCurrentRooms >= $bookingRoomType[0]->number_of_room) {
+                    return Redirect::back()->with('failed', 'Đã sắp xếp đủ phòng cho ' . $roomType->name);
+                }
 
                 //2 nguoi them cung 1 phong vao 2 dat phong khac nhau
                 $roomInOtherBookings =

@@ -365,12 +365,6 @@
                             </div>
                         </div>
                     @endif
-
-                    <div class="fst-italic p-4">
-                        //can fix <br>
-                        //2 nguoi cung them vao 1 dat phong <br>
-                        //2 nguoi them cung 1 phong vao 2 dat phong khac nhau
-                    </div>
                 </div>
             </div>
 
