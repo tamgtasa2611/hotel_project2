@@ -57,10 +57,10 @@ class AdminController extends Controller
             Admin::create($data);
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new admin account');
-            return to_route('admin.admins')->with('success', 'Admin created successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã tạo tài khoản nhân viên mới');
+            return to_route('admin.admins')->with('success', 'Tạo thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
@@ -98,10 +98,10 @@ class AdminController extends Controller
             $admin->update($data);
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated an admin account');
-            return to_route('admin.admins')->with('success', 'Admin updated successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật tài khoản nhân viên');
+            return to_route('admin.admins')->with('success', 'Cập nhật thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
@@ -112,9 +112,9 @@ class AdminController extends Controller
         //Xóa bản ghi được chọn
         $admin->delete();
         //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted an admin account');
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã xóa tài khoản nhân viên');
         //Quay về danh sách
-        return to_route('admin.admins')->with('success', 'Admin deleted successfully!');
+        return to_route('admin.admins')->with('success', 'Xóa thành công!');
     }
 
     // PDF

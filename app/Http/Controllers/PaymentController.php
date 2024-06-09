@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -16,6 +17,24 @@ class PaymentController extends Controller
         $totalPrice = Session::get('total_price');
         if (Session::get('cart') != null) {
             $carts = Session::get('cart');
+
+            foreach ($carts as $roomTypeId => $roomType) {
+                $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
+                    ->where('status', '=', 0)
+                    ->count();
+                $cartQuantity = $roomType['quantity'];
+
+                if ($countCurrentRoom == 0) {
+                    unset($carts[$roomTypeId]);
+                    Session::put('cart', $carts);
+                    return Redirect::route('guest.cart');
+                } //neu so luong phong hien tai it hon trong cart
+                else if ($countCurrentRoom < $cartQuantity) {
+                    $carts[$roomTypeId]['quantity'] = $countCurrentRoom;
+                    Session::put('cart', $carts);
+                    return Redirect::route('guest.cart')->with('failed', 'Xảy ra lỗi: Đã hết phòng');
+                }
+            }
         } else {
             $carts = null;
         }
@@ -30,8 +49,27 @@ class PaymentController extends Controller
     {
         //check neu ko co payment
         if (!Session::exists('cart')) {
-            return Redirect::route('guest.cart');
+            return Redirect::route('guest.cart')->with('failed', 'Giỏ hàng trống');
         }
+        $carts = Session::get('cart');
+        foreach ($carts as $roomTypeId => $roomType) {
+            $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
+                ->where('status', '=', 0)
+                ->count();
+            $cartQuantity = $roomType['quantity'];
+
+            if ($countCurrentRoom == 0) {
+                unset($carts[$roomTypeId]);
+                Session::put('cart', $carts);
+                return Redirect::route('guest.cart');
+            } //neu so luong phong hien tai it hon trong cart
+            else if ($countCurrentRoom < $cartQuantity) {
+                $carts[$roomTypeId]['quantity'] = $countCurrentRoom;
+                Session::put('cart', $carts);
+                return Redirect::route('guest.cart')->with('failed', 'Xảy ra lỗi: Đã hết phòng');
+            }
+        }
+
 
         Session::put('payment_data', [
             'guest_lname' => $request->guest_lname,
@@ -69,7 +107,7 @@ class PaymentController extends Controller
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/booking";
-        $vnp_TmnCode = "QUCB81JQ";//Mã website tại VNPAY
+        $vnp_TmnCode = "QUCB81JQ"; //Mã website tại VNPAY
         $vnp_HashSecret = "GBD31VX0IJ0KDH1OND6K1DX2R7SO73MV"; //Chuỗi bí mật
 
         $vnp_TxnRef = rand(11111, 999999999);
@@ -119,12 +157,12 @@ class PaymentController extends Controller
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-        $returnData = array('code' => '00'
-        , 'message' => 'success'
-        , 'data' => $vnp_Url);
+        $returnData = array(
+            'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+        );
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
             die();
@@ -135,9 +173,9 @@ class PaymentController extends Controller
 
     public function paymentSuccess()
     {
-//        if (!Session::exists('payment_success')) {
-//            return Redirect::route('guest.cart');
-//        }
+        //        if (!Session::exists('payment_success')) {
+        //            return Redirect::route('guest.cart');
+        //        }
         return view('guest.cart.success');
     }
 }

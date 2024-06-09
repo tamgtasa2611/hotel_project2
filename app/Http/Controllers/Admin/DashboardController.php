@@ -55,12 +55,35 @@ class DashboardController extends Controller
             ];
         }
 
+        $todayBooking = 0;
+        $unconfirmedBooking = 0;
+        $completedBooking = 0;
+        $totalRevenue = 0;
+        $checkBookings = Booking::all();
+        foreach ($checkBookings as $booking) {
+            $bookingDate = Carbon::createFromDate($booking->date);
+            if ($bookingDate->isToday()) {
+                $todayBooking++;
+            }
+            if ($booking->status == 0) {
+                $unconfirmedBooking++;
+            }
+            if ($booking->status == 3) {
+                $completedBooking++;
+                $totalRevenue += $booking->total_price;
+            }
+        }
+
         $data = [
             'admin' => $admin,
             'bookings' => $bookings,
             'roomTypes' => $roomTypes,
             'resources' => $resources,
-            'events' => $events
+            'events' => $events,
+            'todayBooking' => $todayBooking,
+            'unconfirmedBooking' => $unconfirmedBooking,
+            'completedBooking' => $completedBooking,
+            'totalRevenue' => $totalRevenue,
         ];
         return view('admin.index', $data);
     }

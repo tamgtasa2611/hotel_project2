@@ -69,9 +69,9 @@ class ProfileController extends Controller
             $data = Arr::add($data, 'image', $imagePath);
             $guest->update($data);
 
-            return to_route('guest.profile')->with('success', 'Update account successfully!');
+            return to_route('guest.profile')->with('success', 'Cập nhật tài khoản thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
@@ -110,7 +110,7 @@ class ProfileController extends Controller
         $guest->update([
             'password' => $hashedNewPassword
         ]);
-        
+
         return back()->with('success', 'Đổi mật khẩu thành công!');
     }
 
@@ -162,7 +162,11 @@ class ProfileController extends Controller
             ->get();
 
         return view('guest.profile.bookings.bookingDetail', compact(
-            'booking', 'payments', 'bookedRoomTypes', 'ratings', 'roomTypesImages'
+            'booking',
+            'payments',
+            'bookedRoomTypes',
+            'ratings',
+            'roomTypesImages'
         ));
     }
 
@@ -187,25 +191,25 @@ class ProfileController extends Controller
         return Redirect::back()->with('success', 'Hủy đặt phòng thành công!');
     }
 
-//    public function deleteAccount(Request $request)
-//    {
-//        $validated = $request->validate([
-//            'deletePassword' => 'required|min:6'
-//        ]);
-//        if ($validated) {
-//            $guest = Auth::guard('guest')->user();
-//
-////            check password
-//            if (!Hash::check($request->deletePassword, $guest->password)) {
-//                return Redirect::back()->with('failed', 'Wrong password!');
-//            }
-//
-//            $guestRecord = Guest::find($guest->id);
-//            //Xóa bản ghi được chọn
-//            $guestRecord->delete();
-//            return Redirect::route('guest.home')->with('success', 'You have deleted your account successfully!');
-//        }
-//        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
-//    }
+    //    public function deleteAccount(Request $request)
+    //    {
+    //        $validated = $request->validate([
+    //            'deletePassword' => 'required|min:6'
+    //        ]);
+    //        if ($validated) {
+    //            $guest = Auth::guard('guest')->user();
+    //
+    ////            check password
+    //            if (!Hash::check($request->deletePassword, $guest->password)) {
+    //                return Redirect::back()->with('failed', 'Wrong password!');
+    //            }
+    //
+    //            $guestRecord = Guest::find($guest->id);
+    //            //Xóa bản ghi được chọn
+    //            $guestRecord->delete();
+    //            return Redirect::route('guest.home')->with('success', 'You have deleted your account successfully!');
+    //        }
+    //        return Redirect::back()->with('failed', 'Something went wrong, please try again!');
+    //    }
     //    profile
 }

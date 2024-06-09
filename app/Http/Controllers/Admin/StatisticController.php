@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
 use App\Models\Booking;
@@ -65,7 +66,26 @@ class StatisticController extends Controller
             }
         }
 
-        return view('admin.statistics.revenue', compact('bookHours'));
+        $totalRevenue = 0;
+        $roomTypes = [];
+        $checkBookings = Booking::all();
+        foreach ($checkBookings as $booking) {
+            if ($booking->status == 3) {
+                $totalRevenue += $booking->total_price;
+            }
+        }
+
+        $roomTypesRevenue = DB::select('select room_types.name, sum(number_of_room) as total_room, sum(number_of_room * price) as total_revenue from bookings
+                inner join booked_room_types on bookings.id = booked_room_types.booking_id
+                inner join room_types on room_types.id = booked_room_types.room_type_id
+                where status = 3 
+                GROUP BY room_types.name');
+
+        foreach ($roomTypesRevenue as $revenue) {
+            $roomTypes[] = [$revenue->name, $revenue->total_revenue];
+        }
+
+        return view('admin.statistics.revenue', compact('bookHours', 'totalRevenue', 'roomTypes'));
     }
 
     public function roomReport()

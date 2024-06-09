@@ -232,10 +232,10 @@
                                     <table class="table table-bordered m-0">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Loại phòng</th>
-                                                <th class="text-center">Giá (1 đêm)</th>
-                                                <th class="text-center">Số lượng</th>
-                                                <th class="text-center">Thành tiền</th>
+                                                <th class="text-center fw-bold">Loại phòng</th>
+                                                <th class="text-center fw-bold">Giá (1 đêm)</th>
+                                                <th class="text-center fw-bold">Số lượng</th>
+                                                <th class="text-center fw-bold">Thành tiền</th>
                                             </tr>
                                         </thead>
                                         <tbody>

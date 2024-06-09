@@ -35,13 +35,13 @@ class AdminController extends Controller
             session(['admin' => $admin]);
             return to_route('admin.dashboard')->with('success', 'Sign in successfully!');
         }
-        return to_route('admin.login')->with('failed', 'Wrong email or password!')->withInput($request->input());
+        return to_route('admin.login')->with('failed', 'Sai email hoặc mật khẩu!')->withInput($request->input());
     }
 
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
         session()->forget('admin');
-        return to_route('admin.login')->with('success', 'You have been logged out successfully!');
+        return to_route('admin.login')->with('success', 'Đăng xuất thành công!');
     }
 }

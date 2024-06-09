@@ -206,6 +206,6 @@
 
             //update quantity
             updateQuantity();
-        }, 2000);
+        }, 3000);
     </script>
 </x-guestLayout>

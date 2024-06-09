@@ -80,6 +80,54 @@
         </div>
     </div>
 
+    <div class="row g-4 mb-4">
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-primary-subtle text-primary-emphasis px-4 py-3">Số đặt phòng hôm nay</div>
+                <div class="fs-4 text-center p-4 fw-bold text-primary-emphasis">
+                    {{ $todayBooking }}
+                    <div>
+                        <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-danger-subtle text-danger-emphasis px-4 py-3">Đặt phòng chờ xác nhận</div>
+                <div class="fs-4 text-center p-4 fw-bold text-danger-emphasis">
+                    {{ $unconfirmedBooking }}
+                    <div>
+                        <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-warning-subtle text-warning-emphasis px-4 py-3">Đặt phòng đã hoàn thành</div>
+                <div class="fs-4 text-center p-4 fw-bold text-warning-emphasis">
+                    {{ $completedBooking }}
+                    <div>
+                        <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-xl-3">
+
+            <div class="bg-white border shadow-sm rounded-3 overflow-hidden">
+                <div class="fw-bold bg-success-subtle text-success-emphasis px-4 py-3">Tổng doanh thu</div>
+                <div class="fs-4 text-center p-4 fw-bold text-success-emphasis">
+                    {{ AppHelper::vnd_format($totalRevenue) }}
+                    <div>
+                        <a href="{{ route('admin.statistics.revenue') }}" class="fs-6">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{--    calendar --}}
     <div class="row">
         <div class="col-12">

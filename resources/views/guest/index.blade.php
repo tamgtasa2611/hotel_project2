@@ -1,11 +1,10 @@
 <title>Trang chủ - Skyrim Hotel</title>
 <x-guestLayout>
-    {{--    HERO--}}
+    {{--    HERO --}}
     <section class="m-nav mb-5 position-relative bg-secondary">
-        <div
-            class="mh-screen overflow-hidden fade-in load-hidden">
+        <div class="mh-screen overflow-hidden fade-in load-hidden">
             <div class="h-100 overflow-hidden"
-                 style="background-image: url('{{asset('images/hero.jpg')}}'); background-position: center; background-size: cover">
+                style="background-image: url('{{ asset('images/hero.jpg') }}'); background-position: center; background-size: cover">
                 <div style="background-color: rgba(0, 0, 0, 0.4);">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="container text-white">
@@ -19,8 +18,8 @@
                                         phong phú.</p>
                                 </div>
                                 <div class="col-8">
-                                    <form method="post" action="{{route('guest.rooms.search')}}"
-                                          class="bg-white p-4 m-0 shadow-sm rounded-3 border" autocomplete="off">
+                                    <form method="post" action="{{ route('guest.rooms.search') }}"
+                                        class="bg-white p-4 m-0 shadow-sm rounded-3 border" autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row g-4">
@@ -28,30 +27,27 @@
                                                 <!-- checkin input -->
                                                 <div>
                                                     <input id="checkin" name="checkin" type="text"
-                                                           placeholder="Ngày nhận phòng" required
-                                                           class="my-input form-control"
-                                                    >
+                                                        placeholder="Ngày nhận phòng" required
+                                                        class="my-input form-control">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <!-- checkout input -->
                                                 <div>
                                                     <input id="checkout" name="checkout" type="text"
-                                                           placeholder="Ngày trả phòng" required
-                                                           class="my-input form-control"
-                                                    >
+                                                        placeholder="Ngày trả phòng" required
+                                                        class="my-input form-control">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <!-- Submit button -->
                                                 <button type="submit" id="bookBtn"
-                                                        class="btn btn-primary tran-3 w-100  h-100">
+                                                    class="btn btn-primary tran-3 w-100  h-100">
                                                     <i class="bi bi-search me-2"></i>Tìm phòng
                                                 </button>
                                             </div>
                                         </div>
-                                        <div id="dateError"
-                                             class="col-12 text-start d-none text-danger pt-3"></div>
+                                        <div id="dateError" class="col-12 text-start d-none text-danger pt-3"></div>
                                     </form>
                                 </div>
                             </div>
@@ -61,9 +57,9 @@
             </div>
         </div>
     </section>
-    {{--    END HERO--}}
+    {{--    END HERO --}}
 
-    {{--    ABOUT US--}}
+    {{--    ABOUT US --}}
     <section class="welcome-section my-5 py-5 load-hidden fade-in">
         <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -80,25 +76,25 @@
                         <div id="carouselExampleAutoplaying" class="mt-3 carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner  shadow-sm tran-3">
                                 <div class="carousel-item active" data-bs-interval="4000">
-                                    <img src="{{asset('images/1.png')}}" class="d-block w-100  shadow-sm"
-                                         alt="...">
+                                    <img src="{{ asset('images/1.png') }}" class="d-block w-100  shadow-sm"
+                                        alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/2.png')}}" class="d-block w-100  shadow-sm"
-                                         alt="...">
+                                    <img src="{{ asset('images/2.png') }}" class="d-block w-100  shadow-sm"
+                                        alt="...">
                                 </div>
                                 <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{asset('images/3.png')}}" class="d-block w-100  shadow-sm"
-                                         alt="...">
+                                    <img src="{{ asset('images/3.png') }}" class="d-block w-100  shadow-sm"
+                                        alt="...">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -109,7 +105,7 @@
             </div>
         </div>
     </section>
-    {{--    ABOUT US--}}
+    {{--    ABOUT US --}}
 
     {{-- SERVICES --}}
     <section id="introduction" class="my-5 py-5 load-hidden fade-in">
@@ -120,7 +116,7 @@
                     <div class="h-100 text-dark d-flex flex-column justify-content-center align-items-center">
                         <div class="w-100 text-center">
                             <span class="text-uppercase text-primary">Tiện ích đa dạng, phong phú</span>
-                            <h2 class="font-2 display-6 my-3">Tận hưởng các tiện nghi ngay trong phòng của bạn</h2>
+                            <h2 class="font-2 display-6 my-3">Tận hưởng các tiện nghi của chúng tôi</h2>
                         </div>
                         <div class="row mt-3 g-5">
                             <div class="col-12 col-lg-4">
@@ -197,7 +193,7 @@
         </div>
     </section>
     {{-- ENDINTRODUCTION --}}
-    {{--     ==========   MCDATEPICKER FORM INPUT ==========--}}
+    {{--     ==========   MCDATEPICKER FORM INPUT ========== --}}
     <script>
         const datePicker1 = MCDatepicker.create({
             el: '#checkin',
@@ -247,7 +243,7 @@
         let currentDate = new Date().toJSON().slice(0, 10);
 
         // check date 1 < date 2
-        datePicker1.onSelect(function (date, formatedDate) {
+        datePicker1.onSelect(function(date, formatedDate) {
             if (datePicker2.getFullDate() != null) {
                 if (date >= datePicker2.getFullDate()) {
                     dateErrorAction()
@@ -257,7 +253,7 @@
             }
         });
 
-        datePicker1.onClear(function (date, formatedDate) {
+        datePicker1.onClear(function(date, formatedDate) {
             if (datePicker2.getFullDate() != null) {
                 if (date >= datePicker2.getFullDate()) {
                     dateErrorAction()
@@ -267,7 +263,7 @@
             }
         });
 
-        datePicker2.onSelect(function (date, formatedDate) {
+        datePicker2.onSelect(function(date, formatedDate) {
             if (datePicker1.getFullDate() != null) {
                 if (date <= datePicker1.getFullDate()) {
                     dateErrorAction()
@@ -277,7 +273,7 @@
             }
         });
 
-        datePicker2.onClear(function (date, formatedDate) {
+        datePicker2.onClear(function(date, formatedDate) {
             if (datePicker1.getFullDate() != null) {
                 if (date <= datePicker1.getFullDate()) {
                     dateErrorAction()
@@ -299,6 +295,5 @@
             bookBtn.removeAttr("type").attr("type", "submit");
         }
     </script>
-    {{--     ==========   END MCDATEPICKER FORM INPUT ==========--}}
+    {{--     ==========   END MCDATEPICKER FORM INPUT ========== --}}
 </x-guestLayout>
-

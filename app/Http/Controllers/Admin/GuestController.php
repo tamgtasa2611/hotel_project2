@@ -19,23 +19,23 @@ class GuestController extends Controller
 {
     public function index(Request $request)
     {
-//        $search = "";
-//        if ($request->search) {
-//            $search = $request->search;
-//        }
-//
-//        $paginationNum = 5;
-//        if ($request->pagination_num) {
-//            $paginationNum = $request->pagination_num;
-//        }
+        //        $search = "";
+        //        if ($request->search) {
+        //            $search = $request->search;
+        //        }
+        //
+        //        $paginationNum = 5;
+        //        if ($request->pagination_num) {
+        //            $paginationNum = $request->pagination_num;
+        //        }
 
-//        $guests = Guest::where('first_name', 'like', '%' . $search . '%')
-//            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
+        //        $guests = Guest::where('first_name', 'like', '%' . $search . '%')
+        //            ->orWhere('last_name', 'like', '%' . $search . '%')->get();
         $guests = Guest::all();
 
         $data = [
             'guests' => $guests,
-//            'search' => $search,
+            //            'search' => $search,
         ];
 
         return view('admin.guests.index', $data);
@@ -70,10 +70,10 @@ class GuestController extends Controller
             Guest::create($data);
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'created a new guest account');
-            return to_route('admin.guests')->with('success', 'Guest created successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã tạo tài khoản khách mới');
+            return to_route('admin.guests')->with('success', 'Tạo thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
@@ -105,37 +105,42 @@ class GuestController extends Controller
             $data = Arr::add($data, 'first_name', $request->first_name);
             $data = Arr::add($data, 'last_name', $request->last_name);
             $data = Arr::add($data, 'email', $request->email);
-//            //kiem tra neu password khong thay doi thi ko update password
-//            if ($request->password != $guest->password) {
-//                $data = Arr::add($data, 'password', Hash::make($request->password));
-//            }
+            //            //kiem tra neu password khong thay doi thi ko update password
+            //            if ($request->password != $guest->password) {
+            //                $data = Arr::add($data, 'password', Hash::make($request->password));
+            //            }
             $data = Arr::add($data, 'phone_number', $request->phone);
             $data = Arr::add($data, 'status', $request->status);
             $data = Arr::add($data, 'image', $imagePath);
             $guest->update($data);
 
-//           update xong -> logout guest
+            //           update xong -> logout guest
             Auth::guard('guest')->logout();
             session()->forget('guest');
 
             //log
-            Activity::saveActivity(Auth::guard('admin')->id(), 'updated a guest account');
-            return to_route('admin.guests')->with('success', 'Guest updated successfully!');
+            Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật tài khoản khách');
+            return to_route('admin.guests')->with('success', 'Cập nhật thành công!');
         } else {
-            return back()->with('failed', 'Something went wrong!');
+            return back()->with('failed', 'Xảy ra lỗi!');
         }
     }
 
     public function destroy(Request $request)
     {
+        $admin = Auth::guard('admin')->user();
+        if ($admin->level != 0) {
+            return back()->with('failed', 'Bạn không có quyền xóa tài khoản khách hàng!');
+        }
+
         $id = $request->id;
         $guest = Guest::find($id);
         //Xóa bản ghi được chọn
         $guest->delete();
         //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted a guest account');
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã xóa tài khoản khách');
         //Quay về danh sách
-        return to_route('admin.guests')->with('success', 'Guest deleted successfully!');
+        return to_route('admin.guests')->with('success', 'Xóa thành công!');
     }
 
     // PDF
@@ -148,6 +153,6 @@ class GuestController extends Controller
             ->setPaper('a4', 'portrait');
 
         return $pdf->stream();
-//        return $pdf->download('data.pdf');
+        //        return $pdf->download('data.pdf');
     }
 }

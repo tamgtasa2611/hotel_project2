@@ -52,28 +52,28 @@ class RoomController extends Controller
 
             //            images
             $roomId = Room::max('id');
-//            $images = [];
-//            neu co input anh
+            //            $images = [];
+            //            neu co input anh
             if ($files = $request->file('images')) {
                 foreach ($files as $file) {
                     $path = $file->getClientOriginalName();
-//                    $file->move('image', $path);
+                    //                    $file->move('image', $path);
                     if (!Storage::exists('public/admin/rooms/' . $path)) {
                         Storage::putFileAs('public/admin/rooms/', $file, $path);
                     }
-//                    $images[] = $path;
+                    //                    $images[] = $path;
                     RoomImage::insert([
                         'path' => $path,
                         'room_id' => $roomId,
                     ]);
                 }
-//                //           insert room image table
-//                //            1 record = multiple files
-//
-//                RoomImage::insert([
-//                    'path' => implode("|", $images),
-//                    'room_id' => $roomId,
-//                ]);
+                //                //           insert room image table
+                //                //            1 record = multiple files
+                //
+                //                RoomImage::insert([
+                //                    'path' => implode("|", $images),
+                //                    'room_id' => $roomId,
+                //                ]);
             }
 
             //log
@@ -106,29 +106,29 @@ class RoomController extends Controller
             $data = Arr::add($data, 'room_type_id', $request->room_type_id);
             $room->update($data);
 
-//            //            images
-//            $roomId = $room->id;
-////            $newImages = [];
-//            //            neu co input
-//            if ($files = $request->file('images')) {
-//                foreach ($files as $file) {
-//                    $path = $file->getClientOriginalName();
-//                    if (!Storage::exists('public/admin/rooms/' . $path)) {
-//                        Storage::putFileAs('public/admin/rooms/', $file, $path);
-//                    }
-////                    $newImages[] = $path;
-//                    RoomImage::insert([
-//                        'path' => $path,
-//                        'room_id' => $roomId,
-//                    ]);
-//                }
-////                //           insert room image table
-////                //            1 record = multiple files
-////                RoomImage::insert([
-////                    'path' => implode("|", $newImages),
-////                    'room_id' => $roomId,
-////                ]);
-//            }
+            //            //            images
+            //            $roomId = $room->id;
+            ////            $newImages = [];
+            //            //            neu co input
+            //            if ($files = $request->file('images')) {
+            //                foreach ($files as $file) {
+            //                    $path = $file->getClientOriginalName();
+            //                    if (!Storage::exists('public/admin/rooms/' . $path)) {
+            //                        Storage::putFileAs('public/admin/rooms/', $file, $path);
+            //                    }
+            ////                    $newImages[] = $path;
+            //                    RoomImage::insert([
+            //                        'path' => $path,
+            //                        'room_id' => $roomId,
+            //                    ]);
+            //                }
+            ////                //           insert room image table
+            ////                //            1 record = multiple files
+            ////                RoomImage::insert([
+            ////                    'path' => implode("|", $newImages),
+            ////                    'room_id' => $roomId,
+            ////                ]);
+            //            }
 
             //log
             Activity::saveActivity(Auth::guard('admin')->id(), 'đã cập nhật 1 phòng');
@@ -136,29 +136,6 @@ class RoomController extends Controller
         } else {
             return back()->with('failed', 'Xảy ra lỗi!');
         }
-    }
-
-    public function destroyImage(Request $request)
-    {
-        $imageId = $request->id;
-        RoomImage::destroy($imageId);
-
-        //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
-        return back()->with('success', 'Room image deleted successfully!');
-    }
-
-    public function destroyAllImages(Room $room)
-    {
-        $roomId = $room->id;
-        $roomImageRecords = RoomImage::where('room_id', '=', $roomId)->get();
-        foreach ($roomImageRecords as $record) {
-            RoomImage::destroy($record->id);
-        }
-
-        //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'updated a room');
-        return back()->with('success', 'Delete all room images successfully!');
     }
 
     public function destroy(Request $request)
@@ -169,19 +146,8 @@ class RoomController extends Controller
         $room->delete();
 
         //log
-        Activity::saveActivity(Auth::guard('admin')->id(), 'deleted a room');
+        Activity::saveActivity(Auth::guard('admin')->id(), 'đã xóa 1 phòng');
         //Quay về danh sách
-        return to_route('admin.rooms')->with('success', 'Room deleted successfully!');
-    }
-
-    // PDF
-    public function downloadPDF()
-    {
-        $rooms = Room::all();
-
-        $pdf = PDF::loadView('admin.rooms.pdf', array('rooms' => $rooms))
-            ->setPaper('a4', 'portrait');
-
-        return $pdf->stream();
+        return to_route('admin.rooms')->with('success', 'Xóa thành công!');
     }
 }

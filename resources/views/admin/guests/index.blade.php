@@ -3,9 +3,8 @@
     <div class="p-4 bg-white  shadow-sm border rounded-3 mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Quản lý khách hàng</h4>
-            <a class="d-block d-lg-none"
-               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-               aria-controls="offcanvasExample">
+            <a class="d-block d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-4"></i>
             </a>
         </div>
@@ -20,7 +19,7 @@
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
                 <a href="{{ route('admin.guests.create') }}"
-                   class="d-flex align-items-center align-items-center btn btn-primary me-3">
+                    class="d-flex align-items-center align-items-center btn btn-primary me-3">
                     <i class="me-2 bi bi-plus-circle"></i>Thêm khách hàng
                 </a>
                 <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
@@ -31,79 +30,79 @@
         <hr class="m-0">
         <div class="p-4 bg-white  text-muted">
             @if (count($guests) != 0)
-                <table
-                    class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100"
-                    id="dataTable">
+                <table class="tran-3 table table-bordered align-middle mb-0 bg-white  w-100" id="dataTable">
                     <thead>
-                    <tr>
-                        <th class="align-middle text-center">ID</th>
-                        <th class="align-middle">Tên</th>
-                        <th class="align-middle text-center">Trạng thái tài khoản</th>
-                        <th class="align-middle text-center">Số điện thoại</th>
-                        <th class="align-middle text-center">Thao tác</th>
-                    </tr>
+                        <tr>
+                            <th class="align-middle text-center">ID</th>
+                            <th class="align-middle">Tên</th>
+                            <th class="align-middle text-center">Trạng thái tài khoản</th>
+                            <th class="align-middle text-center">Số điện thoại</th>
+                            <th class="align-middle text-center">Thao tác</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach ($guests as $guest)
-                        <tr>
-                            <td class="text-center">
-                                {{ $guest->id }}
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="div-img overflow-hidden ">
-                                        <img
-                                            src="{{ $guest->image != "" ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
-                                            alt="guest_avatar" class="object-fit-cover border shadow-sm rounded-circle"
-                                            width="40px"
-                                            height="40px"/>
+                        @foreach ($guests as $guest)
+                            <tr>
+                                <td class="text-center">
+                                    {{ $guest->id }}
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="div-img overflow-hidden ">
+                                            <img src="{{ $guest->image != '' ? asset('storage/admin/guests/' . $guest->image) : asset('images/noavt.jpg') }}"
+                                                alt="guest_avatar"
+                                                class="object-fit-cover border shadow-sm rounded-circle" width="40px"
+                                                height="40px" />
+                                        </div>
+                                        <div class="ms-3">
+                                            <p class="mb-1 fw-semibold">
+                                                {{ $guest->first_name . ' ' . $guest->last_name }}
+                                            </p>
+                                            <p class=" text-muted mb-0"> {{ $guest->email }}</p>
+                                        </div>
                                     </div>
-                                    <div class="ms-3">
-                                        <p class="mb-1 fw-semibold">
-                                            {{ $guest->first_name . ' ' . $guest->last_name }}
-                                        </p>
-                                        <p class=" text-muted mb-0"> {{ $guest->email }}</p>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        @if ($guest->status == 1)
+                                            <span class="badge bg-success shadow-sm">
+                                                Đang hoạt động</span>
+                                        @else
+                                            <span class="badge bg-danger shadow-sm">
+                                                Bị khóa</span>
+                                        @endif
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    @if ($guest->status == 1)
-                                        <span class="badge bg-success shadow-sm">
-                                        Đang hoạt động</span>
-                                    @else
-                                        <span class="badge bg-danger shadow-sm">
-                                        Bị khóa</span>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    {{ $guest->phone_number }}
-                                </div>
-                            </td>
-                            <td class="fs-5">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('admin.guests.edit', $guest) }}"
-                                       class="btn btn-outline-primary  me-3">
-                                        Edit<i class="bi bi-pencil-square ms-2"></i>
-                                    </a>
-                                    <a class="btn btn-outline-danger  dlt-btn"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#exampleModal1"
-                                       data-id={{$guest->id}}>
-                                        Delete<i class="bi bi-trash ms-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        {{ $guest->phone_number }}
+                                    </div>
+                                </td>
+                                <td class="fs-5">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a href="{{ route('admin.guests.edit', $guest) }}"
+                                            class="btn btn-outline-primary  me-3">
+                                            Edit<i class="bi bi-pencil-square ms-2"></i>
+                                        </a>
+                                        @if (Auth::guard('admin')->user()->level == 0)
+                                            <a class="btn btn-outline-danger  dlt-btn" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal1" data-id={{ $guest->id }}>
+                                                Delete<i class="bi bi-trash ms-2"></i>
+                                            </a>
+                                        @else
+                                            <a class="btn btn-outline-danger disabled" disabled>
+                                                Delete<i class="bi bi-trash ms-2"></i>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <!-- DeleteModal -->
-                <div class="modal fade" id="exampleModal1" tabindex="-1"
-                     aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form method="post" action="{{ route('admin.guests.destroy') }}">
@@ -114,16 +113,14 @@
                                         <i class="bi bi-x-circle me-2"></i>Are you sure?
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     You won't be able to revert this!
-                                    <input id="id" name="id" hidden class="visually-hidden"
-                                           value="">
+                                    <input id="id" name="id" hidden class="visually-hidden" value="">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary "
-                                            data-bs-dismiss="modal">
+                                    <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
                                         Close
                                     </button>
                                     <button type="submit" class="btn btn-danger ">
@@ -134,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                {{--                end modal--}}
+                {{--                end modal --}}
             @else
                 No results
             @endif
@@ -142,14 +139,12 @@
     </div>
 </x-adminLayout>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#dataTable").DataTable({
-            columnDefs: [
-                {
-                    orderable: false,
-                    targets: 4,
-                },
-            ],
+            columnDefs: [{
+                orderable: false,
+                targets: 4,
+            }, ],
             pagingType: "full_numbers",
             layout: {
                 topEnd: {
