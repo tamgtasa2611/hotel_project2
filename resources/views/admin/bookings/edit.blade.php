@@ -432,7 +432,7 @@
                             // re-enable all checkboxes
                         }
                     } else {
-                        for (let j = 0; j < x - adminLayout inputs.length; j++) {
+                        for (let j = 0; j < inputs.length; j++) {
                             $(inputs[j]).prop("disabled", "disabled");
                             // re-enable all checkboxes
                             inputs.filter(':checked').removeAttr("disabled");
