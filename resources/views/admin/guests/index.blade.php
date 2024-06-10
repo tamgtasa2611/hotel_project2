@@ -19,12 +19,10 @@
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
                 <a href="{{ route('admin.guests.create') }}"
-                    class="d-flex align-items-center align-items-center btn btn-primary me-3">
+                    class="d-flex align-items-center align-items-center btn btn-primary">
                     <i class="me-2 bi bi-plus-circle"></i>Thêm khách hàng
                 </a>
-                <a href="{{ route('admin.guests.downloadPdf') }}" class="d-flex align-items-center">
-                    <i class="me-2 bi bi-download"></i>Export
-                </a>
+
             </div>
         </div>
         <hr class="m-0">
@@ -82,16 +80,16 @@
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a href="{{ route('admin.guests.edit', $guest) }}"
                                             class="btn btn-outline-primary  me-3">
-                                            Edit<i class="bi bi-pencil-square ms-2"></i>
+                                            Sửa<i class="bi bi-pencil-square ms-2"></i>
                                         </a>
                                         @if (Auth::guard('admin')->user()->level == 0)
                                             <a class="btn btn-outline-danger  dlt-btn" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal1" data-id={{ $guest->id }}>
-                                                Delete<i class="bi bi-trash ms-2"></i>
+                                                Xóa<i class="bi bi-trash ms-2"></i>
                                             </a>
                                         @else
                                             <a class="btn btn-outline-danger disabled" disabled>
-                                                Delete<i class="bi bi-trash ms-2"></i>
+                                                Xóa<i class="bi bi-trash ms-2"></i>
                                             </a>
                                         @endif
                                     </div>
@@ -110,21 +108,21 @@
                                 @method('DELETE')
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel1">
-                                        <i class="bi bi-x-circle me-2"></i>Are you sure?
+                                        <i class="bi bi-x-circle me-2"></i>Xác nhận xóa
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    You won't be able to revert this!
+                                    Bạn sẽ không thể hoàn tác!
                                     <input id="id" name="id" hidden class="visually-hidden" value="">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
-                                        Close
+                                        Đóng
                                     </button>
                                     <button type="submit" class="btn btn-danger ">
-                                        Delete
+                                        Xóa
                                     </button>
                                 </div>
                             </form>
@@ -133,7 +131,7 @@
                 </div>
                 {{--                end modal --}}
             @else
-                No results
+                Không có dữ liệu
             @endif
         </div>
     </div>

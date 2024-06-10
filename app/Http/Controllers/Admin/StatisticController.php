@@ -85,7 +85,20 @@ class StatisticController extends Controller
             $roomTypes[] = [$revenue->name, $revenue->total_revenue];
         }
 
-        return view('admin.statistics.revenue', compact('bookHours', 'totalRevenue', 'roomTypes'));
+        $todayRev = DB::table('bookings')->where('status', '=', 3)->where('checkout', '=', Carbon::now()->format('Y-m-d'))->sum('total_price');
+        $prevRev =
+            DB::table('bookings')->where('status', '=', 3)->where('checkout', '=', Carbon::now()->subDay()->format('Y-m-d'))->sum('total_price');
+        $monthRev =
+            DB::table('bookings')->where('status', '=', 3)->where('checkout', 'like', '2024-' . Carbon::now()->format('m') . '%')->sum('total_price');
+        $prevMonthRev =
+            DB::table('bookings')->where('status', '=', 3)->where('checkout', 'like', '2024-' . Carbon::now()->subMonth()->format('m') . '%')->sum('total_price');
+        $yearRev =
+            DB::table('bookings')->where('status', '=', 3)->where('checkout', 'like', Carbon::now()->format('Y') . '%')->sum('total_price');
+        $prevYearRev =
+            DB::table('bookings')->where('status', '=', 3)->where('checkout', 'like', Carbon::now()->subYear()->format('Y') . '%')->sum('total_price');
+
+
+        return view('admin.statistics.revenue', compact('bookHours', 'totalRevenue', 'roomTypes', 'todayRev', 'monthRev', 'yearRev', 'prevRev', 'prevMonthRev', 'prevYearRev'));
     }
 
     public function roomReport()

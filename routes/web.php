@@ -238,6 +238,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/', 'setting')->name('admin.settings');
             Route::post('/{admin}', 'saveSetting')->name('admin.saveSetting');
             Route::get('/change-pwd', 'changePwd')->name('admin.changePwd');
+            Route::put('/change-pwd', 'updatePassword')->name('admin.updatePassword');
         });
     });
 

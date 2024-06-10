@@ -38,32 +38,48 @@
 
     <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="m-0 fw-bold">Doanh thu theo loại phòng</h5>
+            <h5 class="mb-4 fw-bold">Doanh thu theo thời gian</h5>
         </div>
-        <div class="overflow-x-auto h-auto overflow-y-hidden d-flex justify-content-center ">
-            <div id="donutchart" style="width: 900px; height: 400px;"></div>
+        <div class="overflow-x-auto h-auto overflow-y-hidden row g-4">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Doanh thu ngày</div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($todayRev) }}</h4>
+                        <p class="card-text text-center">
+                            Hôm qua: {{ AppHelper::vnd_format($prevRev) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Doanh thu tháng</div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($monthRev) }}</h4>
+                        <p class="card-text text-center">
+                            Tháng trước: {{ AppHelper::vnd_format($prevMonthRev) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Doanh thu năm</div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($yearRev) }}</h4>
+                        <p class="card-text text-center">
+                            Năm ngoái: {{ AppHelper::vnd_format($prevYearRev) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="my-4 w-100 p-4 border bg-white rounded-3 shadow-sm">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="m-0 fw-bold">Doanh thu theo thời gian</h5>
-            <form>
-                <select name="room_type_revenue" class="form-select" id="" onchange="this.form.submit()">
-
-                    <option value="week">Tuần này</option>
-                    <option value="month">Tháng hiện tại</option>
-                    <option value="quarter">Quý hiện tại</option>
-                    <option value="year">Năm nay</option>
-                </select>
-            </form>
-        </div>
-        <div class="overflow-x-auto h-auto overflow-y-hidden">
-            a
-        </div>
-    </div>
-
-    <div class="row g-4 mb-4">
+    <div class="row g-4">
         <div class="col-12 col-xl-6">
             <div class="p-4 border shadow-sm rounded-3 bg-white">
                 <div class="mb-4">
@@ -91,10 +107,10 @@
         <div class="col-12 col-xl-6">
             <div class="p-4 border shadow-sm rounded-3 bg-white">
                 <div class="mb-4">
-                    <h5 class="m-0 fw-bold">abc</h5>
+                    <h5 class="m-0 fw-bold">Doanh thu theo loại phòng</h5>
                 </div>
-                <div>
-                    abc
+                <div class="overflow-x-auto h-auto overflow-y-hidden d-flex justify-content-center ">
+                    <div id="donutchart" style="width: 900px; height: 456px;"></div>
                 </div>
             </div>
         </div>

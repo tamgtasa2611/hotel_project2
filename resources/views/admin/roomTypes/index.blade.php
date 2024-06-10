@@ -17,12 +17,10 @@
             </div>
             {{-- Button  --}}
             <div class="d-flex align-items-center justify-content-start justify-content-md-end">
-                <a href="{{ route('admin.roomTypes.create') }}" class="d-flex align-items-center me-3 btn btn-primary">
+                <a href="{{ route('admin.roomTypes.create') }}" class="d-flex align-items-center btn btn-primary">
                     <i class="me-2 bi bi-plus-circle"></i>Thêm loại phòng
                 </a>
-                <a href="{{ route('admin.roomTypes.downloadPdf') }}" class="d-flex align-items-center">
-                    <i class="me-2 bi bi-download"></i>Export
-                </a>
+
             </div>
         </div>
         <div class="p-4 bg-white border text-muted">

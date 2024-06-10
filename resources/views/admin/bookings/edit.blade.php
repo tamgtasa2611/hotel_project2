@@ -369,76 +369,79 @@
                         <a href="{{ route('admin.bookings') }}" class="btn btn-secondary  tran-3 me-3">
                             <i class="bi bi-arrow-left me-2"></i>Quay lại
                         </a>
+
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary  tran-3" name="status"
-                            value="{{ $booking->status }}">
-                            <i class="bi bi-floppy me-2"></i>Cập nhật
-                        </button>
-                    </div>
-                    @if ($booking->status < 2)
-                        <div>
-                            <a href="{{ route('admin.bookings.cancel', $booking) }}" class="btn btn-danger tran-3">
-                                <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
-                            </a>
-                        </div>
-                    @endif
+                        @if ($booking->status < 2)
+                            <button type="submit" class="btn btn-primary  tran-3" name="status"
+                                value="{{ $booking->status }}">
+                                <i class="bi bi-floppy me-2"></i>Cập nhật
+                            </button>
+                        @endauth
                 </div>
+                @if ($booking->status < 2)
+                    <div>
+                        <a href="{{ route('admin.bookings.cancel', $booking) }}" class="btn btn-danger tran-3">
+                            <i class="bi bi-x-circle me-2"></i>Hủy đặt phòng
+                        </a>
+                    </div>
+                @endif
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 
-    <script>
-        $(document).ready(function() {
-            setInterval(function() {
-                let roomTypes = $(".type-id")
-                for (let i = 0; i < roomTypes.length; i++) {
-                    let inputs = $(roomTypes[i]).find('input');
-                    inputs.on("click", function() {
-                        let parentDiv = $(this).parent().parent().parent()
-                        let quantity = parentDiv.find('span').text()
+<script>
+    $(document).ready(function() {
+        setInterval(function() {
+            let roomTypes = $(".type-id")
+            for (let i = 0; i < roomTypes.length; i++) {
+                let inputs = $(roomTypes[i]).find('input');
+                inputs.on("click", function() {
+                    let parentDiv = $(this).parent().parent().parent()
+                    let quantity = parentDiv.find('span').text()
 
-                        var count = inputs.filter(':checked').length
-                        if (count < quantity) { //only quantity of room type
-                            for (let j = 0; j < inputs.length; j++) {
-                                $(inputs[j]).removeAttr("disabled");
-                                // re-enable all checkboxes
-                            }
-                        } else {
-                            for (let j = 0; j < inputs.length; j++) {
-                                $(inputs[j]).prop("disabled", "disabled");
-                                // re-enable all checkboxes
-                                inputs.filter(':checked').removeAttr("disabled");
-                                // only enable the elements that are already checked.
-                            }
+                    var count = inputs.filter(':checked').length
+                    if (count < quantity) { //only quantity of room type
+                        for (let j = 0; j < inputs.length; j++) {
+                            $(inputs[j]).removeAttr("disabled");
+                            // re-enable all checkboxes
                         }
-                    })
-                }
-            }, 100)
-            $("input[type='checkbox']").on("click", function() {
-                let roomTypes = $(".type-id")
-                for (let i = 0; i < roomTypes.length; i++) {
-                    let inputs = $(roomTypes[i]).find('input');
-                    inputs.on("click", function() {
-                        let parentDiv = $(this).parent().parent().parent()
-                        let quantity = parentDiv.find('span').text()
-
-                        var count = inputs.filter(':checked').length
-                        if (count < quantity) { //only quantity of room type
-                            for (let j = 0; j < inputs.length; j++) {
-                                $(inputs[j]).removeAttr("disabled");
-                                // re-enable all checkboxes
-                            }
-                        } else {
-                            for (let j = 0; j < x - adminLayout inputs.length; j++) {
-                                $(inputs[j]).prop("disabled", "disabled");
-                                // re-enable all checkboxes
-                                inputs.filter(':checked').removeAttr("disabled");
-                                // only enable the elements that are already checked.
-                            }
+                    } else {
+                        for (let j = 0; j < inputs.length; j++) {
+                            $(inputs[j]).prop("disabled", "disabled");
+                            // re-enable all checkboxes
+                            inputs.filter(':checked').removeAttr("disabled");
+                            // only enable the elements that are already checked.
                         }
-                    })
-                }
-            })
-        });
-    </script>
+                    }
+                })
+            }
+        }, 100)
+        $("input[type='checkbox']").on("click", function() {
+            let roomTypes = $(".type-id")
+            for (let i = 0; i < roomTypes.length; i++) {
+                let inputs = $(roomTypes[i]).find('input');
+                inputs.on("click", function() {
+                    let parentDiv = $(this).parent().parent().parent()
+                    let quantity = parentDiv.find('span').text()
+
+                    var count = inputs.filter(':checked').length
+                    if (count < quantity) { //only quantity of room type
+                        for (let j = 0; j < inputs.length; j++) {
+                            $(inputs[j]).removeAttr("disabled");
+                            // re-enable all checkboxes
+                        }
+                    } else {
+                        for (let j = 0; j < x - adminLayout inputs.length; j++) {
+                            $(inputs[j]).prop("disabled", "disabled");
+                            // re-enable all checkboxes
+                            inputs.filter(':checked').removeAttr("disabled");
+                            // only enable the elements that are already checked.
+                        }
+                    }
+                })
+            }
+        })
+    });
+</script>
 </x-adminLayout>

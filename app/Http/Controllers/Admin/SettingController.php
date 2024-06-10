@@ -8,6 +8,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,6 +55,36 @@ class SettingController
 
     public function changePwd()
     {
-        dd("chuc nang doi mat khau admin");
+        return view('admin.setting.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $oldPassword = $request->old_password;
+        $newPassword = $request->new_password;
+        $confirmNewPassword = $request->confirm_new_password;
+
+        $admin = Admin::find(Auth::guard('admin')->id());
+        $currentPassword = $admin->password;
+
+        //kiem tra bo trong
+        if ($oldPassword == "" || $newPassword == "" || $confirmNewPassword == "") {
+            return back()->with('failed', 'Vui lòng nhập đầy đủ các trường!');
+        }
+
+        if (!Hash::check($oldPassword, $currentPassword)) {
+            return back()->with('failed', 'Mật khẩu cũ không đúng!');
+        }
+
+        if ($confirmNewPassword != $newPassword) {
+            return back()->with('failed', 'Mật khẩu nhập lại không khớp!');
+        }
+
+        $hashedNewPassword = Hash::make($newPassword);
+        $admin->update([
+            'password' => $hashedNewPassword
+        ]);
+
+        return Redirect::route('admin.settings')->with('success', 'Đổi mật khẩu thành công!');
     }
 }

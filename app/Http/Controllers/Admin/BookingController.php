@@ -32,7 +32,61 @@ class BookingController extends Controller
 
     public function show(Booking $booking)
     {
-        return view('admin.bookings.show', compact('booking'));
+        $checkInFormat = Carbon::createFromDate($booking->checkin)->setTime(14, 00);
+        $checkOutFormat = Carbon::createFromDate($booking->checkout)->setTime(12, 00);
+        $roomTypesImages = RoomTypeImage::all();
+        //lay loai phong cua booking
+        $bookedRoomTypes = Booking::getRoomTypes($booking->id);
+        //get room with booking info
+        $bookedRooms = Room::getRoomsInBooking();
+        //get room KHA DUNG
+        $rooms = Room::where('status', '=', 0)->get();
+        $unavailableRoomList = [];
+
+        foreach ($bookedRooms as $bookedRoom) {
+            $dates = [
+                $bookedRoom->room_id,
+                Carbon::createFromDate($bookedRoom->checkin)->setTime(14, 00),
+                Carbon::createFromDate($bookedRoom->checkout)->setTime(12, 00)
+            ];
+
+            if ($checkInFormat->between($dates[1], $dates[2]) || $checkOutFormat->between($dates[1], $dates[2])) {
+                if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                    //phong khong kha dung
+                    $unavailableRoomList[] = $bookedRoom->room_id;
+                }
+            }
+        }
+
+
+        //filter xoa cac phong ko kha dung
+        $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
+            if (!in_array($room->id, $unavailableRoomList)) {
+                return $room;
+            }
+        })->all();
+
+        $payments = Payment::where('booking_id', '=', $booking->id)->get();
+
+        $currentBookedRooms = Booking::getBookedRoomsByBookingId($booking->id);
+        $grouped = $currentBookedRooms->groupBy(function ($item, $key) {
+            return $item->room_type_id;
+        });
+
+        $groupCount = $grouped->map(function ($item, $key) {
+            return collect($item)->count();
+        });
+        //        dd($currentBookedRooms, $groupCount);
+        $data = [
+            'booking' => $booking,
+            'images' => $roomTypesImages,
+            'bookedRoomTypes' => $bookedRoomTypes,
+            'rooms' => $rooms,
+            'currentBookedRooms' => $currentBookedRooms,
+            'groupCount' => $groupCount,
+            'payments' => $payments,
+        ];
+        return view('admin.bookings.show', $data);
     }
 
     public function create()
@@ -249,16 +303,5 @@ class BookingController extends Controller
         //log
         Activity::saveActivity(Auth::guard('admin')->id(), 'đã hủy 1 đặt phòng');
         return Redirect::back()->with('success', 'Hủy đặt phòng thành công');
-    }
-
-    // PDF
-    public function downloadPDF()
-    {
-        $bookings = Booking::all();
-
-        $pdf = PDF::loadView('admin.bookings.pdf', array('roomTypes' => $bookings))
-            ->setPaper('a4', 'portrait');
-
-        return $pdf->stream();
     }
 }
