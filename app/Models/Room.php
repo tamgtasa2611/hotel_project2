@@ -88,12 +88,12 @@ class Room extends Model
 
         $order = Room::roomSort($sort);
         return Room::with('roomType')->with('images')
-//            ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-//            ->select('rooms.*', 'room_types.base_price')
-//            ->where('bed_size', '>=', $search['guest_num'] ?? 1)
+            //            ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
+            //            ->select('rooms.*', 'room_types.base_price')
+            //            ->where('bed_size', '>=', $search['guest_num'] ?? 1)
             ->whereNotIn('rooms.id', $alreadyBookedRoomId)
             ->whereBetween('rooms.price', [$price['from_price'], $price['to_price']])
-//            ->whereIn('room_type_id', $type)
+            //            ->whereIn('room_type_id', $type)
             ->orderBy($order['by'], $order['direction']);
     }
 
@@ -113,6 +113,7 @@ class Room extends Model
             ->addSelect('bookings.status as booking_status')
             ->join('bookings', 'bookings.id', '=', 'booked_rooms.booking_id')
             ->join('rooms', 'rooms.id', '=', 'booked_rooms.room_id')
+            ->where('bookings.status', '<', 3)
             ->get();
     }
 

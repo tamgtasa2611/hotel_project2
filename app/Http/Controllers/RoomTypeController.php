@@ -24,7 +24,7 @@ class RoomTypeController extends Controller
             'checkout' => $request->checkout ?? Carbon::now()->addDay()->format('d-m-Y')
         ];
 
-//        carbon
+        //        carbon
         $checkInFormat = Carbon::createFromDate($search['checkin'])->setTime(14, 00);
         $checkOutFormat = Carbon::createFromDate($search['checkout'])->setTime(12, 00);
 
@@ -42,6 +42,7 @@ class RoomTypeController extends Controller
         $roomTypes = RoomType::checkAndGetRoomTypes($sort);
         //get room with booking info
         $bookedRooms = Room::getRoomsInBooking();
+
         //get room KHA DUNG
         $rooms = Room::where('status', '=', 0)->get();
         $unavailableRoomList = [];
@@ -60,7 +61,6 @@ class RoomTypeController extends Controller
                 }
             }
         }
-
 
         //filter xoa cac phong ko kha dung
         $rooms = $rooms->filter(function ($room, $key) use ($unavailableRoomList) {
