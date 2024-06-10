@@ -25,7 +25,7 @@ class HomeController extends Controller
         $name = $request->name;
         $email = $request->email;
         $contact_message = $request->get('message');
-        Mail::to($email)->send((new Contact($name, $email, $contact_message)));
+        Mail::to("tam.ad.php@gmail.com")->send((new Contact($name, $email, $contact_message)));
 
         return back()->with('success', 'Gửi tin nhắn thành công!');
     }
