@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -53,6 +55,31 @@ class PaymentController extends Controller
         }
         $carts = Session::get('cart');
         foreach ($carts as $roomTypeId => $roomType) {
+            $bookingHasRoomType = DB::table('bookings')
+                ->join('booked_room_types', 'bookings.id', '=', 'booked_room_types.booking_id')
+                ->where('room_type_id', '=', $roomTypeId)
+                ->where('status', '<', 3)
+                ->get();
+
+
+            $start = Carbon::createFromDate(Session::get('start'))->setTime(14, 00);
+            $end = Carbon::createFromDate(Session::get('end'))->setTime(12, 00);
+
+            foreach ($bookingHasRoomType as $booking) {
+                $checkin =
+                    Carbon::createFromDate(Session::get($booking->checkin))->setTime(14, 00);
+                $checkout = Carbon::createFromDate(Session::get($booking->checkout))->setTime(12, 00);
+            }
+
+            if ($start->between($checkin, $checkout) || $end->between($checkin, $checkout)) {
+                unset($carts[$roomTypeId]);
+                Session::put('cart', $carts);
+                return Redirect::route('guest.cart')->with('failed', 'Đã hết phòng');
+            }
+
+            dd($roomTypeId, $start, $end, $bookingHasRoomType);
+
+
             $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
                 ->where('status', '=', 0)
                 ->count();

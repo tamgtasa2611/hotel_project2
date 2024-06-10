@@ -335,6 +335,17 @@
                                             @endforeach
                                         </div>
                                     @endif
+                                    @if ($booking->status == 2 or $booking->status == 3)
+                                        <div class="bg-light rounded-3 d-flex">
+                                            <ul>
+                                                @foreach ($currentBookedRooms as $currentBookedRoom)
+                                                    <li class="fw-bold text-primary">
+                                                        {{ $currentBookedRoom->name }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endif

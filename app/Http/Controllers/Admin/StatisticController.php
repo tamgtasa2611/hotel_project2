@@ -152,8 +152,8 @@ class StatisticController extends Controller
         $guestSpentMoney = Guest::countMoney();
 
         $guestTypes = [
-            ['Có tài khoản', $guestWithAccount],
-            ['Không có tài khoản', $guestWithoutAccount],
+            ['Đặt phòng của khách có tài khoản', $guestWithAccount],
+            ['Đặt phòng của khách không có tài khoản', $guestWithoutAccount],
         ];
 
 

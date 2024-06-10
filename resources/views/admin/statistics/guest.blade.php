@@ -10,7 +10,7 @@
     function drawBasic() {
 
         var data = google.visualization.arrayToDataTable([
-            ['Nhóm', 'Khách hàng', ],
+            ['Nhóm', 'Số đặt phòng', ],
             // ['Có tài khoản', 20],
             // ['Không có tài khoản', 12],
             @foreach ($guestTypes as $guestType)

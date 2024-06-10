@@ -142,9 +142,9 @@ class CartController extends Controller
                         $dateIn = Carbon::createFromDate($broom->checkin);
                         $dateOut = Carbon::createFromDate($broom->checkout);
                         if ($checkin->between($dateIn, $dateOut) || $checkout->between($dateIn, $dateOut)) {
-                            if (!isset($unavailableRoomList[$bookedRoom->room_id])) {
+                            if (!isset($unavailableRoomList[$broom->room_id])) {
                                 //phong khong kha dung
-                                $unavailableRoomList[] = $bookedRoom->room_id;
+                                $unavailableRoomList[] = $broom->room_id;
                             }
                         }
                     }
