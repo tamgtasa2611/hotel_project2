@@ -47,7 +47,19 @@
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($todayRev) }}</h4>
                         <p class="card-text text-center">
-                            Hôm qua: {{ AppHelper::vnd_format($prevRev) }}
+                            @if ($todayRev - $prevRev > 0)
+                                <span class="text-success">
+                                    <i class="bi bi-graph-up"></i> Nhiều hơn
+                                    {{ AppHelper::vnd_format($todayRev - $prevRev) }} so với hôm qua
+                                </span>
+                            @elseif($todayRev - $prevRev < 0)
+                                <span class="text-danger">
+                                    <i class="bi bi-graph-down"></i> Kém hơn
+                                    {{ AppHelper::vnd_format($todayRev - $prevRev) }} so với hôm qua
+                                </span>
+                            @else
+                                Bằng với hôm qua
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -59,7 +71,19 @@
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($monthRev) }}</h4>
                         <p class="card-text text-center">
-                            Tháng trước: {{ AppHelper::vnd_format($prevMonthRev) }}
+                            @if ($monthRev - $prevMonthRev > 0)
+                                <span class="text-success">
+                                    <i class="bi bi-graph-up"></i> Nhiều hơn
+                                    {{ AppHelper::vnd_format($monthRev - $prevMonthRev) }} so với tháng trước
+                                </span>
+                            @elseif($monthRev - $prevMonthRev < 0)
+                                <span class="text-danger">
+                                    <i class="bi bi-graph-down"></i> Kém hơn
+                                    {{ AppHelper::vnd_format($monthRev - $prevMonthRev) }} so với tháng trước
+                                </span>
+                            @else
+                                Bằng với tháng trước
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -71,7 +95,19 @@
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($yearRev) }}</h4>
                         <p class="card-text text-center">
-                            Năm ngoái: {{ AppHelper::vnd_format($prevYearRev) }}
+                            @if ($yearRev - $prevYearRev > 0)
+                                <span class="text-success">
+                                    <i class="bi bi-graph-up"></i> Nhiều hơn
+                                    {{ AppHelper::vnd_format($yearRev - $prevYearRev) }} so với năm ngoái
+                                </span>
+                            @elseif($yearRev - $prevYearRev < 0)
+                                <span class="text-danger">
+                                    <i class="bi bi-graph-down"></i> Kém hơn
+                                    {{ AppHelper::vnd_format($yearRev - $prevYearRev) }} so với năm ngoái
+                                </span>
+                            @else
+                                Bằng với năm ngoái
+                            @endif
                         </p>
                     </div>
                 </div>
