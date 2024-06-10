@@ -21,21 +21,71 @@ class PaymentController extends Controller
             $carts = Session::get('cart');
 
             foreach ($carts as $roomTypeId => $roomType) {
-                $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
-                    ->where('status', '=', 0)
-                    ->count();
                 $cartQuantity = $roomType['quantity'];
 
-                if ($countCurrentRoom == 0) {
-                    unset($carts[$roomTypeId]);
-                    Session::put('cart', $carts);
-                    return Redirect::route('guest.cart');
-                } //neu so luong phong hien tai it hon trong cart
-                else if ($countCurrentRoom < $cartQuantity) {
-                    $carts[$roomTypeId]['quantity'] = $countCurrentRoom;
-                    Session::put('cart', $carts);
-                    return Redirect::route('guest.cart')->with('failed', 'Xảy ra lỗi: Đã hết phòng');
+                $roomOfThisType = \App\Models\Room::where(
+                    'room_type_id',
+                    '=',
+                    $roomTypeId,
+                )
+                    ->where('status', '=', 0)
+                    ->get();
+                $bookedRoomTypes = \App\Models\Booking::join(
+                    'booked_room_types',
+                    'bookings.id',
+                    '=',
+                    'booked_room_types.booking_id',
+                )
+                    ->where('status', '<', 3)
+                    ->where(
+                        'room_type_id',
+                        '=',
+                        $roomTypeId,
+                    )
+                    ->get();
+
+                $checkin = Carbon::createFromDate(
+                    $start,
+                )->setTime(14, 00);
+                $checkout = Carbon::createFromDate(
+                    $end,
+                )->setTime(12, 00);
+
+                $countUnavail = 0;
+                foreach ($bookedRoomTypes
+                    as $bookedRoomType) {
+                    $in = Carbon::createFromDate(
+                        $bookedRoomType->checkin,
+                    )->setTime(14, 00);
+                    $out = Carbon::createFromDate(
+                        $bookedRoomType->checkout,
+                    )->setTime(12, 00);
+                    if (
+                        $in->between($checkin, $checkout) ||
+                        $out->between($checkin, $checkout)
+                    ) {
+                        $countUnavail +=
+                            $bookedRoomType->number_of_room;
+                    } else {
+                        $bookedRoomTypes->forget(
+                            $bookedRoomTypes->search(
+                                $bookedRoomType,
+                            ),
+                        );
+                    }
                 }
+
+                $countRoom =
+                    count($roomOfThisType) - $countUnavail;
+                // dump($roomType['roomType']->name, $countRoom);
+
+                if ($countRoom == 0) {
+                    unset($carts[$roomTypeId]);
+                } //neu so luong phong hien tai it hon trong cart
+                else if ($countRoom < $cartQuantity) {
+                    $carts[$roomTypeId]['quantity'] = $countRoom;
+                }
+                Session::put('cart', $carts);
             }
         } else {
             $carts = null;
@@ -54,21 +104,84 @@ class PaymentController extends Controller
             return Redirect::route('guest.cart')->with('failed', 'Giỏ hàng trống');
         }
         $carts = Session::get('cart');
+        $start = Session::get('start');
+        $end = Session::get('end');
         foreach ($carts as $roomTypeId => $roomType) {
-            $countCurrentRoom = Room::where('room_type_id', '=', $roomTypeId)
-                ->where('status', '=', 0)
-                ->count();
             $cartQuantity = $roomType['quantity'];
 
-            if ($countCurrentRoom == 0) {
+            $roomOfThisType = \App\Models\Room::where(
+                'room_type_id',
+                '=',
+                $roomTypeId,
+            )
+                ->where(
+                    'status',
+                    '=',
+                    0
+                )
+                ->get();
+            $bookedRoomTypes = \App\Models\Booking::join(
+                'booked_room_types',
+                'bookings.id',
+                '=',
+                'booked_room_types.booking_id',
+            )
+                ->where(
+                    'status',
+                    '<',
+                    3
+                )
+                ->where(
+                    'room_type_id',
+                    '=',
+                    $roomTypeId,
+                )
+                ->get();
+
+            $checkin = Carbon::createFromDate(
+                $start,
+            )->setTime(14, 00);
+            $checkout = Carbon::createFromDate(
+                $end,
+            )->setTime(12, 00);
+
+            $countUnavail = 0;
+            foreach ($bookedRoomTypes
+                as $bookedRoomType) {
+                $in = Carbon::createFromDate(
+                    $bookedRoomType->checkin,
+                )->setTime(14, 00);
+                $out = Carbon::createFromDate(
+                    $bookedRoomType->checkout,
+                )->setTime(12, 00);
+                if (
+                    $in->between($checkin, $checkout) ||
+                    $out->between($checkin, $checkout)
+                ) {
+                    $countUnavail +=
+                        $bookedRoomType->number_of_room;
+                } else {
+                    $bookedRoomTypes->forget(
+                        $bookedRoomTypes->search(
+                            $bookedRoomType,
+                        ),
+                    );
+                }
+            }
+
+            $countRoom =
+                count($roomOfThisType) - $countUnavail;
+            // dump($roomType['roomType']->name, $countRoom);
+
+            if ($countRoom == 0) {
                 unset($carts[$roomTypeId]);
                 Session::put('cart', $carts);
-                return Redirect::route('guest.cart');
-            } //neu so luong phong hien tai it hon trong cart
-            else if ($countCurrentRoom < $cartQuantity) {
-                $carts[$roomTypeId]['quantity'] = $countCurrentRoom;
-                Session::put('cart', $carts);
                 return Redirect::route('guest.cart')->with('failed', 'Xảy ra lỗi: Đã hết phòng');
+            } //neu so luong phong hien tai it hon trong cart
+            else if ($countRoom < $cartQuantity) {
+                $carts[$roomTypeId]['quantity'] = $countRoom;
+                Session::put('cart', $carts);
+                return Redirect::route('guest.cart')->with('failed', 'Số lượng phòng trống đã thay đổi, vui lòng kiểm tra lại');
             }
         }
 
