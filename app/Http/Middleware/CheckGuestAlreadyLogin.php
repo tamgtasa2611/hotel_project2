@@ -18,7 +18,7 @@ class CheckGuestAlreadyLogin
     public function handle(Request $request, Closure $next)
     {
         if (\Illuminate\Support\Facades\Auth::guard('guest')->check()) {
-            return Redirect::route('guest.profile')->with('success', 'You have already logged in!');
+            return Redirect::route('guest.profile')->with('success', 'Bạn đã đăng nhập rồi!');
         }
         return $next($request);
     }

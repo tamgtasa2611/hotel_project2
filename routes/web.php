@@ -116,13 +116,6 @@ Route::prefix('admin')->group(function () {
     Route::middleware([CheckLoginAdmin::class])->group(function () {
         //Check level (level 0 - system admin)
         Route::middleware([CheckAdminLevel::class])->group(function () {
-            //    DASHBOARD =====================================================================================
-            Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-            Route::prefix('/dashboard')->controller(DashboardController::class)->group(function () {
-                Route::get('/', 'index')->name('admin.dashboard');
-                Route::get('/fast-confirm/{booking}', 'fastConfirm')->name('admin.dashboard.fastConfirm');
-            });
-
             // ACTIVITIES =====================================================================================
             Route::controller(ActivityController::class)->group(function () {
                 Route::get('/activities', 'index')->name('admin.activities');
@@ -182,6 +175,20 @@ Route::prefix('admin')->group(function () {
             Route::prefix('ratings')->group(function () {
                 Route::get('/', [AdminController::class, 'ratings'])->name('admin.ratings');
             });
+
+            //STATISTIC =====================================================================================
+            Route::prefix('statistics')->controller(StatisticController::class)->group(function () {
+                Route::get('/revenue', 'revenueReport')->name('admin.statistics.revenue');
+                Route::get('/rooms', 'roomReport')->name('admin.statistics.rooms');
+                Route::get('/guests', 'guestReport')->name('admin.statistics.guests');
+            });
+        });
+
+        //    DASHBOARD =====================================================================================
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::prefix('/dashboard')->controller(DashboardController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.dashboard');
+            Route::get('/fast-confirm/{booking}', 'fastConfirm')->name('admin.dashboard.fastConfirm');
         });
 
         // BOOKINGs
@@ -226,12 +233,7 @@ Route::prefix('admin')->group(function () {
             Route::get('downloadPdf', [AdminGuestController::class, 'downloadPDF'])->name('admin.guests.downloadPdf');
         });
 
-        //STATISTIC =====================================================================================
-        Route::prefix('statistics')->controller(StatisticController::class)->group(function () {
-            Route::get('/revenue', 'revenueReport')->name('admin.statistics.revenue');
-            Route::get('/rooms', 'roomReport')->name('admin.statistics.rooms');
-            Route::get('/guests', 'guestReport')->name('admin.statistics.guests');
-        });
+
 
         // SETTINGS
         Route::prefix('settings')->controller(SettingController::class)->group(function () {

@@ -22,7 +22,7 @@ class StoreRoomTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:room_types',
             'price' => 'required|min:0',
             'max_capacity' => 'required|min:1',
         ];

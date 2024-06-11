@@ -283,6 +283,13 @@
                                                     @endif
                                                 </tr>
                                             @endforeach
+                                            <tr>
+                                                <td colspan="4" class="text-center fw-bold">Tổng cộng</td>
+                                                <td class="text-center fw-bold">
+                                                    {{ \App\Helpers\AppHelper::vnd_format($booking->total_price) }}
+                                                </td>
+                                                <td></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

@@ -124,7 +124,7 @@
                 topEnd: {
                     search: {
                         text: "",
-                        placeholder: "Type to search...",
+                        placeholder: "Tìm kiếm...",
                     },
                 },
                 bottomEnd: {

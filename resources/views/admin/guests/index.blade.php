@@ -88,9 +88,6 @@
                                                 Xóa<i class="bi bi-trash ms-2"></i>
                                             </a>
                                         @else
-                                            <a class="btn btn-outline-danger disabled" disabled>
-                                                Xóa<i class="bi bi-trash ms-2"></i>
-                                            </a>
                                         @endif
                                     </div>
                                 </td>

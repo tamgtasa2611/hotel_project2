@@ -116,6 +116,7 @@
                                                         $countRoom++;
                                                     }
                                                 }
+
                                             @endphp
                                             <div class="col-12 col-md-6  ">
                                                 <div class="bg-white shadow-sm border row m-0 mb-3 rounded-3">
@@ -157,11 +158,70 @@
                                                                 class=" fs-7 d-flex justify-content-between align-items-baseline w-100">
                                                                 <div class="d-flex">
                                                                     <div>
-                                                                        Còn {{ $countRoom }} phòng trống
+                                                                        @php
+                                                                            $roomOfThisType = \App\Models\Room::where(
+                                                                                'room_type_id',
+                                                                                '=',
+                                                                                $roomType->id,
+                                                                            )
+                                                                                ->where('status', '=', 0)
+                                                                                ->get();
+                                                                            $bookedRoomTypes = \App\Models\Booking::join(
+                                                                                'booked_room_types',
+                                                                                'bookings.id',
+                                                                                '=',
+                                                                                'booked_room_types.booking_id',
+                                                                            )
+                                                                                ->where('status', '<', 3)
+                                                                                ->where(
+                                                                                    'room_type_id',
+                                                                                    '=',
+                                                                                    $roomType->id,
+                                                                                )
+                                                                                ->get();
+
+                                                                            $checkin = Illuminate\Support\Carbon::createFromDate(
+                                                                                $search['checkin'],
+                                                                            )->setTime(14, 00);
+                                                                            $checkout = Illuminate\Support\Carbon::createFromDate(
+                                                                                $search['checkout'],
+                                                                            )->setTime(12, 00);
+
+                                                                            $countUnavail = 0;
+                                                                            foreach (
+                                                                                $bookedRoomTypes
+                                                                                as $bookedRoomType
+                                                                            ) {
+                                                                                $in = Illuminate\Support\Carbon::createFromDate(
+                                                                                    $bookedRoomType->checkin,
+                                                                                )->setTime(14, 00);
+                                                                                $out = Illuminate\Support\Carbon::createFromDate(
+                                                                                    $bookedRoomType->checkout,
+                                                                                )->setTime(12, 00);
+                                                                                if (
+                                                                                    $in->between($checkin, $checkout) ||
+                                                                                    $out->between($checkin, $checkout)
+                                                                                ) {
+                                                                                    $countUnavail +=
+                                                                                        $bookedRoomType->number_of_room;
+                                                                                } else {
+                                                                                    $bookedRoomTypes->forget(
+                                                                                        $bookedRoomTypes->search(
+                                                                                            $bookedRoomType,
+                                                                                        ),
+                                                                                    );
+                                                                                }
+                                                                            }
+
+                                                                            $countRoom =
+                                                                                count($roomOfThisType) - $countUnavail;
+                                                                        @endphp
+                                                                        Còn {{ $countRoom >= 0 ? $countRoom : 0 }}
+                                                                        phòng trống
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    @if ($countRoom != 0)
+                                                                    @if ($countRoom > 0)
                                                                         <form
                                                                             action="{{ route('guest.cart.addToCart') }}"
                                                                             method="post" class="addToCartForm">

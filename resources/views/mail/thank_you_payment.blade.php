@@ -328,7 +328,7 @@
             style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
 
             <div>
-                Thanks for your payment
+                Cảm ơn bạn đã đặt phòng 😊
             </div>
 
         </td>
@@ -350,140 +350,57 @@
     </tr>
     </table>
 
-    <table
-="0" align="center" cellpadding="0" cellspacing="0" role="presentation" width="100%"
-    style="width: 100%
-;
-    max-width: 100%
-;">
-    <!-- lotus-content-18 -->
-    <tr>
-        <td align="center" bgcolor="#FFFFFF" class="container-padding">
 
-            <!-- Content -->
-            <table
-        ="0" align="center" cellpadding="0" cellspacing="0" role="presentation" class="row"
-            width="580" style="width: 580px
-        ;
-            max-width: 580px
-        ;">
-    <tr>
-        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-    </tr>
-    <tr>
-        <td align="center" bgcolor="#f4f5fa">
-            <!-- Content -->
-            <table
-        ="0" align="center" cellpadding="0" cellspacing="0" role="presentation"
-            class="row" width="480" style="width: 480px
-        ;
-            max-width: 480px
-        ;">
-    <tr>
-        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-    </tr>
-    <tr>
-        <td align="center">
-            <!--[if (gte mso 9)|(IE)]>
-        <table ="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td><![endif]-->
-            <!-- Column -->
-            <table
-        ="0" align="left" cellpadding="0" cellspacing="0"
-            role="presentation" class="row" width="225"
-            style="width: 225px
-        ;
-            max-width: 225px
-        ;">
-    <tr>
-        <td class="center-text" align="left"
-            style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:20px;line-height:26px;font-weight:400;font-style:normal;color:#343e9e;text-decoration:none;letter-spacing:0px;">
+    <div style="margin: 20px 0px"><strong>Mã đặt phòng:</strong> {{ $booking->id }}</div>
+    <div style="margin-bottom: 20px"><strong>Thành tiền:</strong> {{ AppHelper::vnd_format($booking->total_price) }}
+    </div>
+    <div style="margin-bottom: 20px">
+        <strong> Thông tin chung</strong>
+        <table style="width: 360px">
+            <tr>
+                <td>Họ tên: </td>
+                <td align="right">{{ $booking->guest_lname }} {{ $booking->guest_fname }}</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td align="right">{{ $booking->guest_email }}</td>
+            </tr>
+            <tr>
+                <td>Số điện thoại: </td>
+                <td align="right">{{ $booking->guest_phone }}</td>
+            </tr>
+            <tr>
+                <td>Ngày nhận phòng: </td>
+                <td align="right">{{ $booking->checkin }} lúc 14:00</td>
+            </tr>
+            <tr>
+                <td>Họ tên: </td>
+                <td align="right">{{ $booking->checkout }} lúc 12:00 </td>
+            </tr>
+        </table>
+    </div>
 
-            <div>
-                Booking ID:
-            </div>
+    <div style="margin-bottom: 20px">
+        <strong> Thông tin phòng</strong>
+        <table style="width: 360px">
+            @php
+                $rooms = DB::table('bookings')
+                    ->join('booked_room_types', 'bookings.id', '=', 'booked_room_types.booking_id')
+                    ->join('room_types', 'booked_room_types.room_type_id', '=', 'room_types.id')
+                    ->where('bookings.id', '=', $booking->id)
+                    ->get();
 
-        </td>
-    </tr>
-    <tr>
-        <td height="10" style="font-size:10px;line-height:10px;">
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td class="center-text" align="left"
-            style="font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:400;font-style:normal;color:#282828;text-decoration:none;letter-spacing:0px;">
+            @endphp
+            @foreach ($rooms as $room)
+                <tr>
+                    <td>{{ $room->name }}</td>
+                    <td align="right">x {{ $room->number_of_room }} phòng</td>
+                </tr>
+            @endforeach
 
-            <div>
-                {{ $booking->id }}
-            </div>
+        </table>
+    </div>
 
-        </td>
-    </tr>
-    </table>
-    <!-- Column -->
-    <!--[if (gte mso 9)|(IE)]></td>
-<td><![endif]-->
-    <!-- gap -->
-    <table
-="0" align="left" cellpadding="0" cellspacing="0"
-    role="presentation" width="30"
-    style="width: 30px
-;
-    max-width: 30px
-;">
-    <tr>
-        <td height="20" style="font-size:20px;line-height:20px;">
-            &nbsp;
-        </td>
-    </tr>
-    </table>
-    <!-- gap -->
-    <!--[if (gte mso 9)|(IE)]></td>
-<td><![endif]-->
-    <!-- Column -->
-    <table
-="0" align="left" cellpadding="0" cellspacing="0"
-    role="presentation" class="row" width="225"
-    style="width: 225px
-;
-    max-width: 225px
-;">
-    <tr>
-        <td class="center-text" align="left"
-            style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:20px;line-height:26px;font-weight:400;font-style:normal;color:#343e9e;text-decoration:none;letter-spacing:0px;">
-
-            <div>
-                Total:
-            </div>
-
-        </td>
-    </tr>
-    <tr>
-        <td height="10" style="font-size:10px;line-height:10px;">
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td class="center-text" align="left"
-            style="font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:400;font-style:normal;color:#282828;text-decoration:none;letter-spacing:0px;">
-
-            <div>
-                {{ AppHelper::vnd_format($booking->total_price) }}
-            </div>
-
-        </td>
-    </tr>
-    </table>
-    <!-- Column -->
-    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-    </td>
-    </tr>
-    <tr>
-        <td height="40" style="font-size:40px;line-height:40px;">&nbsp;</td>
-    </tr>
-    </table>
     <!-- Content -->
     </td>
     </tr>
@@ -504,7 +421,13 @@
             style="font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:14px;line-height:26px;font-weight:400;font-style:italic;color:#6e6e6e;text-decoration:none;letter-spacing:0px;">
 
             <div>
-                ({{ __('If you have any questions or feedback, just reply to this email)') }}
+                ({{ __('Nếu bạn có bất kỳ thắc mắc nào, vui lòng hãy trả lời email này)') }}
+            </div>
+
+            <div>
+                ({{ __('Hoặc liên hệ: info@skyrimhotel.com
+                                                                                
+                                                                                | + 01 234 567 88)') }}
             </div>
 
         </td>

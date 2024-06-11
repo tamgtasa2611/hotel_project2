@@ -23,7 +23,7 @@ class CheckAdminLevel
         if ($adminLevel == 0) {
             return $next($request);
         } else {
-            return Redirect::route('admin.bookings')->with('permission_fail', "You don't have enough permission to view this!");
+            return Redirect::route('admin.dashboard')->with('failed', "Bạn không có quyền xem nội dung này!");
         }
     }
 }
