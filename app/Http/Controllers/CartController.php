@@ -139,6 +139,70 @@ class CartController extends Controller
             }
         })->all();
 
+
+        // 
+
+        $roomOfThisType = \App\Models\Room::where(
+            'room_type_id',
+            '=',
+            $roomType->id,
+        )
+            ->where('status', '=', 0)
+            ->get();
+        $bookedRoomTypes = \App\Models\Booking::join(
+            'booked_room_types',
+            'bookings.id',
+            '=',
+            'booked_room_types.booking_id',
+        )
+            ->where('status', '<', 3)
+            ->where(
+                'room_type_id',
+                '=',
+                $roomType->id,
+            )
+            ->get();
+
+        $checkin = Carbon::createFromDate(
+            $start,
+        )->setTime(14, 00);
+        $checkout = Carbon::createFromDate(
+            $end,
+        )->setTime(12, 00);
+
+        $countUnavail = 0;
+        foreach ($bookedRoomTypes
+            as $bookedRoomType) {
+            $in = Carbon::createFromDate(
+                $bookedRoomType->checkin,
+            )->setTime(14, 00);
+            $out = Carbon::createFromDate(
+                $bookedRoomType->checkout,
+            )->setTime(12, 00);
+            if (
+                $in->between($checkin, $checkout) ||
+                $out->between($checkin, $checkout)
+            ) {
+                $countUnavail +=
+                    $bookedRoomType->number_of_room;
+            } else {
+                $bookedRoomTypes->forget(
+                    $bookedRoomTypes->search(
+                        $bookedRoomType,
+                    ),
+                );
+            }
+        }
+
+        $countRoom =
+            count($roomOfThisType) - $countUnavail;
+        // dump($roomType['roomType']->name, $countRoom);
+
+        if ($countRoom == 0) {
+            return Redirect::back()->with('failed', 'Đã hết ' . $roomType->name . ' trong khoảng thời gian này!');
+        } //neu so luong phong hien tai it hon trong cart
+
+        // 
         if (count($rooms) == 0) {
             return Redirect::back()->with('failed', 'Đã hết ' . $roomType->name . ' trong khoảng thời gian này!');
         }

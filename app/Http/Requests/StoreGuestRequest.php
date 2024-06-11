@@ -25,7 +25,7 @@ class StoreGuestRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|unique:guests|max:255',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|unique:guests',
             'phone' => 'required|max:20',
         ];
     }

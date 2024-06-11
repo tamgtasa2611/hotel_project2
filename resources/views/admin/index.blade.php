@@ -121,7 +121,16 @@
                 <div class="fs-4 text-center p-4 fw-bold text-success-emphasis">
                     {{ AppHelper::vnd_format($totalRevenue) }}
                     <div>
-                        <a href="{{ route('admin.statistics.revenue') }}" class="fs-6">Xem chi tiết</a>
+                        @php
+                            $admin = Auth::guard('admin')->user()->level;
+
+                        @endphp
+                        @if ($admin == 0)
+                            <a href="{{ route('admin.statistics.revenue') }}" class="fs-6">Xem chi tiết</a>
+                        @else
+                            <a class="fs-6 fst-italic text-white">Xem chi tiết</a>
+                        @endif
+
                     </div>
                 </div>
             </div>

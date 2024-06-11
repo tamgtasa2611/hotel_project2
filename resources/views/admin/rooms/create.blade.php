@@ -3,25 +3,22 @@
     <div class="p-4 bg-white  shadow-sm border rounded-3  mb-4">
         <div class="text-primary d-flex justify-content-between align-items-center">
             <h4 class="fw-bold m-0">Quản lý phòng</h4>
-            <a class="d-block d-lg-none"
-               data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-               aria-controls="offcanvasExample">
+            <a class="d-block d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-4"></i>
             </a>
         </div>
     </div>
-    {{--------------- MAIN --------------}}
+    {{-- ------------- MAIN ------------ --}}
     <div class="bg-white shadow-sm border rounded-3 overflow-hidden">
-        <div
-            class="p-4">
+        <div class="p-4">
             <div class="text-primary">
                 <i class="bi bi-plus-circle me-2"></i>Thêm phòng
             </div>
         </div>
         <hr class="m-0">
         {{-- FORM  --}}
-        <form method="post" action="{{ route('admin.rooms.store') }}" enctype="multipart/form-data"
-              class="m-0">
+        <form method="post" action="{{ route('admin.rooms.store') }}" enctype="multipart/form-data" class="m-0">
             @csrf
             @method('POST')
             <div class="row">
@@ -34,8 +31,8 @@
                                         class="text-danger">*</span></label>
                             </div>
                             <div class="col-8">
-                                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
-                                       required/>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    value="{{ old('name') }}" required />
                             </div>
                         </div>
                         @if ($errors->has('name'))
@@ -59,8 +56,8 @@
                                 </select>
                             </div>
                         </div>
-                        @if ($errors->has('name'))
-                            @foreach ($errors->get('name') as $error)
+                        @if ($errors->has('status'))
+                            @foreach ($errors->get('status') as $error)
                                 <span class="text-danger fs-7">{{ $error }}</span>
                             @endforeach
                         @endif
@@ -74,14 +71,13 @@
                             </div>
                             <div class="col-8">
                                 <select class="form-select" name="room_type_id" id="room_type_id" aria-label="room_type"
-                                        required {{count($roomTypes) == 0 ? 'disabled' : ''}}>
-                                    @if(count($roomTypes) == 0)
+                                    required {{ count($roomTypes) == 0 ? 'disabled' : '' }}>
+                                    @if (count($roomTypes) == 0)
                                         <option selected>Không có loại phòng khả dụng</option>
                                     @else
-                                        @foreach($roomTypes as $roomType)
-                                            <option
-                                                value="{{$roomType->id}}">
-                                                {{$roomType->name}}
+                                        @foreach ($roomTypes as $roomType)
+                                            <option value="{{ $roomType->id }}">
+                                                {{ $roomType->name }}
                                             </option>
                                         @endforeach
                                     @endif
@@ -97,10 +93,9 @@
                 </div>
             </div>
             <hr class="m-0">
-            {{--            btn--}}
+            {{--            btn --}}
             <div class="d-flex justify-content-between justify-content-md-start p-4">
-                <a href="{{ route('admin.rooms') }}"
-                   class="btn btn-secondary px-3 tran-3 me-3">
+                <a href="{{ route('admin.rooms') }}" class="btn btn-secondary px-3 tran-3 me-3">
                     Quay lại
                 </a>
 
