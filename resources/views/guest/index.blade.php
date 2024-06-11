@@ -285,7 +285,7 @@
 
         function dateErrorAction() {
             dateError.removeClass("d-none");
-            dateError.html('<i class="bi bi-exclamation-circle"></i> Check Out date must be after Check In date!');
+            dateError.html('<i class="bi bi-exclamation-circle"></i> Ngày trả phòng phải sau ngày nhận phòng!');
             bookBtn.removeAttr("type").attr("type", "button");
         }
 

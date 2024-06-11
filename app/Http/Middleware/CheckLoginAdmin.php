@@ -21,6 +21,6 @@ class CheckLoginAdmin
         if (Auth::guard('admin')->check()) {
             return $next($request);
         }
-        return Redirect::route('admin.login')->with('need_login', "Please log in first!");
+        return Redirect::route('admin.login')->with('need_login', "Vui lòng đăng nhập!");
     }
 }

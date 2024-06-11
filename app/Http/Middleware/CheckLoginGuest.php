@@ -20,6 +20,6 @@ class CheckLoginGuest
         if (session()->has('guest')) {
             return $next($request);
         }
-        return Redirect::route('guest.login')->with('failed', "Please log in first!");
+        return Redirect::route('guest.login')->with('failed', "Vui lòng đăng nhập!");
     }
 }
