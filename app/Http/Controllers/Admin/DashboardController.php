@@ -91,8 +91,20 @@ class DashboardController extends Controller
     public function fastConfirm(Booking $booking)
     {
         //validate
-        if ($booking->status != 0) {
+        if ($booking->status == 1) {
             return Redirect::back()->with('failed', 'Đặt phòng này đã được duyệt rồi!');
+        }
+
+        if ($booking->status == 2) {
+            return Redirect::back()->with('failed', 'Khách hàng đã nhận phòng rồi!');
+        }
+
+        if ($booking->status == 3) {
+            return Redirect::back()->with('failed', 'Đặt phòng này đã hoàn thành rồi!');
+        }
+
+        if ($booking->status == 4) {
+            return Redirect::back()->with('failed', 'Đặt phòng này đã bị hủy!');
         }
 
         $booking->update(['status' => 1]);
