@@ -227,6 +227,12 @@
     @else
         {{--     EMPLOYEE ---------------------------------------------------------------------------------------------------   --}}
         {{--  ==================  BOOKING ================================================================================================================ --}}
+        <a href="{{ route('admin.dashboard') }}"
+            class="list-group-item list-group-item-action tran-3  border-0 px-5 py-3 d-flex align-items-center
+    {{ request()->route()->getPrefix() == 'admin/dashboard' ? 'active' : '' }}"
+            aria-current="true">
+            <i class="bi bi-grid me-2"></i>Tổng quát
+        </a>
         <div class="accordion-item">
             <h2 class="accordion-header" id="bookingHeader">
                 <button
