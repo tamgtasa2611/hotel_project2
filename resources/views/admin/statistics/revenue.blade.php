@@ -43,7 +43,7 @@
         <div class="overflow-x-auto h-auto overflow-y-hidden row g-4">
             <div class="col-4">
                 <div class="card">
-                    <div class="card-header">Doanh thu ngày</div>
+                    <div class="card-header">Doanh thu ngày ({{ date('d/m/Y') }})</div>
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($todayRev) }}</h4>
                         <p class="card-text text-center">
@@ -67,7 +67,8 @@
 
             <div class="col-4">
                 <div class="card">
-                    <div class="card-header">Doanh thu tháng</div>
+                    <div class="card-header">Doanh thu tháng (Tháng {{ Illuminate\Support\Carbon::now()->format('m') }})
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($monthRev) }}</h4>
                         <p class="card-text text-center">
@@ -91,7 +92,8 @@
 
             <div class="col-4">
                 <div class="card">
-                    <div class="card-header">Doanh thu năm</div>
+                    <div class="card-header">Doanh thu năm ({{ Illuminate\Support\Carbon::now()->format('Y') }})
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title text-center text-success">{{ AppHelper::vnd_format($yearRev) }}</h4>
                         <p class="card-text text-center">
@@ -143,7 +145,7 @@
         <div class="col-12 col-xl-6">
             <div class="p-4 border shadow-sm rounded-3 bg-white">
                 <div class="mb-4">
-                    <h5 class="m-0 fw-bold">Doanh thu theo loại phòng</h5>
+                    <h5 class="m-0 fw-bold">Doanh thu theo loại phòng (Toàn thời gian)</h5>
                 </div>
                 <div class="overflow-x-auto h-auto overflow-y-hidden d-flex justify-content-center ">
                     <div id="donutchart" style="width: 900px; height: 456px;"></div>

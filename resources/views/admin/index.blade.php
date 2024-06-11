@@ -86,9 +86,9 @@
                 <div class="fw-bold bg-primary-subtle text-primary-emphasis px-4 py-3">Số đặt phòng hôm nay</div>
                 <div class="fs-4 text-center p-4 fw-bold text-primary-emphasis">
                     {{ $todayBooking }}
-                    <div>
+                    {{-- <div>
                         <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -97,9 +97,9 @@
                 <div class="fw-bold bg-danger-subtle text-danger-emphasis px-4 py-3">Đặt phòng chờ xác nhận</div>
                 <div class="fs-4 text-center p-4 fw-bold text-danger-emphasis">
                     {{ $unconfirmedBooking }}
-                    <div>
+                    {{-- <div>
                         <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -108,9 +108,9 @@
                 <div class="fw-bold bg-warning-subtle text-warning-emphasis px-4 py-3">Đặt phòng đã hoàn thành</div>
                 <div class="fs-4 text-center p-4 fw-bold text-warning-emphasis">
                     {{ $completedBooking }}
-                    <div>
+                    {{-- <div>
                         <a href="{{ route('admin.bookings') }}" class="fs-6">Xem tất cả</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
                 <div class="fs-4 text-center p-4 fw-bold text-success-emphasis">
                     {{ AppHelper::vnd_format($totalRevenue) }}
                     <div>
-                        @php
+                        {{-- @php
                             $admin = Auth::guard('admin')->user()->level;
 
                         @endphp
@@ -129,7 +129,7 @@
                             <a href="{{ route('admin.statistics.revenue') }}" class="fs-6">Xem chi tiết</a>
                         @else
                             <a class="fs-6 fst-italic text-white">Xem chi tiết</a>
-                        @endif
+                        @endif --}}
 
                     </div>
                 </div>
